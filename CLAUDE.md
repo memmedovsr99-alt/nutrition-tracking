@@ -27,7 +27,7 @@
 - `icons/` — app icons (coconut guy emoji photo)
 
 ## Data Structure
-- `TARGETS` — daily goals: 2000 cal, 170g protein, 205g carbs, 55g fat
+- `TARGETS` — daily goals: 2200 cal, 170g protein, 205g carbs, 55g fat
 - `LOG` — array of daily entries with foods array inside each
 - `WEIGHT_LOG` — morning weigh-ins
 
