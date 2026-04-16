@@ -17,7 +17,8 @@
       "Bash(cp \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)/nutrition_dashboard.html\" \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/nutrition_dashboard.html\")",
       "Bash(cp \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)/weight_tracker.html\" \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/weight_tracker.html\")",
       "Bash(cp -r \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)/icons\" \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/icons\")",
-      "Bash(rm -rf \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)\")"
+      "Bash(rm -rf \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)\")",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
