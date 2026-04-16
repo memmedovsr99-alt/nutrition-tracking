@@ -1114,10 +1114,20 @@ function renderWeightLog() {
 <!-- Chips -->
 <div class="chips-scroll" id="summary-chips"></div>
 
-<!-- Chart -->
-<div class="card chart-card" style="margin-bottom:16px">
-  <h2>14-Day Trend</h2>
-  <canvas id="trendChart"></canvas>
+<!-- Progress Stats (Streak / Consistency / Weekly Deficit / Avg Protein) -->
+<div class="progress-card" id="progress-card"></div>
+
+<!-- Charts: Trend + Donut -->
+<div class="charts-grid" style="margin-bottom:16px">
+  <div class="card chart-card">
+    <h2>14-Day Trend</h2>
+    <canvas id="trendChart"></canvas>
+  </div>
+  <div class="card donut-card">
+    <h2>Macro Split</h2>
+    <div class="donut-wrap"><canvas id="donutChart"></canvas></div>
+    <div class="donut-legend" id="donut-legend"></div>
+  </div>
 </div>
 
 <!-- Weight -->
