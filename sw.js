@@ -1,5 +1,9 @@
-const CACHE = 'nutrition-v1';
-const ASSETS = ['/', '/nutrition_dashboard.html', '/weight_tracker.html'];
+const CACHE = 'nutrition-v2';
+const ASSETS = [
+  '/nutrition-tracking/',
+  '/nutrition-tracking/nutrition_dashboard.html',
+  '/nutrition-tracking/manifest.json'
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
