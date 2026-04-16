@@ -15,164 +15,234 @@
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"/>
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"/>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a; --border: #2e3350;
-      --accent: #6c63ff; --accent2: #ff6584;
-      --green: #43d97e; --yellow: #f7c948; --red: #ff5c5c;
-      --text: #e8eaf6; --muted: #8890b0;
-      --protein: #6c63ff; --carbs: #43d9b8; --fat: #f7c948; --cal: #ff8c5a;
+      --bg: #0a0c10; --surface: #13161d; --surface2: #1a1e2a; --surface3: #222738;
+      --border: #272d42; --border-light: #333a54;
+      --accent: #7c6fff; --accent2: #ff6b8a;
+      --green: #34d399; --yellow: #fbbf24; --red: #f87171;
+      --text: #eef0f6; --text2: #c8cce0; --muted: #7a82a0;
+      --protein: #818cf8; --carbs: #34d399; --fat: #fbbf24; --cal: #fb923c;
+      --ring-size: 72px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; padding: 24px; }
-    h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
-    h2 { font-size: 1.1rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
-
-    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-    .header-left { display: flex; align-items: center; gap: 14px; }
-    .avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 700; }
-    .subtitle { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
-    .badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 0.8rem; color: var(--muted); }
-    .badge span { color: var(--accent); font-weight: 600; }
-
-    /* ── Global Day Filter ── */
-    .day-filter-bar {
-      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 12px 18px; margin-bottom: 20px;
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh; min-height: 100dvh;
+      padding: 20px 16px calc(20px + var(--safe-bottom));
+      -webkit-font-smoothing: antialiased;
     }
-    .day-filter-bar .filter-label { color: var(--muted); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+    h1 { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.3px; line-height: 1.25; }
+    h2 { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+
+    /* ── Header ── */
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 10px; }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 800; color: white;
+      box-shadow: 0 4px 16px rgba(124,111,255,0.3);
+    }
+    .subtitle { color: var(--muted); font-size: 0.75rem; margin-top: 1px; font-weight: 500; }
+    .badges { display: flex; gap: 6px; flex-wrap: wrap; }
+    .badge {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 5px 10px; font-size: 0.72rem;
+      color: var(--muted); font-weight: 600;
+    }
+    .badge span { color: var(--accent); }
+
+    /* ── Day Filter ── */
+    .day-filter-bar {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 8px 12px; margin-bottom: 16px;
+    }
+    .day-filter-bar .filter-label { color: var(--muted); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
     .day-select {
       background: var(--surface2); border: 1px solid var(--border);
-      color: var(--text); border-radius: 10px; padding: 8px 36px 8px 14px;
-      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      color: var(--text); border-radius: 10px; padding: 8px 32px 8px 12px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; flex: 1;
+      font-family: 'Inter', system-ui, sans-serif;
       appearance: none; -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238890b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 12px center;
-      min-width: 180px; transition: border-color 0.15s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a82a0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center;
+      transition: border-color 0.2s;
     }
     .day-select:focus { outline: none; border-color: var(--accent); }
     .day-select option { background: var(--surface2); color: var(--text); }
     .nav-btn {
       background: var(--surface2); border: 1px solid var(--border);
-      color: var(--muted); border-radius: 8px; padding: 7px 12px;
-      cursor: pointer; font-size: 0.9rem; transition: all 0.15s; line-height: 1;
+      color: var(--muted); border-radius: 10px; padding: 8px 14px;
+      cursor: pointer; font-size: 0.85rem; transition: all 0.15s; line-height: 1;
+      font-family: 'Inter', system-ui, sans-serif;
     }
     .nav-btn:hover { background: var(--border); color: var(--text); }
-    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .nav-btn:active { transform: scale(0.95); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
 
-    /* Grid layout */
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-
-    /* ── Responsive / Mobile ── */
-    @media (max-width: 900px) {
-      .grid-4 { grid-template-columns: repeat(2,1fr); }
-      .grid-2 { grid-template-columns: 1fr; }
+    /* ── Cards ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 18px;
+      position: relative; overflow: hidden;
     }
-    @media (max-width: 768px) {
-      body { padding: 12px; }
-      h1 { font-size: 1.25rem; }
-      .header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 14px; }
-      .header > div:last-child { display: flex; gap: 8px; flex-wrap: wrap; }
-      .avatar { width: 40px; height: 40px; font-size: 1.1rem; }
-      .badge { font-size: 0.75rem; padding: 5px 10px; }
-      .day-filter-bar { padding: 10px 12px; gap: 8px; position: sticky; top: 0; z-index: 100; background: var(--bg); border-radius: 0; border-left: none; border-right: none; border-top: none; margin-left: -12px; margin-right: -12px; padding-left: 12px; padding-right: 12px; }
-      .day-select { min-width: 0; flex: 1; font-size: 0.85rem; padding: 9px 32px 9px 12px; }
-      .nav-btn { padding: 9px 14px; font-size: 1rem; min-width: 40px; text-align: center; }
-      .targets-bar { gap: 10px; padding: 10px 14px; font-size: 0.8rem; flex-wrap: wrap; }
-      .targets-bar .t-item { flex: 1; min-width: 80px; }
-      .grid-4 { gap: 10px; }
-      .grid-2 { gap: 12px; margin-bottom: 14px; }
-      .card { padding: 14px; border-radius: 12px; }
-      .stat-card .value { font-size: 1.7rem; }
-      .stat-card .icon { font-size: 1.3rem; }
-      .stats-row { gap: 10px; margin-bottom: 14px; }
-      .stat-chip { padding: 12px 10px; min-width: 70px; border-radius: 10px; }
-      .stat-chip .chip-val { font-size: 1.3rem; }
-      .stat-chip .chip-label { font-size: 0.7rem; }
-      .chart-card { height: 220px; }
-      table { font-size: 0.82rem; }
-      thead th { padding: 8px 8px; font-size: 0.7rem; }
-      tbody td { padding: 9px 8px; }
-      tfoot .totals-row td { padding: 9px 8px; }
-      .section-title { margin-top: 18px; }
-      .viewing-label { font-size: 0.82rem; }
-      .weight-chip { padding: 10px 12px; min-width: 90px; }
-      .weight-chip .wc-val { font-size: 1.25rem; }
-    }
-    @media (max-width: 480px) {
-      body { padding: 10px; }
-      .grid-4 { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .stat-card { padding: 12px; }
-      .stat-card .value { font-size: 1.5rem; }
-      .day-filter-bar { margin-left: -10px; margin-right: -10px; padding-left: 10px; padding-right: 10px; }
-      .targets-bar strong { width: 100%; }
-      .table-card { -webkit-overflow-scrolling: touch; }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124,111,255,0.3), transparent);
     }
 
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+    /* ── Macro Ring Cards ── */
+    .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+    .macro-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px;
+      position: relative; overflow: hidden;
+    }
+    .macro-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .macro-card.cal::before  { background: linear-gradient(90deg, var(--cal), transparent); }
+    .macro-card.pro::before  { background: linear-gradient(90deg, var(--protein), transparent); }
+    .macro-card.carb::before { background: linear-gradient(90deg, var(--carbs), transparent); }
+    .macro-card.fat::before  { background: linear-gradient(90deg, var(--fat), transparent); }
 
-    /* Stat cards */
-    .stat-card .icon { font-size: 1.5rem; margin-bottom: 8px; }
-    .stat-card .value { font-size: 2rem; font-weight: 700; line-height: 1; }
-    .stat-card .label { color: var(--muted); font-size: 0.8rem; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-card .target-line { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
-    .stat-card .target-line span { font-weight: 600; }
-    .stat-card .progress-wrap { background: var(--surface2); border-radius: 999px; height: 6px; margin-top: 12px; overflow: hidden; }
-    .stat-card .progress-bar { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
-    .stat-card .pct { font-size: 0.75rem; margin-top: 5px; text-align: right; }
+    .ring-wrap { position: relative; width: var(--ring-size); height: var(--ring-size); flex-shrink: 0; }
+    .ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: var(--surface3); stroke-width: 5; }
+    .ring-fill { fill: none; stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+    .ring-center {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .ring-val { font-size: 1.05rem; font-weight: 800; line-height: 1; }
+    .ring-unit { font-size: 0.55rem; color: var(--muted); font-weight: 600; margin-top: 1px; }
+
+    .macro-info { flex: 1; min-width: 0; }
+    .macro-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .macro-target { font-size: 0.7rem; color: var(--muted); margin-top: 4px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .macro-target span { font-weight: 700; }
+    .macro-pct { font-size: 0.75rem; font-weight: 800; margin-top: 5px; }
     .over { color: var(--red); } .on { color: var(--green); } .low { color: var(--yellow); } .neutral { color: var(--muted); }
 
-    /* Chips */
-    .stats-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-    .stat-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; flex: 1; min-width: 120px; text-align: center; }
-    .stat-chip .chip-val { font-size: 1.6rem; font-weight: 700; }
-    .stat-chip .chip-label { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+    /* ── Viewing label ── */
+    .viewing-label { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
+    .viewing-label strong { color: var(--text); font-weight: 700; }
 
-    /* Charts */
-    .chart-card { height: 300px; display: flex; flex-direction: column; }
+    /* ── Chips row ── */
+    .chips-scroll { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+    .stat-chip {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 8px; text-align: center;
+    }
+    .stat-chip .chip-val { font-size: 1.15rem; font-weight: 800; line-height: 1; }
+    .stat-chip .chip-label { font-size: 0.6rem; color: var(--muted); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── Charts ── */
+    .chart-card { height: 260px; display: flex; flex-direction: column; }
     .chart-card canvas { flex: 1; min-height: 0; }
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px; }
 
-    /* Tables */
-    .table-card { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-    thead th { color: var(--muted); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; }
+    /* ── Tables ── */
+    .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    thead th {
+      color: var(--muted); text-align: left; padding: 8px 10px;
+      border-bottom: 1px solid var(--border); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.65rem;
+      white-space: nowrap;
+    }
     tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--surface2); }
-    tbody td { padding: 10px 12px; }
-    tfoot .totals-row td { border-top: 2px solid var(--border); font-weight: 700; background: var(--surface2); padding: 10px 12px; }
-    .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-    .pill-green { background: rgba(67,217,126,0.15); color: var(--green); }
-    .pill-yellow { background: rgba(247,201,72,0.15); color: var(--yellow); }
-    .pill-red { background: rgba(255,92,92,0.15); color: var(--red); }
+    tbody td { padding: 10px 10px; }
+    tfoot .totals-row td {
+      border-top: 2px solid var(--border); font-weight: 700;
+      background: var(--surface2); padding: 10px;
+    }
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 0.68rem; font-weight: 700; }
+    .pill-green { background: rgba(52,211,153,0.12); color: var(--green); }
+    .pill-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); }
+    .pill-red { background: rgba(248,113,113,0.12); color: var(--red); }
     .today-row td { color: var(--text) !important; }
-    .selected-row td { background: rgba(108,99,255,0.08) !important; }
+    .selected-row td { background: rgba(124,111,255,0.08) !important; }
 
-    .meal-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; }
+    .meal-badge {
+      display: inline-block; padding: 3px 8px; border-radius: 6px;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3px;
+    }
 
-    .section-title { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; margin-top: 24px; }
-    .no-data { color: var(--muted); font-size: 0.9rem; text-align: center; padding: 30px 0; }
+    .section-title {
+      font-size: 0.72rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: 12px; margin-top: 20px;
+    }
+    .no-data { color: var(--muted); font-size: 0.85rem; text-align: center; padding: 28px 0; }
 
-    .targets-bar { display: flex; gap: 20px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; font-size: 0.85rem; }
-    .targets-bar .t-item { display: flex; align-items: center; gap: 8px; }
-    .t-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .t-name { color: var(--muted); }
-    .t-val { font-weight: 600; }
+    /* ── Targets bar ── */
+    .targets-bar {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+      margin-bottom: 14px;
+    }
+    .t-item {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 10px; font-size: 0.75rem;
+    }
+    .t-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .t-name { color: var(--muted); font-weight: 500; }
+    .t-val { font-weight: 700; margin-left: auto; }
 
-    /* ── Weight Log ── */
-    .weight-change-up   { color: var(--red);   font-weight: 600; }
-    .weight-change-down { color: var(--green);  font-weight: 600; }
-    .weight-change-same { color: var(--muted);  font-weight: 600; }
-    .weight-stat-chips  { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
-    .weight-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 12px 18px; flex: 1; min-width: 110px; text-align: center; }
-    .weight-chip .wc-val { font-size: 1.5rem; font-weight: 700; }
-    .weight-chip .wc-label { font-size: 0.72rem; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+    /* ── Weight ── */
+    .weight-change-up   { color: var(--red);   font-weight: 700; }
+    .weight-change-down { color: var(--green);  font-weight: 700; }
+    .weight-change-same { color: var(--muted);  font-weight: 700; }
+    .weight-stat-chips  { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+    .weight-chip {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 10px; text-align: center;
+    }
+    .weight-chip .wc-val { font-size: 1.2rem; font-weight: 800; }
+    .weight-chip .wc-label { font-size: 0.6rem; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
 
-    .viewing-label { font-size: 0.9rem; color: var(--muted); margin-bottom: 6px; }
-    .viewing-label strong { color: var(--text); }
+    /* ── History table mobile ── */
+    .history-table .col-status, .history-table .col-notes { display: none; }
+
+    /* ── Desktop ── */
+    @media (min-width: 768px) {
+      body { padding: 28px; max-width: 1100px; margin: 0 auto; }
+      .macro-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+      :root { --ring-size: 80px; }
+      .ring-val { font-size: 1.2rem; }
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .chips-scroll { gap: 12px; }
+      .stat-chip .chip-val { font-size: 1.4rem; }
+      .chart-card { height: 320px; }
+      .targets-bar { grid-template-columns: repeat(4, 1fr); }
+      .weight-stat-chips { grid-template-columns: repeat(4, 1fr); }
+      .history-table .col-status, .history-table .col-notes { display: table-cell; }
+      h1 { font-size: 1.5rem; }
+    }
+
+    /* ── Scroll shadow for tables ── */
+    .table-card { position: relative; }
+    .table-card::after {
+      content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 24px;
+      background: linear-gradient(to right, transparent, var(--surface));
+      pointer-events: none; opacity: 0; transition: opacity 0.2s;
+    }
+    .table-card.has-scroll::after { opacity: 1; }
+
+    /* ── Footer ── */
+    .footer { text-align: center; margin-top: 24px; color: var(--muted); font-size: 0.7rem; font-weight: 500; }
   </style>
 </head>
 <body>
@@ -488,6 +558,7 @@ function pct(v, t)       { return Math.min((v/t)*100, 110); }
 function pctRaw(v, t)    { return (v/t)*100; }
 function today()         { return new Date().toISOString().slice(0,10); }
 function fmtDate(d)      { return new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+function fmtDateShort(d) { return new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'}); }
 
 function statusClass(v, t, isCal) {
   const p = pctRaw(v, t);
@@ -504,6 +575,18 @@ function pillLabel(v, t, isCal) {
   return p>110?'Over':p>=85?'On Track':'Low';
 }
 
+// SVG ring helper
+function ringSvg(pctVal, color) {
+  const r = 28; const c = 2 * Math.PI * r;
+  const clamped = Math.min(pctVal, 110);
+  const offset = c - (clamped / 110) * c;
+  return `<svg viewBox="0 0 64 64">
+    <circle class="ring-bg" cx="32" cy="32" r="${r}"/>
+    <circle class="ring-fill" cx="32" cy="32" r="${r}"
+      stroke="${color}" stroke-dasharray="${c}" stroke-dashoffset="${offset}"/>
+  </svg>`;
+}
+
 let trendChart = null;
 let currentKey = null;
 
@@ -514,22 +597,24 @@ function renderView(key) {
   const entry  = isAvg ? null : LOG.find(e => e.date === key);
   const n      = LOG.length;
 
+  // -- Section label --
   let labelHtml;
   if (isAvg) {
-    labelHtml = `<strong>All-time average</strong> across ${n} logged day${n!==1?'s':''}`;
+    labelHtml = `<strong>All-time average</strong> across ${n} day${n!==1?'s':''}`;
   } else if (entry) {
     const isToday = entry.date === today();
-    labelHtml = `<strong>${fmtDate(entry.date)}</strong>${isToday?' <span style="color:var(--accent);font-size:0.8rem;font-weight:700;margin-left:6px">TODAY</span>':''}`;
+    labelHtml = `<strong>${fmtDate(entry.date)}</strong>${isToday?' <span style="color:var(--accent);font-size:0.75rem;font-weight:800;margin-left:6px">TODAY</span>':''}`;
   } else {
-    labelHtml = '<strong>No data for this date</strong>';
+    labelHtml = '<strong>No data</strong>';
   }
-  document.getElementById('viewing-label').innerHTML = 'Viewing: ' + labelHtml;
+  document.getElementById('viewing-label').innerHTML = labelHtml;
 
+  // -- Values --
   const macros = [
-    { key:'calories', label:'Calories', icon:'🔥', unit:'kcal', color:'var(--cal)' },
-    { key:'protein',  label:'Protein',  icon:'💪', unit:'g',    color:'var(--protein)' },
-    { key:'carbs',    label:'Carbs',    icon:'🌾', unit:'g',    color:'var(--carbs)' },
-    { key:'fat',      label:'Fat',      icon:'🥑', unit:'g',    color:'var(--fat)' },
+    { key:'calories', label:'Calories', unit:'kcal', color:'var(--cal)', cls:'cal' },
+    { key:'protein',  label:'Protein',  unit:'g',    color:'var(--protein)', cls:'pro' },
+    { key:'carbs',    label:'Carbs',    unit:'g',    color:'var(--carbs)', cls:'carb' },
+    { key:'fat',      label:'Fat',      unit:'g',    color:'var(--fat)', cls:'fat' },
   ];
 
   function val(mk) {
@@ -537,80 +622,111 @@ function renderView(key) {
     return entry ? entry[mk] : null;
   }
 
+  // -- Macro ring cards --
   let cardsHtml = '';
   macros.forEach(m => {
     const v = val(m.key);
     const t = TARGETS[m.key];
     const isCal = m.key === 'calories';
-    const bar = v !== null ? pct(v,t) : 0;
-    const sc  = v !== null ? statusClass(v,t,isCal) : 'neutral';
-    const p   = v !== null ? Math.round(pctRaw(v,t)) : null;
+    const p = v !== null ? pctRaw(v, t) : 0;
+    const sc = v !== null ? statusClass(v, t, isCal) : 'neutral';
+    const pRound = Math.round(p);
     cardsHtml += `
-      <div class="card stat-card">
-        <div class="icon">${m.icon}</div>
-        <div class="value" style="color:${m.color}">${v !== null ? v.toLocaleString() : '—'}</div>
-        <div class="label">${m.label}</div>
-        <div class="target-line">Target: <span>${t.toLocaleString()} ${m.unit}</span></div>
-        <div class="progress-wrap"><div class="progress-bar" style="width:${bar}%;background:${m.color}"></div></div>
-        <div class="pct ${sc}">${p !== null ? p+'% of target' : 'No data'}</div>
+      <div class="macro-card ${m.cls}">
+        <div class="ring-wrap">
+          ${ringSvg(p, m.color)}
+          <div class="ring-center">
+            <div class="ring-val" style="color:${m.color}">${v !== null ? (isCal ? v.toLocaleString() : v) : '—'}</div>
+            ${!isCal ? `<div class="ring-unit">${m.unit}</div>` : ''}
+          </div>
+        </div>
+        <div class="macro-info">
+          <div class="macro-label">${m.label}</div>
+          <div class="macro-target">of ${isCal ? '2k kcal' : t+m.unit}</div>
+          <div class="macro-pct ${sc}">${v !== null ? pRound+'%' : '—'}</div>
+        </div>
       </div>`;
   });
-  document.getElementById('stat-cards').innerHTML = cardsHtml;
+  document.getElementById('macro-cards').innerHTML = cardsHtml;
 
+  // -- Chips --
   const totalDays = n;
   const onTrack = LOG.filter(e => pctRaw(e.calories,TARGETS.calories)<=105 && pctRaw(e.calories,TARGETS.calories)>=80 && pctRaw(e.protein,TARGETS.protein)>=80).length;
   let chipsHtml;
   if (isAvg) {
     chipsHtml = `
-      <div class="stat-chip"><div class="chip-val">${totalDays}</div><div class="chip-label">Days Logged</div></div>
-      <div class="stat-chip"><div class="chip-val">${onTrack}</div><div class="chip-label">On-Track Days</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--cal)">${val('calories') ?? '—'}</div><div class="chip-label">Avg Calories</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${val('protein') ? val('protein')+'g' : '—'}</div><div class="chip-label">Avg Protein</div></div>`;
+      <div class="stat-chip"><div class="chip-val">${totalDays}</div><div class="chip-label">Days</div></div>
+      <div class="stat-chip"><div class="chip-val">${onTrack}</div><div class="chip-label">On Track</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:var(--cal)">${val('calories') ?? '—'}</div><div class="chip-label">Avg Cal</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${val('protein') ? val('protein')+'g' : '—'}</div><div class="chip-label">Avg Pro</div></div>`;
   } else if (entry) {
+    const status = statusClass(entry.calories, TARGETS.calories, true);
+    const calLeft = TARGETS.calories - entry.calories;
+    const proLeft = TARGETS.protein - entry.protein;
     chipsHtml = `
-      <div class="stat-chip"><div class="chip-val" style="color:var(--cal)">${entry.calories.toLocaleString()}</div><div class="chip-label">Calories</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${entry.protein}g</div><div class="chip-label">Protein</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--carbs)">${entry.carbs}g</div><div class="chip-label">Carbs</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--fat)">${entry.fat}g</div><div class="chip-label">Fat</div></div>`;
+      <div class="stat-chip"><div class="chip-val" style="color:${calLeft >= 0 ? 'var(--green)' : 'var(--red)'}">${calLeft >= 0 ? '+'+calLeft : calLeft}</div><div class="chip-label">Cal left</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:${proLeft >= 0 ? 'var(--yellow)' : 'var(--green)'}">${proLeft >= 0 ? proLeft+'g' : '✓'}</div><div class="chip-label">Pro left</div></div>
+      <div class="stat-chip"><div class="chip-val">${entry.foods ? entry.foods.length : 0}</div><div class="chip-label">Items</div></div>
+      <div class="stat-chip"><div class="chip-val" style="font-size:0.9rem">${status==='over'?'🔴':status==='on'?'🟢':'🟡'}</div><div class="chip-label">${status==='over'?'Over':status==='on'?'On Track':'Under'}</div></div>`;
   } else {
-    chipsHtml = `<div class="stat-chip" style="flex:1"><div class="no-data" style="padding:10px 0">No data logged for this date</div></div>`;
+    chipsHtml = `<div class="stat-chip" style="grid-column:1/-1"><div class="no-data" style="padding:8px 0">No data for this date</div></div>`;
   }
   document.getElementById('summary-chips').innerHTML = chipsHtml;
 
+  // -- Food log --
   const foodContainer = document.getElementById('food-log-content');
   if (isAvg) {
-    foodContainer.innerHTML = '<div class="no-data">Switch to a specific day to see individual food items.</div>';
+    foodContainer.innerHTML = '<div class="no-data">Switch to a specific day to see food items.</div>';
   } else if (!entry || !entry.foods || entry.foods.length === 0) {
-    foodContainer.innerHTML = '<div class="no-data">No food items logged for this day.</div>';
+    foodContainer.innerHTML = '<div class="no-data">No food items logged.</div>';
   } else {
     const totCal  = entry.foods.reduce((s,f)=>s+(f.calories||0),0);
     const totPro  = entry.foods.reduce((s,f)=>s+(f.protein||0),0);
     const totCarb = entry.foods.reduce((s,f)=>s+(f.carbs||0),0);
     const totFat  = entry.foods.reduce((s,f)=>s+(f.fat||0),0);
-    const mealColors = { Breakfast:'#ff8c5a', Lunch:'#43d9b8', Dinner:'#6c63ff', Snack:'#f7c948', 'Pre-workout':'#ff6584', 'Post-workout':'#43d97e', Other:'#8890b0' };
-    let html = `<table><thead><tr><th>Meal</th><th>Food Item</th><th style="text-align:right">Cal</th><th style="text-align:right">Protein</th><th style="text-align:right">Carbs</th><th style="text-align:right">Fat</th></tr></thead><tbody>`;
+    const mealColors = { Breakfast:'#fb923c', Lunch:'#34d399', Dinner:'#818cf8', Snack:'#fbbf24', 'Pre-workout':'#f472b6', 'Post-workout':'#34d399', Other:'#7a82a0' };
+
+    // Group by meal
+    const mealOrder = ['Breakfast','Lunch','Snack','Dinner','Pre-workout','Post-workout','Other'];
+    const groups = {};
     entry.foods.forEach(f => {
-      const col = mealColors[f.meal] || '#8890b0';
-      html += `<tr>
-        <td><span class="meal-badge" style="color:${col};border:1px solid ${col}33;background:${col}15;padding:2px 8px;border-radius:6px">${f.meal||'Other'}</span></td>
-        <td style="font-weight:500">${f.name}</td>
-        <td style="text-align:right;color:var(--cal)">${f.calories??'—'}</td>
-        <td style="text-align:right;color:var(--protein)">${f.protein!=null?f.protein+'g':'—'}</td>
-        <td style="text-align:right;color:var(--carbs)">${f.carbs!=null?f.carbs+'g':'—'}</td>
-        <td style="text-align:right;color:var(--fat)">${f.fat!=null?f.fat+'g':'—'}</td>
-      </tr>`;
+      const m = f.meal || 'Other';
+      if (!groups[m]) groups[m] = [];
+      groups[m].push(f);
     });
-    html += `</tbody><tfoot><tr class="totals-row">
-      <td colspan="2" style="color:var(--muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px">Day Total</td>
-      <td style="text-align:right;color:var(--cal)">${totCal}</td>
-      <td style="text-align:right;color:var(--protein)">${totPro}g</td>
-      <td style="text-align:right;color:var(--carbs)">${totCarb}g</td>
-      <td style="text-align:right;color:var(--fat)">${totFat}g</td>
-    </tr></tfoot></table>`;
-    if (entry.notes) html += `<div style="margin-top:12px;font-size:0.82rem;color:var(--muted)">📝 ${entry.notes}</div>`;
+
+    let html = '';
+    mealOrder.forEach(meal => {
+      if (!groups[meal]) return;
+      const col = mealColors[meal] || '#7a82a0';
+      html += `<div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <div style="width:3px;height:16px;border-radius:2px;background:${col}"></div>
+          <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:${col}">${meal}</span>
+        </div>`;
+      groups[meal].forEach(f => {
+        html += `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0 6px 11px;border-bottom:1px solid var(--border)">
+          <span style="font-weight:500;font-size:0.82rem;flex:1;padding-right:10px">${f.name}</span>
+          <span style="font-size:0.78rem;color:var(--cal);font-weight:700;white-space:nowrap">${f.calories} cal</span>
+        </div>`;
+      });
+      html += '</div>';
+    });
+
+    html += `<div style="display:flex;justify-content:space-between;padding:12px 0 4px;border-top:2px solid var(--border);margin-top:4px">
+      <span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Day Total</span>
+      <div style="display:flex;gap:12px;font-size:0.75rem;font-weight:700">
+        <span style="color:var(--cal)">${totCal} cal</span>
+        <span style="color:var(--protein)">${totPro}g P</span>
+        <span style="color:var(--carbs)">${totCarb}g C</span>
+        <span style="color:var(--fat)">${totFat}g F</span>
+      </div>
+    </div>`;
+    if (entry.notes) html += `<div style="margin-top:10px;font-size:0.78rem;color:var(--muted)">📝 ${entry.notes}</div>`;
     foodContainer.innerHTML = html;
   }
 
+  // -- History table highlight --
   document.querySelectorAll('#history-body tr').forEach(row => {
     row.classList.remove('selected-row');
     if (!isAvg && row.dataset.date === key) row.classList.add('selected-row');
@@ -620,6 +736,7 @@ function renderView(key) {
 window.onload = function() {
   const sortedLog = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
 
+  // ── Build day filter ──
   const filterBar = document.getElementById('filter-buttons');
   const todayKey = today();
   const todayEntry = LOG.find(e => e.date === todayKey);
@@ -668,50 +785,57 @@ window.onload = function() {
     if (idx < keys.length - 1) { sel.value = keys[idx + 1]; renderView(sel.value); updateNavBtns(); }
   });
 
+  // ── Trend chart ──
   const chartDays = [...LOG].sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(-14);
   trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
     type: 'bar',
     data: {
-      labels: chartDays.map(e => fmtDate(e.date)),
+      labels: chartDays.map(e => fmtDateShort(e.date)),
       datasets: [
-        { label:'Calories', data:chartDays.map(e=>e.calories), backgroundColor:'rgba(255,140,90,0.75)', borderRadius:6, yAxisID:'yCal' },
-        { label:'Protein (g)', data:chartDays.map(e=>e.protein), type:'line', borderColor:'var(--protein)', backgroundColor:'rgba(108,99,255,0.1)', pointBackgroundColor:'var(--protein)', pointRadius:4, tension:0.3, yAxisID:'yMacro', borderWidth:2 },
+        { label:'Calories', data:chartDays.map(e=>e.calories), backgroundColor:'rgba(251,146,60,0.65)', borderRadius:6, yAxisID:'yCal' },
+        { label:'Protein (g)', data:chartDays.map(e=>e.protein), type:'line', borderColor:'#818cf8', backgroundColor:'rgba(129,140,248,0.08)', pointBackgroundColor:'#818cf8', pointRadius:3, tension:0.3, yAxisID:'yMacro', borderWidth:2 },
       ]
     },
     options: {
       responsive:true, maintainAspectRatio:false,
       interaction:{mode:'index',intersect:false},
-      plugins:{legend:{labels:{color:'#8890b0',font:{size:12}}},tooltip:{backgroundColor:'#22263a',borderColor:'#2e3350',borderWidth:1}},
+      plugins:{
+        legend:{labels:{color:'#7a82a0',font:{size:11,family:'Inter'}}},
+        tooltip:{backgroundColor:'#1a1e2a',borderColor:'#272d42',borderWidth:1,titleFont:{family:'Inter'},bodyFont:{family:'Inter'}}
+      },
       scales:{
-        yCal:  {type:'linear',position:'left', grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#8890b0'},min:0},
-        yMacro:{type:'linear',position:'right',grid:{drawOnChartArea:false},ticks:{color:'#8890b0'},min:0},
-        x:     {grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#8890b0',maxRotation:45}}
+        yCal:  {type:'linear',position:'left', grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7a82a0',font:{size:10,family:'Inter'}},min:0},
+        yMacro:{type:'linear',position:'right',grid:{drawOnChartArea:false},ticks:{color:'#7a82a0',font:{size:10,family:'Inter'}},min:0},
+        x:     {grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#7a82a0',maxRotation:45,font:{size:10,family:'Inter'}}}
       }
     }
   });
 
+  // ── History table ──
   if (sortedLog.length === 0) {
     document.getElementById('history-body').innerHTML = `<tr><td colspan="7" class="no-data">No entries yet</td></tr>`;
   } else {
     document.getElementById('history-body').innerHTML = sortedLog.map(e => {
       const isToday = e.date === todayKey;
       return `<tr data-date="${e.date}" class="${isToday?'today-row':''}" style="cursor:pointer" onclick="selectDay('${e.date}')">
-        <td><strong>${fmtDate(e.date)}</strong>${isToday?' <span style="color:var(--accent);font-size:0.7rem;font-weight:700">TODAY</span>':''}</td>
-        <td style="color:var(--cal)">${e.calories.toLocaleString()}</td>
-        <td style="color:var(--protein)">${e.protein}g</td>
+        <td><strong>${fmtDateShort(e.date)}</strong>${isToday?' <span style="color:var(--accent);font-size:0.6rem;font-weight:800">\u2022 TODAY</span>':''}</td>
+        <td style="color:var(--cal);font-weight:600">${e.calories.toLocaleString()}</td>
+        <td style="color:var(--protein);font-weight:600">${e.protein}g</td>
         <td style="color:var(--carbs)">${e.carbs}g</td>
         <td style="color:var(--fat)">${e.fat}g</td>
-        <td><span class="pill ${pillClass(e.calories,TARGETS.calories,true)}">${pillLabel(e.calories,TARGETS.calories,true)}</span></td>
-        <td style="color:var(--muted);font-size:0.8rem">${e.notes||'—'}</td>
+        <td class="col-status"><span class="pill ${pillClass(e.calories,TARGETS.calories,true)}">${pillLabel(e.calories,TARGETS.calories,true)}</span></td>
+        <td class="col-notes" style="color:var(--muted);font-size:0.75rem">${e.notes||'\u2014'}</td>
       </tr>`;
     }).join('');
   }
 
+  // ── Default selection ──
   const defaultKey = todayEntry ? todayKey : (sortedLog.length > 0 ? sortedLog[0].date : null);
   if (defaultKey && sel.querySelector(`option[value="${defaultKey}"]`)) sel.value = defaultKey;
   renderView(sel.value);
   updateNavBtns();
 
+  // ── Weight log ──
   renderWeightLog();
 };
 
@@ -728,7 +852,7 @@ function selectDay(dateKey) {
     }
   }
   renderView(dateKey);
-  document.getElementById('stat-cards').scrollIntoView({behavior:'smooth', block:'nearest'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function renderWeightLog() {
@@ -737,7 +861,7 @@ function renderWeightLog() {
   const chips = document.getElementById('weight-chips');
 
   if (sorted.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="3" class="no-data" style="text-align:center;padding:20px;color:var(--muted)">No weigh-ins logged yet</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="3" class="no-data">No weigh-ins yet</td></tr>`;
     chips.innerHTML = '';
     return;
   }
@@ -751,8 +875,8 @@ function renderWeightLog() {
   const chipsData = [
     { label: 'Latest', val: `${latest} kg`, color: 'var(--text)' },
     { label: 'Start',  val: `${start} kg`,  color: 'var(--muted)' },
-    { label: 'Day Change', val: dayDiff !== null ? `${dayDiff > 0 ? '+' : ''}${dayDiff} kg` : '—', color: dayDiff === null ? 'var(--muted)' : dayDiff < 0 ? 'var(--green)' : dayDiff > 0 ? 'var(--red)' : 'var(--muted)' },
-    { label: 'Total Change', val: `${total > 0 ? '+' : ''}${total} kg`, color: total < 0 ? 'var(--green)' : total > 0 ? 'var(--red)' : 'var(--muted)' },
+    { label: 'Day \u0394', val: dayDiff !== null ? `${dayDiff > 0 ? '+' : ''}${dayDiff} kg` : '\u2014', color: dayDiff === null ? 'var(--muted)' : dayDiff < 0 ? 'var(--green)' : dayDiff > 0 ? 'var(--red)' : 'var(--muted)' },
+    { label: 'Total \u0394', val: `${total > 0 ? '+' : ''}${total} kg`, color: total < 0 ? 'var(--green)' : total > 0 ? 'var(--red)' : 'var(--muted)' },
   ];
   chips.innerHTML = chipsData.map(c => `
     <div class="weight-chip">
@@ -764,12 +888,12 @@ function renderWeightLog() {
   tbody.innerHTML = display.map((e, i) => {
     const prevEntry = sorted[sorted.length - 1 - i - 1];
     const diff = prevEntry ? +(e.weight - prevEntry.weight).toFixed(1) : null;
-    const diffStr = diff === null ? '—' : (diff > 0 ? `+${diff}` : `${diff}`) + ' kg';
+    const diffStr = diff === null ? '\u2014' : (diff > 0 ? `+${diff}` : `${diff}`) + ' kg';
     const cls = diff === null ? 'weight-change-same' : diff < 0 ? 'weight-change-down' : diff > 0 ? 'weight-change-up' : 'weight-change-same';
-    const arrow = diff === null ? '' : diff < 0 ? ' ↓' : diff > 0 ? ' ↑' : '';
+    const arrow = diff === null ? '' : diff < 0 ? ' \u2193' : diff > 0 ? ' \u2191' : '';
     return `<tr>
-      <td><strong>${fmtDate(e.date)}</strong></td>
-      <td style="font-size:1.05rem;font-weight:700">${e.weight} kg</td>
+      <td><strong>${fmtDateShort(e.date)}</strong></td>
+      <td style="font-weight:700">${e.weight} kg</td>
       <td class="${cls}">${diffStr}${arrow}</td>
     </tr>`;
   }).join('');
@@ -781,78 +905,77 @@ function renderWeightLog() {
   <div class="header-left">
     <div class="avatar">S</div>
     <div>
-      <h1>Samir's Nutrition Dashboard</h1>
+      <h1>Samir's Nutrition Tracking</h1>
       <div class="subtitle" id="current-date"></div>
     </div>
   </div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap">
+  <div class="badges">
     <div class="badge">⚖️ <span>81.5kg</span></div>
-    <div class="badge">🎯 Goal: <span>Cut</span></div>
+    <div class="badge">🎯 <span>Cut</span></div>
   </div>
 </div>
 <script>
-  document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
 </script>
 
-<!-- Global Day Filter -->
+<!-- Day Filter -->
 <div class="day-filter-bar">
-  <span class="filter-label">📅 View</span>
-  <div id="filter-buttons" style="display:flex;gap:8px;align-items:center"></div>
+  <span class="filter-label">📅</span>
+  <div id="filter-buttons" style="display:flex;gap:6px;align-items:center;flex:1"></div>
 </div>
 
 <!-- Targets -->
 <div class="targets-bar">
-  <strong style="color:var(--muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;align-self:center">Daily Targets:</strong>
-  <div class="t-item"><div class="t-dot" style="background:var(--cal)"></div><span class="t-name">Calories</span> <span class="t-val">2,000 kcal</span></div>
-  <div class="t-item"><div class="t-dot" style="background:var(--protein)"></div><span class="t-name">Protein</span> <span class="t-val">170g</span></div>
-  <div class="t-item"><div class="t-dot" style="background:var(--carbs)"></div><span class="t-name">Carbs</span> <span class="t-val">205g</span></div>
-  <div class="t-item"><div class="t-dot" style="background:var(--fat)"></div><span class="t-name">Fat</span> <span class="t-val">55g</span></div>
+  <div class="t-item"><div class="t-dot" style="background:var(--cal)"></div><span class="t-name">Cal</span><span class="t-val">2,000</span></div>
+  <div class="t-item"><div class="t-dot" style="background:var(--protein)"></div><span class="t-name">Protein</span><span class="t-val">170g</span></div>
+  <div class="t-item"><div class="t-dot" style="background:var(--carbs)"></div><span class="t-name">Carbs</span><span class="t-val">205g</span></div>
+  <div class="t-item"><div class="t-dot" style="background:var(--fat)"></div><span class="t-name">Fat</span><span class="t-val">55g</span></div>
 </div>
 
-<!-- Viewing label + Macro cards -->
+<!-- Viewing label + Macro ring cards -->
 <div class="viewing-label" id="viewing-label">Viewing: —</div>
-<div class="grid-4" id="stat-cards" style="margin-top:10px"></div>
+<div class="macro-grid" id="macro-cards"></div>
 
 <!-- Chips -->
-<div class="stats-row" id="summary-chips"></div>
+<div class="chips-scroll" id="summary-chips"></div>
 
-<!-- Charts + Weight -->
-<div class="grid-2">
-  <div class="card chart-card">
-    <h2>14-Day Trend</h2>
-    <canvas id="trendChart"></canvas>
-  </div>
-  <div class="card" style="display:flex;flex-direction:column">
-    <h2>⚖️ Morning Weigh-ins</h2>
-    <div class="weight-stat-chips" id="weight-chips"></div>
-    <div class="table-card" style="flex:1;overflow-y:auto">
-      <table>
-        <thead><tr><th>Date</th><th>Weight (kg)</th><th>Change</th></tr></thead>
-        <tbody id="weight-body"></tbody>
-      </table>
-    </div>
+<!-- Chart -->
+<div class="card chart-card" style="margin-bottom:16px">
+  <h2>14-Day Trend</h2>
+  <canvas id="trendChart"></canvas>
+</div>
+
+<!-- Weight -->
+<div class="card" style="margin-bottom:16px">
+  <h2>⚖️ Weight Log</h2>
+  <div class="weight-stat-chips" id="weight-chips"></div>
+  <div class="table-card">
+    <table>
+      <thead><tr><th>Date</th><th>Weight</th><th>Change</th></tr></thead>
+      <tbody id="weight-body"></tbody>
+    </table>
   </div>
 </div>
 
 <!-- Food Log -->
-<div class="section-title">🍽️ Daily Food Log</div>
+<div class="section-title">🍽️ Food Log</div>
 <div class="card">
-  <div class="table-card" id="food-log-content">
+  <div id="food-log-content">
     <div class="no-data">Select a day to view food items.</div>
   </div>
 </div>
 
 <!-- History -->
-<div class="section-title">📋 All Days</div>
+<div class="section-title">📊 All Days</div>
 <div class="card table-card">
-  <table>
-    <thead><tr><th>Date</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>Status</th><th>Notes</th></tr></thead>
+  <table class="history-table">
+    <thead><tr><th>Date</th><th>Cal</th><th>Pro</th><th>Carbs</th><th>Fat</th><th class="col-status">Status</th><th class="col-notes">Notes</th></tr></thead>
     <tbody id="history-body"></tbody>
   </table>
 </div>
 
-<div style="text-align:center;margin-top:28px;color:var(--muted);font-size:0.78rem">
-  Updated by Claude · Share your daily intake in chat to log · Refresh after each update
+<div class="footer">
+  Updated by Claude &middot; Share your daily intake in chat to log
 </div>
 
 <script>
