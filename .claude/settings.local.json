@@ -2,7 +2,22 @@
   "permissions": {
     "allow": [
       "Bash(git --version)",
-      "Bash(gh --version)"
+      "Bash(gh --version)",
+      "Read(//Users/samir/**)",
+      "Bash(ssh -T git@github.com)",
+      "Read(//usr/local/bin/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(chmod +x \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/auto-sync.sh\")",
+      "Bash(launchctl load:*)",
+      "Bash(launchctl list:*)",
+      "Bash(launchctl unload:*)",
+      "Bash(ls -la \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/\"*.html)",
+      "Bash(python3 -)",
+      "Bash(pip3 install:*)",
+      "Bash(cp \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)/nutrition_dashboard.html\" \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/nutrition_dashboard.html\")",
+      "Bash(cp \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)/weight_tracker.html\" \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/weight_tracker.html\")",
+      "Bash(cp -r \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)/icons\" \"/Users/samir/Documents/Claude/Projects/Nutrition tracking/icons\")",
+      "Bash(rm -rf \"/Users/samir/Documents/Claude/Projects/Nutrition tracking \\(1\\)\")"
     ]
   }
 }
