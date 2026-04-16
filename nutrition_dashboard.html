@@ -641,7 +641,7 @@ function renderView(key) {
         </div>
         <div class="macro-info">
           <div class="macro-label">${m.label}</div>
-          <div class="macro-target">of ${t.toLocaleString()}${m.unit}</div>
+          <div class="macro-target">of ${isCal ? '2k kcal' : t+m.unit}</div>
           <div class="macro-pct ${sc}">${v !== null ? pRound+'%' : '—'}</div>
         </div>
       </div>`;
