@@ -660,7 +660,7 @@ function renderView(key) {
       <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${val('protein') ? val('protein')+'g' : '—'}</div><div class="chip-label">Avg Pro</div></div>`;
   } else if (entry) {
     const status = statusClass(entry.calories, TARGETS.calories, true);
-    const emoji = status==='over'?'\ud83d\udd34':status==='on'?'\ud83d\udfe2':'\ud83d\udfe1';
+    const emoji = status==='over'?'🔴':status==='on'?'🟢':'🟡';
     const label = status==='over'?'Over':status==='on'?'On Track':'Under';
     chipsHtml = `
       <div class="stat-chip"><div class="chip-val" style="color:var(--cal)">${entry.calories.toLocaleString()}</div><div class="chip-label">Calories</div></div>
