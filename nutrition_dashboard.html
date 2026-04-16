@@ -628,7 +628,75 @@ function ringSvg(pctVal, color) {
 }
 
 let trendChart = null;
+let donutChart = null;
 let currentKey = null;
+
+// ── Streak: consecutive days on track (≥80% cal, ≤110% cal, ≥80% protein) ──
+function calcStreak() {
+  const sorted = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
+  let streak = 0;
+  for (const e of sorted) {
+    const calPct = pctRaw(e.calories, TARGETS.calories);
+    const proPct = pctRaw(e.protein, TARGETS.protein);
+    const onTrack = calPct <= 110 && calPct >= 80 && proPct >= 80;
+    if (onTrack) streak++;
+    else break;
+  }
+  return streak;
+}
+
+// ── Weekly stats: this Mon→today ──
+function calcWeeklyStats() {
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+  startOfWeek.setHours(0,0,0,0);
+  const thisWeek = LOG.filter(e => new Date(e.date+'T00:00:00') >= startOfWeek);
+  const totalCals = thisWeek.reduce((s,e)=>s+e.calories,0);
+  const deficit = TARGETS.calories * thisWeek.length - totalCals;
+  const avgPro = thisWeek.length ? Math.round(thisWeek.reduce((s,e)=>s+e.protein,0)/thisWeek.length) : 0;
+  return { deficit, avgPro, days: thisWeek.length };
+}
+
+// ── Consistency: % of logged days that are on track ──
+function calcConsistency() {
+  if (!LOG.length) return 0;
+  const onTrack = LOG.filter(e => {
+    const calPct = pctRaw(e.calories, TARGETS.calories);
+    return calPct <= 110 && calPct >= 80 && pctRaw(e.protein, TARGETS.protein) >= 80;
+  }).length;
+  return Math.round((onTrack / LOG.length) * 100);
+}
+
+function renderProgressCard() {
+  const streak = calcStreak();
+  const consistency = calcConsistency();
+  const { deficit, avgPro, days } = calcWeeklyStats();
+  const deficitSign = deficit >= 0 ? '+' : '';
+
+  document.getElementById('progress-card').innerHTML = `
+    <div class="prog-stat streak">
+      <div class="ps-val" style="color:#fb923c">${streak}🔥</div>
+      <div class="ps-label">Day Streak</div>
+      <div class="ps-sub">Consecutive on-track days</div>
+    </div>
+    <div class="prog-stat consistency">
+      <div class="ps-val" style="color:var(--green)">${consistency}%</div>
+      <div class="ps-label">Consistency</div>
+      <div class="ps-sub">Across ${LOG.length} logged days</div>
+    </div>
+    <div class="prog-stat deficit">
+      <div class="ps-val" style="color:var(--protein)">${deficitSign}${deficit.toLocaleString()}</div>
+      <div class="ps-label">Weekly Deficit</div>
+      <div class="ps-sub">Cal surplus/deficit this week (${days}d)</div>
+    </div>
+    <div class="prog-stat avgpro">
+      <div class="ps-val" style="color:var(--carbs)">${avgPro}g</div>
+      <div class="ps-label">Avg Protein</div>
+      <div class="ps-sub">This week's daily average</div>
+    </div>`;
+}
 
 function renderView(key) {
   currentKey = key;
