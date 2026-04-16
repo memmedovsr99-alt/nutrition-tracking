@@ -781,6 +781,70 @@ function renderView(key) {
   }
   document.getElementById('summary-chips').innerHTML = chipsHtml;
 
+  // -- Donut chart: today's macro calorie split --
+  const donutEl = document.getElementById('donutChart');
+  if (donutEl) {
+    const dEntry = isAvg
+      ? { protein: Math.round(LOG.reduce((s,e)=>s+e.protein,0)/n),
+          carbs:   Math.round(LOG.reduce((s,e)=>s+e.carbs,0)/n),
+          fat:     Math.round(LOG.reduce((s,e)=>s+e.fat,0)/n) }
+      : entry;
+
+    if (dEntry) {
+      const pCal = dEntry.protein * 4;
+      const cCal = dEntry.carbs * 4;
+      const fCal = dEntry.fat * 9;
+      const total = pCal + cCal + fCal || 1;
+      const donutData = {
+        datasets: [{
+          data: [pCal, cCal, fCal],
+          backgroundColor: ['#818cf8','#34d399','#fbbf24'],
+          borderColor: '#13161d',
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      };
+      if (donutChart) {
+        donutChart.data = donutData;
+        donutChart.update();
+      } else {
+        donutChart = new Chart(donutEl.getContext('2d'), {
+          type: 'doughnut',
+          data: donutData,
+          options: {
+            responsive: true, maintainAspectRatio: true,
+            cutout: '68%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor:'#1a1e2a', borderColor:'#272d42', borderWidth:1,
+                titleFont:{family:'Inter'}, bodyFont:{family:'Inter'},
+                callbacks: {
+                  label: ctx => {
+                    const labels = ['Protein','Carbs','Fat'];
+                    const pct = Math.round((ctx.raw / total) * 100);
+                    return ` ${labels[ctx.dataIndex]}: ${ctx.raw} cal (${pct}%)`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+      document.getElementById('donut-legend').innerHTML = [
+        {name:'Protein', cal:pCal, color:'#818cf8'},
+        {name:'Carbs',   cal:cCal, color:'#34d399'},
+        {name:'Fat',     cal:fCal, color:'#fbbf24'}
+      ].map(d => `<div class="donut-leg-item">
+        <div class="donut-leg-dot" style="background:${d.color}"></div>
+        <span class="donut-leg-name">${d.name}</span>
+        <span class="donut-leg-val">${d.cal} cal <span style="color:var(--muted);font-weight:500">(${Math.round((d.cal/total)*100)}%)</span></span>
+      </div>`).join('');
+    } else {
+      document.getElementById('donut-legend').innerHTML = '<div class="no-data" style="font-size:0.8rem">No data</div>';
+    }
+  }
+
   // -- Food log --
   const foodContainer = document.getElementById('food-log-content');
   if (isAvg) {
