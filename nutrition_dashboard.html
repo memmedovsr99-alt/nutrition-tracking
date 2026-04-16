@@ -641,8 +641,8 @@ function renderView(key) {
         </div>
         <div class="macro-info">
           <div class="macro-label">${m.label}</div>
-          <div class="macro-target">Target: <span>${t.toLocaleString()}${m.unit}</span></div>
-          <div class="macro-pct ${sc}">${v !== null ? pRound+'% of target' : '—'}</div>
+          <div class="macro-target">/ <span>${t.toLocaleString()}${m.unit}</span></div>
+          <div class="macro-pct ${sc}">${v !== null ? pRound+'%' : '—'}</div>
         </div>
       </div>`;
   });
