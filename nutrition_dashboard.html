@@ -1060,8 +1060,8 @@ function renderWeightLog() {
   const chipsData = [
     { label: 'Latest', val: `${latest} kg`, color: 'var(--text)' },
     { label: 'Start',  val: `${start} kg`,  color: 'var(--muted)' },
-    { label: 'Day \u0394', val: dayDiff !== null ? `${dayDiff > 0 ? '+' : ''}${dayDiff} kg` : '\u2014', color: dayDiff === null ? 'var(--muted)' : dayDiff < 0 ? 'var(--green)' : dayDiff > 0 ? 'var(--red)' : 'var(--muted)' },
-    { label: 'Total \u0394', val: `${total > 0 ? '+' : ''}${total} kg`, color: total < 0 ? 'var(--green)' : total > 0 ? 'var(--red)' : 'var(--muted)' },
+    { label: 'Day Change', val: dayDiff !== null ? `${dayDiff > 0 ? '+' : ''}${dayDiff} kg` : '\u2014', color: dayDiff === null ? 'var(--muted)' : dayDiff < 0 ? 'var(--green)' : dayDiff > 0 ? 'var(--red)' : 'var(--muted)' },
+    { label: 'Total Change', val: `${total > 0 ? '+' : ''}${total} kg`, color: total < 0 ? 'var(--green)' : total > 0 ? 'var(--red)' : 'var(--muted)' },
   ];
   chips.innerHTML = chipsData.map(c => `
     <div class="weight-chip">
