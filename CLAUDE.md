@@ -7,8 +7,12 @@
 
 ## How It Works
 - Data lives in `nutrition_dashboard.html` as JS arrays (LOG, WEIGHT_LOG, TARGETS)
-- Cowork edits the HTML file to log food → auto-push hook commits & pushes to GitHub → site updates in ~1 min
-- Auto-push hook is in `.claude/settings.json` (PostToolUse on Edit/Write)
+- After EVERY edit to `nutrition_dashboard.html`, ALWAYS run this command immediately:
+  ```
+  cd "/Users/samir/Documents/Claude/Projects/Nutrition tracking" && git add -A && git commit -m "Auto-update $(date '+%Y-%m-%d %H:%M')" && git push
+  ```
+- This pushes to GitHub → GitHub Pages updates the live site in ~1 min
+- Do NOT skip this step — the site will not update without it
 
 ## Critical: Correct Folder Path
 **ALWAYS use**: `/Users/samir/Documents/Claude/Projects/Nutrition tracking/`
