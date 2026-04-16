@@ -268,6 +268,28 @@
       .charts-grid { grid-template-columns: 2fr 1fr; }
     }
 
+    /* ── InBody ── */
+    .inbody-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .scan-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 14px; }
+    .scan-card.latest { border-color: var(--accent); }
+    .scan-date { font-size: 0.62rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .scan-card.latest .scan-date { color: var(--accent); }
+    .scan-metric { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 0.75rem; }
+    .scan-metric:last-child { border-bottom: none; }
+    .scan-metric-name { color: var(--muted); font-weight: 500; }
+    .scan-metric-val { font-weight: 700; }
+    .delta-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
+    .delta-row:last-child { border-bottom: none; }
+    .delta-good { color: var(--green); font-weight: 700; }
+    .delta-bad  { color: var(--red);   font-weight: 700; }
+    .delta-neutral { color: var(--muted); font-weight: 700; }
+    .prog-bar-wrap { background: var(--surface3); border-radius: 8px; height: 10px; overflow: hidden; margin: 8px 0 4px; }
+    .prog-bar-fill { height: 100%; border-radius: 8px; transition: width 0.8s ease; }
+
+    /* ── Hydration ── */
+    .hydration-bar-wrap { background: var(--surface3); border-radius: 10px; height: 14px; overflow: hidden; margin: 10px 0 4px; }
+    .hydration-bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg,#38bdf8,#0ea5e9); transition: width 0.8s ease; }
+
     /* ── Footer ── */
     .footer { text-align: center; margin-top: 24px; color: var(--muted); font-size: 0.7rem; font-weight: 500; }
   </style>
