@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Samir's Nutrition Dashboard</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#6c63ff" />
-  <link rel="apple-touch-icon" href="icon-192.png" />
-  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Samir's Nutrition</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#0f1117"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Nutrition"/>
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"/>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     :root {
@@ -58,8 +65,53 @@
     /* Grid layout */
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-    @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2,1fr); } .grid-2 { grid-template-columns: 1fr; } }
-    @media (max-width: 500px) { .grid-4 { grid-template-columns: 1fr 1fr; } body { padding: 14px; } }
+
+    /* ── Responsive / Mobile ── */
+    @media (max-width: 900px) {
+      .grid-4 { grid-template-columns: repeat(2,1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      body { padding: 12px; }
+      h1 { font-size: 1.25rem; }
+      .header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 14px; }
+      .header > div:last-child { display: flex; gap: 8px; flex-wrap: wrap; }
+      .avatar { width: 40px; height: 40px; font-size: 1.1rem; }
+      .badge { font-size: 0.75rem; padding: 5px 10px; }
+      .day-filter-bar { padding: 10px 12px; gap: 8px; position: sticky; top: 0; z-index: 100; background: var(--bg); border-radius: 0; border-left: none; border-right: none; border-top: none; margin-left: -12px; margin-right: -12px; padding-left: 12px; padding-right: 12px; }
+      .day-select { min-width: 0; flex: 1; font-size: 0.85rem; padding: 9px 32px 9px 12px; }
+      .nav-btn { padding: 9px 14px; font-size: 1rem; min-width: 40px; text-align: center; }
+      .targets-bar { gap: 10px; padding: 10px 14px; font-size: 0.8rem; flex-wrap: wrap; }
+      .targets-bar .t-item { flex: 1; min-width: 80px; }
+      .grid-4 { gap: 10px; }
+      .grid-2 { gap: 12px; margin-bottom: 14px; }
+      .card { padding: 14px; border-radius: 12px; }
+      .stat-card .value { font-size: 1.7rem; }
+      .stat-card .icon { font-size: 1.3rem; }
+      .stats-row { gap: 10px; margin-bottom: 14px; }
+      .stat-chip { padding: 12px 10px; min-width: 70px; border-radius: 10px; }
+      .stat-chip .chip-val { font-size: 1.3rem; }
+      .stat-chip .chip-label { font-size: 0.7rem; }
+      .chart-card { height: 220px; }
+      table { font-size: 0.82rem; }
+      thead th { padding: 8px 8px; font-size: 0.7rem; }
+      tbody td { padding: 9px 8px; }
+      tfoot .totals-row td { padding: 9px 8px; }
+      .section-title { margin-top: 18px; }
+      .viewing-label { font-size: 0.82rem; }
+      .weight-chip { padding: 10px 12px; min-width: 90px; }
+      .weight-chip .wc-val { font-size: 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .grid-4 { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .stat-card { padding: 12px; }
+      .stat-card .value { font-size: 1.5rem; }
+      .day-filter-bar { margin-left: -10px; margin-right: -10px; padding-left: 10px; padding-right: 10px; }
+      .targets-bar strong { width: 100%; }
+      /* Food log table: hide protein/carbs/fat headers on tiny screens, keep scrollable */
+      .table-card { -webkit-overflow-scrolling: touch; }
+    }
 
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
 
@@ -133,13 +185,19 @@ const TARGETS = { calories: 2000, protein: 170, carbs: 205, fat: 55 };
 const LOG = [
   {
     date: "2026-04-15",
-    calories: 923, protein: 99, carbs: 73, fat: 28,
+    calories: 1983, protein: 168, carbs: 162, fat: 72,
     notes: "",
     foods: [
-      { meal: "Breakfast", name: "Protein bar (230 cal)",          calories: 230, protein: 20, carbs: 20, fat: 8 },
-      { meal: "Snack",     name: "Strawberries (1lb / 454g)",                    calories: 145, protein:  1, carbs: 35, fat:  0 },
-      { meal: "Lunch",     name: "NY strip steak 258g (fat trimmed)",            calories: 464, protein: 74, carbs:  0, fat: 20 },
-      { meal: "Lunch",     name: "Salad — large tomato, 3 cucumbers, mixed greens", calories: 84, protein:  4, carbs: 18, fat:  0 },
+      { meal: "Breakfast", name: "Protein bar (230 cal)",                          calories: 230, protein: 20, carbs: 20, fat:  8 },
+      { meal: "Snack",     name: "Strawberries (1lb / 454g)",                      calories: 145, protein:  1, carbs: 35, fat:  0 },
+      { meal: "Lunch",     name: "NY strip steak 258g (fat trimmed)",              calories: 464, protein: 74, carbs:  0, fat: 20 },
+      { meal: "Lunch",     name: "Salad — large tomato, 3 cucumbers, mixed greens",calories:  84, protein:  4, carbs: 18, fat:  0 },
+      { meal: "Snack",     name: "Sour strips (55 cal)",                           calories:  55, protein:  0, carbs: 13, fat:  0 },
+      { meal: "Dinner",    name: "TJ wheat noodles (1 portion)",                   calories: 310, protein: 10, carbs: 60, fat:  2 },
+      { meal: "Dinner",    name: "Atlantic salmon 280g raw, no skin",              calories: 580, protein: 57, carbs:  0, fat: 37 },
+      { meal: "Dinner",    name: "Olive oil (1 tsp)",                              calories:  40, protein:  0, carbs:  0, fat:  5 },
+      { meal: "Dinner",    name: "Soy sauce (2-3 tbsp)",                           calories:  20, protein:  2, carbs:  2, fat:  0 },
+      { meal: "Snack",     name: "Dates — Target (55 cal)",                        calories:  55, protein:  0, carbs: 14, fat:  0 },
     ]
   },
   {
@@ -820,6 +878,14 @@ function renderWeightLog() {
 <div style="text-align:center;margin-top:28px;color:var(--muted);font-size:0.78rem">
   Updated by Claude · Share your daily intake in chat to log · Refresh after each update
 </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+</script>
 
 </body>
 </html>
