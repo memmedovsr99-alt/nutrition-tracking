@@ -721,7 +721,7 @@ function renderView(key) {
         <span style="color:var(--fat)">${totFat}g F</span>
       </div>
     </div>`;
-    if (entry.notes) html += `<div style="margin-top:10px;font-size:0.78rem;color:var(--muted)">\ud83d\udcdd ${entry.notes}</div>`;
+    if (entry.notes) html += `<div style="margin-top:10px;font-size:0.78rem;color:var(--muted)">📝 ${entry.notes}</div>`;
     foodContainer.innerHTML = html;
   }
 
