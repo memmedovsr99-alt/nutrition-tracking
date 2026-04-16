@@ -21,7 +21,9 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(sips -s format jpeg -s formatOptions 60 \"/Users/samir/Downloads/IMG_0350.HEIC\" --out \"/tmp/inbody1.jpg\")",
       "Bash(sips -s format jpeg -s formatOptions 60 \"/Users/samir/Downloads/IMG_0349.HEIC\" --out \"/tmp/inbody2.jpg\")",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(sips -s format jpeg -s formatOptions 20 \"/Users/samir/Downloads/IMG_0350.HEIC\" --out \"/tmp/inbody1.jpg\")",
+      "Bash(sips -s format jpeg -s formatOptions 20 \"/Users/samir/Downloads/IMG_0349.HEIC\" --out \"/tmp/inbody2.jpg\")"
     ]
   }
 }
