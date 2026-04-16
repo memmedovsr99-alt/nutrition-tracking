@@ -582,6 +582,25 @@ const LOG = [
 
 const USER = { name: "Samir", weight: "81.5kg", height: "179cm", age: 27, goal: "Cut" };
 
+// ── InBody scans — all values in kg ──
+const INBODY_SCANS = [
+  {
+    date: "2025-10-22",
+    weight: 85.3, smm: 37.0, bfm: 20.5, pbf: 24.0,
+    lbm: 64.8, tbw: 47.4, bmr: 1769, bmi: 27.0,
+  },
+  {
+    date: "2026-04-10",
+    weight: 82.8, smm: 36.1, bfm: 19.2, pbf: 23.2,
+    lbm: 63.6, tbw: 46.5, bmr: 1743, bmi: 26.2,
+  },
+];
+const INBODY_TARGET = { pbf: 15, label: 'Athletic Lean' };
+
+// ── Hydration log — { date: "YYYY-MM-DD", liters: 2.5 } ──
+const HYDRATION_TARGET_L = 2.9; // 81.5 kg × 35 ml/kg
+const HYDRATION_LOG = [];
+
 // ── Morning weigh-ins — format: { date: "YYYY-MM-DD", weight: 81.5 } ──
 const WEIGHT_LOG = [
   { date: "2026-04-12", weight: 82.05 },
