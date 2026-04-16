@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Samir's Nutrition Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a; --border: #2e3350;
+      --accent: #6c63ff; --accent2: #ff6584;
+      --green: #43d97e; --yellow: #f7c948; --red: #ff5c5c;
+      --text: #e8eaf6; --muted: #8890b0;
+      --protein: #6c63ff; --carbs: #43d9b8; --fat: #f7c948; --cal: #ff8c5a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; padding: 24px; }
+    h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+    h2 { font-size: 1.1rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 700; }
+    .subtitle { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+    .badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 0.8rem; color: var(--muted); }
+    .badge span { color: var(--accent); font-weight: 600; }
+
+    /* ── Global Day Filter ── */
+    .day-filter-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 12px 18px; margin-bottom: 20px;
+    }
+    .day-filter-bar .filter-label { color: var(--muted); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+    .day-select {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); border-radius: 10px; padding: 8px 36px 8px 14px;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238890b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      min-width: 180px; transition: border-color 0.15s;
+    }
+    .day-select:focus { outline: none; border-color: var(--accent); }
+    .day-select option { background: var(--surface2); color: var(--text); }
+    .nav-btn {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px; padding: 7px 12px;
+      cursor: pointer; font-size: 0.9rem; transition: all 0.15s; line-height: 1;
+    }
+    .nav-btn:hover { background: var(--border); color: var(--text); }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    /* Grid layout */
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2,1fr); } .grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 500px) { .grid-4 { grid-template-columns: 1fr 1fr; } body { padding: 14px; } }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+
+    /* Stat cards */
+    .stat-card .icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; line-height: 1; }
+    .stat-card .label { color: var(--muted); font-size: 0.8rem; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card .target-line { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+    .stat-card .target-line span { font-weight: 600; }
+    .stat-card .progress-wrap { background: var(--surface2); border-radius: 999px; height: 6px; margin-top: 12px; overflow: hidden; }
+    .stat-card .progress-bar { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
+    .stat-card .pct { font-size: 0.75rem; margin-top: 5px; text-align: right; }
+    .over { color: var(--red); } .on { color: var(--green); } .low { color: var(--yellow); } .neutral { color: var(--muted); }
+
+    /* Chips */
+    .stats-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .stat-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; flex: 1; min-width: 120px; text-align: center; }
+    .stat-chip .chip-val { font-size: 1.6rem; font-weight: 700; }
+    .stat-chip .chip-label { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+
+    /* Charts */
+    .chart-card { height: 300px; display: flex; flex-direction: column; }
+    .chart-card canvas { flex: 1; min-height: 0; }
+
+    /* Tables */
+    .table-card { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    thead th { color: var(--muted); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface2); }
+    tbody td { padding: 10px 12px; }
+    tfoot .totals-row td { border-top: 2px solid var(--border); font-weight: 700; background: var(--surface2); padding: 10px 12px; }
+    .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .pill-green { background: rgba(67,217,126,0.15); color: var(--green); }
+    .pill-yellow { background: rgba(247,201,72,0.15); color: var(--yellow); }
+    .pill-red { background: rgba(255,92,92,0.15); color: var(--red); }
+    .today-row td { color: var(--text) !important; }
+    .selected-row td { background: rgba(108,99,255,0.08) !important; }
+
+    .meal-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; }
+
+    .section-title { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; margin-top: 24px; }
+    .no-data { color: var(--muted); font-size: 0.9rem; text-align: center; padding: 30px 0; }
+
+    .targets-bar { display: flex; gap: 20px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; font-size: 0.85rem; }
+    .targets-bar .t-item { display: flex; align-items: center; gap: 8px; }
+    .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .t-name { color: var(--muted); }
+    .t-val { font-weight: 600; }
+
+    /* ── Weight Log ── */
+    .weight-change-up   { color: var(--red);   font-weight: 600; }
+    .weight-change-down { color: var(--green);  font-weight: 600; }
+    .weight-change-same { color: var(--muted);  font-weight: 600; }
+    .weight-stat-chips  { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+    .weight-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 12px 18px; flex: 1; min-width: 110px; text-align: center; }
+    .weight-chip .wc-val { font-size: 1.5rem; font-weight: 700; }
+    .weight-chip .wc-label { font-size: 0.72rem; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .viewing-label { font-size: 0.9rem; color: var(--muted); margin-bottom: 6px; }
+    .viewing-label strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- ==================== DATA (Claude updates this section) ==================== -->
+<script>
+const TARGETS = { calories: 2000, protein: 170, carbs: 205, fat: 55 };
+
+const LOG = [
+  {
+    date: "2026-04-15",
+    calories: 923, protein: 99, carbs: 73, fat: 28,
+    notes: "",
+    foods: [
+      { meal: "Breakfast", name: "Protein bar (230 cal)",          calories: 230, protein: 20, carbs: 20, fat: 8 },
+      { meal: "Snack",     name: "Strawberries (1lb / 454g)",                    calories: 145, protein:  1, carbs: 35, fat:  0 },
+      { meal: "Lunch",     name: "NY strip steak 258g (fat trimmed)",            calories: 464, protein: 74, carbs:  0, fat: 20 },
+      { meal: "Lunch",     name: "Salad — large tomato, 3 cucumbers, mixed greens", calories: 84, protein:  4, carbs: 18, fat:  0 },
+    ]
+  },
+  {
+    date: "2026-04-14",
+    calories: 2131, protein: 214, carbs: 151, fat: 61,
+    notes: "",
+    foods: [
+      { meal: "Breakfast", name: "Boiled eggs (x3)",                                                  calories: 210, protein: 18, carbs:  1, fat: 15 },
+      { meal: "Lunch",     name: "Honeygrow — garlic chicken noodles",                               calories: 860, protein: 50, carbs: 97, fat: 30 },
+      { meal: "Snack",     name: "Chicken soup (145 cal)",                                           calories: 145, protein: 18, carbs:  4, fat:  2 },
+      { meal: "Snack",     name: "Post-workout shake: non-fat milk 120ml + ON whey 1 scoop + banana",calories: 270, protein: 29, carbs: 36, fat:  3 },
+      { meal: "Dinner",    name: "Chicken breast 0.6lb, oven no oil",                               calories: 326, protein: 60, carbs:  0, fat:  7 },
+      { meal: "Dinner",    name: "Chicken drumstick (no skin), oven",                               calories: 130, protein: 22, carbs:  0, fat:  4 },
+      { meal: "Snack",     name: "Trader Joe's non-fat European style plain yogurt (90 cal)",       calories:  90, protein:  9, carbs:  5, fat:  0 },
+      { meal: "Snack",     name: "Edamame (100 cal)",                                               calories: 100, protein:  8, carbs:  8, fat:  4 },
+    ]
+  },
+  {
+    date: "2026-04-13",
+    calories: 2227, protein: 205, carbs: 224, fat: 44,
+    notes: "",
+    foods: [
+      { meal: "Lunch",   name: "Dig Inn — charred chicken bowl (white rice, beans, tomato, cucumber)", calories: 600, protein: 45, carbs: 72, fat: 10 },
+      { meal: "Snack",   name: "Dark chocolate (65 cal)",                                              calories:  65, protein:  1, carbs:  7, fat:  4 },
+      { meal: "Snack",   name: "Chicken soup — Trader Joe's (100 cal)",                               calories: 100, protein:  8, carbs:  8, fat:  3 },
+      { meal: "Dinner",  name: "Yellow potato, boiled (393g raw)",                                    calories: 303, protein:  8, carbs: 67, fat:  1 },
+      { meal: "Dinner",  name: "Ground beef 96% lean, 1lb",                                          calories: 520, protein: 84, carbs:  0, fat: 20 },
+      { meal: "Dinner",  name: "Onion (0.5 medium)",                                                  calories:  20, protein:  0, carbs:  5, fat:  0 },
+      { meal: "Snack",   name: "Pineapple (1lb / 454g)",                                              calories: 227, protein:  1, carbs: 54, fat:  0 },
+      { meal: "Dinner",  name: "Sauces (misc)",                                                       calories:  50, protein:  0, carbs:  3, fat:  2 },
+      { meal: "Snack",   name: "Non-fat milk (120ml)",                                               calories:  42, protein:  4, carbs:  6, fat:  0 },
+      { meal: "Snack",   name: "ON Whey protein (1 scoop)",                                         calories: 120, protein: 24, carbs:  3, fat:  3 },
+      { meal: "Snack",   name: "Chicken soup (180 cal)",                                            calories: 180, protein: 29, carbs:  2, fat:  1 },
+    ]
+  },
+  {
+    date: "2026-04-12",
+    calories: 2658, protein: 175, carbs: 254, fat: 100,
+    notes: "",
+    foods: [
+      { meal: "Breakfast", name: "Boiled eggs (x3)",                                          calories: 210, protein: 18, carbs:  1, fat: 15 },
+      { meal: "Breakfast", name: "Chocolate croissant",                                       calories: 380, protein:  7, carbs: 42, fat: 20 },
+      { meal: "Lunch",     name: "Chicken pad thai (1/4 portion)",                           calories: 350, protein: 15, carbs: 45, fat: 10 },
+      { meal: "Lunch",     name: "Sweetgreen — steak mezze",                                 calories: 755, protein: 40, carbs: 65, fat: 35 },
+      { meal: "Dinner",    name: "Pasta (200 cal)",                                          calories: 200, protein:  7, carbs: 40, fat:  1 },
+      { meal: "Dinner",    name: "Ground beef 96% lean, 0.5lb",                             calories: 260, protein: 42, carbs:  0, fat: 10 },
+      { meal: "Dinner",    name: "Tomato sauce (90 cal)",                                    calories:  90, protein:  3, carbs: 15, fat:  2 },
+      { meal: "Snack",     name: "Chicken soup (120 cal)",                                   calories: 120, protein: 10, carbs:  8, fat:  4 },
+      { meal: "Snack",     name: "Non-fat milk (240ml)",                                     calories:  83, protein:  8, carbs: 12, fat:  0 },
+      { meal: "Snack",     name: "ON Whey protein (1 scoop)",                               calories: 120, protein: 24, carbs:  3, fat:  3 },
+      { meal: "Snack",     name: "Banana",                                                   calories:  90, protein:  1, carbs: 23, fat:  0 },
+    ]
+  },
+  {
+    date: "2026-04-11",
+    calories: 3132, protein: 165, carbs: 254, fat: 160,
+    notes: "NYC trip 🗽",
+    foods: [
+      { meal: "Lunch",   name: "Katz's Deli — pastrami sandwich",                    calories: 1100, protein: 65, carbs:  65, fat: 55 },
+      { meal: "Lunch",   name: "Katz's Deli — fries (1/3 portion)",                 calories:  180, protein:  3, carbs:  25, fat:  8 },
+      { meal: "Lunch",   name: "Chick-fil-A — chicken sandwich",                    calories:  440, protein: 28, carbs:  40, fat: 19 },
+      { meal: "Lunch",   name: "Chick-fil-A — waffle fries, small (2/3)",           calories:  207, protein:  3, carbs:  30, fat:  9 },
+      { meal: "Snack",   name: "Chocolate (150 cal)",                               calories:  150, protein:  2, carbs:  18, fat:  9 },
+      { meal: "Snack",   name: "Dried salted sunflower seeds (2 handfuls)",         calories:  350, protein: 19, carbs:  13, fat: 29 },
+      { meal: "Snack",   name: "Chicken wings (x2)",                               calories:  130, protein: 12, carbs:   0, fat:  9 },
+      { meal: "Snack",   name: "Edamame (100 cal)",                                calories:  100, protein:  8, carbs:   8, fat:  4 },
+      { meal: "Dinner",  name: "Pad thai with extra chicken (half portion)",        calories:  475, protein: 25, carbs:  55, fat: 18 },
+    ]
+  },
+  {
+    date: "2026-04-10",
+    calories: 3350, protein: 163, carbs: 202, fat: 187,
+    notes: "NYC trip 🗽 Korean BBQ night 🥩",
+    foods: [
+      { meal: "Breakfast", name: "Banana",                                            calories:   90, protein:   1, carbs:  23, fat:   0 },
+      { meal: "Dinner",    name: "Korean BBQ — ribeye + mixed meats + sides",        calories: 1700, protein: 105, carbs:  45, fat: 123 },
+      { meal: "Dinner",    name: "Soju 5% (x2 small bottles)",                       calories:  300, protein:   0, carbs:  25, fat:   0 },
+      { meal: "Dinner",    name: "Truffle fries (half portion)",                     calories:  250, protein:   3, carbs:  35, fat:  12 },
+      { meal: "Dinner",    name: "Buffalo chicken wings (x4)",                       calories:  360, protein:  28, carbs:   4, fat:  24 },
+      { meal: "Dinner",    name: "Pepperoni NY style pizza (x2 slices)",             calories:  650, protein:  26, carbs:  70, fat:  28 },
+    ]
+  },
+  {
+    date: "2026-04-09",
+    calories: 2761, protein: 96, carbs: 220, fat: 110,
+    notes: "Celebration 🎉 paxlava & şəkərbura",
+    foods: [
+      { meal: "Breakfast", name: "Boiled eggs (x3)",                                  calories: 210, protein: 18, carbs:  1, fat: 15 },
+      { meal: "Lunch",     name: "Surhullu quru ət (1 portion, with dough)",          calories: 1200, protein: 55, carbs: 120, fat: 55 },
+      { meal: "Dinner",    name: "Ayran (x2 glasses)",                                calories: 140, protein: 10, carbs: 10, fat:  4 },
+      { meal: "Dinner",    name: "Tortilla chips + hummus",                           calories: 300, protein:  6, carbs: 35, fat: 14 },
+      { meal: "Dinner",    name: "Paxlava (x1)",                                      calories: 280, protein:  4, carbs: 32, fat: 14 },
+      { meal: "Dinner",    name: "Şəkərbura (x1)",                                   calories: 175, protein:  3, carbs: 22, fat:  8 },
+      { meal: "Dinner",    name: "Vodka (200ml)",                                     calories: 456, protein:  0, carbs:  0, fat:  0 },
+    ]
+  },
+  {
+    date: "2026-04-08",
+    calories: 2041, protein: 191, carbs: 140, fat: 71,
+    notes: "Masala Kitchen 🍗",
+    foods: [
+      { meal: "Breakfast", name: "Protein bar (60g)",                                            calories: 190, protein:   6, carbs: 22, fat: 13 },
+      { meal: "Breakfast", name: "Banana",                                                       calories:  90, protein:   1, carbs: 23, fat:  0 },
+      { meal: "Lunch",     name: "Ground beef 96% lean, 1lb",                                    calories: 631, protein: 100, carbs:  0, fat: 25 },
+      { meal: "Lunch",     name: "Pasta (200 cal)",                                              calories: 200, protein:   7, carbs: 40, fat:  1 },
+      { meal: "Lunch",     name: "Plain nonfat yogurt (80 cal)",                                 calories:  80, protein:   8, carbs: 11, fat:  0 },
+      { meal: "Dinner",    name: "Masala Kitchen — mixed grill (chicken, lamb, rice)",           calories: 850, protein:  69, carbs: 44, fat: 32 },
+    ]
+  },
+  {
+    date: "2026-04-07",
+    calories: 2054, protein: 146, carbs: 196, fat: 66,
+    notes: "Turkish/Greek night 🇹🇷",
+    foods: [
+      { meal: "Lunch",   name: "Banana",                                                          calories:  90, protein:  1, carbs: 23, fat:  0 },
+      { meal: "Lunch",   name: "Ground beef 4% fat, 0.5lb (260 cal)",                            calories: 260, protein: 45, carbs:  0, fat: 11 },
+      { meal: "Lunch",   name: "Pasta (200 cal)",                                                 calories: 200, protein:  7, carbs: 40, fat:  1 },
+      { meal: "Lunch",   name: "80% of: ground beef 4% fat 0.5lb + onion + pasta (200 cal)",    calories: 404, protein: 42, carbs: 40, fat: 10 },
+      { meal: "Snack",   name: "Plain nonfat yogurt (40 cal)",                                   calories:  40, protein:  4, carbs:  5, fat:  0 },
+      { meal: "Dinner",  name: "Doner",                                                           calories: 300, protein: 20, carbs: 20, fat: 15 },
+      { meal: "Dinner",  name: "Manti",                                                           calories: 200, protein:  8, carbs: 25, fat:  8 },
+      { meal: "Dinner",  name: "Börek",                                                           calories: 200, protein:  6, carbs: 20, fat: 12 },
+      { meal: "Dinner",  name: "Rice",                                                            calories:  50, protein:  1, carbs: 11, fat:  0 },
+      { meal: "Dinner",  name: "Beef",                                                            calories: 100, protein: 10, carbs:  0, fat:  5 },
+      { meal: "Dinner",  name: "Acili ezme meze",                                                calories:  80, protein:  2, carbs:  8, fat:  4 },
+      { meal: "Dinner",  name: "Red wine (2-3 small glasses)",                                   calories: 130, protein:  0, carbs:  4, fat:  0 },
+    ]
+  },
+  {
+    date: "2026-04-06",
+    calories: 2420, protein: 182, carbs: 210, fat: 79,
+    notes: "",
+    foods: [
+      { meal: "Lunch",   name: "Chipotle bowl — white rice, chicken, pinto beans, corn, veggies, tomato, lettuce", calories: 655, protein: 48, carbs: 92, fat: 13 },
+      { meal: "Lunch",   name: "Pre-workout",                                                                        calories:  25, protein:  0, carbs:  5, fat:  0 },
+      { meal: "Dinner",  name: "Neapolitan pizza, small (5 slices)",                                                 calories: 700, protein: 25, carbs: 85, fat: 20 },
+      { meal: "Dinner",  name: "Red wine, half glass (~75ml)",                                                       calories:  65, protein:  0, carbs:  2, fat:  0 },
+      { meal: "Snack",   name: "Non-fat milk (200ml)",                                                               calories:  70, protein:  7, carbs: 10, fat:  0 },
+      { meal: "Snack",   name: "ON Whey protein (2 scoops)",                                                        calories: 240, protein: 48, carbs:  6, fat:  6 },
+      { meal: "Dinner",  name: "Chicken wings (x7.5)",                                                               calories: 500, protein: 45, carbs:  0, fat: 32 },
+      { meal: "Dinner",  name: "Edamame",                                                                            calories: 100, protein:  8, carbs:  8, fat:  4 },
+      { meal: "Snack",   name: "Dark chocolate",                                                                     calories:  65, protein:  1, carbs:  2, fat:  4 },
+    ]
+  },
+  {
+    date: "2026-04-05",
+    calories: 2721, protein: 164, carbs: 237, fat: 123,
+    notes: "",
+    foods: [
+      { meal: "Breakfast", name: "Eggs (x3) with olive oil (1 tsp)",             calories: 250, protein: 18, carbs: 1,  fat: 20 },
+      { meal: "Snack",     name: "Edamame",                                       calories: 120, protein: 10, carbs: 9,  fat: 5  },
+      { meal: "Dinner",    name: "NY strip steak 308g (fat trimmed)",             calories: 554, protein: 88, carbs: 0,  fat: 24 },
+      { meal: "Dinner",    name: "Golden small potatoes, oven roasted (334g)",   calories: 257, protein:  7, carbs: 57, fat: 1  },
+      { meal: "Snack",     name: "Popcorn",                                       calories: 250, protein:  4, carbs: 30, fat: 10 },
+      { meal: "Snack",     name: "Chocolate",                                     calories: 300, protein:  4, carbs: 35, fat: 17 },
+      { meal: "Snack",     name: "Tortilla chips",                                calories: 280, protein:  4, carbs: 35, fat: 13 },
+      { meal: "Snack",     name: "Hummus",                                        calories: 170, protein:  6, carbs: 14, fat: 10 },
+      { meal: "Snack",     name: "Empanada Mama — shredded chicken empanada",    calories: 260, protein: 11, carbs: 28, fat: 11 },
+      { meal: "Snack",     name: "Empanada Mama — beef empanada",                calories: 280, protein: 12, carbs: 28, fat: 12 },
+    ]
+  },
+  {
+    date: "2026-04-04",
+    calories: 3314, protein: 186, carbs: 279, fat: 135,
+    notes: "Philly trip 🎉",
+    foods: [
+      { meal: "Breakfast", name: "Boiled eggs (x3)",                                         calories: 210, protein: 18, carbs: 1,  fat: 15 },
+      { meal: "Lunch",     name: "Angelo's — Philly cheesesteak",                            calories: 1000, protein: 85, carbs: 50, fat: 55 },
+      { meal: "Lunch",     name: "Angelo's — diavola pizza, large (3 slices)",               calories: 840, protein: 35, carbs: 90, fat: 35 },
+      { meal: "Lunch",     name: "Yuengling lager (12oz)",                                   calories: 135, protein: 0,  carbs: 12, fat: 0  },
+      { meal: "Lunch",     name: "Whisky sour",                                              calories: 165, protein: 0,  carbs: 14, fat: 0  },
+      { meal: "Dinner",    name: "Domino's — pepperoni pizza, small regular crust (2 slices)",calories: 410, protein: 24, carbs: 50, fat: 14 },
+      { meal: "Dinner",    name: "Domino's — BBQ chicken pizza, large thin crust (2 slices)", calories: 554, protein: 24, carbs: 62, fat: 16 },
+    ]
+  },
+  {
+    date: "2026-04-03",
+    calories: 2820, protein: 177, carbs: 140, fat: 168,
+    notes: "Friends in town 🎉",
+    foods: [
+      { meal: "Breakfast", name: "Avocado toast w/ grilled chicken, half multigrain slice (no top) — half portion", calories: 120, protein: 10, carbs: 7,  fat: 6  },
+      { meal: "Breakfast", name: "Chicken & waffle with maple syrup (1/3 portion)",                  calories: 300, protein: 14, carbs: 30, fat: 13 },
+      { meal: "Breakfast", name: "Fresh orange juice (100ml)",                                       calories: 45,  protein: 1,  carbs: 10, fat: 0  },
+      { meal: "Breakfast", name: "Baked potato (3-4 small pieces)",                                  calories: 90,  protein: 2,  carbs: 20, fat: 1  },
+      { meal: "Dinner",    name: "Hotpot — prime rib slices (~250g, est.)",                          calories: 650, protein: 52, carbs: 0,  fat: 52 },
+      { meal: "Dinner",    name: "Hotpot — lamb slices (~200g, est.)",                               calories: 400, protein: 40, carbs: 0,  fat: 28 },
+      { meal: "Dinner",    name: "Hotpot — mushrooms (~150g)",                                       calories: 30,  protein: 4,  carbs: 4,  fat: 0  },
+      { meal: "Dinner",    name: "Hotpot — noodles (~100g cooked, est.)",                            calories: 150, protein: 5,  carbs: 30, fat: 1  },
+      { meal: "Dinner",    name: "Hotpot — broth + oil/sauce (est.)",                                calories: 270, protein: 2,  carbs: 5,  fat: 27 },
+      { meal: "Dinner",    name: "Domino's chicken pizza, extra thin (2 slices)",                    calories: 440, protein: 22, carbs: 32, fat: 18 },
+      { meal: "Dinner",    name: "Domino's buffalo wings (5 pieces)",                                calories: 325, protein: 25, carbs: 2,  fat: 22 },
+    ]
+  },
+  {
+    date: "2026-04-02",
+    calories: 2817, protein: 210, carbs: 285, fat: 85,
+    notes: "Gym day",
+    foods: [
+      { meal: "Lunch",          name: "Chipotle — half white rice",                          calories: 105, protein: 2,  carbs: 20, fat: 3  },
+      { meal: "Lunch",          name: "Chipotle — grilled chicken (2 portions)",             calories: 360, protein: 64, carbs: 0,  fat: 14 },
+      { meal: "Lunch",          name: "Chipotle — pinto beans",                              calories: 130, protein: 8,  carbs: 22, fat: 3  },
+      { meal: "Lunch",          name: "Chipotle — corn salsa",                               calories: 80,  protein: 2,  carbs: 17, fat: 1  },
+      { meal: "Lunch",          name: "Chipotle — lettuce + tomato salsa",                   calories: 30,  protein: 1,  carbs: 5,  fat: 0  },
+      { meal: "Post-workout",   name: "ON Gold Standard Whey (1 scoop) + non-fat milk (200ml)", calories: 189, protein: 31, carbs: 13, fat: 1 },
+      { meal: "Dinner",         name: "White rice (60g dry)",                                calories: 216, protein: 4,  carbs: 47, fat: 0  },
+      { meal: "Dinner",         name: "Chicken breast raw (234g)",                           calories: 262, protein: 54, carbs: 0,  fat: 3  },
+      { meal: "Snack",          name: "Pineapple (0.5lb / 227g)",                            calories: 114, protein: 1,  carbs: 30, fat: 0  },
+      { meal: "Snack",          name: "Pineapple (0.5lb / 227g)",                            calories: 114, protein: 1,  carbs: 30, fat: 0  },
+      { meal: "Snack",          name: "Edamame (100 cal portion)",                           calories: 100, protein: 8,  carbs: 8,  fat: 4  },
+      { meal: "Snack",          name: "Dave's Hot Chicken — slider (half bun)",              calories: 555, protein: 30, carbs: 29, fat: 36 },
+      { meal: "Snack",          name: "Dave's Hot Chicken — small fries",                    calories: 440, protein: 5,  carbs: 58, fat: 20 },
+      { meal: "Snack",          name: "Rum (1 shot / 44ml)",                                 calories: 97,  protein: 0,  carbs: 0,  fat: 0  },
+      { meal: "Snack",          name: "Green apple (2-3 slices)",                            calories: 25,  protein: 0,  carbs: 6,  fat: 0  },
+    ]
+  },
+  {
+    date: "2026-04-01",
+    calories: 2285, protein: 187, carbs: 184, fat: 78,
+    notes: "",
+    foods: [
+      { meal: "Lunch",  name: "Half beef sandwich",                                      calories: 350, protein: 18, carbs: 28, fat: 14 },
+      { meal: "Lunch",  name: "Half tuna wrap",                                          calories: 350, protein: 22, carbs: 28, fat: 12 },
+      { meal: "Dinner", name: "Chicken thighs, skinless boneless (190g raw)",            calories: 304, protein: 34, carbs: 0,  fat: 19 },
+      { meal: "Dinner", name: "White rice (20g dry)",                                    calories: 73,  protein: 1,  carbs: 16, fat: 0  },
+      { meal: "Dinner", name: "Pasta (56g)",                                             calories: 200, protein: 7,  carbs: 40, fat: 1  },
+      { meal: "Dinner", name: "Ground turkey 85/15 (0.5lb / 227g raw)",                 calories: 352, protein: 43, carbs: 0,  fat: 18 },
+      { meal: "Dinner", name: "Tomato sauce (60 cal)",                                  calories: 60,  protein: 2,  carbs: 12, fat: 0  },
+      { meal: "Dinner", name: "Half salad (tomato + cucumbers + tuna + TJ corn)",       calories: 150, protein: 19, carbs: 20, fat: 0  },
+      { meal: "Snack",  name: "Edamame (100 cal portion)",                              calories: 100, protein: 8,  carbs: 8,  fat: 4  },
+      { meal: "Snack",  name: "ON Gold Standard Whey (1 scoop) + non-fat milk (220ml)", calories: 196, protein: 31, carbs: 14, fat: 1  },
+      { meal: "Snack",  name: "Dark chocolate (150 cal)",                               calories: 150, protein: 2,  carbs: 18, fat: 9  },
+    ]
+  },
+  {
+    date: "2026-03-31",
+    calories: 1932, protein: 177, carbs: 178, fat: 53,
+    notes: "",
+    foods: [
+      { meal: "Breakfast", name: "Boiled eggs, white medium (x3)",               calories: 210, protein: 18, carbs: 1,  fat: 15 },
+      { meal: "Lunch",     name: "White rice, boiled (46g dry)",                 calories: 165, protein: 3,  carbs: 36, fat: 0  },
+      { meal: "Lunch",     name: "Chicken thighs, skinless boneless (240g raw)", calories: 384, protein: 43, carbs: 0,  fat: 24 },
+      { meal: "Lunch",     name: "Edamame (100 cal portion)",                    calories: 100, protein: 8,  carbs: 8,  fat: 4  },
+      { meal: "Lunch",     name: "Watermelon plums (x2)",                        calories: 60,  protein: 1,  carbs: 14, fat: 0  },
+      { meal: "Snack",     name: "Dark chocolate (65 cal)",                      calories: 65,  protein: 1,  carbs: 8,  fat: 4  },
+      { meal: "Snack",     name: "Banana, medium",                                calories: 105, protein: 1,  carbs: 27, fat: 0  },
+      { meal: "Snack",     name: "ON Gold Standard Whey (1 scoop) + non-fat milk (240ml)", calories: 203, protein: 32, carbs: 15, fat: 1  },
+      { meal: "Dinner",    name: "Wheat noodles (310 cal portion)",              calories: 310, protein: 10, carbs: 60, fat: 2  },
+      { meal: "Dinner",    name: "Chicken breast raw (240g)",                    calories: 265, protein: 55, carbs: 0,  fat: 3  },
+      { meal: "Dinner",    name: "White mushrooms (6-7) + soy sauce",            calories: 30,  protein: 2,  carbs: 3,  fat: 0  },
+      { meal: "Dinner",    name: "Mixed greens (35 cal)",                        calories: 35,  protein: 2,  carbs: 5,  fat: 0  },
+    ]
+  },
+  {
+    date: "2026-03-30",
+    calories: 1945, protein: 197, carbs: 144, fat: 51,
+    notes: "",
+    foods: [
+      { meal: "Snack",  name: "Protein bar",                                              calories: 250, protein: 20, carbs: 20, fat: 8  },
+      { meal: "Lunch",  name: "Ground beef 1lb (4% fat)",                                calories: 520, protein: 84, carbs: 0,  fat: 18 },
+      { meal: "Lunch",  name: "Olive oil (1.5 tsp)",                                     calories: 60,  protein: 0,  carbs: 0,  fat: 7  },
+      { meal: "Lunch",  name: "Protein pasta (1 portion)",                               calories: 190, protein: 10, carbs: 25, fat: 2  },
+      { meal: "Lunch",  name: "Tomato paste + onion + garlic + olives + nonfat yogurt",  calories: 90,  protein: 5,  carbs: 13, fat: 2  },
+      { meal: "Dinner", name: "Wheat noodles",                                           calories: 310, protein: 10, carbs: 60, fat: 2  },
+      { meal: "Dinner", name: "Chicken breast raw (300g)",                               calories: 330, protein: 63, carbs: 0,  fat: 3  },
+      { meal: "Dinner", name: "Olive oil (1 tsp)",                                       calories: 40,  protein: 0,  carbs: 0,  fat: 5  },
+      { meal: "Dinner", name: "Mushrooms (6-7) + soy sauce",                             calories: 30,  protein: 2,  carbs: 4,  fat: 0  },
+      { meal: "Dinner", name: "Dark chocolate",                                          calories: 65,  protein: 1,  carbs: 8,  fat: 4  },
+      { meal: "Dinner", name: "Watermelon + plum",                                       calories: 60,  protein: 1,  carbs: 14, fat: 0  },
+    ]
+  },
+];
+
+const USER = { name: "Samir", weight: "81.5kg", height: "179cm", age: 27, goal: "Cut" };
+
+// ── Morning weigh-ins — format: { date: "YYYY-MM-DD", weight: 81.5 } ──
+const WEIGHT_LOG = [
+  { date: "2026-04-12", weight: 82.05 },
+  { date: "2026-04-13", weight: 81.65 },
+  { date: "2026-04-14", weight: 81.70 },
+  { date: "2026-04-15", weight: 81.15 },
+];
+</script>
+<!-- ============================================================================ -->
+
+<script>
+// ── Helpers ──
+function pct(v, t)       { return Math.min((v/t)*100, 110); }
+function pctRaw(v, t)    { return (v/t)*100; }
+function today()         { return new Date().toISOString().slice(0,10); }
+function fmtDate(d)      { return new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+
+function statusClass(v, t, isCal) {
+  const p = pctRaw(v, t);
+  if (isCal) return p>105?'over':p>=90?'on':'low';
+  return p>110?'over':p>=85?'on':'low';
+}
+function pillClass(v, t, isCal) {
+  const c = statusClass(v,t,isCal);
+  return c==='over'?'pill-red':c==='on'?'pill-green':'pill-yellow';
+}
+function pillLabel(v, t, isCal) {
+  const p = pctRaw(v,t);
+  if (isCal) return p>105?'Over':p>=90?'On Track':'Under';
+  return p>110?'Over':p>=85?'On Track':'Low';
+}
+
+let trendChart = null;
+let currentKey = null;
+
+// ── Main render function driven by selected key (date string or 'average') ──
+function renderView(key) {
+  currentKey = key;
+  const sortedLog = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
+  const isAvg = key === 'average';
+  const entry  = isAvg ? null : LOG.find(e => e.date === key);
+  const n      = LOG.length;
+
+  // -- Section label --
+  let labelHtml;
+  if (isAvg) {
+    labelHtml = `<strong>All-time average</strong> across ${n} logged day${n!==1?'s':''}`;
+  } else if (entry) {
+    const isToday = entry.date === today();
+    labelHtml = `<strong>${fmtDate(entry.date)}</strong>${isToday?' <span style="color:var(--accent);font-size:0.8rem;font-weight:700;margin-left:6px">TODAY</span>':''}`;
+  } else {
+    labelHtml = '<strong>No data for this date</strong>';
+  }
+  document.getElementById('viewing-label').innerHTML = 'Viewing: ' + labelHtml;
+
+  // -- Values --
+  const macros = [
+    { key:'calories', label:'Calories', icon:'🔥', unit:'kcal', color:'var(--cal)' },
+    { key:'protein',  label:'Protein',  icon:'💪', unit:'g',    color:'var(--protein)' },
+    { key:'carbs',    label:'Carbs',    icon:'🌾', unit:'g',    color:'var(--carbs)' },
+    { key:'fat',      label:'Fat',      icon:'🥑', unit:'g',    color:'var(--fat)' },
+  ];
+
+  function val(mk) {
+    if (isAvg && n) return Math.round(LOG.reduce((s,e)=>s+e[mk],0)/n);
+    return entry ? entry[mk] : null;
+  }
+
+  // -- Stat cards --
+  let cardsHtml = '';
+  macros.forEach(m => {
+    const v = val(m.key);
+    const t = TARGETS[m.key];
+    const isCal = m.key === 'calories';
+    const bar = v !== null ? pct(v,t) : 0;
+    const sc  = v !== null ? statusClass(v,t,isCal) : 'neutral';
+    const p   = v !== null ? Math.round(pctRaw(v,t)) : null;
+    cardsHtml += `
+      <div class="card stat-card">
+        <div class="icon">${m.icon}</div>
+        <div class="value" style="color:${m.color}">${v !== null ? v.toLocaleString() : '—'}</div>
+        <div class="label">${m.label}</div>
+        <div class="target-line">Target: <span>${t.toLocaleString()} ${m.unit}</span></div>
+        <div class="progress-wrap"><div class="progress-bar" style="width:${bar}%;background:${m.color}"></div></div>
+        <div class="pct ${sc}">${p !== null ? p+'% of target' : 'No data'}</div>
+      </div>`;
+  });
+  document.getElementById('stat-cards').innerHTML = cardsHtml;
+
+  // -- Chips --
+  const totalDays = n;
+  const onTrack = LOG.filter(e => pctRaw(e.calories,TARGETS.calories)<=105 && pctRaw(e.calories,TARGETS.calories)>=80 && pctRaw(e.protein,TARGETS.protein)>=80).length;
+  let chipsHtml;
+  if (isAvg) {
+    chipsHtml = `
+      <div class="stat-chip"><div class="chip-val">${totalDays}</div><div class="chip-label">Days Logged</div></div>
+      <div class="stat-chip"><div class="chip-val">${onTrack}</div><div class="chip-label">On-Track Days</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:var(--cal)">${val('calories') ?? '—'}</div><div class="chip-label">Avg Calories</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${val('protein') ? val('protein')+'g' : '—'}</div><div class="chip-label">Avg Protein</div></div>`;
+  } else if (entry) {
+    const status = statusClass(entry.calories, TARGETS.calories, true);
+    const statusLabel = status==='over'?'🔴 Over target':status==='on'?'🟢 On track':'🟡 Under target';
+    chipsHtml = `
+      <div class="stat-chip"><div class="chip-val" style="color:var(--cal)">${entry.calories.toLocaleString()}</div><div class="chip-label">Calories</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${entry.protein}g</div><div class="chip-label">Protein</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:var(--carbs)">${entry.carbs}g</div><div class="chip-label">Carbs</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:var(--fat)">${entry.fat}g</div><div class="chip-label">Fat</div></div>`;
+  } else {
+    chipsHtml = `<div class="stat-chip" style="flex:1"><div class="no-data" style="padding:10px 0">No data logged for this date</div></div>`;
+  }
+  document.getElementById('summary-chips').innerHTML = chipsHtml;
+
+
+  // -- Food log --
+  const foodContainer = document.getElementById('food-log-content');
+  if (isAvg) {
+    foodContainer.innerHTML = '<div class="no-data">Switch to a specific day to see individual food items.</div>';
+  } else if (!entry || !entry.foods || entry.foods.length === 0) {
+    foodContainer.innerHTML = '<div class="no-data">No food items logged for this day.</div>';
+  } else {
+    const totCal  = entry.foods.reduce((s,f)=>s+(f.calories||0),0);
+    const totPro  = entry.foods.reduce((s,f)=>s+(f.protein||0),0);
+    const totCarb = entry.foods.reduce((s,f)=>s+(f.carbs||0),0);
+    const totFat  = entry.foods.reduce((s,f)=>s+(f.fat||0),0);
+    const mealColors = { Breakfast:'#ff8c5a', Lunch:'#43d9b8', Dinner:'#6c63ff', Snack:'#f7c948', 'Pre-workout':'#ff6584', 'Post-workout':'#43d97e', Other:'#8890b0' };
+    let html = `<table><thead><tr><th>Meal</th><th>Food Item</th><th style="text-align:right">Cal</th><th style="text-align:right">Protein</th><th style="text-align:right">Carbs</th><th style="text-align:right">Fat</th></tr></thead><tbody>`;
+    entry.foods.forEach(f => {
+      const col = mealColors[f.meal] || '#8890b0';
+      html += `<tr>
+        <td><span class="meal-badge" style="color:${col};border:1px solid ${col}33;background:${col}15;padding:2px 8px;border-radius:6px">${f.meal||'Other'}</span></td>
+        <td style="font-weight:500">${f.name}</td>
+        <td style="text-align:right;color:var(--cal)">${f.calories??'—'}</td>
+        <td style="text-align:right;color:var(--protein)">${f.protein!=null?f.protein+'g':'—'}</td>
+        <td style="text-align:right;color:var(--carbs)">${f.carbs!=null?f.carbs+'g':'—'}</td>
+        <td style="text-align:right;color:var(--fat)">${f.fat!=null?f.fat+'g':'—'}</td>
+      </tr>`;
+    });
+    html += `</tbody><tfoot><tr class="totals-row">
+      <td colspan="2" style="color:var(--muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px">Day Total</td>
+      <td style="text-align:right;color:var(--cal)">${totCal}</td>
+      <td style="text-align:right;color:var(--protein)">${totPro}g</td>
+      <td style="text-align:right;color:var(--carbs)">${totCarb}g</td>
+      <td style="text-align:right;color:var(--fat)">${totFat}g</td>
+    </tr></tfoot></table>`;
+    if (entry.notes) html += `<div style="margin-top:12px;font-size:0.82rem;color:var(--muted)">📝 ${entry.notes}</div>`;
+    foodContainer.innerHTML = html;
+  }
+
+  // -- History table highlight --
+  document.querySelectorAll('#history-body tr').forEach(row => {
+    row.classList.remove('selected-row');
+    if (!isAvg && row.dataset.date === key) row.classList.add('selected-row');
+  });
+}
+
+window.onload = function() {
+  const sortedLog = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
+
+  // ── Build day filter dropdown ──
+  const filterBar = document.getElementById('filter-buttons');
+  const todayKey = today();
+  const todayEntry = LOG.find(e => e.date === todayKey);
+
+  // Build ordered keys list (most recent first, average at end)
+  const orderedKeys = sortedLog.map(e => e.date);
+  if (!orderedKeys.includes(todayKey)) orderedKeys.unshift(todayKey);
+  orderedKeys.push('average');
+
+  // Prev button
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'nav-btn'; prevBtn.id = 'nav-prev'; prevBtn.textContent = '←';
+  filterBar.appendChild(prevBtn);
+
+  // Select dropdown
+  const sel = document.createElement('select');
+  sel.className = 'day-select'; sel.id = 'day-select';
+  sortedLog.forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.date;
+    opt.textContent = e.date === todayKey ? `Today — ${fmtDate(e.date)}` : fmtDate(e.date);
+    sel.appendChild(opt);
+  });
+  const avgOpt = document.createElement('option');
+  avgOpt.value = 'average'; avgOpt.textContent = '⌀ Average (all days)';
+  sel.appendChild(avgOpt);
+  filterBar.appendChild(sel);
+
+  // Next button
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'nav-btn'; nextBtn.id = 'nav-next'; nextBtn.textContent = '→';
+  filterBar.appendChild(nextBtn);
+
+  function updateNavBtns() {
+    const keys = [...sel.options].map(o => o.value);
+    const idx = keys.indexOf(sel.value);
+    prevBtn.disabled = idx <= 0;
+    nextBtn.disabled = idx >= keys.length - 1;
+  }
+
+  // Change handler
+  sel.addEventListener('change', () => { renderView(sel.value); updateNavBtns(); });
+  prevBtn.addEventListener('click', () => {
+    const keys = [...sel.options].map(o => o.value);
+    const idx = keys.indexOf(sel.value);
+    if (idx > 0) { sel.value = keys[idx - 1]; renderView(sel.value); updateNavBtns(); }
+  });
+  nextBtn.addEventListener('click', () => {
+    const keys = [...sel.options].map(o => o.value);
+    const idx = keys.indexOf(sel.value);
+    if (idx < keys.length - 1) { sel.value = keys[idx + 1]; renderView(sel.value); updateNavBtns(); }
+  });
+
+  // ── Trend chart (always shows full history) ──
+  const chartDays = [...LOG].sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(-14);
+  trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: chartDays.map(e => fmtDate(e.date)),
+      datasets: [
+        { label:'Calories', data:chartDays.map(e=>e.calories), backgroundColor:'rgba(255,140,90,0.75)', borderRadius:6, yAxisID:'yCal' },
+        { label:'Protein (g)', data:chartDays.map(e=>e.protein), type:'line', borderColor:'var(--protein)', backgroundColor:'rgba(108,99,255,0.1)', pointBackgroundColor:'var(--protein)', pointRadius:4, tension:0.3, yAxisID:'yMacro', borderWidth:2 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{color:'#8890b0',font:{size:12}}},tooltip:{backgroundColor:'#22263a',borderColor:'#2e3350',borderWidth:1}},
+      scales:{
+        yCal:  {type:'linear',position:'left', grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#8890b0'},min:0},
+        yMacro:{type:'linear',position:'right',grid:{drawOnChartArea:false},ticks:{color:'#8890b0'},min:0},
+        x:     {grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#8890b0',maxRotation:45}}
+      }
+    }
+  });
+
+  // ── History table ──
+  if (sortedLog.length === 0) {
+    document.getElementById('history-body').innerHTML = `<tr><td colspan="7" class="no-data">No entries yet</td></tr>`;
+  } else {
+    document.getElementById('history-body').innerHTML = sortedLog.map(e => {
+      const isToday = e.date === todayKey;
+      return `<tr data-date="${e.date}" class="${isToday?'today-row':''}" style="cursor:pointer" onclick="selectDay('${e.date}')">
+        <td><strong>${fmtDate(e.date)}</strong>${isToday?' <span style="color:var(--accent);font-size:0.7rem;font-weight:700">TODAY</span>':''}</td>
+        <td style="color:var(--cal)">${e.calories.toLocaleString()}</td>
+        <td style="color:var(--protein)">${e.protein}g</td>
+        <td style="color:var(--carbs)">${e.carbs}g</td>
+        <td style="color:var(--fat)">${e.fat}g</td>
+        <td><span class="pill ${pillClass(e.calories,TARGETS.calories,true)}">${pillLabel(e.calories,TARGETS.calories,true)}</span></td>
+        <td style="color:var(--muted);font-size:0.8rem">${e.notes||'—'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Default selection: today if logged, else most recent ──
+  const defaultKey = todayEntry ? todayKey : (sortedLog.length > 0 ? sortedLog[0].date : null);
+  if (defaultKey && sel.querySelector(`option[value="${defaultKey}"]`)) sel.value = defaultKey;
+  renderView(sel.value);
+  updateNavBtns();
+
+  // ── Weight log ──
+  renderWeightLog();
+};
+
+function selectDay(dateKey) {
+  const sel = document.getElementById('day-select');
+  if (sel && sel.querySelector(`option[value="${dateKey}"]`)) {
+    sel.value = dateKey;
+    const prev = document.getElementById('nav-prev');
+    const next = document.getElementById('nav-next');
+    if (prev && next) {
+      const keys = [...sel.options].map(o => o.value);
+      const idx = keys.indexOf(sel.value);
+      prev.disabled = idx <= 0; next.disabled = idx >= keys.length - 1;
+    }
+  }
+  renderView(dateKey);
+  document.getElementById('stat-cards').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ── Weight Log Renderer ──
+function renderWeightLog() {
+  const sorted = [...WEIGHT_LOG].sort((a,b) => new Date(a.date)-new Date(b.date));
+  const tbody = document.getElementById('weight-body');
+  const chips = document.getElementById('weight-chips');
+
+  if (sorted.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="3" class="no-data" style="text-align:center;padding:20px;color:var(--muted)">No weigh-ins logged yet — tell Claude your morning weight to start tracking!</td></tr>`;
+    chips.innerHTML = '';
+    return;
+  }
+
+  // Stat chips
+  const latest  = sorted[sorted.length - 1].weight;
+  const start   = sorted[0].weight;
+  const total   = +(latest - start).toFixed(1);
+  const prev    = sorted.length > 1 ? sorted[sorted.length - 2].weight : null;
+  const dayDiff = prev !== null ? +(latest - prev).toFixed(1) : null;
+
+  const chipsData = [
+    { label: 'Latest', val: `${latest} kg`, color: 'var(--text)' },
+    { label: 'Start',  val: `${start} kg`,  color: 'var(--muted)' },
+    { label: 'Day Change', val: dayDiff !== null ? `${dayDiff > 0 ? '+' : ''}${dayDiff} kg` : '—', color: dayDiff === null ? 'var(--muted)' : dayDiff < 0 ? 'var(--green)' : dayDiff > 0 ? 'var(--red)' : 'var(--muted)' },
+    { label: 'Total Change', val: `${total > 0 ? '+' : ''}${total} kg`, color: total < 0 ? 'var(--green)' : total > 0 ? 'var(--red)' : 'var(--muted)' },
+  ];
+  chips.innerHTML = chipsData.map(c => `
+    <div class="weight-chip">
+      <div class="wc-val" style="color:${c.color}">${c.val}</div>
+      <div class="wc-label">${c.label}</div>
+    </div>`).join('');
+
+  // Table (most recent first)
+  const display = [...sorted].reverse();
+  tbody.innerHTML = display.map((e, i) => {
+    const prevEntry = sorted[sorted.length - 1 - i - 1];
+    const diff = prevEntry ? +(e.weight - prevEntry.weight).toFixed(1) : null;
+    const diffStr = diff === null ? '—' : (diff > 0 ? `+${diff}` : `${diff}`) + ' kg';
+    const cls = diff === null ? 'weight-change-same' : diff < 0 ? 'weight-change-down' : diff > 0 ? 'weight-change-up' : 'weight-change-same';
+    const arrow = diff === null ? '' : diff < 0 ? ' ↓' : diff > 0 ? ' ↑' : '';
+    return `<tr>
+      <td><strong>${fmtDate(e.date)}</strong></td>
+      <td style="font-size:1.05rem;font-weight:700">${e.weight} kg</td>
+      <td class="${cls}">${diffStr}${arrow}</td>
+    </tr>`;
+  }).join('');
+}
+</script>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="avatar">S</div>
+    <div>
+      <h1>Samir's Nutrition Dashboard</h1>
+      <div class="subtitle" id="current-date"></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <div class="badge">⚖️ <span>81.5kg</span></div>
+    <div class="badge">🎯 Goal: <span>Cut</span></div>
+  </div>
+</div>
+<script>
+  document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+</script>
+
+<!-- Global Day Filter -->
+<div class="day-filter-bar">
+  <span class="filter-label">📅 View</span>
+  <div id="filter-buttons" style="display:flex;gap:8px;align-items:center"></div>
+</div>
+
+<!-- Targets -->
+<div class="targets-bar">
+  <strong style="color:var(--muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;align-self:center">Daily Targets:</strong>
+  <div class="t-item"><div class="t-dot" style="background:var(--cal)"></div><span class="t-name">Calories</span> <span class="t-val">2,000 kcal</span></div>
+  <div class="t-item"><div class="t-dot" style="background:var(--protein)"></div><span class="t-name">Protein</span> <span class="t-val">170g</span></div>
+  <div class="t-item"><div class="t-dot" style="background:var(--carbs)"></div><span class="t-name">Carbs</span> <span class="t-val">205g</span></div>
+  <div class="t-item"><div class="t-dot" style="background:var(--fat)"></div><span class="t-name">Fat</span> <span class="t-val">55g</span></div>
+</div>
+
+<!-- Viewing label + Macro cards -->
+<div class="viewing-label" id="viewing-label">Viewing: —</div>
+<div class="grid-4" id="stat-cards" style="margin-top:10px"></div>
+
+<!-- Chips -->
+<div class="stats-row" id="summary-chips"></div>
+
+<!-- Charts + Weight -->
+<div class="grid-2">
+  <div class="card chart-card">
+    <h2>14-Day Trend</h2>
+    <canvas id="trendChart"></canvas>
+  </div>
+  <div class="card" style="display:flex;flex-direction:column">
+    <h2>⚖️ Morning Weigh-ins</h2>
+    <div class="weight-stat-chips" id="weight-chips"></div>
+    <div class="table-card" style="flex:1;overflow-y:auto">
+      <table>
+        <thead><tr><th>Date</th><th>Weight (kg)</th><th>Change</th></tr></thead>
+        <tbody id="weight-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Food Log -->
+<div class="section-title">🍽️ Daily Food Log</div>
+<div class="card">
+  <div class="table-card" id="food-log-content">
+    <div class="no-data">Select a day to view food items.</div>
+  </div>
+</div>
+
+<!-- History -->
+<div class="section-title">📋 All Days</div>
+<div class="card table-card">
+  <table>
+    <thead><tr><th>Date</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>Status</th><th>Notes</th></tr></thead>
+    <tbody id="history-body"></tbody>
+  </table>
+</div>
+
+
+<div style="text-align:center;margin-top:28px;color:var(--muted);font-size:0.78rem">
+  Updated by Claude · Share your daily intake in chat to log · Refresh after each update
+</div>
+
+</body>
+</html>

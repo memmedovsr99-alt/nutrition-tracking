@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Samir's Weight Tracker</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a; --border: #2e3350;
+      --accent: #6c63ff; --accent2: #ff6584;
+      --green: #43d97e; --yellow: #f7c948; --red: #ff5c5c;
+      --text: #e8eaf6; --muted: #8890b0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; padding: 24px; }
+    h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; }
+
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 700; }
+    .subtitle { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+
+    /* Stats row */
+    .stats-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .stat-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 24px; flex: 1; min-width: 140px; text-align: center; }
+    .stat-chip .chip-val { font-size: 2rem; font-weight: 700; }
+    .stat-chip .chip-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-chip .chip-sub { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .chip-up { color: var(--red); }
+    .chip-down { color: var(--green); }
+    .chip-same { color: var(--muted); }
+
+    /* Chart */
+    .chart-wrap { height: 320px; }
+    .chart-wrap canvas { width: 100% !important; height: 100% !important; }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    thead th { color: var(--muted); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface2); }
+    tbody td { padding: 12px 14px; }
+    .change-up { color: var(--red); font-weight: 600; }
+    .change-down { color: var(--green); font-weight: 600; }
+    .change-same { color: var(--muted); }
+
+    .section-title { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+    .no-data { color: var(--muted); font-size: 0.9rem; text-align: center; padding: 30px 0; }
+
+    @media (max-width: 600px) {
+      body { padding: 14px; }
+      .stat-chip .chip-val { font-size: 1.6rem; }
+      .stat-chip { padding: 14px 16px; min-width: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== DATA (Claude updates this section) ==================== -->
+<script>
+const WEIGHT_LOG = [
+  // { date: "2026-03-30", weight: 81.5 },
+  // { date: "2026-03-31", weight: 81.3 },
+  // Add entries above ↑
+];
+
+const USER = { name: "Samir", startWeight: 81.5, unit: "kg" };
+</script>
+<!-- ============================================================================ -->
+
+<script>
+function fmtDate(d) {
+  return new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+function fmtDay(d) {
+  return new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+}
+
+window.onload = function() {
+  const sorted = [...WEIGHT_LOG].sort((a,b) => new Date(a.date)-new Date(b.date));
+  const sortedDesc = [...sorted].reverse();
+
+  // ── Stats ──
+  const latest    = sorted.length > 0 ? sorted[sorted.length-1] : null;
+  const first     = sorted.length > 0 ? sorted[0] : null;
+  const prev      = sorted.length > 1 ? sorted[sorted.length-2] : null;
+  const totalDiff = latest && first ? (latest.weight - first.weight).toFixed(1) : null;
+  const dailyDiff = latest && prev  ? (latest.weight - prev.weight).toFixed(1)  : null;
+
+  function diffClass(d) { return d > 0 ? 'chip-up' : d < 0 ? 'chip-down' : 'chip-same'; }
+  function diffSign(d)  { return d > 0 ? '+' : ''; }
+
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-chip">
+      <div class="chip-val">${latest ? latest.weight : '—'}<span style="font-size:0.9rem;color:var(--muted)"> ${USER.unit}</span></div>
+      <div class="chip-label">Latest Weight</div>
+      ${latest ? `<div class="chip-sub">${fmtDate(latest.date)}</div>` : ''}
+    </div>
+    <div class="stat-chip">
+      <div class="chip-val">${USER.startWeight}<span style="font-size:0.9rem;color:var(--muted)"> ${USER.unit}</span></div>
+      <div class="chip-label">Starting Weight</div>
+    </div>
+    <div class="stat-chip">
+      <div class="chip-val ${dailyDiff !== null ? diffClass(parseFloat(dailyDiff)) : ''}">${dailyDiff !== null ? diffSign(parseFloat(dailyDiff))+dailyDiff : '—'}<span style="font-size:0.9rem;color:var(--muted)"> ${USER.unit}</span></div>
+      <div class="chip-label">Day-over-Day</div>
+    </div>
+    <div class="stat-chip">
+      <div class="chip-val ${totalDiff !== null ? diffClass(parseFloat(totalDiff)) : ''}">${totalDiff !== null ? diffSign(parseFloat(totalDiff))+totalDiff : '—'}<span style="font-size:0.9rem;color:var(--muted)"> ${USER.unit}</span></div>
+      <div class="chip-label">Total Change</div>
+    </div>
+  `;
+
+  // ── Chart ──
+  if (sorted.length > 0) {
+    const ctx = document.getElementById('weightChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: sorted.map(e => fmtDay(e.date)),
+        datasets: [{
+          label: 'Weight (kg)',
+          data: sorted.map(e => e.weight),
+          borderColor: '#6c63ff',
+          backgroundColor: 'rgba(108,99,255,0.1)',
+          fill: true,
+          tension: 0.3,
+          pointBackgroundColor: '#6c63ff',
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          borderWidth: 2.5,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#22263a', borderColor: '#2e3350', borderWidth: 1,
+            callbacks: { label: ctx => ` ${ctx.raw} kg` }
+          }
+        },
+        scales: {
+          y: {
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            ticks: { color: '#8890b0', callback: v => v + ' kg' },
+          },
+          x: {
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { color: '#8890b0' }
+          }
+        }
+      }
+    });
+  } else {
+    document.getElementById('weightChart').parentElement.innerHTML = '<div class="no-data">Start logging your weight to see the trend chart.</div>';
+  }
+
+  // ── Table ──
+  if (sortedDesc.length === 0) {
+    document.getElementById('weight-table-body').innerHTML = `<tr><td colspan="3" class="no-data">No entries yet — weigh in and tell me!</td></tr>`;
+  } else {
+    document.getElementById('weight-table-body').innerHTML = sortedDesc.map((e, i) => {
+      const prevEntry = i < sortedDesc.length - 1 ? sortedDesc[i+1] : null;
+      const diff = prevEntry ? (e.weight - prevEntry.weight).toFixed(1) : null;
+      const cls  = diff !== null ? (parseFloat(diff) > 0 ? 'change-up' : parseFloat(diff) < 0 ? 'change-down' : 'change-same') : '';
+      const sign = diff !== null ? (parseFloat(diff) > 0 ? '+' : '') : '';
+      const today = new Date().toISOString().slice(0,10);
+      const isToday = e.date === today;
+      return `<tr>
+        <td><strong>${fmtDate(e.date)}</strong>${isToday ? ' <span style="color:var(--accent);font-size:0.7rem;font-weight:700">TODAY</span>' : ''}</td>
+        <td style="font-size:1.05rem;font-weight:600">${e.weight} ${USER.unit}</td>
+        <td class="${cls}">${diff !== null ? sign+diff+' kg' : '—'}</td>
+      </tr>`;
+    }).join('');
+  }
+};
+</script>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="avatar">S</div>
+    <div>
+      <h1>Weight Tracker</h1>
+      <div class="subtitle">Cut progress · started at 81.5 kg</div>
+    </div>
+  </div>
+  <a href="nutrition_dashboard.html" class="back-link">← Back to Nutrition Dashboard</a>
+</div>
+
+<!-- Stats -->
+<div class="stats-row" id="stats"></div>
+
+<!-- Chart -->
+<div class="section-title">📉 Weight Trend</div>
+<div class="card">
+  <div class="chart-wrap">
+    <canvas id="weightChart"></canvas>
+  </div>
+</div>
+
+<!-- Daily Log -->
+<div class="section-title">📋 Daily Weigh-ins</div>
+<div class="card">
+  <table>
+    <thead><tr><th>Date</th><th>Weight</th><th>Change</th></tr></thead>
+    <tbody id="weight-table-body"></tbody>
+  </table>
+</div>
+
+<div style="text-align:center;margin-top:28px;color:var(--muted);font-size:0.78rem">
+  Updated by Claude · Tell me your daily weight in chat · Refresh after logging
+</div>
+
+</body>
+</html>
