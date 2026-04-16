@@ -636,7 +636,7 @@ function renderView(key) {
           ${ringSvg(p, m.color)}
           <div class="ring-center">
             <div class="ring-val" style="color:${m.color}">${v !== null ? (isCal ? v.toLocaleString() : v) : '—'}</div>
-            <div class="ring-unit">${m.unit}</div>
+            ${!isCal ? `<div class="ring-unit">${m.unit}</div>` : ''}
           </div>
         </div>
         <div class="macro-info">
