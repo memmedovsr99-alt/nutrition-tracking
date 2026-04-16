@@ -631,14 +631,20 @@ let trendChart = null;
 let donutChart = null;
 let currentKey = null;
 
-// ── Streak: consecutive days on track (≥80% cal, ≤110% cal, ≥80% protein) ──
+// ── Streak: consecutive days on track (≥80% cal, ≤115% cal, ≥80% protein) ──
+// Today is treated as a partial day — only the upper cal limit applies (day still in progress)
 function calcStreak() {
   const sorted = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
+  const todayStr = today();
   let streak = 0;
   for (const e of sorted) {
     const calPct = pctRaw(e.calories, TARGETS.calories);
     const proPct = pctRaw(e.protein, TARGETS.protein);
-    const onTrack = calPct <= 110 && calPct >= 80 && proPct >= 80;
+    const isToday = e.date === todayStr;
+    // Partial day: don't penalise for being low yet, just check not over-budget
+    const onTrack = isToday
+      ? calPct <= 115
+      : calPct <= 115 && calPct >= 80 && proPct >= 80;
     if (onTrack) streak++;
     else break;
   }
