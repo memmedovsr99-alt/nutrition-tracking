@@ -665,14 +665,18 @@ function calcWeeklyStats() {
   return { deficit, avgPro, days: thisWeek.length };
 }
 
-// ── Consistency: % of logged days that are on track ──
+// ── Consistency: % of logged days that are on track (80–115% cal, ≥80% protein) ──
 function calcConsistency() {
   if (!LOG.length) return 0;
-  const onTrack = LOG.filter(e => {
+  const todayStr = today();
+  // Exclude today (partial day) from consistency so it doesn't drag the score down
+  const completeDays = LOG.filter(e => e.date !== todayStr);
+  if (!completeDays.length) return 0;
+  const onTrack = completeDays.filter(e => {
     const calPct = pctRaw(e.calories, TARGETS.calories);
-    return calPct <= 110 && calPct >= 80 && pctRaw(e.protein, TARGETS.protein) >= 80;
+    return calPct <= 115 && calPct >= 80 && pctRaw(e.protein, TARGETS.protein) >= 80;
   }).length;
-  return Math.round((onTrack / LOG.length) * 100);
+  return Math.round((onTrack / completeDays.length) * 100);
 }
 
 function renderProgressCard() {
