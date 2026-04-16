@@ -660,13 +660,13 @@ function renderView(key) {
       <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${val('protein') ? val('protein')+'g' : '—'}</div><div class="chip-label">Avg Pro</div></div>`;
   } else if (entry) {
     const status = statusClass(entry.calories, TARGETS.calories, true);
-    const emoji = status==='over'?'🔴':status==='on'?'🟢':'🟡';
-    const label = status==='over'?'Over':status==='on'?'On Track':'Under';
+    const calLeft = TARGETS.calories - entry.calories;
+    const proLeft = TARGETS.protein - entry.protein;
     chipsHtml = `
-      <div class="stat-chip"><div class="chip-val" style="color:var(--cal)">${entry.calories.toLocaleString()}</div><div class="chip-label">Calories</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--protein)">${entry.protein}g</div><div class="chip-label">Protein</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--carbs)">${entry.carbs}g</div><div class="chip-label">Carbs</div></div>
-      <div class="stat-chip"><div class="chip-val" style="color:var(--fat)">${entry.fat}g</div><div class="chip-label">Fat</div></div>`;
+      <div class="stat-chip"><div class="chip-val" style="color:${calLeft >= 0 ? 'var(--green)' : 'var(--red)'}">${calLeft >= 0 ? '+'+calLeft : calLeft}</div><div class="chip-label">Cal left</div></div>
+      <div class="stat-chip"><div class="chip-val" style="color:${proLeft >= 0 ? 'var(--yellow)' : 'var(--green)'}">${proLeft >= 0 ? proLeft+'g' : '✓'}</div><div class="chip-label">Pro left</div></div>
+      <div class="stat-chip"><div class="chip-val">${entry.foods ? entry.foods.length : 0}</div><div class="chip-label">Items</div></div>
+      <div class="stat-chip"><div class="chip-val" style="font-size:0.9rem">${status==='over'?'🔴':status==='on'?'🟢':'🟡'}</div><div class="chip-label">${status==='over'?'Over':status==='on'?'On Track':'Under'}</div></div>`;
   } else {
     chipsHtml = `<div class="stat-chip" style="grid-column:1/-1"><div class="no-data" style="padding:8px 0">No data for this date</div></div>`;
   }
