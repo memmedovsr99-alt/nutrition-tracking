@@ -753,7 +753,7 @@ window.onload = function() {
   sortedLog.forEach(e => {
     const opt = document.createElement('option');
     opt.value = e.date;
-    opt.textContent = e.date === todayKey ? `Today \u2014 ${fmtDate(e.date)}` : fmtDate(e.date);
+    opt.textContent = e.date === todayKey ? `Today — ${fmtDate(e.date)}` : fmtDate(e.date);
     sel.appendChild(opt);
   });
   const avgOpt = document.createElement('option');
