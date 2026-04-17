@@ -27,7 +27,8 @@
       "Bash(sips -z 1200 1600 /tmp/inbody1.jpg)",
       "Bash(sips -z 1200 1600 /tmp/inbody2.jpg)",
       "Bash(sips -z 600 800 /tmp/inbody1.jpg)",
-      "Bash(sips -z 600 800 /tmp/inbody2.jpg)"
+      "Bash(sips -z 600 800 /tmp/inbody2.jpg)",
+      "WebFetch(domain:fintrack-navy-omega.vercel.app)"
     ]
   }
 }

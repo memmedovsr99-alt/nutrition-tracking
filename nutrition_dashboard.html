@@ -21,14 +21,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #0a0c10; --surface: #13161d; --surface2: #1a1e2a; --surface3: #222738;
-      --border: #272d42; --border-light: #333a54;
+      --bg: #0d1117;
+      --surface: #1a2035;
+      --surface2: #212d45;
+      --surface3: #2a3855;
+      --border: #344468;
+      --border-light: #3d5080;
       --accent: #7c6fff; --accent2: #ff6b8a;
       --green: #34d399; --yellow: #fbbf24; --red: #f87171;
-      --text: #eef0f6; --text2: #c8cce0; --muted: #7a82a0;
+      --text: #f0f4ff; --text2: #c4cfea; --muted: #7a8dae;
       --protein: #818cf8; --carbs: #34d399; --fat: #fbbf24; --cal: #fb923c;
       --ring-size: 72px;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --tab-h: 62px;
+      --sidebar-w: 210px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -303,7 +309,7 @@ const TARGETS = { calories: 2200, protein: 170, carbs: 205, fat: 55 };
 const LOG = [
   {
     date: "2026-04-16",
-    calories: 1445, protein: 132, carbs: 103, fat: 53,
+    calories: 1665, protein: 135, carbs: 155, fat: 54,
     notes: "",
     foods: [
       { meal: "Breakfast", name: "Boiled eggs (x3)",                                        calories: 210, protein: 18, carbs:  1, fat: 15 },
@@ -312,6 +318,8 @@ const LOG = [
       { meal: "Snack",     name: "TJ simit + melted cheese (small slices)",                 calories: 350, protein: 13, carbs: 48, fat: 12 },
       { meal: "Dinner",    name: "TJ spicy tomato sauce for pasta (120 cal)",               calories: 120, protein:  3, carbs: 12, fat:  4 },
       { meal: "Snack",     name: "TJ dried beef thin slices x2 (pastırma-style)",          calories:  35, protein:  7, carbs:  0, fat:  1 },
+      { meal: "Snack",     name: "Strawberries (1lb / 454g)",                              calories: 145, protein:  1, carbs: 35, fat:  0 },
+      { meal: "Snack",     name: "Blackberries (170g)",                                    calories:  75, protein:  2, carbs: 17, fat:  1 },
     ]
   },
   {
