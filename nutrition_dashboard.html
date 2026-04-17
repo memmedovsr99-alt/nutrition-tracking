@@ -860,7 +860,10 @@ function renderProgressCard() {
   const streak = calcStreak();
   const consistency = calcConsistency();
   const { deficit, avgPro, days } = calcWeeklyStats();
-  const deficitSign = deficit >= 0 ? '+' : '';
+  const isDeficit = deficit >= 0;
+  const deficitArrow = isDeficit ? '↓' : '↑';
+  const deficitColor = isDeficit ? 'var(--green)' : 'var(--red)';
+  const deficitLabel = isDeficit ? 'Weekly Deficit' : 'Weekly Surplus';
 
   document.getElementById('progress-card').innerHTML = `
     <div class="prog-stat streak">
