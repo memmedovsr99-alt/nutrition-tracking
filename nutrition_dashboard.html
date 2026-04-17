@@ -390,342 +390,107 @@
 </head>
 <body>
 
-<!-- ==================== DATA (Claude updates this section) ==================== -->
+<!-- ==================== SUPABASE CONFIG ==================== -->
 <script>
-const TARGETS = { calories: 2200, protein: 170, carbs: 205, fat: 55 };
+const SUPABASE_URL = 'https://dhwquwnqlxnmbsrokiff.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5Sr1y3JmWCHXNCFMMt10Dg_1TgtLnLu';
 
-const LOG = [
-  {
-    date: "2026-04-16",
-    calories: 1665, protein: 135, carbs: 155, fat: 54,
-    notes: "",
-    foods: [
-      { meal: "Breakfast", name: "Boiled eggs (x3)",                                        calories: 210, protein: 18, carbs:  1, fat: 15 },
-      { meal: "Lunch",     name: "Ground beef 96% lean, 1lb (TJ)",                         calories: 520, protein: 84, carbs:  0, fat: 20 },
-      { meal: "Lunch",     name: "TJ fusilli pasta (56g)",                                  calories: 210, protein:  7, carbs: 42, fat:  1 },
-      { meal: "Snack",     name: "TJ simit + melted cheese (small slices)",                 calories: 350, protein: 13, carbs: 48, fat: 12 },
-      { meal: "Dinner",    name: "TJ spicy tomato sauce for pasta (120 cal)",               calories: 120, protein:  3, carbs: 12, fat:  4 },
-      { meal: "Snack",     name: "TJ dried beef thin slices x2 (pastırma-style)",          calories:  35, protein:  7, carbs:  0, fat:  1 },
-      { meal: "Snack",     name: "Strawberries (1lb / 454g)",                              calories: 145, protein:  1, carbs: 35, fat:  0 },
-      { meal: "Snack",     name: "Blackberries (170g)",                                    calories:  75, protein:  2, carbs: 17, fat:  1 },
-    ]
-  },
-  {
-    date: "2026-04-15",
-    calories: 2038, protein: 168, carbs: 175, fat: 72,
-    notes: "",
-    foods: [
-      { meal: "Breakfast", name: "Protein bar (230 cal)",                           calories: 230, protein: 20, carbs: 20, fat:  8 },
-      { meal: "Snack",     name: "Strawberries (1lb / 454g)",                       calories: 145, protein:  1, carbs: 35, fat:  0 },
-      { meal: "Lunch",     name: "NY strip steak 258g (fat trimmed)",               calories: 464, protein: 74, carbs:  0, fat: 20 },
-      { meal: "Lunch",     name: "Salad — large tomato, 3 cucumbers, mixed greens", calories:  84, protein:  4, carbs: 18, fat:  0 },
-      { meal: "Snack",     name: "Sour strips (55 cal)",                            calories:  55, protein:  0, carbs: 13, fat:  0 },
-      { meal: "Dinner",    name: "TJ wheat noodles (1 portion)",                    calories: 310, protein: 10, carbs: 60, fat:  2 },
-      { meal: "Dinner",    name: "Atlantic salmon 280g raw, no skin",               calories: 580, protein: 57, carbs:  0, fat: 37 },
-      { meal: "Dinner",    name: "Olive oil (1 tsp)",                               calories:  40, protein:  0, carbs:  0, fat:  5 },
-      { meal: "Dinner",    name: "Soy sauce (2-3 tbsp)",                            calories:  20, protein:  2, carbs:  2, fat:  0 },
-      { meal: "Snack",     name: "Dates — Target (55 cal)",                         calories:  55, protein:  0, carbs: 14, fat:  0 },
-      { meal: "Snack",     name: "Sour strips (55 cal)",                            calories:  55, protein:  0, carbs: 13, fat:  0 },
-    ]
-  },
-  {
-    date: "2026-04-14",
-    calories: 2131, protein: 214, carbs: 151, fat: 61,
-    notes: "",
-    foods: [
-      { meal: "Breakfast", name: "Boiled eggs (x3)",                                                  calories: 210, protein: 18, carbs:  1, fat: 15 },
-      { meal: "Lunch",     name: "Honeygrow — garlic chicken noodles",                               calories: 860, protein: 50, carbs: 97, fat: 30 },
-      { meal: "Snack",     name: "Chicken soup (145 cal)",                                           calories: 145, protein: 18, carbs:  4, fat:  2 },
-      { meal: "Snack",     name: "Post-workout shake: non-fat milk 120ml + ON whey 1 scoop + banana",calories: 270, protein: 29, carbs: 36, fat:  3 },
-      { meal: "Dinner",    name: "Chicken breast 0.6lb, oven no oil",                               calories: 326, protein: 60, carbs:  0, fat:  7 },
-      { meal: "Dinner",    name: "Chicken drumstick (no skin), oven",                               calories: 130, protein: 22, carbs:  0, fat:  4 },
-      { meal: "Snack",     name: "Trader Joe's non-fat European style plain yogurt (90 cal)",       calories:  90, protein:  9, carbs:  5, fat:  0 },
-      { meal: "Snack",     name: "Edamame (100 cal)",                                               calories: 100, protein:  8, carbs:  8, fat:  4 },
-    ]
-  },
-  {
-    date: "2026-04-13",
-    calories: 2227, protein: 205, carbs: 224, fat: 44,
-    notes: "",
-    foods: [
-      { meal: "Lunch",   name: "Dig Inn — charred chicken bowl (white rice, beans, tomato, cucumber)", calories: 600, protein: 45, carbs: 72, fat: 10 },
-      { meal: "Snack",   name: "Dark chocolate (65 cal)",                                              calories:  65, protein:  1, carbs:  7, fat:  4 },
-      { meal: "Snack",   name: "Chicken soup — Trader Joe's (100 cal)",                               calories: 100, protein:  8, carbs:  8, fat:  3 },
-      { meal: "Dinner",  name: "Yellow potato, boiled (393g raw)",                                    calories: 303, protein:  8, carbs: 67, fat:  1 },
-      { meal: "Dinner",  name: "Ground beef 96% lean, 1lb",                                          calories: 520, protein: 84, carbs:  0, fat: 20 },
-      { meal: "Dinner",  name: "Onion (0.5 medium)",                                                  calories:  20, protein:  0, carbs:  5, fat:  0 },
-      { meal: "Snack",   name: "Pineapple (1lb / 454g)",                                              calories: 227, protein:  1, carbs: 54, fat:  0 },
-      { meal: "Dinner",  name: "Sauces (misc)",                                                       calories:  50, protein:  0, carbs:  3, fat:  2 },
-      { meal: "Snack",   name: "Non-fat milk (120ml)",                                               calories:  42, protein:  4, carbs:  6, fat:  0 },
-      { meal: "Snack",   name: "ON Whey protein (1 scoop)",                                         calories: 120, protein: 24, carbs:  3, fat:  3 },
-      { meal: "Snack",   name: "Chicken soup (180 cal)",                                            calories: 180, protein: 29, carbs:  2, fat:  1 },
-    ]
-  },
-  {
-    date: "2026-04-12",
-    calories: 2658, protein: 175, carbs: 254, fat: 100,
-    notes: "",
-    foods: [
-      { meal: "Breakfast", name: "Boiled eggs (x3)",                                          calories: 210, protein: 18, carbs:  1, fat: 15 },
-      { meal: "Breakfast", name: "Chocolate croissant",                                       calories: 380, protein:  7, carbs: 42, fat: 20 },
-      { meal: "Lunch",     name: "Chicken pad thai (1/4 portion)",                           calories: 350, protein: 15, carbs: 45, fat: 10 },
-      { meal: "Lunch",     name: "Sweetgreen — steak mezze",                                 calories: 755, protein: 40, carbs: 65, fat: 35 },
-      { meal: "Dinner",    name: "Pasta (200 cal)",                                          calories: 200, protein:  7, carbs: 40, fat:  1 },
-      { meal: "Dinner",    name: "Ground beef 96% lean, 0.5lb",                             calories: 260, protein: 42, carbs:  0, fat: 10 },
-      { meal: "Dinner",    name: "Tomato sauce (90 cal)",                                    calories:  90, protein:  3, carbs: 15, fat:  2 },
-      { meal: "Snack",     name: "Chicken soup (120 cal)",                                   calories: 120, protein: 10, carbs:  8, fat:  4 },
-      { meal: "Snack",     name: "Non-fat milk (240ml)",                                     calories:  83, protein:  8, carbs: 12, fat:  0 },
-      { meal: "Snack",     name: "ON Whey protein (1 scoop)",                               calories: 120, protein: 24, carbs:  3, fat:  3 },
-      { meal: "Snack",     name: "Banana",                                                   calories:  90, protein:  1, carbs: 23, fat:  0 },
-    ]
-  },
-  {
-    date: "2026-04-11",
-    calories: 3132, protein: 165, carbs: 254, fat: 160,
-    notes: "NYC trip 🗽",
-    foods: [
-      { meal: "Lunch",   name: "Katz's Deli — pastrami sandwich",                    calories: 1100, protein: 65, carbs:  65, fat: 55 },
-      { meal: "Lunch",   name: "Katz's Deli — fries (1/3 portion)",                 calories:  180, protein:  3, carbs:  25, fat:  8 },
-      { meal: "Lunch",   name: "Chick-fil-A — chicken sandwich",                    calories:  440, protein: 28, carbs:  40, fat: 19 },
-      { meal: "Lunch",   name: "Chick-fil-A — waffle fries, small (2/3)",           calories:  207, protein:  3, carbs:  30, fat:  9 },
-      { meal: "Snack",   name: "Chocolate (150 cal)",                               calories:  150, protein:  2, carbs:  18, fat:  9 },
-      { meal: "Snack",   name: "Dried salted sunflower seeds (2 handfuls)",         calories:  350, protein: 19, carbs:  13, fat: 29 },
-      { meal: "Snack",   name: "Chicken wings (x2)",                               calories:  130, protein: 12, carbs:   0, fat:  9 },
-      { meal: "Snack",   name: "Edamame (100 cal)",                                calories:  100, protein:  8, carbs:   8, fat:  4 },
-      { meal: "Dinner",  name: "Pad thai with extra chicken (half portion)",        calories:  475, protein: 25, carbs:  55, fat: 18 },
-    ]
-  },
-  {
-    date: "2026-04-10",
-    calories: 3350, protein: 163, carbs: 202, fat: 187,
-    notes: "NYC trip 🗽 Korean BBQ night 🥩",
-    foods: [
-      { meal: "Breakfast", name: "Banana",                                            calories:   90, protein:   1, carbs:  23, fat:   0 },
-      { meal: "Dinner",    name: "Korean BBQ — ribeye + mixed meats + sides",        calories: 1700, protein: 105, carbs:  45, fat: 123 },
-      { meal: "Dinner",    name: "Soju 5% (x2 small bottles)",                       calories:  300, protein:   0, carbs:  25, fat:   0 },
-      { meal: "Dinner",    name: "Truffle fries (half portion)",                     calories:  250, protein:   3, carbs:  35, fat:  12 },
-      { meal: "Dinner",    name: "Buffalo chicken wings (x4)",                       calories:  360, protein:  28, carbs:   4, fat:  24 },
-      { meal: "Dinner",    name: "Pepperoni NY style pizza (x2 slices)",             calories:  650, protein:  26, carbs:  70, fat:  28 },
-    ]
-  },
-  {
-    date: "2026-04-09",
-    calories: 2761, protein: 96, carbs: 220, fat: 110,
-    notes: "Celebration 🎉 paxlava & şəkərbura",
-    foods: [
-      { meal: "Breakfast", name: "Boiled eggs (x3)",                                  calories: 210, protein: 18, carbs:  1, fat: 15 },
-      { meal: "Lunch",     name: "Surhullu quru ət (1 portion, with dough)",          calories: 1200, protein: 55, carbs: 120, fat: 55 },
-      { meal: "Dinner",    name: "Ayran (x2 glasses)",                                calories: 140, protein: 10, carbs: 10, fat:  4 },
-      { meal: "Dinner",    name: "Tortilla chips + hummus",                           calories: 300, protein:  6, carbs: 35, fat: 14 },
-      { meal: "Dinner",    name: "Paxlava (x1)",                                      calories: 280, protein:  4, carbs: 32, fat: 14 },
-      { meal: "Dinner",    name: "Şəkərbura (x1)",                                   calories: 175, protein:  3, carbs: 22, fat:  8 },
-      { meal: "Dinner",    name: "Vodka (200ml)",                                     calories: 456, protein:  0, carbs:  0, fat:  0 },
-    ]
-  },
-  {
-    date: "2026-04-08",
-    calories: 2041, protein: 191, carbs: 140, fat: 71,
-    notes: "Masala Kitchen 🍗",
-    foods: [
-      { meal: "Breakfast", name: "Protein bar (60g)",                                            calories: 190, protein:   6, carbs: 22, fat: 13 },
-      { meal: "Breakfast", name: "Banana",                                                       calories:  90, protein:   1, carbs: 23, fat:  0 },
-      { meal: "Lunch",     name: "Ground beef 96% lean, 1lb",                                    calories: 631, protein: 100, carbs:  0, fat: 25 },
-      { meal: "Lunch",     name: "Pasta (200 cal)",                                              calories: 200, protein:   7, carbs: 40, fat:  1 },
-      { meal: "Lunch",     name: "Plain nonfat yogurt (80 cal)",                                 calories:  80, protein:   8, carbs: 11, fat:  0 },
-      { meal: "Dinner",    name: "Masala Kitchen — mixed grill (chicken, lamb, rice)",           calories: 850, protein:  69, carbs: 44, fat: 32 },
-    ]
-  },
-  {
-    date: "2026-04-07",
-    calories: 2054, protein: 146, carbs: 196, fat: 66,
-    notes: "Turkish/Greek night 🇹🇷",
-    foods: [
-      { meal: "Lunch",   name: "Banana",                                                          calories:  90, protein:  1, carbs: 23, fat:  0 },
-      { meal: "Lunch",   name: "Ground beef 4% fat, 0.5lb (260 cal)",                            calories: 260, protein: 45, carbs:  0, fat: 11 },
-      { meal: "Lunch",   name: "Pasta (200 cal)",                                                 calories: 200, protein:  7, carbs: 40, fat:  1 },
-      { meal: "Lunch",   name: "80% of: ground beef 4% fat 0.5lb + onion + pasta (200 cal)",    calories: 404, protein: 42, carbs: 40, fat: 10 },
-      { meal: "Snack",   name: "Plain nonfat yogurt (40 cal)",                                   calories:  40, protein:  4, carbs:  5, fat:  0 },
-      { meal: "Dinner",  name: "Doner",                                                           calories: 300, protein: 20, carbs: 20, fat: 15 },
-      { meal: "Dinner",  name: "Manti",                                                           calories: 200, protein:  8, carbs: 25, fat:  8 },
-      { meal: "Dinner",  name: "Börek",                                                           calories: 200, protein:  6, carbs: 20, fat: 12 },
-      { meal: "Dinner",  name: "Rice",                                                            calories:  50, protein:  1, carbs: 11, fat:  0 },
-      { meal: "Dinner",  name: "Beef",                                                            calories: 100, protein: 10, carbs:  0, fat:  5 },
-      { meal: "Dinner",  name: "Acili ezme meze",                                                calories:  80, protein:  2, carbs:  8, fat:  4 },
-      { meal: "Dinner",  name: "Red wine (2-3 small glasses)",                                   calories: 130, protein:  0, carbs:  4, fat:  0 },
-    ]
-  },
-  {
-    date: "2026-04-06",
-    calories: 2420, protein: 182, carbs: 210, fat: 79,
-    notes: "",
-    foods: [
-      { meal: "Lunch",   name: "Chipotle bowl — white rice, chicken, pinto beans, corn, veggies, tomato, lettuce", calories: 655, protein: 48, carbs: 92, fat: 13 },
-      { meal: "Lunch",   name: "Pre-workout",                                                                        calories:  25, protein:  0, carbs:  5, fat:  0 },
-      { meal: "Dinner",  name: "Neapolitan pizza, small (5 slices)",                                                 calories: 700, protein: 25, carbs: 85, fat: 20 },
-      { meal: "Dinner",  name: "Red wine, half glass (~75ml)",                                                       calories:  65, protein:  0, carbs:  2, fat:  0 },
-      { meal: "Snack",   name: "Non-fat milk (200ml)",                                                               calories:  70, protein:  7, carbs: 10, fat:  0 },
-      { meal: "Snack",   name: "ON Whey protein (2 scoops)",                                                        calories: 240, protein: 48, carbs:  6, fat:  6 },
-      { meal: "Dinner",  name: "Chicken wings (x7.5)",                                                               calories: 500, protein: 45, carbs:  0, fat: 32 },
-      { meal: "Dinner",  name: "Edamame",                                                                            calories: 100, protein:  8, carbs:  8, fat:  4 },
-      { meal: "Snack",   name: "Dark chocolate",                                                                     calories:  65, protein:  1, carbs:  2, fat:  4 },
-    ]
-  },
-  {
-    date: "2026-04-05",
-    calories: 2721, protein: 164, carbs: 237, fat: 123,
-    notes: "",
-    foods: [
-      { meal: "Breakfast", name: "Eggs (x3) with olive oil (1 tsp)",             calories: 250, protein: 18, carbs: 1,  fat: 20 },
-      { meal: "Snack",     name: "Edamame",                                       calories: 120, protein: 10, carbs: 9,  fat: 5  },
-      { meal: "Dinner",    name: "NY strip steak 308g (fat trimmed)",             calories: 554, protein: 88, carbs: 0,  fat: 24 },
-      { meal: "Dinner",    name: "Golden small potatoes, oven roasted (334g)",   calories: 257, protein:  7, carbs: 57, fat: 1  },
-      { meal: "Snack",     name: "Popcorn",                                       calories: 250, protein:  4, carbs: 30, fat: 10 },
-      { meal: "Snack",     name: "Chocolate",                                     calories: 300, protein:  4, carbs: 35, fat: 17 },
-      { meal: "Snack",     name: "Tortilla chips",                                calories: 280, protein:  4, carbs: 35, fat: 13 },
-      { meal: "Snack",     name: "Hummus",                                        calories: 170, protein:  6, carbs: 14, fat: 10 },
-      { meal: "Snack",     name: "Empanada Mama — shredded chicken empanada",    calories: 260, protein: 11, carbs: 28, fat: 11 },
-      { meal: "Snack",     name: "Empanada Mama — beef empanada",                calories: 280, protein: 12, carbs: 28, fat: 12 },
-    ]
-  },
-  {
-    date: "2026-04-04",
-    calories: 3314, protein: 186, carbs: 279, fat: 135,
-    notes: "Philly trip 🎉",
-    foods: [
-      { meal: "Breakfast", name: "Boiled eggs (x3)",                                         calories: 210, protein: 18, carbs: 1,  fat: 15 },
-      { meal: "Lunch",     name: "Angelo's — Philly cheesesteak",                            calories: 1000, protein: 85, carbs: 50, fat: 55 },
-      { meal: "Lunch",     name: "Angelo's — diavola pizza, large (3 slices)",               calories: 840, protein: 35, carbs: 90, fat: 35 },
-      { meal: "Lunch",     name: "Yuengling lager (12oz)",                                   calories: 135, protein: 0,  carbs: 12, fat: 0  },
-      { meal: "Lunch",     name: "Whisky sour",                                              calories: 165, protein: 0,  carbs: 14, fat: 0  },
-      { meal: "Dinner",    name: "Domino's — pepperoni pizza, small regular crust (2 slices)",calories: 410, protein: 24, carbs: 50, fat: 14 },
-      { meal: "Dinner",    name: "Domino's — BBQ chicken pizza, large thin crust (2 slices)", calories: 554, protein: 24, carbs: 62, fat: 16 },
-    ]
-  },
-  {
-    date: "2026-04-03",
-    calories: 2820, protein: 177, carbs: 140, fat: 168,
-    notes: "Friends in town 🎉",
-    foods: [
-      { meal: "Breakfast", name: "Avocado toast w/ grilled chicken, half multigrain slice (no top) — half portion", calories: 120, protein: 10, carbs: 7,  fat: 6  },
-      { meal: "Breakfast", name: "Chicken & waffle with maple syrup (1/3 portion)",                  calories: 300, protein: 14, carbs: 30, fat: 13 },
-      { meal: "Breakfast", name: "Fresh orange juice (100ml)",                                       calories: 45,  protein: 1,  carbs: 10, fat: 0  },
-      { meal: "Breakfast", name: "Baked potato (3-4 small pieces)",                                  calories: 90,  protein: 2,  carbs: 20, fat: 1  },
-      { meal: "Dinner",    name: "Hotpot — prime rib slices (~250g, est.)",                          calories: 650, protein: 52, carbs: 0,  fat: 52 },
-      { meal: "Dinner",    name: "Hotpot — lamb slices (~200g, est.)",                               calories: 400, protein: 40, carbs: 0,  fat: 28 },
-      { meal: "Dinner",    name: "Hotpot — mushrooms (~150g)",                                       calories: 30,  protein: 4,  carbs: 4,  fat: 0  },
-      { meal: "Dinner",    name: "Hotpot — noodles (~100g cooked, est.)",                            calories: 150, protein: 5,  carbs: 30, fat: 1  },
-      { meal: "Dinner",    name: "Hotpot — broth + oil/sauce (est.)",                                calories: 270, protein: 2,  carbs: 5,  fat: 27 },
-      { meal: "Dinner",    name: "Domino's chicken pizza, extra thin (2 slices)",                    calories: 440, protein: 22, carbs: 32, fat: 18 },
-      { meal: "Dinner",    name: "Domino's buffalo wings (5 pieces)",                                calories: 325, protein: 25, carbs: 2,  fat: 22 },
-    ]
-  },
-  {
-    date: "2026-04-02",
-    calories: 2817, protein: 210, carbs: 285, fat: 85,
-    notes: "Gym day",
-    foods: [
-      { meal: "Lunch",          name: "Chipotle — half white rice",                          calories: 105, protein: 2,  carbs: 20, fat: 3  },
-      { meal: "Lunch",          name: "Chipotle — grilled chicken (2 portions)",             calories: 360, protein: 64, carbs: 0,  fat: 14 },
-      { meal: "Lunch",          name: "Chipotle — pinto beans",                              calories: 130, protein: 8,  carbs: 22, fat: 3  },
-      { meal: "Lunch",          name: "Chipotle — corn salsa",                               calories: 80,  protein: 2,  carbs: 17, fat: 1  },
-      { meal: "Lunch",          name: "Chipotle — lettuce + tomato salsa",                   calories: 30,  protein: 1,  carbs: 5,  fat: 0  },
-      { meal: "Post-workout",   name: "ON Gold Standard Whey (1 scoop) + non-fat milk (200ml)", calories: 189, protein: 31, carbs: 13, fat: 1 },
-      { meal: "Dinner",         name: "White rice (60g dry)",                                calories: 216, protein: 4,  carbs: 47, fat: 0  },
-      { meal: "Dinner",         name: "Chicken breast raw (234g)",                           calories: 262, protein: 54, carbs: 0,  fat: 3  },
-      { meal: "Snack",          name: "Pineapple (0.5lb / 227g)",                            calories: 114, protein: 1,  carbs: 30, fat: 0  },
-      { meal: "Snack",          name: "Pineapple (0.5lb / 227g)",                            calories: 114, protein: 1,  carbs: 30, fat: 0  },
-      { meal: "Snack",          name: "Edamame (100 cal portion)",                           calories: 100, protein: 8,  carbs: 8,  fat: 4  },
-      { meal: "Snack",          name: "Dave's Hot Chicken — slider (half bun)",              calories: 555, protein: 30, carbs: 29, fat: 36 },
-      { meal: "Snack",          name: "Dave's Hot Chicken — small fries",                    calories: 440, protein: 5,  carbs: 58, fat: 20 },
-      { meal: "Snack",          name: "Rum (1 shot / 44ml)",                                 calories: 97,  protein: 0,  carbs: 0,  fat: 0  },
-      { meal: "Snack",          name: "Green apple (2-3 slices)",                            calories: 25,  protein: 0,  carbs: 6,  fat: 0  },
-    ]
-  },
-  {
-    date: "2026-04-01",
-    calories: 2285, protein: 187, carbs: 184, fat: 78,
-    notes: "",
-    foods: [
-      { meal: "Lunch",  name: "Half beef sandwich",                                      calories: 350, protein: 18, carbs: 28, fat: 14 },
-      { meal: "Lunch",  name: "Half tuna wrap",                                          calories: 350, protein: 22, carbs: 28, fat: 12 },
-      { meal: "Dinner", name: "Chicken thighs, skinless boneless (190g raw)",            calories: 304, protein: 34, carbs: 0,  fat: 19 },
-      { meal: "Dinner", name: "White rice (20g dry)",                                    calories: 73,  protein: 1,  carbs: 16, fat: 0  },
-      { meal: "Dinner", name: "Pasta (56g)",                                             calories: 200, protein: 7,  carbs: 40, fat: 1  },
-      { meal: "Dinner", name: "Ground turkey 85/15 (0.5lb / 227g raw)",                 calories: 352, protein: 43, carbs: 0,  fat: 18 },
-      { meal: "Dinner", name: "Tomato sauce (60 cal)",                                  calories: 60,  protein: 2,  carbs: 12, fat: 0  },
-      { meal: "Dinner", name: "Half salad (tomato + cucumbers + tuna + TJ corn)",       calories: 150, protein: 19, carbs: 20, fat: 0  },
-      { meal: "Snack",  name: "Edamame (100 cal portion)",                              calories: 100, protein: 8,  carbs: 8,  fat: 4  },
-      { meal: "Snack",  name: "ON Gold Standard Whey (1 scoop) + non-fat milk (220ml)", calories: 196, protein: 31, carbs: 14, fat: 1  },
-      { meal: "Snack",  name: "Dark chocolate (150 cal)",                               calories: 150, protein: 2,  carbs: 18, fat: 9  },
-    ]
-  },
-  {
-    date: "2026-03-31",
-    calories: 1932, protein: 177, carbs: 178, fat: 53,
-    notes: "",
-    foods: [
-      { meal: "Breakfast", name: "Boiled eggs, white medium (x3)",               calories: 210, protein: 18, carbs: 1,  fat: 15 },
-      { meal: "Lunch",     name: "White rice, boiled (46g dry)",                 calories: 165, protein: 3,  carbs: 36, fat: 0  },
-      { meal: "Lunch",     name: "Chicken thighs, skinless boneless (240g raw)", calories: 384, protein: 43, carbs: 0,  fat: 24 },
-      { meal: "Lunch",     name: "Edamame (100 cal portion)",                    calories: 100, protein: 8,  carbs: 8,  fat: 4  },
-      { meal: "Lunch",     name: "Watermelon plums (x2)",                        calories: 60,  protein: 1,  carbs: 14, fat: 0  },
-      { meal: "Snack",     name: "Dark chocolate (65 cal)",                      calories: 65,  protein: 1,  carbs: 8,  fat: 4  },
-      { meal: "Snack",     name: "Banana, medium",                               calories: 105, protein: 1,  carbs: 27, fat: 0  },
-      { meal: "Snack",     name: "ON Gold Standard Whey (1 scoop) + non-fat milk (240ml)", calories: 203, protein: 32, carbs: 15, fat: 1  },
-      { meal: "Dinner",    name: "Wheat noodles (310 cal portion)",              calories: 310, protein: 10, carbs: 60, fat: 2  },
-      { meal: "Dinner",    name: "Chicken breast raw (240g)",                    calories: 265, protein: 55, carbs: 0,  fat: 3  },
-      { meal: "Dinner",    name: "White mushrooms (6-7) + soy sauce",            calories: 30,  protein: 2,  carbs: 3,  fat: 0  },
-      { meal: "Dinner",    name: "Mixed greens (35 cal)",                        calories: 35,  protein: 2,  carbs: 5,  fat: 0  },
-    ]
-  },
-  {
-    date: "2026-03-30",
-    calories: 1945, protein: 197, carbs: 144, fat: 51,
-    notes: "",
-    foods: [
-      { meal: "Snack",  name: "Protein bar",                                              calories: 250, protein: 20, carbs: 20, fat: 8  },
-      { meal: "Lunch",  name: "Ground beef 1lb (4% fat)",                                calories: 520, protein: 84, carbs: 0,  fat: 18 },
-      { meal: "Lunch",  name: "Olive oil (1.5 tsp)",                                     calories: 60,  protein: 0,  carbs: 0,  fat: 7  },
-      { meal: "Lunch",  name: "Protein pasta (1 portion)",                               calories: 190, protein: 10, carbs: 25, fat: 2  },
-      { meal: "Lunch",  name: "Tomato paste + onion + garlic + olives + nonfat yogurt",  calories: 90,  protein: 5,  carbs: 13, fat: 2  },
-      { meal: "Dinner", name: "Wheat noodles",                                           calories: 310, protein: 10, carbs: 60, fat: 2  },
-      { meal: "Dinner", name: "Chicken breast raw (300g)",                               calories: 330, protein: 63, carbs: 0,  fat: 3  },
-      { meal: "Dinner", name: "Olive oil (1 tsp)",                                       calories: 40,  protein: 0,  carbs: 0,  fat: 5  },
-      { meal: "Dinner", name: "Mushrooms (6-7) + soy sauce",                             calories: 30,  protein: 2,  carbs: 4,  fat: 0  },
-      { meal: "Dinner", name: "Dark chocolate",                                          calories: 65,  protein: 1,  carbs: 8,  fat: 4  },
-      { meal: "Dinner", name: "Watermelon + plum",                                       calories: 60,  protein: 1,  carbs: 14, fat: 0  },
-    ]
-  },
-];
+async function sbFetch(table, query = '') {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+  });
+  if (!res.ok) throw new Error(`sbFetch ${table}: ${res.status}`);
+  return res.json();
+}
+
+async function sbUpsert(table, data, onConflict = '') {
+  const url = onConflict
+    ? `${SUPABASE_URL}/rest/v1/${table}?on_conflict=${onConflict}`
+    : `${SUPABASE_URL}/rest/v1/${table}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates,return=minimal'
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(`sbUpsert ${table}: ${await res.text()}`);
+}
+
+async function sbInsert(table, data) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json', 'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(`sbInsert ${table}: ${await res.text()}`);
+}
+
+async function sbDelete(table, filter) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+  });
+  if (!res.ok) throw new Error(`sbDelete ${table}: ${await res.text()}`);
+}
+
+// ── Live data (populated from Supabase on load) ──
+let LOG = [];
+let WEIGHT_LOG = [];
+let TARGETS = { calories: 2200, protein: 170, carbs: 205, fat: 55 };
+let INBODY_SCANS = [];
+let HYDRATION_LOG = [];
 
 const USER = { name: "Samir", weight: "81.5kg", height: "179cm", age: 27, goal: "Cut" };
-
-// ── InBody scans — all values in kg ──
-const INBODY_SCANS = [
-  {
-    date: "2025-10-22",
-    weight: 85.3, smm: 37.0, bfm: 20.5, pbf: 24.0,
-    lbm: 64.8, tbw: 47.4, bmr: 1769, bmi: 27.0,
-  },
-  {
-    date: "2026-04-10",
-    weight: 82.8, smm: 36.1, bfm: 19.2, pbf: 23.2,
-    lbm: 63.6, tbw: 46.5, bmr: 1743, bmi: 26.2,
-  },
-];
 const INBODY_TARGET = { pbf: 16, label: 'Athletic Lean' };
+const HYDRATION_TARGET_L = 2.9;
 
-// ── Hydration log — { date: "YYYY-MM-DD", liters: 2.5 } ──
-const HYDRATION_TARGET_L = 2.9; // 81.5 kg × 35 ml/kg
-const HYDRATION_LOG = [];
+async function loadData() {
+  const [logs, foods, weights, tgts, scans, hydration] = await Promise.all([
+    sbFetch('nutrition_log', 'select=*&order=date.desc'),
+    sbFetch('food_items', 'select=*&order=date.desc,sort_order.asc'),
+    sbFetch('weight_log', 'select=*&order=date.asc'),
+    sbFetch('targets', 'select=*&limit=1'),
+    sbFetch('inbody_scans', 'select=*&order=date.asc'),
+    sbFetch('hydration_log', 'select=*&order=date.desc'),
+  ]);
+  const foodsByDate = {};
+  foods.forEach(f => {
+    if (!foodsByDate[f.date]) foodsByDate[f.date] = [];
+    foodsByDate[f.date].push(f);
+  });
+  LOG = logs.map(e => ({ ...e, foods: (foodsByDate[e.date] || []) }));
+  WEIGHT_LOG = weights;
+  if (tgts && tgts.length) TARGETS = tgts[0];
+  INBODY_SCANS = scans;
+  HYDRATION_LOG = hydration;
+}
 
-// ── Morning weigh-ins — format: { date: "YYYY-MM-DD", weight: 81.5 } ──
-const WEIGHT_LOG = [
-  { date: "2026-04-12", weight: 82.05 },
-  { date: "2026-04-13", weight: 81.65 },
-  { date: "2026-04-14", weight: 81.70 },
-  { date: "2026-04-15", weight: 81.15 },
-];
+// ── Called by Claude to log food entries ──
+window.logDay = async function(entry) {
+  const { foods, ...day } = entry;
+  await sbUpsert('nutrition_log', day, 'date');
+  if (foods && foods.length) {
+    await sbDelete('food_items', `date=eq.${day.date}`);
+    await sbInsert('food_items', foods.map((f, i) => ({ ...f, date: day.date, sort_order: i })));
+  }
+  window.location.reload();
+};
+
+window.logWeight = async function(date, weight) {
+  await sbUpsert('weight_log', { date, weight }, 'date');
+  window.location.reload();
+};
+
+window.logHydration = async function(date, liters) {
+  await sbUpsert('hydration_log', { date, liters }, 'date');
+  window.location.reload();
+};
 </script>
 <!-- ============================================================================ -->
 
@@ -1230,7 +995,18 @@ function renderHydration() {
     </div>`;
 }
 
-window.onload = function() {
+window.onload = async function() {
+  const overlay = document.getElementById('app-loading');
+  overlay.style.display = 'flex';
+  try {
+    await loadData();
+  } catch(e) {
+    overlay.innerHTML = `<div style="text-align:center"><div style="font-size:1.1rem;margin-bottom:8px;color:#f87171">⚠️ Failed to load data</div><div style="font-size:0.78rem;color:#7a8dae">${e.message}</div></div>`;
+    return;
+  }
+  overlay.style.display = 'none';
+  document.getElementById('filter-buttons').innerHTML = '';
+
   const sortedLog = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
 
   // ── Build day filter ──
@@ -1380,6 +1156,13 @@ function renderWeightLog() {
   }).join('');
 }
 </script>
+
+<!-- Loading overlay -->
+<div id="app-loading" style="position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:14px">
+  <div style="width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite"></div>
+  <div style="color:var(--muted);font-size:0.85rem">Loading your data…</div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 
 <!-- ═══════════════════ APP SHELL ═══════════════════ -->
 <div class="app-shell">
