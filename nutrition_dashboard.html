@@ -877,9 +877,9 @@ function renderProgressCard() {
       <div class="ps-sub">Across ${LOG.length} logged days</div>
     </div>
     <div class="prog-stat deficit">
-      <div class="ps-val" style="color:var(--protein)">${deficitSign}${deficit.toLocaleString()}</div>
-      <div class="ps-label">Weekly Deficit</div>
-      <div class="ps-sub">Cal surplus/deficit this week (${days}d)</div>
+      <div class="ps-val" style="color:${deficitColor}">${deficitArrow} ${Math.abs(deficit).toLocaleString()}</div>
+      <div class="ps-label">${deficitLabel}</div>
+      <div class="ps-sub">${days} days this week</div>
     </div>
     <div class="prog-stat avgpro">
       <div class="ps-val" style="color:var(--carbs)">${avgPro}g</div>
