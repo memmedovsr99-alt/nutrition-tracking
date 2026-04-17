@@ -935,7 +935,7 @@ function renderInBody() {
     </div>
     <div style="font-size:0.72rem;color:var(--muted);margin-bottom:14px">${Math.round(pctProgress)}% of the way there</div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
       <div class="weight-chip">
         <div class="wc-val" style="color:var(--red)">-${fatToLose} kg</div>
         <div class="wc-label">Fat to Lose</div>
@@ -948,7 +948,34 @@ function renderInBody() {
         <div class="wc-val" style="color:var(--accent)">${s2.bmr} kcal</div>
         <div class="wc-label">Your BMR</div>
       </div>
-    </div>`;
+    </div>
+
+    ${(() => {
+      // Goal projection based on avg deficit from last 14 days of food log
+      const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 14);
+      const recent = LOG.filter(e => new Date(e.date+'T00:00:00') >= cutoff);
+      if (!recent.length) return '';
+      const avgCal = recent.reduce((s,e) => s+e.calories, 0) / recent.length;
+      const avgDailyDeficit = TARGETS.calories - avgCal;
+      const weeklyFatLossKg = (avgDailyDeficit * 7) / 7700;
+      if (weeklyFatLossKg <= 0) return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:0.78rem;color:var(--yellow)">⚠️ No deficit detected — in surplus or maintenance. No fat loss projected at current pace.</div>`;
+      const weeksToGoal = fatToLose / weeklyFatLossKg;
+      const goalDate = new Date(); goalDate.setDate(goalDate.getDate() + Math.round(weeksToGoal * 7));
+      const goalDateStr = goalDate.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+      const defColor = avgDailyDeficit > 700 ? 'var(--red)' : avgDailyDeficit > 0 ? 'var(--green)' : 'var(--yellow)';
+      const paceWarn = avgDailyDeficit > 700 ? '⚠️ Deficit is high — risk of muscle loss & fatigue (your history). Aim for 300–600.' : avgDailyDeficit > 300 ? '✓ Sustainable pace' : '⚠️ Small deficit — progress will be slow';
+      return `
+      <h2 style="margin-bottom:10px">⏱ Goal Projection (last 14 days)</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+        <div class="weight-chip"><div class="wc-val" style="color:${defColor}">${Math.round(avgDailyDeficit)}</div><div class="wc-label">Avg Daily Deficit</div></div>
+        <div class="weight-chip"><div class="wc-val" style="color:var(--green)">${weeklyFatLossKg.toFixed(2)} kg</div><div class="wc-label">Fat/Week</div></div>
+        <div class="weight-chip"><div class="wc-val" style="color:var(--accent)">${Math.round(weeksToGoal)}w</div><div class="wc-label">Weeks to Goal</div></div>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:0.78rem;line-height:1.7;color:var(--text2)">
+        <div>At this pace you hit <strong style="color:var(--green)">16% body fat</strong> around <strong>${goalDateStr}</strong></div>
+        <div style="color:${defColor};font-size:0.72rem;margin-top:2px">${paceWarn}</div>
+      </div>`;
+    })()}`;
 }
 
 function renderHydration() {
