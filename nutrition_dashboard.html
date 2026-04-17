@@ -935,7 +935,7 @@ function renderInBody() {
     </div>
     <div style="font-size:0.72rem;color:var(--muted);margin-bottom:14px">${Math.round(pctProgress)}% of the way there</div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
       <div class="weight-chip">
         <div class="wc-val" style="color:var(--red)">-${fatToLose} kg</div>
         <div class="wc-label">Fat to Lose</div>
@@ -948,34 +948,7 @@ function renderInBody() {
         <div class="wc-val" style="color:var(--accent)">${s2.bmr} kcal</div>
         <div class="wc-label">Your BMR</div>
       </div>
-    </div>
-
-    ${(() => {
-      // Goal projection based on avg deficit from last 14 days of food log
-      const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 14);
-      const recent = LOG.filter(e => new Date(e.date+'T00:00:00') >= cutoff);
-      if (!recent.length) return '';
-      const avgCal = recent.reduce((s,e) => s+e.calories, 0) / recent.length;
-      const avgDailyDeficit = TARGETS.calories - avgCal;
-      const weeklyFatLossKg = (avgDailyDeficit * 7) / 7700;
-      if (weeklyFatLossKg <= 0) return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:0.78rem;color:var(--yellow)">⚠️ No deficit detected — in surplus or maintenance. No fat loss projected at current pace.</div>`;
-      const weeksToGoal = fatToLose / weeklyFatLossKg;
-      const goalDate = new Date(); goalDate.setDate(goalDate.getDate() + Math.round(weeksToGoal * 7));
-      const goalDateStr = goalDate.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
-      const defColor = avgDailyDeficit > 700 ? 'var(--red)' : avgDailyDeficit > 0 ? 'var(--green)' : 'var(--yellow)';
-      const paceWarn = avgDailyDeficit > 700 ? '⚠️ Deficit is high — risk of muscle loss & fatigue (your history). Aim for 300–600.' : avgDailyDeficit > 300 ? '✓ Sustainable pace' : '⚠️ Small deficit — progress will be slow';
-      return `
-      <h2 style="margin-bottom:10px">⏱ Goal Projection (last 14 days)</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
-        <div class="weight-chip"><div class="wc-val" style="color:${defColor}">${Math.round(avgDailyDeficit)}</div><div class="wc-label">Avg Daily Deficit</div></div>
-        <div class="weight-chip"><div class="wc-val" style="color:var(--green)">${weeklyFatLossKg.toFixed(2)} kg</div><div class="wc-label">Fat/Week</div></div>
-        <div class="weight-chip"><div class="wc-val" style="color:var(--accent)">${Math.round(weeksToGoal)}w</div><div class="wc-label">Weeks to Goal</div></div>
-      </div>
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:0.78rem;line-height:1.7;color:var(--text2)">
-        <div>At this pace you hit <strong style="color:var(--green)">16% body fat</strong> around <strong>${goalDateStr}</strong></div>
-        <div style="color:${defColor};font-size:0.72rem;margin-top:2px">${paceWarn}</div>
-      </div>`;
-    })()}`;
+    </div>`;
 }
 
 function renderHydration() {
@@ -1111,7 +1084,6 @@ window.onload = async function() {
 
   // ── Progress card (streak / consistency / weekly deficit / avg protein) ──
   renderProgressCard();
-  renderWeeklyCard();
 
   // ── Weight log ──
   renderWeightLog();
@@ -1146,9 +1118,8 @@ function renderWeightLog() {
   const chips = document.getElementById('weight-chips');
 
   if (sorted.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="3" class="no-data">No weigh-ins yet — tell Claude your morning weight to start tracking</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="3" class="no-data">No weigh-ins yet</td></tr>`;
     chips.innerHTML = '';
-    document.getElementById('weight-chart-wrap').style.display = 'none';
     return;
   }
 
@@ -1158,65 +1129,18 @@ function renderWeightLog() {
   const prev    = sorted.length > 1 ? sorted[sorted.length - 2].weight : null;
   const dayDiff = prev !== null ? +(latest - prev).toFixed(1) : null;
 
-  // Weekly rate of loss
-  let weeklyRate = null;
-  if (sorted.length >= 2) {
-    const days = (new Date(sorted[sorted.length-1].date) - new Date(sorted[0].date)) / 86400000;
-    if (days > 0) weeklyRate = +((total / days) * 7).toFixed(2);
-  }
-  const rateColor = weeklyRate === null ? 'var(--muted)'
-    : weeklyRate < -1.2 ? 'var(--red)'
-    : weeklyRate < 0    ? 'var(--green)'
-    : 'var(--yellow)';
-  const rateTip = weeklyRate === null ? '' : weeklyRate < -1.2 ? '⚠️ losing fast' : weeklyRate < 0 ? '✓ safe pace' : '↑ gaining';
+  const chipsData = [
+    { label: 'Latest', val: `${latest} kg`, color: 'var(--text)' },
+    { label: 'Start',  val: `${start} kg`,  color: 'var(--muted)' },
+    { label: 'Day Change', val: dayDiff !== null ? `${dayDiff > 0 ? '+' : ''}${dayDiff} kg` : '\u2014', color: dayDiff === null ? 'var(--muted)' : dayDiff < 0 ? 'var(--green)' : dayDiff > 0 ? 'var(--red)' : 'var(--muted)' },
+    { label: 'Total Change', val: `${total > 0 ? '+' : ''}${total} kg`, color: total < 0 ? 'var(--green)' : total > 0 ? 'var(--red)' : 'var(--muted)' },
+  ];
+  chips.innerHTML = chipsData.map(c => `
+    <div class="weight-chip">
+      <div class="wc-val" style="color:${c.color}">${c.val}</div>
+      <div class="wc-label">${c.label}</div>
+    </div>`).join('');
 
-  chips.innerHTML = [
-    { label: 'Latest',       val: `${latest} kg`,                                                    color: 'var(--text)' },
-    { label: 'Total Change', val: `${total > 0 ? '+' : ''}${total} kg`,                              color: total < 0 ? 'var(--green)' : total > 0 ? 'var(--red)' : 'var(--muted)' },
-    { label: 'Weekly Rate',  val: weeklyRate !== null ? `${weeklyRate > 0 ? '+' : ''}${weeklyRate} kg/wk` : '—', color: rateColor },
-    { label: 'Day Change',   val: dayDiff !== null ? `${dayDiff > 0 ? '+' : ''}${dayDiff} kg` : '—', color: dayDiff === null ? 'var(--muted)' : dayDiff < 0 ? 'var(--green)' : dayDiff > 0 ? 'var(--red)' : 'var(--muted)' },
-  ].map(c => `<div class="weight-chip"><div class="wc-val" style="color:${c.color}">${c.val}</div><div class="wc-label">${c.label}</div></div>`).join('');
-
-  if (rateTip) chips.innerHTML += `<div style="grid-column:1/-1;font-size:0.72rem;color:${rateColor};text-align:center;padding:4px 0">${rateTip} — safe zone is −0.5 to −1 kg/week</div>`;
-
-  // ── Weight chart ──
-  const chartWrap = document.getElementById('weight-chart-wrap');
-  chartWrap.style.display = 'block';
-  const ctx = document.getElementById('weightChart').getContext('2d');
-
-  const maData = sorted.map((_, i) => {
-    const win = sorted.slice(Math.max(0, i - 6), i + 1);
-    return +(win.reduce((s, w) => s + w.weight, 0) / win.length).toFixed(2);
-  });
-
-  const allVals = sorted.map(e => e.weight);
-  const minY = Math.floor(Math.min(...allVals) - 0.5);
-  const maxY = Math.ceil(Math.max(...allVals) + 0.5);
-
-  if (window._weightChart) window._weightChart.destroy();
-  window._weightChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: sorted.map(e => fmtDateShort(e.date)),
-      datasets: [
-        { label: 'Weight (kg)', data: allVals, borderColor: '#7c6fff', backgroundColor: 'rgba(124,111,255,0.08)', pointBackgroundColor: '#7c6fff', pointRadius: 5, tension: 0.3, fill: true, borderWidth: 2 },
-        { label: '7-day avg',   data: maData,  borderColor: '#34d399', borderDash: [5,3], pointRadius: 0, tension: 0.4, borderWidth: 2 },
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { labels: { color: '#7a8dae', font: { size: 11, family: 'Inter' } } },
-        tooltip: { backgroundColor: '#1a2035', borderColor: '#344468', borderWidth: 1, titleFont: { family: 'Inter' }, bodyFont: { family: 'Inter' } }
-      },
-      scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#7a8dae', font: { size: 10, family: 'Inter' } } },
-        y: { min: minY, max: maxY, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#7a8dae', font: { size: 10, family: 'Inter' }, callback: v => v + ' kg' } }
-      }
-    }
-  });
-
-  // ── Table ──
   const display = [...sorted].reverse();
   tbody.innerHTML = display.map((e, i) => {
     const prevEntry = sorted[sorted.length - 1 - i - 1];
@@ -1224,59 +1148,12 @@ function renderWeightLog() {
     const diffStr = diff === null ? '\u2014' : (diff > 0 ? `+${diff}` : `${diff}`) + ' kg';
     const cls = diff === null ? 'weight-change-same' : diff < 0 ? 'weight-change-down' : diff > 0 ? 'weight-change-up' : 'weight-change-same';
     const arrow = diff === null ? '' : diff < 0 ? ' ↓' : diff > 0 ? ' ↑' : '';
-    return `<tr><td><strong>${fmtDateShort(e.date)}</strong></td><td style="font-weight:700">${e.weight} kg</td><td class="${cls}">${diffStr}${arrow}</td></tr>`;
+    return `<tr>
+      <td><strong>${fmtDateShort(e.date)}</strong></td>
+      <td style="font-weight:700">${e.weight} kg</td>
+      <td class="${cls}">${diffStr}${arrow}</td>
+    </tr>`;
   }).join('');
-}
-
-function renderWeeklyCard() {
-  const el = document.getElementById('weekly-card');
-  if (!el || !LOG.length) return;
-
-  const now = new Date();
-  const dayOfWeek = now.getDay();
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-  startOfWeek.setHours(0, 0, 0, 0);
-
-  const thisWeek = LOG.filter(e => new Date(e.date + 'T00:00:00') >= startOfWeek);
-  const n = thisWeek.length;
-  if (!n) { el.innerHTML = '<div class="no-data" style="padding:8px 0">No data logged this week yet</div>'; return; }
-
-  const avgCal  = Math.round(thisWeek.reduce((s, e) => s + e.calories, 0) / n);
-  const avgPro  = Math.round(thisWeek.reduce((s, e) => s + e.protein, 0) / n);
-  const totalDef = thisWeek.reduce((s, e) => s + (TARGETS.calories - e.calories), 0);
-  const onTrack  = thisWeek.filter(e => {
-    const cp = pctRaw(e.calories, TARGETS.calories);
-    return cp <= 115 && cp >= 80 && pctRaw(e.protein, TARGETS.protein) >= 80;
-  }).length;
-
-  // Weight change this week
-  const weekWeights = WEIGHT_LOG
-    .filter(e => new Date(e.date + 'T00:00:00') >= startOfWeek)
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
-  const wtChange = weekWeights.length >= 2
-    ? +((weekWeights[weekWeights.length-1].weight - weekWeights[0].weight).toFixed(1))
-    : null;
-
-  const calColor = avgCal > TARGETS.calories * 1.05 ? 'var(--red)' : avgCal >= TARGETS.calories * 0.8 ? 'var(--green)' : 'var(--yellow)';
-  const proColor = avgPro >= TARGETS.protein * 0.85 ? 'var(--protein)' : 'var(--yellow)';
-  const defColor = totalDef >= 0 ? 'var(--green)' : 'var(--red)';
-
-  el.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <h2 style="margin:0">This Week · ${n} day${n!==1?'s':''} logged</h2>
-      <div style="font-size:0.72rem;color:var(--muted)">${onTrack}/${n} on track</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px">
-      <div class="weight-chip"><div class="wc-val" style="color:${calColor}">${avgCal}</div><div class="wc-label">Avg Cal</div></div>
-      <div class="weight-chip"><div class="wc-val" style="color:${proColor}">${avgPro}g</div><div class="wc-label">Avg Protein</div></div>
-      <div class="weight-chip"><div class="wc-val" style="color:${defColor}">${totalDef >= 0 ? '+' : ''}${totalDef}</div><div class="wc-label">Total Deficit</div></div>
-      <div class="weight-chip"><div class="wc-val" style="color:${wtChange === null ? 'var(--muted)' : wtChange < 0 ? 'var(--green)' : 'var(--red)'}">${wtChange !== null ? (wtChange > 0 ? '+' : '') + wtChange + ' kg' : '—'}</div><div class="wc-label">Weight Δ</div></div>
-    </div>
-    <div style="background:var(--surface2);border-radius:10px;height:6px;overflow:hidden">
-      <div style="height:100%;width:${Math.round((onTrack/n)*100)}%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:10px;transition:width 0.4s"></div>
-    </div>
-    <div style="font-size:0.68rem;color:var(--muted);margin-top:4px;text-align:right">${Math.round((onTrack/n)*100)}% on-track rate</div>`;
 }
 </script>
 
@@ -1350,7 +1227,6 @@ function renderWeeklyCard() {
     <div class="macro-grid" id="macro-cards"></div>
     <div class="chips-scroll" id="summary-chips"></div>
     <div class="progress-card" id="progress-card"></div>
-    <div class="card" style="margin-bottom:16px" id="weekly-card"></div>
     <div class="card donut-card" style="margin-bottom:0">
       <h2>Macro Split</h2>
       <div class="donut-wrap"><canvas id="donutChart"></canvas></div>
@@ -1385,9 +1261,6 @@ function renderWeeklyCard() {
     <div class="card" style="margin-bottom:16px">
       <h2>⚖️ Weight Log</h2>
       <div class="weight-stat-chips" id="weight-chips"></div>
-      <div id="weight-chart-wrap" style="display:none;height:180px;margin:12px 0">
-        <canvas id="weightChart"></canvas>
-      </div>
       <div class="table-card">
         <table><thead><tr><th>Date</th><th>Weight</th><th>Change</th></tr></thead>
         <tbody id="weight-body"></tbody></table>
