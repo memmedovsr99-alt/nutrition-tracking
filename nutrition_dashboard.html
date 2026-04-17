@@ -935,20 +935,34 @@ function renderInBody() {
     </div>
     <div style="font-size:0.72rem;color:var(--muted);margin-bottom:14px">${Math.round(pctProgress)}% of the way there</div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-      <div class="weight-chip">
-        <div class="wc-val" style="color:var(--red)">-${fatToLose} kg</div>
-        <div class="wc-label">Fat to Lose</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div class="weight-chip"><div class="wc-val" style="color:var(--red)">-${fatToLose} kg</div><div class="wc-label">Fat to Lose</div></div>
+      <div class="weight-chip"><div class="wc-val" style="color:var(--green)">${weightAtTarget} kg</div><div class="wc-label">Target Weight</div></div>
+      <div class="weight-chip"><div class="wc-val" style="color:var(--accent)">${s2.bmr} kcal</div><div class="wc-label">Your BMR</div></div>
+    </div>
+
+    ${(() => {
+      const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-14);
+      const recent14 = LOG.filter(e => new Date(e.date+'T00:00:00') >= cutoff);
+      if (!recent14.length) return '<div style="color:var(--muted);font-size:0.78rem">Log more days to see your goal projection.</div>';
+      const avgCal = recent14.reduce((s,e)=>s+e.calories,0) / recent14.length;
+      const avgDeficit = TARGETS.calories - avgCal;
+      const wkFatLoss = (avgDeficit * 7) / 7700;
+      if (wkFatLoss <= 0.01) return '<div style="color:var(--muted);font-size:0.78rem">No deficit in last 14 days — no projection available.</div>';
+      const weeksLeft = fatToLose / wkFatLoss;
+      const goalDate = new Date(); goalDate.setDate(goalDate.getDate() + Math.round(weeksLeft*7));
+      const goalDateStr = goalDate.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+      return `
+      <h2 style="margin-bottom:10px">⏱ Goal Projection · last 14 days</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
+        <div class="weight-chip"><div class="wc-val">${Math.round(avgDeficit)}</div><div class="wc-label">Avg Daily Deficit</div></div>
+        <div class="weight-chip"><div class="wc-val" style="color:var(--green)">${wkFatLoss.toFixed(2)} kg</div><div class="wc-label">Fat/Week</div></div>
+        <div class="weight-chip"><div class="wc-val" style="color:var(--accent)">${Math.round(weeksLeft)}w</div><div class="wc-label">Weeks to Goal</div></div>
       </div>
-      <div class="weight-chip">
-        <div class="wc-val" style="color:var(--green)">${weightAtTarget} kg</div>
-        <div class="wc-label">Target Weight</div>
-      </div>
-      <div class="weight-chip">
-        <div class="wc-val" style="color:var(--accent)">${s2.bmr} kcal</div>
-        <div class="wc-label">Your BMR</div>
-      </div>
-    </div>`;
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-size:0.82rem;color:var(--text2)">
+        At this pace → <strong style="color:var(--green)">16% body fat</strong> by <strong>${goalDateStr}</strong>
+      </div>`;
+    })()}`;
 }
 
 function renderHydration() {
