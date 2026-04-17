@@ -1378,105 +1378,136 @@ function renderWeightLog() {
 }
 </script>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-left">
+<!-- ═══════════════════ APP SHELL ═══════════════════ -->
+<div class="app-shell">
+
+<!-- SIDEBAR (desktop) -->
+<nav class="nav-sidebar">
+  <div class="sidebar-logo">
     <div class="avatar">S</div>
     <div>
-      <h1>Samir's Nutrition Tracking</h1>
-      <div class="subtitle" id="current-date"></div>
+      <h1>Samir's<br>Nutrition</h1>
+      <div class="subtitle" id="sidebar-date"></div>
     </div>
   </div>
-  <div class="badges">
-    <div class="badge">⚖️ <span>81.5kg</span></div>
-    <div class="badge">🎯 <span>Cut</span></div>
+  <div class="sidebar-nav">
+    <div class="sidebar-item" data-page="today" onclick="showPage('today')"><span class="sidebar-icon">🏠</span>Today</div>
+    <div class="sidebar-item" data-page="log"   onclick="showPage('log')">  <span class="sidebar-icon">🍽️</span>Food Log</div>
+    <div class="sidebar-item" data-page="trends" onclick="showPage('trends')"><span class="sidebar-icon">📈</span>Trends</div>
+    <div class="sidebar-item" data-page="body"   onclick="showPage('body')">  <span class="sidebar-icon">⚖️</span>Body</div>
+    <div class="sidebar-item" data-page="hydration" onclick="showPage('hydration')"><span class="sidebar-icon">💧</span>Hydration</div>
   </div>
-</div>
+  <div class="sidebar-footer">
+    81.5 kg &middot; Cut goal<br>
+    Tell Claude what you ate to log
+  </div>
+</nav>
+
+<!-- CONTENT WRAPPER -->
+<div class="content-wrap">
+
+  <!-- MOBILE HEADER -->
+  <div class="header" id="mobile-header">
+    <div class="header-left">
+      <div class="avatar">S</div>
+      <div>
+        <h1>Samir's Nutrition</h1>
+        <div class="subtitle" id="current-date"></div>
+      </div>
+    </div>
+    <div class="badges">
+      <div class="badge">⚖️ <span>81.5kg</span></div>
+      <div class="badge">🎯 <span>Cut</span></div>
+    </div>
+  </div>
+
+  <!-- DAY FILTER (hidden on Trends / Body / Hydration via CSS) -->
+  <div class="day-filter-bar">
+    <span class="filter-label">📅</span>
+    <div id="filter-buttons" style="display:flex;gap:6px;align-items:center;flex:1"></div>
+  </div>
+
+  <!-- TARGETS BAR (hidden on Trends / Body / Hydration via CSS) -->
+  <div class="targets-bar">
+    <div class="t-item"><div class="t-dot" style="background:var(--cal)"></div><span class="t-name">Cal</span><span class="t-val">2,200</span></div>
+    <div class="t-item"><div class="t-dot" style="background:var(--protein)"></div><span class="t-name">Protein</span><span class="t-val">170g</span></div>
+    <div class="t-item"><div class="t-dot" style="background:var(--carbs)"></div><span class="t-name">Carbs</span><span class="t-val">205g</span></div>
+    <div class="t-item"><div class="t-dot" style="background:var(--fat)"></div><span class="t-name">Fat</span><span class="t-val">55g</span></div>
+  </div>
+
+  <!-- ══ PAGE: TODAY ══ -->
+  <div class="page" id="page-today">
+    <div class="viewing-label" id="viewing-label">—</div>
+    <div class="macro-grid" id="macro-cards"></div>
+    <div class="chips-scroll" id="summary-chips"></div>
+    <div class="progress-card" id="progress-card"></div>
+    <div class="card donut-card" style="margin-bottom:0">
+      <h2>Macro Split</h2>
+      <div class="donut-wrap"><canvas id="donutChart"></canvas></div>
+      <div class="donut-legend" id="donut-legend"></div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE: LOG ══ -->
+  <div class="page" id="page-log">
+    <div class="card">
+      <div id="food-log-content"><div class="no-data">Select a day to view food items.</div></div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE: TRENDS ══ -->
+  <div class="page" id="page-trends">
+    <div class="card chart-card" style="margin-bottom:16px">
+      <h2>14-Day Trend — Calories &amp; Protein</h2>
+      <canvas id="trendChart"></canvas>
+    </div>
+    <div class="section-title" style="margin-top:0">📊 All Days</div>
+    <div class="card table-card">
+      <table class="history-table">
+        <thead><tr><th>Date</th><th>Cal</th><th>Pro</th><th>Carbs</th><th>Fat</th><th class="col-status">Status</th><th class="col-notes">Notes</th></tr></thead>
+        <tbody id="history-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ PAGE: BODY ══ -->
+  <div class="page" id="page-body">
+    <div class="card" style="margin-bottom:16px">
+      <h2>⚖️ Weight Log</h2>
+      <div class="weight-stat-chips" id="weight-chips"></div>
+      <div class="table-card">
+        <table><thead><tr><th>Date</th><th>Weight</th><th>Change</th></tr></thead>
+        <tbody id="weight-body"></tbody></table>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:0">🏋️ Body Composition (InBody)</div>
+    <div class="card"><div id="inbody-content"></div></div>
+  </div>
+
+  <!-- ══ PAGE: HYDRATION ══ -->
+  <div class="page" id="page-hydration">
+    <div class="card"><div id="hydration-content"></div></div>
+  </div>
+
+</div><!-- end content-wrap -->
+</div><!-- end app-shell -->
+
+<!-- BOTTOM TAB BAR (mobile) -->
+<nav class="nav-bottom">
+  <button class="tab-item" data-page="today"     onclick="showPage('today')">    <span class="tab-icon">🏠</span>Today</button>
+  <button class="tab-item" data-page="log"       onclick="showPage('log')">      <span class="tab-icon">🍽️</span>Log</button>
+  <button class="tab-item" data-page="trends"    onclick="showPage('trends')">   <span class="tab-icon">📈</span>Trends</button>
+  <button class="tab-item" data-page="body"      onclick="showPage('body')">     <span class="tab-icon">⚖️</span>Body</button>
+  <button class="tab-item" data-page="hydration" onclick="showPage('hydration')"><span class="tab-icon">💧</span>Water</button>
+</nav>
+
 <script>
-  document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  const _d = new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  const _cd = document.getElementById('current-date');
+  const _sd = document.getElementById('sidebar-date');
+  if (_cd) _cd.textContent = _d;
+  if (_sd) _sd.textContent = _d;
 </script>
-
-<!-- Day Filter -->
-<div class="day-filter-bar">
-  <span class="filter-label">📅</span>
-  <div id="filter-buttons" style="display:flex;gap:6px;align-items:center;flex:1"></div>
-</div>
-
-<!-- Targets -->
-<div class="targets-bar">
-  <div class="t-item"><div class="t-dot" style="background:var(--cal)"></div><span class="t-name">Cal</span><span class="t-val">2,200</span></div>
-  <div class="t-item"><div class="t-dot" style="background:var(--protein)"></div><span class="t-name">Protein</span><span class="t-val">170g</span></div>
-  <div class="t-item"><div class="t-dot" style="background:var(--carbs)"></div><span class="t-name">Carbs</span><span class="t-val">205g</span></div>
-  <div class="t-item"><div class="t-dot" style="background:var(--fat)"></div><span class="t-name">Fat</span><span class="t-val">55g</span></div>
-</div>
-
-<!-- Viewing label + Macro ring cards -->
-<div class="viewing-label" id="viewing-label">Viewing: —</div>
-<div class="macro-grid" id="macro-cards"></div>
-
-<!-- Chips -->
-<div class="chips-scroll" id="summary-chips"></div>
-
-<!-- Progress Stats (Streak / Consistency / Weekly Deficit / Avg Protein) -->
-<div class="progress-card" id="progress-card"></div>
-
-<!-- Charts: Trend + Donut -->
-<div class="charts-grid" style="margin-bottom:16px">
-  <div class="card chart-card">
-    <h2>14-Day Trend</h2>
-    <canvas id="trendChart"></canvas>
-  </div>
-  <div class="card donut-card">
-    <h2>Macro Split</h2>
-    <div class="donut-wrap"><canvas id="donutChart"></canvas></div>
-    <div class="donut-legend" id="donut-legend"></div>
-  </div>
-</div>
-
-<!-- Weight -->
-<div class="card" style="margin-bottom:16px">
-  <h2>⚖️ Weight Log</h2>
-  <div class="weight-stat-chips" id="weight-chips"></div>
-  <div class="table-card">
-    <table>
-      <thead><tr><th>Date</th><th>Weight</th><th>Change</th></tr></thead>
-      <tbody id="weight-body"></tbody>
-    </table>
-  </div>
-</div>
-
-<!-- InBody Body Composition -->
-<div class="section-title">🏋️ Body Composition (InBody)</div>
-<div class="card" style="margin-bottom:16px">
-  <div id="inbody-content"></div>
-</div>
-
-<!-- Hydration -->
-<div class="section-title">💧 Hydration</div>
-<div class="card" style="margin-bottom:16px">
-  <div id="hydration-content"></div>
-</div>
-
-<!-- Food Log -->
-<div class="section-title">🍽️ Food Log</div>
-<div class="card">
-  <div id="food-log-content">
-    <div class="no-data">Select a day to view food items.</div>
-  </div>
-</div>
-
-<!-- History -->
-<div class="section-title">📊 All Days</div>
-<div class="card table-card">
-  <table class="history-table">
-    <thead><tr><th>Date</th><th>Cal</th><th>Pro</th><th>Carbs</th><th>Fat</th><th class="col-status">Status</th><th class="col-notes">Notes</th></tr></thead>
-    <tbody id="history-body"></tbody>
-  </table>
-</div>
-
-<div class="footer">
-  Updated by Claude &middot; Share your daily intake in chat to log
-</div>
 
 <script>
   if ('serviceWorker' in navigator) {
