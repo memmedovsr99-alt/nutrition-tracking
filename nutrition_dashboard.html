@@ -1354,6 +1354,9 @@ function renderWeeklyCard() {
     <div class="card" style="margin-bottom:16px">
       <h2>⚖️ Weight Log</h2>
       <div class="weight-stat-chips" id="weight-chips"></div>
+      <div id="weight-chart-wrap" style="display:none;height:180px;margin:12px 0 4px">
+        <canvas id="weightChart"></canvas>
+      </div>
       <div class="table-card">
         <table><thead><tr><th>Date</th><th>Weight</th><th>Change</th></tr></thead>
         <tbody id="weight-body"></tbody></table>
