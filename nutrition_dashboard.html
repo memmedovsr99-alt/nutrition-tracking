@@ -811,10 +811,10 @@ function renderView(key) {
     const totPro  = entry.foods.reduce((s,f)=>s+(f.protein||0),0);
     const totCarb = entry.foods.reduce((s,f)=>s+(f.carbs||0),0);
     const totFat  = entry.foods.reduce((s,f)=>s+(f.fat||0),0);
-    const mealColors = { Breakfast:'#fb923c', Lunch:'#34d399', Dinner:'#818cf8', Snack:'#fbbf24', 'Pre-workout':'#f472b6', 'Post-workout':'#34d399', Other:'#7a82a0' };
+    const mealColors = { Breakfast:'#fb923c', Lunch:'#34d399', Dinner:'#818cf8', Snacks:'#fbbf24', Snack:'#fbbf24', 'Late Night':'#a78bfa', 'Pre-workout':'#f472b6', 'Post-workout':'#34d399', Other:'#7a82a0' };
 
     // Group by meal
-    const mealOrder = ['Breakfast','Lunch','Snack','Dinner','Pre-workout','Post-workout','Other'];
+    const mealOrder = ['Breakfast','Lunch','Snacks','Snack','Dinner','Late Night','Pre-workout','Post-workout','Other'];
     const groups = {};
     entry.foods.forEach(f => {
       const m = f.meal || 'Other';
