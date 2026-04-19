@@ -585,8 +585,8 @@ function calcStreak() {
     const isToday = e.date === todayStr;
     // Partial day: don't penalise for being low yet, just check not over-budget
     const onTrack = isToday
-      ? calPct <= 115
-      : calPct <= 115 && calPct >= 80 && proPct >= 80;
+      ? e.calories <= TARGETS.calories + 100
+      : Math.abs(e.calories - TARGETS.calories) <= 100 && proPct >= 80;
     if (onTrack) streak++;
     else break;
   }
