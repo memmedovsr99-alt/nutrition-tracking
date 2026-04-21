@@ -832,16 +832,12 @@ function renderView(key) {
           <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:${col}">${meal}</span>
         </div>`;
       groups[meal].forEach(f => {
-        html += `<div style="padding:6px 0 6px 11px;border-bottom:1px solid var(--border)">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px">
-            <span style="font-weight:500;font-size:0.82rem;flex:1;padding-right:10px">${f.name}</span>
-            <span style="font-size:0.78rem;color:var(--cal);font-weight:700;white-space:nowrap">${f.calories} cal</span>
-          </div>
-          <div style="display:flex;gap:10px;font-size:0.72rem;font-weight:600;padding-left:0">
-            <span style="color:var(--protein)">${f.protein ?? 0}g P</span>
-            <span style="color:var(--carbs)">${f.carbs ?? 0}g C</span>
-            <span style="color:var(--fat)">${f.fat ?? 0}g F</span>
-          </div>
+        html += `<div style="display:flex;align-items:center;padding:6px 0 6px 11px;border-bottom:1px solid var(--border);gap:8px">
+          <span style="font-weight:500;font-size:0.82rem;flex:1;padding-right:6px">${f.name}</span>
+          <span style="font-size:0.75rem;color:var(--cal);font-weight:700;white-space:nowrap;min-width:52px;text-align:right">${f.calories}</span>
+          <span style="font-size:0.75rem;color:var(--protein);font-weight:600;white-space:nowrap;min-width:40px;text-align:right">${f.protein ?? 0}p</span>
+          <span style="font-size:0.75rem;color:var(--carbs);font-weight:600;white-space:nowrap;min-width:40px;text-align:right">${f.carbs ?? 0}c</span>
+          <span style="font-size:0.75rem;color:var(--fat);font-weight:600;white-space:nowrap;min-width:36px;text-align:right">${f.fat ?? 0}f</span>
         </div>`;
       });
       html += '</div>';
