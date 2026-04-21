@@ -1111,7 +1111,8 @@ function renderCheckin() {
     checkinStepsChart = new Chart(stepsCtx.getContext('2d'), {
       type: 'bar',
       data: { labels, datasets: [{ data: recent7.map(r => r.entry && r.entry.steps ? r.entry.steps : null), backgroundColor: '#34d39988', borderColor: '#34d399', borderWidth: 2, borderRadius: 4 }] },
-      options: chartDefaults('#34d399')
+      options: chartDefaults('#34d399'),
+      plugins: [barLabelPlugin]
     });
   }
 
