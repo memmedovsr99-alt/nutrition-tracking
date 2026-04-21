@@ -1139,6 +1139,18 @@ window.checkinSetHydration = function(val) {
   document.getElementById('hyd-no').style.background = !val ? '#f87171' : 'var(--surface)';
 };
 
+window.checkinSetDigestion = function(val) {
+  window._checkinState = window._checkinState || {};
+  window._checkinState.digestion = window._checkinState.digestion === val ? null : val;
+  ['good','ok','bad'].forEach(d => {
+    const btn = document.getElementById('dig-'+d);
+    if (!btn) return;
+    const active = d === val.toLowerCase() && window._checkinState.digestion !== null;
+    btn.style.background = active ? (d==='good'?'var(--green)':d==='bad'?'#f87171':'#fbbf24') : 'var(--surface)';
+    btn.style.color = active && d!=='bad' ? '#000' : 'var(--text)';
+  });
+};
+
 window.checkinSetTraining = function(type) {
   window._checkinState = window._checkinState || {};
   window._checkinState.training_type = window._checkinState.training_type === type ? null : type;
