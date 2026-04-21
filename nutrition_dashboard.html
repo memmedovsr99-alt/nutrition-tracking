@@ -1062,7 +1062,11 @@ function renderCheckin() {
   // Charts
   const chartDefaults = (color) => ({
     responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { backgroundColor:'#1a1e2a', borderColor:'#272d42', borderWidth:1, titleFont:{family:'Inter'}, bodyFont:{family:'Inter'} } },
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor:'#1a1e2a', borderColor:'#272d42', borderWidth:1, titleFont:{family:'Inter'}, bodyFont:{family:'Inter'} },
+      datalabels: false
+    },
     scales: {
       x: { grid: { color:'#272d42' }, ticks: { color:'#7a8dae', font:{family:'Inter',size:10} } },
       y: { grid: { color:'#272d42' }, ticks: { color, font:{family:'Inter',size:10} }, beginAtZero: true }
