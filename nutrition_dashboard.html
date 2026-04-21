@@ -822,7 +822,13 @@ function renderView(key) {
       groups[m].push(f);
     });
 
-    let html = '';
+    let html = `<div style="display:flex;align-items:center;padding:0 0 6px 11px;border-bottom:2px solid var(--border);margin-bottom:10px;gap:8px">
+      <span style="flex:1;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted)">Food</span>
+      <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--cal);min-width:52px;text-align:right">Calories</span>
+      <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--protein);min-width:40px;text-align:right">Protein</span>
+      <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--carbs);min-width:40px;text-align:right">Carbs</span>
+      <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--fat);min-width:36px;text-align:right">Fat</span>
+    </div>`;
     mealOrder.forEach(meal => {
       if (!groups[meal]) return;
       const col = mealColors[meal] || '#7a82a0';
