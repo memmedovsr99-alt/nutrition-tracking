@@ -1031,6 +1031,13 @@ function renderCheckin() {
             ${TRAINING_TYPES.map(t => `<button onclick="checkinSetTraining('${t}')" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:${todayType===t ? 'var(--accent)' : 'var(--surface)'};color:var(--text);font-size:0.75rem;font-weight:600;cursor:pointer">${t}</button>`).join('')}
           </div>
         </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span style="font-size:0.82rem;font-weight:600">💩 Digestion</span>
+          <div style="display:flex;gap:5px">
+            ${['Good','OK','Bad'].map(d => `<button onclick="checkinSetDigestion('${d}')" id="dig-${d.toLowerCase()}" style="padding:4px 12px;border-radius:8px;border:1px solid var(--border);background:${todayEntry && todayEntry.digestion===d ? (d==='Good'?'var(--green)':d==='Bad'?'#f87171':'#fbbf24') : 'var(--surface)'};color:${todayEntry && todayEntry.digestion===d && d!=='Bad' ? '#000' : 'var(--text)'};font-size:0.75rem;font-weight:600;cursor:pointer">${d}</button>`).join('')}
+          </div>
+        </div>
       </div>
 
       <button onclick="submitCheckin()" style="margin-top:16px;width:100%;padding:10px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:700;cursor:pointer">Save Check-in</button>
