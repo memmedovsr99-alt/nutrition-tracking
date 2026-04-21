@@ -1060,12 +1060,32 @@ function renderCheckin() {
     </div>`;
 
   // Charts
+  const barLabelPlugin = {
+    id: 'barLabels',
+    afterDatasetsDraw(chart) {
+      const { ctx } = chart;
+      chart.data.datasets.forEach((dataset, i) => {
+        const meta = chart.getDatasetMeta(i);
+        meta.data.forEach((bar, idx) => {
+          const val = dataset.data[idx];
+          if (val === null || val === undefined) return;
+          const label = val >= 1000 ? (val/1000).toFixed(1)+'k' : val;
+          ctx.save();
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = '600 9px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(label, bar.x, bar.y - 4);
+          ctx.restore();
+        });
+      });
+    }
+  };
+
   const chartDefaults = (color) => ({
     responsive: true, maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
-      tooltip: { backgroundColor:'#1a1e2a', borderColor:'#272d42', borderWidth:1, titleFont:{family:'Inter'}, bodyFont:{family:'Inter'} },
-      datalabels: false
+      tooltip: { backgroundColor:'#1a1e2a', borderColor:'#272d42', borderWidth:1, titleFont:{family:'Inter'}, bodyFont:{family:'Inter'} }
     },
     scales: {
       x: { grid: { color:'#272d42' }, ticks: { color:'#7a8dae', font:{family:'Inter',size:10} } },
