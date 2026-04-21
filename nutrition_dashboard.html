@@ -1158,7 +1158,8 @@ window.submitCheckin = async function() {
     sleep_hours: sleep,
     steps: steps,
     training: !!s.training_type && s.training_type !== 'Rest',
-    training_type: s.training_type || null
+    training_type: s.training_type || null,
+    digestion: s.digestion || null
   };
   await sbUpsert('daily_checkin', entry, 'date');
   await loadData();
