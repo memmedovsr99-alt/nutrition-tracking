@@ -446,20 +446,19 @@ let LOG = [];
 let WEIGHT_LOG = [];
 let TARGETS = { calories: 2200, protein: 170, carbs: 205, fat: 55 };
 let INBODY_SCANS = [];
-let HYDRATION_LOG = [];
+let DAILY_CHECKIN = [];
 
 const USER = { name: "Samir", weight: "81.5kg", height: "179cm", age: 27, goal: "Cut" };
 const INBODY_TARGET = { pbf: 16, label: 'Athletic Lean' };
-const HYDRATION_TARGET_L = 4;
 
 async function loadData() {
-  const [logs, foods, weights, tgts, scans, hydration] = await Promise.all([
+  const [logs, foods, weights, tgts, scans, checkin] = await Promise.all([
     sbFetch('nutrition_log', 'select=*&order=date.desc'),
     sbFetch('food_items', 'select=*&order=date.desc,sort_order.asc'),
     sbFetch('weight_log', 'select=*&order=date.asc'),
     sbFetch('targets', 'select=*&limit=1'),
     sbFetch('inbody_scans', 'select=*&order=date.asc'),
-    sbFetch('hydration_log', 'select=*&order=date.desc'),
+    sbFetch('daily_checkin', 'select=*&order=date.desc'),
   ]);
   const foodsByDate = {};
   foods.forEach(f => {
@@ -470,7 +469,7 @@ async function loadData() {
   WEIGHT_LOG = weights;
   if (tgts && tgts.length) TARGETS = tgts[0];
   INBODY_SCANS = scans;
-  HYDRATION_LOG = hydration;
+  DAILY_CHECKIN = checkin || [];
 }
 
 // ── Called by Claude to log food entries ──
