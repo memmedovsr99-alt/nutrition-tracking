@@ -1057,11 +1057,12 @@ function renderCheckin() {
           <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:0.78rem">
             <span style="color:var(--muted);min-width:60px">${fmtDateShort(r.date)}</span>
             ${r.entry ? `
-              <span style="color:#a78bfa">${r.entry.sleep_hours ? r.entry.sleep_hours+'h sleep' : '—'}</span>
-              <span style="color:var(--green)">${r.entry.steps ? r.entry.steps.toLocaleString()+' steps' : '—'}</span>
+              <span style="color:#a78bfa">${r.entry.sleep_hours ? r.entry.sleep_hours+'h' : '—'}</span>
+              <span style="color:var(--green)">${r.entry.steps ? (r.entry.steps/1000).toFixed(1)+'k' : '—'}</span>
               <span style="color:var(--cal)">${r.entry.training ? (r.entry.training_type || '✓') : '—'}</span>
+              <span>${r.entry.digestion ? (r.entry.digestion==='Good'?'💩✓':r.entry.digestion==='Bad'?'💩✗':'💩~') : '—'}</span>
               <span>${r.entry.hydration ? '💧✓' : '💧✗'}</span>
-            ` : '<span style="color:var(--muted);grid-column:span 4">not logged</span>'}
+            ` : '<span style="color:var(--muted);grid-column:span 5">not logged</span>'}
           </div>`).join('')}
       </div>
     </div>`;
