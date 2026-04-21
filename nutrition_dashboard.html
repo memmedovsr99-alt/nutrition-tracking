@@ -488,9 +488,11 @@ window.logWeight = async function(date, weight) {
   window.location.reload();
 };
 
-window.logHydration = async function(date, liters) {
-  await sbUpsert('hydration_log', { date, liters }, 'date');
-  window.location.reload();
+window.logCheckin = async function(entry) {
+  // entry: { date, hydration, sleep_hours, steps, training, training_type }
+  await sbUpsert('daily_checkin', entry, 'date');
+  await loadData();
+  renderCheckin();
 };
 </script>
 <!-- ============================================================================ -->
