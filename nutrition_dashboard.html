@@ -849,14 +849,12 @@ function renderView(key) {
       html += '</div>';
     });
 
-    html += `<div style="display:flex;justify-content:space-between;padding:12px 0 4px;border-top:2px solid var(--border);margin-top:4px">
-      <span style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Day Total</span>
-      <div style="display:flex;gap:12px;font-size:0.75rem;font-weight:700">
-        <span style="color:var(--cal)">${totCal}</span>
-        <span style="color:var(--protein)">${totPro}</span>
-        <span style="color:var(--carbs)">${totCarb}</span>
-        <span style="color:var(--fat)">${totFat}</span>
-      </div>
+    html += `<div style="display:flex;align-items:center;padding:12px 0 4px 11px;border-top:2px solid var(--border);margin-top:4px;gap:8px">
+      <span style="flex:1;font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Day Total</span>
+      <span style="font-size:0.75rem;font-weight:700;color:var(--cal);min-width:52px;text-align:right">${totCal}</span>
+      <span style="font-size:0.75rem;font-weight:700;color:var(--protein);min-width:40px;text-align:right">${totPro}</span>
+      <span style="font-size:0.75rem;font-weight:700;color:var(--carbs);min-width:40px;text-align:right">${totCarb}</span>
+      <span style="font-size:0.75rem;font-weight:700;color:var(--fat);min-width:36px;text-align:right">${totFat}</span>
     </div>`;
     if (entry.notes) html += `<div style="margin-top:10px;font-size:0.78rem;color:var(--muted)">📝 ${entry.notes}</div>`;
     foodContainer.innerHTML = html;
