@@ -1100,7 +1100,8 @@ function renderCheckin() {
     checkinSleepChart = new Chart(sleepCtx.getContext('2d'), {
       type: 'bar',
       data: { labels, datasets: [{ data: recent7.map(r => r.entry ? r.entry.sleep_hours : null), backgroundColor: '#a78bfa88', borderColor: '#a78bfa', borderWidth: 2, borderRadius: 4 }] },
-      options: chartDefaults('#a78bfa')
+      options: chartDefaults('#a78bfa'),
+      plugins: [barLabelPlugin]
     });
   }
 
