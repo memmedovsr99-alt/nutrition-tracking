@@ -849,6 +849,19 @@ function renderView(key) {
           <span style="font-size:0.75rem;color:var(--fat);font-weight:600;white-space:nowrap;min-width:36px;text-align:right">${f.fat ?? 0}g</span>
         </div>`;
       });
+      if (groups[meal].length > 1) {
+        const mCal  = groups[meal].reduce((s,f)=>s+(f.calories||0),0);
+        const mPro  = groups[meal].reduce((s,f)=>s+(f.protein||0),0);
+        const mCarb = groups[meal].reduce((s,f)=>s+(f.carbs||0),0);
+        const mFat  = groups[meal].reduce((s,f)=>s+(f.fat||0),0);
+        html += `<div style="display:flex;align-items:center;padding:5px 0 5px 11px;gap:8px;background:rgba(255,255,255,0.04);border-radius:0 0 6px 6px;margin-top:1px">
+          <span style="flex:1;font-size:0.7rem;font-weight:700;color:${col};text-transform:uppercase;letter-spacing:0.5px">${meal} total</span>
+          <span style="font-size:0.7rem;font-weight:700;color:var(--cal);min-width:52px;text-align:right">${mCal}</span>
+          <span style="font-size:0.7rem;font-weight:700;color:var(--protein);min-width:40px;text-align:right">${mPro}g</span>
+          <span style="font-size:0.7rem;font-weight:700;color:var(--carbs);min-width:40px;text-align:right">${mCarb}g</span>
+          <span style="font-size:0.7rem;font-weight:700;color:var(--fat);min-width:36px;text-align:right">${mFat}g</span>
+        </div>`;
+      }
       html += '</div>';
     });
 
