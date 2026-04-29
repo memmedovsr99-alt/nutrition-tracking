@@ -1339,18 +1339,34 @@ function renderWeightLog() {
     </div>`).join('');
 
   const display = [...sorted].reverse();
-  tbody.innerHTML = display.map((e, i) => {
-    const prevEntry = sorted[sorted.length - 1 - i - 1];
-    const diff = prevEntry ? +(e.weight - prevEntry.weight).toFixed(1) : null;
-    const diffStr = diff === null ? '\u2014' : (diff > 0 ? `+${diff}` : `${diff}`) + ' kg';
-    const cls = diff === null ? 'weight-change-same' : diff < 0 ? 'weight-change-down' : diff > 0 ? 'weight-change-up' : 'weight-change-same';
-    const arrow = diff === null ? '' : diff < 0 ? ' ↓' : diff > 0 ? ' ↑' : '';
-    return `<tr>
-      <td><strong>${fmtDateShort(e.date)}</strong></td>
-      <td style="font-weight:700">${e.weight} kg</td>
-      <td class="${cls}">${diffStr}${arrow}</td>
-    </tr>`;
-  }).join('');
+  const LIMIT = 5;
+  let showAll = false;
+
+  function renderRows() {
+    const visible = showAll ? display : display.slice(0, LIMIT);
+    tbody.innerHTML = visible.map((e, i) => {
+      const prevEntry = sorted[sorted.length - 1 - i - 1];
+      const diff = prevEntry ? +(e.weight - prevEntry.weight).toFixed(1) : null;
+      const diffStr = diff === null ? '\u2014' : (diff > 0 ? `+${diff}` : `${diff}`) + ' kg';
+      const cls = diff === null ? 'weight-change-same' : diff < 0 ? 'weight-change-down' : diff > 0 ? 'weight-change-up' : 'weight-change-same';
+      const arrow = diff === null ? '' : diff < 0 ? ' \u2193' : diff > 0 ? ' \u2191' : '';
+      return `<tr>
+        <td><strong>${fmtDateShort(e.date)}</strong></td>
+        <td style="font-weight:700">${e.weight} kg</td>
+        <td class="${cls}">${diffStr}${arrow}</td>
+      </tr>`;
+    }).join('');
+
+    const btn = document.getElementById('weight-show-more');
+    if (!btn) return;
+    if (display.length <= LIMIT) { btn.style.display = 'none'; return; }
+    btn.style.display = 'block';
+    btn.textContent = showAll ? 'Show less \u25b2' : `Show ${display.length - LIMIT} more \u25bc`;
+  }
+
+  renderRows();
+  const btn = document.getElementById('weight-show-more');
+  if (btn) btn.onclick = () => { showAll = !showAll; renderRows(); };
 }
 </script>
 
