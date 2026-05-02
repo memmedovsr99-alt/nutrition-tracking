@@ -546,6 +546,8 @@ function showPage(name) {
   });
   document.body.dataset.page = name;
   if (name === 'trends' && !trendChartInited) { initTrendChart(); trendChartInited = true; }
+  const fab = document.getElementById('quick-log-fab');
+  if (fab) fab.style.display = name === 'log' ? 'flex' : 'none';
   window.scrollTo(0, 0);
 }
 
