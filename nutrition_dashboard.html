@@ -660,6 +660,7 @@ function renderProgressCard() {
 
 function renderView(key) {
   currentKey = key;
+  window._currentDayKey = key;
   const sortedLog = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
   const isAvg = key === 'average';
   const entry  = isAvg ? null : LOG.find(e => e.date === key);
