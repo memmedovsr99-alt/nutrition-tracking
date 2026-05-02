@@ -1528,5 +1528,159 @@ function renderWeightLog() {
   }
 </script>
 
+<!-- ══ QUICK LOG MODAL ══ -->
+<div id="quick-log-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;backdrop-filter:blur(4px)" onclick="if(event.target===this)window.closeQuickLog()"></div>
+<div id="quick-log-modal" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:501;background:var(--surface);border-radius:20px 20px 0 0;padding:20px 18px calc(20px + var(--safe-bottom));max-height:90dvh;overflow-y:auto">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+    <span style="font-size:1rem;font-weight:800">Quick Log Food</span>
+    <button onclick="window.closeQuickLog()" style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:0.85rem">✕</button>
+  </div>
+
+  <!-- Date -->
+  <div style="margin-bottom:12px">
+    <label style="font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px">Date</label>
+    <input type="date" id="ql-date" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 12px;font-size:0.9rem;font-family:inherit"/>
+  </div>
+
+  <!-- Meal -->
+  <div style="margin-bottom:12px">
+    <label style="font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px">Meal</label>
+    <select id="ql-meal" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 12px;font-size:0.9rem;font-family:inherit;appearance:none">
+      <option>Breakfast</option>
+      <option>Lunch</option>
+      <option>Dinner</option>
+      <option>Snacks</option>
+      <option>Late Night</option>
+      <option>Pre-workout</option>
+      <option>Post-workout</option>
+    </select>
+  </div>
+
+  <!-- Food name -->
+  <div style="margin-bottom:12px">
+    <label style="font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px">Food Name</label>
+    <input type="text" id="ql-name" placeholder="e.g. Chicken breast 150g" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 12px;font-size:0.9rem;font-family:inherit"/>
+  </div>
+
+  <!-- Macros row -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:18px">
+    <div>
+      <label style="font-size:0.65rem;font-weight:700;color:var(--cal);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:6px">Cal</label>
+      <input type="number" id="ql-cal" placeholder="0" min="0" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 8px;font-size:0.9rem;font-family:inherit;text-align:center"/>
+    </div>
+    <div>
+      <label style="font-size:0.65rem;font-weight:700;color:var(--protein);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:6px">Protein</label>
+      <input type="number" id="ql-protein" placeholder="0" min="0" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 8px;font-size:0.9rem;font-family:inherit;text-align:center"/>
+    </div>
+    <div>
+      <label style="font-size:0.65rem;font-weight:700;color:var(--carbs);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:6px">Carbs</label>
+      <input type="number" id="ql-carbs" placeholder="0" min="0" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 8px;font-size:0.9rem;font-family:inherit;text-align:center"/>
+    </div>
+    <div>
+      <label style="font-size:0.65rem;font-weight:700;color:var(--fat);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:6px">Fat</label>
+      <input type="number" id="ql-fat" placeholder="0" min="0" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 8px;font-size:0.9rem;font-family:inherit;text-align:center"/>
+    </div>
+  </div>
+
+  <button id="ql-submit" onclick="window.submitQuickLog()" style="width:100%;background:var(--accent);border:none;color:white;border-radius:12px;padding:14px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit">Log Food</button>
+  <div id="ql-status" style="text-align:center;margin-top:10px;font-size:0.8rem;color:var(--muted)"></div>
+</div>
+
+<script>
+function today() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+window.openQuickLog = function() {
+  document.getElementById('ql-date').value = today();
+  document.getElementById('ql-name').value = '';
+  document.getElementById('ql-cal').value = '';
+  document.getElementById('ql-protein').value = '';
+  document.getElementById('ql-carbs').value = '';
+  document.getElementById('ql-fat').value = '';
+  document.getElementById('ql-status').textContent = '';
+  document.getElementById('quick-log-overlay').style.display = 'block';
+  document.getElementById('quick-log-modal').style.display = 'block';
+  setTimeout(() => document.getElementById('ql-name').focus(), 100);
+};
+
+window.closeQuickLog = function() {
+  document.getElementById('quick-log-overlay').style.display = 'none';
+  document.getElementById('quick-log-modal').style.display = 'none';
+};
+
+window.submitQuickLog = async function() {
+  const date    = document.getElementById('ql-date').value;
+  const meal    = document.getElementById('ql-meal').value;
+  const name    = document.getElementById('ql-name').value.trim();
+  const cal     = parseInt(document.getElementById('ql-cal').value) || 0;
+  const protein = parseInt(document.getElementById('ql-protein').value) || 0;
+  const carbs   = parseInt(document.getElementById('ql-carbs').value) || 0;
+  const fat     = parseInt(document.getElementById('ql-fat').value) || 0;
+
+  if (!date || !name) {
+    document.getElementById('ql-status').textContent = '⚠️ Date and name required';
+    return;
+  }
+
+  const btn = document.getElementById('ql-submit');
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+  document.getElementById('ql-status').textContent = '';
+
+  try {
+    // Get current sort_order max for this date
+    const existing = await sbFetch('food_items', `date=eq.${date}&order=sort_order.desc&limit=1`);
+    const sortOrder = existing.length ? (existing[0].sort_order + 1) : 0;
+
+    // Insert food item
+    await sbInsert('food_items', [{ date, meal, name, calories: cal, protein, carbs, fat, sort_order: sortOrder }]);
+
+    // Get current nutrition_log for this date
+    const logs = await sbFetch('nutrition_log', `date=eq.${date}`);
+    const existing_log = logs.length ? logs[0] : { calories: 0, protein: 0, carbs: 0, fat: 0 };
+
+    // Upsert updated totals
+    await sbUpsert('nutrition_log', {
+      date,
+      calories: (existing_log.calories || 0) + cal,
+      protein:  (existing_log.protein  || 0) + protein,
+      carbs:    (existing_log.carbs    || 0) + carbs,
+      fat:      (existing_log.fat      || 0) + fat,
+      notes:    existing_log.notes || ''
+    }, 'date');
+
+    document.getElementById('ql-status').style.color = 'var(--green)';
+    document.getElementById('ql-status').textContent = '✅ Logged!';
+    btn.textContent = 'Log Food';
+    btn.disabled = false;
+
+    // Clear name & macros for quick re-entry
+    document.getElementById('ql-name').value = '';
+    document.getElementById('ql-cal').value = '';
+    document.getElementById('ql-protein').value = '';
+    document.getElementById('ql-carbs').value = '';
+    document.getElementById('ql-fat').value = '';
+
+    // Reload data in background
+    await loadData();
+    renderDay(window._currentDayKey || today());
+
+  } catch(e) {
+    document.getElementById('ql-status').style.color = 'var(--red)';
+    document.getElementById('ql-status').textContent = '❌ Error: ' + e.message;
+    btn.textContent = 'Log Food';
+    btn.disabled = false;
+  }
+};
+
+// Only show FAB on food log page
+document.addEventListener('pageChanged', function(e) {
+  const fab = document.getElementById('quick-log-fab');
+  if (fab) fab.style.display = e.detail === 'log' ? 'flex' : 'none';
+});
+</script>
+
 </body>
 </html>
