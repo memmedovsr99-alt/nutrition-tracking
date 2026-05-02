@@ -1678,11 +1678,6 @@ window.submitQuickLog = async function() {
   }
 };
 
-// Only show FAB on food log page
-document.addEventListener('pageChanged', function(e) {
-  const fab = document.getElementById('quick-log-fab');
-  if (fab) fab.style.display = e.detail === 'log' ? 'flex' : 'none';
-});
 </script>
 
 </body>
