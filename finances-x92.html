@@ -269,48 +269,52 @@
 
   <!-- ───── PAGE: OVERVIEW ───── -->
   <div class="page active" id="page-overview">
-    <!-- Hero balance -->
+    <!-- Hero balance (slim) -->
     <div class="card hero">
       <div class="label">Balance Left</div>
       <div class="amount" id="hero-balance">—</div>
       <div class="sub" id="hero-sub">Set your starting balance to begin</div>
-      <div class="hero-split">
-        <div class="hs"><div class="k">In Hand</div><div class="v" id="hero-hand">—</div></div>
-        <div class="hs"><div class="k">Coming In</div><div class="v green" id="hero-coming">—</div></div>
-        <div class="hs"><div class="k">Owed</div><div class="v red" id="hero-owed">—</div></div>
+    </div>
+
+    <!-- THIS MONTH · spending spotlight -->
+    <div class="section-title"><h2 id="tm-title">This Month · Spending</h2><span class="muted" id="tm-daysleft" style="font-size:.72rem;font-weight:700;"></span></div>
+    <div class="card month-card">
+      <div class="month-top">
+        <div>
+          <div class="month-spent" id="tm-spent">$0</div>
+          <div class="month-sub" id="tm-sub">no budget set</div>
+        </div>
+        <div class="month-right">
+          <div class="month-left-v" id="tm-left">—</div>
+          <div class="month-left-k">left this month</div>
+        </div>
+      </div>
+      <div class="track big"><div class="fill" id="tm-fill" style="width:0%;background:var(--green)"></div></div>
+      <div class="month-stats">
+        <div><span id="tm-budget">—</span><small>budget</small></div>
+        <div><span id="tm-daily">—</span><small>avg / day</small></div>
+        <div><span id="tm-pace">—</span><small>on-pace end</small></div>
       </div>
     </div>
+
+    <!-- Where it went · category breakdown this month -->
+    <div class="section-title"><h2>Where It Went · <span id="cat-month">—</span></h2><span class="link" onclick="showPage('analysis')">Analysis →</span></div>
+    <div class="card" id="month-cat-card"></div>
+
+    <!-- Money breakdown (compact) -->
+    <div class="section-title"><h2>Money Breakdown</h2></div>
+    <div class="card" id="breakdown-card"></div>
 
     <!-- Scholarship context -->
     <div class="note-card" id="schol-note" style="display:none"></div>
 
-    <!-- Projection + burn -->
+    <!-- Secondary stats -->
     <div class="stat-grid">
-      <div class="stat">
-        <div class="k">📉 Monthly Burn</div>
-        <div class="v" id="stat-burn">—</div>
-        <div class="c" id="stat-burn-c">avg living / month</div>
-      </div>
-      <div class="stat">
-        <div class="k">🛬 Runway</div>
-        <div class="v" id="stat-runway">—</div>
-        <div class="c" id="stat-runway-c">months at burn rate</div>
-      </div>
-      <div class="stat">
-        <div class="k">🎯 Projected End</div>
-        <div class="v" id="stat-proj">—</div>
-        <div class="c" id="stat-proj-c">at year horizon</div>
-      </div>
-      <div class="stat">
-        <div class="k">📅 This Month Out</div>
-        <div class="v" id="stat-month">—</div>
-        <div class="c" id="stat-month-c">—</div>
-      </div>
+      <div class="stat"><div class="k">📉 Monthly Burn</div><div class="v" id="stat-burn">—</div><div class="c" id="stat-burn-c">avg living / month</div></div>
+      <div class="stat"><div class="k">🛬 Runway</div><div class="v" id="stat-runway">—</div><div class="c" id="stat-runway-c">months of pot left</div></div>
+      <div class="stat"><div class="k">🎯 Projected End</div><div class="v" id="stat-proj">—</div><div class="c" id="stat-proj-c">at year horizon</div></div>
+      <div class="stat"><div class="k">🧾 Spent to Date</div><div class="v" id="stat-spent">—</div><div class="c" id="stat-spent-c">since start</div></div>
     </div>
-
-    <!-- Budget vs actual (this month) -->
-    <div class="section-title"><h2>This Month · Budget vs Actual</h2><span class="link" onclick="showPage('analysis')">Analysis →</span></div>
-    <div class="card" id="budget-card"></div>
 
     <!-- Recent activity -->
     <div class="section-title"><h2>Recent Activity</h2><span class="link" onclick="showPage('ledger')">All →</span></div>
