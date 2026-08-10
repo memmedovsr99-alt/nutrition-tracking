@@ -568,20 +568,18 @@ function renderOverview() {
   bEl.textContent = c.hasStart ? money(c.balance) : "—";
   bEl.className = "amount " + (c.balance >= 0 ? "pos" : "neg");
   document.getElementById("hero-sub").textContent = c.hasStart
-    ? `Total pot · ${money(c.liquidNow)} in hand now`
+    ? `yours to spend · excl. tuition`
     : "Send me your starting balance to begin";
+  document.getElementById("hero-total").textContent = c.hasStart ? money(c.totalWithTuition) : "—";
+  document.getElementById("hero-total-sub").textContent = c.tuition
+    ? `incl. ${money(c.tuition)} tuition · should match BofA`
+    : "should match your BofA balance";
+
   document.getElementById("stat-burn").textContent = c.avgBurn ? money(c.avgBurn) : "—";
   document.getElementById("stat-runway").textContent = c.runway ? c.runway.toFixed(1) : "—";
   document.getElementById("stat-proj").textContent = c.projected!==null ? money(c.projected) : "—";
   document.getElementById("stat-proj-c").textContent = "by " + fmtDate(DATA.meta.endDate);
   document.getElementById("stat-spent").textContent = money(c.paidOut);
-
-  // scholarship context note
-  const scEl = document.getElementById("schol-note");
-  if (DATA.meta.scholarshipTotal) {
-    scEl.style.display = "";
-    scEl.innerHTML = `🎓 <b>McKinsey Scholarship ${money(DATA.meta.scholarshipTotal)}</b> — ${money(DATA.meta.scholarshipLiving)} living (in your pot) · ${money(DATA.meta.scholarshipTuition)} straight to tuition (not counted here).`;
-  } else scEl.style.display = "none";
 
   renderMonth(c);
   renderBreakdown(c);
