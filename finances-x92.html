@@ -804,20 +804,18 @@ function renderAnalysis() {
     });
   } else showEmptyCanvas(ctxC, "Category breakdown appears once expenses are logged");
 
-  // 3) money in vs out by month
+  // 3) monthly spending (out only — in-vs-out is meaningless on a fixed student pot)
   destroyChart("flow");
-  const months = [...new Set([...DATA.income.map(x=>monthKey(x.date)),...DATA.expenses.map(x=>monthKey(x.date))])].sort();
+  const months = [...new Set(DATA.expenses.filter(e=>e.inBalance!==false && e.paid!==false).map(x=>monthKey(x.date)))].sort();
   const ctxF = document.getElementById("chartFlow");
   if (months.length) {
-    const inD = months.map(m=>DATA.income.filter(x=>monthKey(x.date)===m).reduce((s,x)=>s+(+x.amount||0),0));
-    const outD = months.map(m=>DATA.expenses.filter(x=>monthKey(x.date)===m && x.inBalance!==false).reduce((s,x)=>s+(+x.amount||0),0));
+    const outD = months.map(m=>DATA.expenses.filter(x=>monthKey(x.date)===m && x.inBalance!==false && x.paid!==false).reduce((s,x)=>s+(+x.amount||0),0));
     charts.flow = new Chart(ctxF, {
       type:"bar",
       data:{ labels:months.map(monthLabel), datasets:[
-        {label:"In", data:inD, backgroundColor:"#34d399", borderRadius:5},
-        {label:"Out", data:outD, backgroundColor:"#f87171", borderRadius:5} ] },
+        {label:"Spent", data:outD, backgroundColor:"#7c6fff", borderRadius:6} ] },
       options:{ responsive:true, maintainAspectRatio:false,
-        plugins:{legend:{position:"bottom",labels:{boxWidth:10,padding:12}}, tooltip:{callbacks:{label:i=>`${i.dataset.label}: ${money(i.raw)}`}}},
+        plugins:{legend:{display:false}, tooltip:{callbacks:{label:i=>`Spent: ${money(i.raw)}`}}},
         scales:{ x:{grid:{display:false}}, y:{grid:{color:"rgba(255,255,255,0.05)"},ticks:{callback:v=>moneyK(v)}} } }
     });
   } else showEmptyCanvas(ctxF, "Monthly cash flow appears once you log activity");
