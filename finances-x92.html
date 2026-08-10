@@ -614,7 +614,7 @@ function renderMonth(c) {
 
   // category breakdown (this month)
   const cats = {};
-  DATA.expenses.filter(e=>e.paid!==false && monthKey(e.date)===mk)
+  DATA.expenses.filter(e=>e.paid!==false && e.inBalance!==false && monthKey(e.date)===mk)
     .forEach(e=>{ const k=e.category||"Other"; cats[k]=(cats[k]||0)+(+e.amount||0); });
   const keys = Object.keys(cats).sort((a,b)=>cats[b]-cats[a]);
   const total = keys.reduce((s,k)=>s+cats[k],0);
