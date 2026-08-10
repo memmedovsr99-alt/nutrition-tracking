@@ -500,11 +500,14 @@ function compute() {
   const tk = today();
   const isRecv = x => x.received !== false;   // default: money is in hand
   const isPaid = x => x.paid !== false;       // default: expense already left
+  const inBal  = x => x.inBalance !== false;  // default: expense reduces Balance Left
+  // Expenses that affect the balance (exclude "pre-spent" money already gone before the snapshot)
+  const bExp = DATA.expenses.filter(inBal);
 
   const recvIn  = DATA.income.filter(isRecv).reduce((s,x)=>s+(+x.amount||0),0);
   const expIn   = DATA.income.filter(x=>!isRecv(x)).reduce((s,x)=>s+(+x.amount||0),0); // committed, coming
-  const paidOut = DATA.expenses.filter(isPaid).reduce((s,x)=>s+(+x.amount||0),0);
-  const owedOut = DATA.expenses.filter(x=>!isPaid(x)).reduce((s,x)=>s+(+x.amount||0),0); // owed
+  const paidOut = bExp.filter(isPaid).reduce((s,x)=>s+(+x.amount||0),0);
+  const owedOut = bExp.filter(x=>!isPaid(x)).reduce((s,x)=>s+(+x.amount||0),0); // owed
 
   const totalIn = recvIn + expIn;
   const totalOut = paidOut + owedOut;
@@ -512,11 +515,11 @@ function compute() {
   const balance   = (start ?? 0) + totalIn - totalOut;       // Balance Left = total pot for the year
 
   const thisMonth = monthKey(tk);
-  const monthOut = DATA.expenses.filter(e=>isPaid(e) && monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
+  const monthOut = bExp.filter(e=>isPaid(e) && monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
   const monthIn  = DATA.income.filter(e=>isRecv(e) && monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
 
   // Recurring living burn = paid, everyday spend (exclude debt payoff, tuition, and trip/bucket one-offs)
-  const living = DATA.expenses.filter(e=>isPaid(e) && !e.bucket && !["Debt","Tuition"].includes(e.category));
+  const living = bExp.filter(e=>isPaid(e) && !e.bucket && !["Debt","Tuition"].includes(e.category));
   const byMonthOut = {};
   living.forEach(e => { const k=monthKey(e.date); byMonthOut[k]=(byMonthOut[k]||0)+(+e.amount||0); });
   const outMonths = Object.keys(byMonthOut);
