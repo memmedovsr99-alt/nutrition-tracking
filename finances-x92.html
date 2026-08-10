@@ -448,12 +448,18 @@ const DATA = {
   ],
 
   // Money going OUT. paid:false = owed/upcoming (feeds "Owed"). bucket: null or a bucket id.
+  // inBalance:false = money ALREADY spent before the current balance snapshot → tracked in its
+  //   bucket + ledger, but NOT deducted again from Balance Left (avoids double-counting).
   expenses: [
     { date:"2026-08-10", category:"Debt", name:"ABB credit card balance", amount:3824, bucket:null, emoji:"💳", paid:false, note:"To pay off" }
+    // K2 trip expenses go here, e.g.:
+    // { date:"2026-07-15", category:"Travel", name:"Flights to Islamabad", amount:900, bucket:"k2", inBalance:false }
   ],
 
-  // Buckets = trips / projects created over time. e.g. { id:"china", name:"China Trip", emoji:"🇨🇳", budget:3000, color:"#f87171" }
-  buckets: []
+  // Buckets = trips / projects created over time.
+  buckets: [
+    { id:"k2", name:"K2 Base Camp Trek", emoji:"🏔️", budget:0, color:"#60a5fa", note:"Already-spent trip — tracked, not deducted from Balance Left" }
+  ]
 };
 </script>
 
