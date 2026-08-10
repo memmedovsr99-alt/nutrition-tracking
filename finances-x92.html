@@ -654,7 +654,9 @@ function renderBreakdown(c) {
     <div class="bd-row"><span class="bd-k">🏦 In hand now</span><span class="bd-v">${money(c.liquidNow)}</span></div>
     <div class="bd-row"><span class="bd-k">🟢 Coming in (committed)</span><span class="bd-v green">${c.expIn?"+"+money(c.expIn):"—"}</span></div>
     <div class="bd-row"><span class="bd-k">🔴 Owed (debt)</span><span class="bd-v red">${c.owedOut?"−"+money(c.owedOut):"—"}</span></div>
-    <div class="bd-row total"><span class="bd-k">Balance Left</span><span class="bd-v">${money(c.balance)}</span></div>`;
+    <div class="bd-row total"><span class="bd-k">Spending Balance</span><span class="bd-v green">${money(c.balance)}</span></div>
+    <div class="bd-row"><span class="bd-k">🎓 Tuition (scholarship → Penn)</span><span class="bd-v">+${money(c.tuition)}</span></div>
+    <div class="bd-row total"><span class="bd-k">Total · incl. tuition (BofA)</span><span class="bd-v">${money(c.totalWithTuition)}</span></div>`;
 }
 
 /* ---------- combined transactions ---------- */
