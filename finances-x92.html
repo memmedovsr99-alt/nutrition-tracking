@@ -498,16 +498,11 @@ function renderOverview() {
   document.getElementById("hero-sub").textContent = c.hasStart
     ? `Total pot for the year — in hand + coming, minus what you owe`
     : "Send me your starting balance to begin";
-  document.getElementById("hero-hand").textContent = money(c.liquidNow);
-  document.getElementById("hero-coming").textContent = c.expIn ? "+"+money(c.expIn) : "—";
-  document.getElementById("hero-owed").textContent = c.owedOut ? money(c.owedOut) : "—";
-
   document.getElementById("stat-burn").textContent = c.avgBurn ? money(c.avgBurn) : "—";
   document.getElementById("stat-runway").textContent = c.runway ? c.runway.toFixed(1) : "—";
   document.getElementById("stat-proj").textContent = c.projected!==null ? money(c.projected) : "—";
   document.getElementById("stat-proj-c").textContent = "by " + fmtDate(DATA.meta.endDate);
-  document.getElementById("stat-month").textContent = money(c.monthOut);
-  document.getElementById("stat-month-c").textContent = monthLabel(c.thisMonth) + (c.monthIn?` · +${moneyK(c.monthIn)} in`:"");
+  document.getElementById("stat-spent").textContent = money(c.paidOut);
 
   // scholarship context note
   const scEl = document.getElementById("schol-note");
@@ -516,26 +511,77 @@ function renderOverview() {
     scEl.innerHTML = `🎓 <b>McKinsey Scholarship ${money(DATA.meta.scholarshipTotal)}</b> — ${money(DATA.meta.scholarshipLiving)} living (in your pot) · ${money(DATA.meta.scholarshipTuition)} straight to tuition (not counted here).`;
   } else scEl.style.display = "none";
 
-  // budget vs actual (this month)
-  const bc = document.getElementById("budget-card");
-  if (!DATA.budget.length) {
-    bc.innerHTML = emptyState("📊","No budget plan yet","Send me your monthly budget (rent, food, transport…) and this fills with plan-vs-actual bars.");
+  renderMonth(c);
+  renderBreakdown(c);
+  renderTxnList("recent-card", allTxns().slice(0,6), true);
+}
+
+/* ---------- render: this-month spending spotlight ---------- */
+function renderMonth(c) {
+  c = c || compute();
+  const mk = c.thisMonth;
+  const d = parseD(today());
+  const daysInMonth = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+  const dayOfMonth = d.getDate();
+  const daysLeft = daysInMonth - dayOfMonth;
+  const monthName = new Date(mk+"-01T00:00:00").toLocaleDateString("en-US",{month:"long"});
+
+  const spent = c.monthOut;                       // paid expenses this month
+  const budget = c.plannedMonthly;                // sum of monthly budget plan
+  const left = budget>0 ? budget - spent : null;
+  const pct = budget>0 ? Math.min(spent/budget*100,100) : 0;
+  const over = budget>0 && spent>budget;
+  const dailyAvg = dayOfMonth>0 ? spent/dayOfMonth : 0;
+  const pace = dailyAvg * daysInMonth;            // projected month-end at current pace
+
+  document.getElementById("tm-title").textContent = `This Month · ${monthName}`;
+  document.getElementById("tm-daysleft").textContent = `${daysLeft} days left`;
+  document.getElementById("cat-month").textContent = monthName;
+  document.getElementById("tm-spent").textContent = money(spent);
+  document.getElementById("tm-sub").textContent = budget>0 ? `of ${money(budget)} budget` : "no monthly budget set yet";
+  const leftEl = document.getElementById("tm-left");
+  leftEl.textContent = left!==null ? money(left) : "—";
+  leftEl.className = "month-left-v " + (left!==null ? (over?"red":"green") : "");
+  const fill = document.getElementById("tm-fill");
+  fill.style.width = pct + "%";
+  fill.style.background = over ? "var(--red)" : (pct>85 ? "var(--yellow)" : "var(--green)");
+  document.getElementById("tm-budget").textContent = budget>0 ? money(budget) : "—";
+  document.getElementById("tm-daily").textContent = spent>0 ? money(dailyAvg) : "—";
+  document.getElementById("tm-pace").textContent = spent>0 ? money(pace) : "—";
+
+  // category breakdown (this month)
+  const cats = {};
+  DATA.expenses.filter(e=>e.paid!==false && monthKey(e.date)===mk)
+    .forEach(e=>{ const k=e.category||"Other"; cats[k]=(cats[k]||0)+(+e.amount||0); });
+  const keys = Object.keys(cats).sort((a,b)=>cats[b]-cats[a]);
+  const total = keys.reduce((s,k)=>s+cats[k],0);
+  const budMap = {}; DATA.budget.forEach(b=>budMap[b.category]=+b.planned||0);
+  const mc = document.getElementById("month-cat-card");
+  if (!keys.length) {
+    mc.innerHTML = emptyState("🧾","No spending logged in "+monthName,
+      "Send me your expenses — or just a bank statement — and they'll break down here by category with budget bars.");
   } else {
-    const actualByCat = {};
-    DATA.expenses.filter(e=>monthKey(e.date)===c.thisMonth)
-      .forEach(e=>{ actualByCat[e.category]=(actualByCat[e.category]||0)+(+e.amount||0); });
-    bc.innerHTML = DATA.budget.map(b=>{
-      const spent = actualByCat[b.category]||0;
-      const pct = b.planned>0 ? Math.min(spent/b.planned*100,100) : 0;
-      const over = spent > b.planned;
-      const col = over ? "var(--red)" : (pct>85?"var(--yellow)":"var(--green)");
-      return progressRow(b.emoji||emojiFor(b.category), b.category, spent, b.planned, pct, col,
-        `${money(spent)} of ${money(b.planned)}`, over?`over by ${money(spent-b.planned)}`:`${money(b.planned-spent)} left`);
+    mc.innerHTML = keys.map((k,i)=>{
+      const bud = budMap[k]||0;
+      const barPct = bud>0 ? Math.min(cats[k]/bud*100,100) : (total>0?cats[k]/total*100:0);
+      const isOver = bud>0 && cats[k]>bud;
+      const col = isOver ? "var(--red)" : PALETTE[i%PALETTE.length];
+      const foot = bud>0
+        ? (isOver ? `over by ${money(cats[k]-bud)}` : `${money(bud-cats[k])} left of ${money(bud)}`)
+        : `${total>0?(cats[k]/total*100).toFixed(0):0}% of spend`;
+      return progressRow(emojiFor(k), k, cats[k], bud, barPct, col, money(cats[k]), foot);
     }).join("");
   }
+}
 
-  // recent activity
-  renderTxnList("recent-card", allTxns().slice(0,6), true);
+/* ---------- render: compact money breakdown ---------- */
+function renderBreakdown(c) {
+  c = c || compute();
+  document.getElementById("breakdown-card").innerHTML = `
+    <div class="bd-row"><span class="bd-k">🏦 In hand now</span><span class="bd-v">${money(c.liquidNow)}</span></div>
+    <div class="bd-row"><span class="bd-k">🟢 Coming in (committed)</span><span class="bd-v green">${c.expIn?"+"+money(c.expIn):"—"}</span></div>
+    <div class="bd-row"><span class="bd-k">🔴 Owed (debt)</span><span class="bd-v red">${c.owedOut?"−"+money(c.owedOut):"—"}</span></div>
+    <div class="bd-row total"><span class="bd-k">Balance Left</span><span class="bd-v">${money(c.balance)}</span></div>`;
 }
 
 /* ---------- combined transactions ---------- */
