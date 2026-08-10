@@ -469,6 +469,9 @@ const DATA = {
   //   bucket + ledger, but NOT deducted again from Balance Left (avoids double-counting).
   expenses: [
     { date:"2026-08-10", category:"Debt", name:"ABB credit card balance", amount:3824, bucket:null, emoji:"💳", paid:false, note:"To pay off" },
+    // ── China Trip (current — spent from the pot, DOES reduce Balance Left) ──
+    { date:"2026-08-10", category:"Travel", name:"Islamabad → Guangzhou ticket",     amount:721.20, bucket:"china", paid:true, emoji:"✈️" },
+    { date:"2026-08-10", category:"Travel", name:"Extra legroom (Guangzhou ticket)", amount:28.80,  bucket:"china", paid:true, emoji:"💺" },
     // ── K2 Base Camp Trek (already spent — inBalance:false, does NOT reduce Balance Left) ──
     { date:"2026-06-25", category:"Gear",   name:"Trekking gear",             amount:400,    bucket:"k2", inBalance:false, paid:true, emoji:"🥾" },
     { date:"2026-07-05", category:"Travel", name:"Flights",                   amount:391.20, bucket:"k2", inBalance:false, paid:true, emoji:"✈️" },
