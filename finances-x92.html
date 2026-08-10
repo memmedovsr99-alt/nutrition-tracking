@@ -345,26 +345,31 @@ const DATA = {
     owner: "Samir",
     subtitle: "Wharton · Year 2",
     currency: "USD",
-    startDate: "2026-08-01",     // when tracking begins
-    endDate:   "2027-06-30",     // horizon = end of academic year
-    startingBalance: null        // ← your total money on startDate (fill me in)
+    startDate: "2026-08-10",     // when tracking begins
+    endDate:   "2027-05-15",     // horizon = end of academic year (approx graduation)
+    // Money IN HAND today = bank + card + cash (all liquid accounts combined)
+    startingBalance: 42585.59,   // 42,175 bank + 105.59 card + 305 cash
+    // Scholarship context (tuition portion is NOT spendable — excluded from Balance Left)
+    scholarshipTotal:   111008,
+    scholarshipTuition: 63008,   // paid direct to Penn, not counted
+    scholarshipLiving:  48000    // Samir's to spend — tracked as income below
   },
 
-  // Planned monthly budget by category (the "plan"). Used for budget-vs-actual + projection.
-  // e.g. { category: "Rent", planned: 1800, emoji: "🏠" }
+  // Planned monthly budget by category. e.g. { category:"Rent", planned:1800, emoji:"🏠" }
   budget: [],
 
-  // Money coming IN — one row per inflow event.
-  // e.g. { date: "2026-08-20", source: "Loan disbursement", amount: 15000, emoji: "🏦", note: "Fall term" }
-  income: [],
+  // Money coming IN. received:false = committed but not in the bank yet (feeds "Coming In").
+  income: [
+    { date:"2026-08-10", source:"McKinsey Scholarship (living)", amount:48000, emoji:"🎓", received:false, note:"$48k of $111,008 award; rest is tuition, paid direct" },
+    { date:"2026-08-10", source:"Halluminate — receivable",       amount:7625,  emoji:"💻", received:false, note:"Owed to Samir" }
+  ],
 
-  // Money going OUT — one row per expense.
-  // bucket: null for everyday spend, or a bucket id (see buckets[]) to attribute it to a trip/project.
-  // e.g. { date: "2026-08-05", category: "Rent", name: "August rent", amount: 1800, bucket: null, emoji: "🏠" }
-  expenses: [],
+  // Money going OUT. paid:false = owed/upcoming (feeds "Owed"). bucket: null or a bucket id.
+  expenses: [
+    { date:"2026-08-10", category:"Debt", name:"ABB credit card balance", amount:3824, bucket:null, emoji:"💳", paid:false, note:"To pay off" }
+  ],
 
-  // Buckets = trips / projects created over time.
-  // e.g. { id: "china", name: "China Trip", emoji: "🇨🇳", budget: 3000, color: "#f87171" }
+  // Buckets = trips / projects created over time. e.g. { id:"china", name:"China Trip", emoji:"🇨🇳", budget:3000, color:"#f87171" }
   buckets: []
 };
 </script>
