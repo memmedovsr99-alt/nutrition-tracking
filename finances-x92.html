@@ -721,19 +721,22 @@ function renderBuckets() {
   const el = document.getElementById("buckets-list");
   if (!DATA.buckets.length) {
     el.innerHTML = `<div class="card">${emptyState("🎯","No buckets yet",
-      "Buckets track a trip or project end-to-end. Say “add a China Trip bucket, budget $3,000” and I'll set it up.")}</div>`;
+      "Buckets track total dollars spent on a trip or project. Say “add a China Trip bucket” and I'll set it up.")}</div>`;
     return;
   }
   el.innerHTML = DATA.buckets.map(b=>{
-    const spent = DATA.expenses.filter(e=>e.bucket===b.id).reduce((s,x)=>s+(+x.amount||0),0);
-    const n = DATA.expenses.filter(e=>e.bucket===b.id).length;
-    const pct = b.budget>0 ? Math.min(spent/b.budget*100,100) : 0;
-    const over = spent > b.budget && b.budget>0;
-    const col = over ? "var(--red)" : (b.color||"var(--accent)");
+    const items = DATA.expenses.filter(e=>e.bucket===b.id).sort((a,z)=> a.date<z.date?1:-1);
+    const spent = items.reduce((s,x)=>s+(+x.amount||0),0);
+    const rows = items.map(e=>`<div class="bitem">
+        <span class="bi-name"><span>${e.emoji||emojiFor(e.category)}</span><span class="bi-label">${escapeHtml(e.name)}</span><span class="bi-date">${fmtDate(e.date)}</span></span>
+        <span class="bi-amt">${money(e.amount)}</span></div>`).join("");
     return `<div class="card">
-      ${progressRow(b.emoji||"🎯", b.name, spent, b.budget, pct, col,
-        b.budget>0?`${money(spent)} of ${money(b.budget)}`:money(spent),
-        b.budget>0?(over?`over by ${money(spent-b.budget)}`:`${money(b.budget-spent)} left`):`${n} txns · no budget set`)}
+      <div class="bucket-head">
+        <div class="bucket-title"><span class="bucket-emoji">${b.emoji||"🎯"}</span>${escapeHtml(b.name)}</div>
+        <div class="bucket-total">${money(spent)}</div>
+      </div>
+      <div class="bucket-count">${items.length} ${items.length===1?"expense":"expenses"} logged</div>
+      <div class="bucket-items">${rows || `<div class="bitem"><span class="bi-name">No expenses yet</span></div>`}</div>
     </div>`;
   }).join("");
 }
