@@ -547,7 +547,7 @@ function renderMonth(c) {
   fill.style.background = over ? "var(--red)" : (pct>85 ? "var(--yellow)" : "var(--green)");
   document.getElementById("tm-budget").textContent = budget>0 ? money(budget) : "—";
   document.getElementById("tm-daily").textContent = spent>0 ? money(dailyAvg) : "—";
-  document.getElementById("tm-pace").textContent = spent>0 ? money(pace) : "—";
+  document.getElementById("tm-pace").textContent = perDayLeft!==null ? money(perDayLeft) : "—";
 
   // category breakdown (this month)
   const cats = {};
