@@ -42,10 +42,50 @@
       min-height: 100vh; min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
     }
-    .app {
-      max-width: 480px; margin: 0 auto;
-      padding: calc(16px + var(--safe-top)) 16px calc(var(--tab-h) + var(--safe-bottom) + 24px);
+    /* ── Desktop shell: sidebar + main ── */
+    .shell { display: flex; min-height: 100vh; min-height: 100dvh; max-width: 1400px; margin: 0 auto; }
+    .sidebar {
+      width: 244px; flex-shrink: 0; position: sticky; top: 0; align-self: flex-start;
+      height: 100vh; height: 100dvh; padding: 26px 16px;
+      display: flex; flex-direction: column; gap: 24px;
+      border-right: 1px solid var(--border); background: rgba(16,20,33,0.45);
     }
+    .brand { display: flex; align-items: center; gap: 12px; padding: 0 6px; }
+    .side-nav { display: flex; flex-direction: column; gap: 6px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      background: none; border: 1px solid transparent; color: var(--muted);
+      padding: 11px 14px; border-radius: 12px; font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; font-family: inherit; text-align: left; transition: all .15s;
+    }
+    .nav-item .tab-icon { font-size: 1.2rem; line-height: 1; }
+    .nav-item:hover { background: var(--surface2); color: var(--text2); }
+    .nav-item.active { background: var(--surface2); border-color: var(--border-light); color: var(--text); }
+    .side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding: 0 6px; }
+    .main { flex: 1; min-width: 0; padding: 30px 34px 56px; }
+
+    /* ── 12-column grid ── */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; align-items: start; }
+    .cell { min-width: 0; }
+    .c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}
+    .c7{grid-column:span 7}.c8{grid-column:span 8}.c9{grid-column:span 9}.c12{grid-column:span 12}
+    .grid .section-title { margin: 0 2px 12px; }
+    .grid .card, .grid .month-card { margin-bottom: 0; }
+    .cell-hero .hero { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+
+    /* narrow / phone fallback (deprioritised) */
+    @media (max-width: 900px) {
+      .shell { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: static; flex-direction: row; align-items: center;
+                 gap: 10px; border-right: none; border-bottom: 1px solid var(--border); overflow-x: auto; padding: 12px; }
+      .brand { flex-shrink: 0; }
+      .side-nav { flex-direction: row; gap: 4px; }
+      .nav-item { padding: 9px 12px; white-space: nowrap; }
+      .side-foot { margin-top: 0; margin-left: auto; }
+      .main { padding: 18px 14px 40px; }
+      .grid { grid-template-columns: 1fr; gap: 14px; }
+    }
+
     h1 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px; }
     h2 { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
     .muted { color: var(--muted); }
