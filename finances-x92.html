@@ -111,6 +111,28 @@
     .stat .barwrap { height: 6px; background: var(--surface3); border-radius: 4px; margin-top: 9px; overflow: hidden; }
     .stat .bar { height: 100%; border-radius: 4px; transition: width .5s; }
 
+    /* ── Month spotlight ── */
+    .month-card .month-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+    .month-spent { font-size: 2.1rem; font-weight: 900; letter-spacing: -1px; line-height: 1; }
+    .month-sub { font-size: 0.72rem; color: var(--muted); font-weight: 600; margin-top: 5px; }
+    .month-right { text-align: right; }
+    .month-left-v { font-size: 1.15rem; font-weight: 800; }
+    .month-left-k { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 2px; }
+    .track.big { height: 12px; }
+    .month-stats { display: flex; justify-content: space-between; margin-top: 14px; gap: 8px; }
+    .month-stats > div { flex: 1; text-align: center; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 9px 4px; }
+    .month-stats span { display: block; font-size: 0.92rem; font-weight: 800; }
+    .month-stats small { font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+
+    /* ── Money breakdown ── */
+    .bd-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+    .bd-row:last-child { border-bottom: none; }
+    .bd-row.total { margin-top: 2px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+    .bd-k { color: var(--text2); font-weight: 600; }
+    .bd-row.total .bd-k { color: var(--text); font-weight: 800; }
+    .bd-v { font-weight: 800; }
+    .bd-row.total .bd-v { font-size: 1.02rem; }
+
     /* ── Progress bar (buckets/budget) ── */
     .prow { margin-bottom: 14px; }
     .prow:last-child { margin-bottom: 0; }
