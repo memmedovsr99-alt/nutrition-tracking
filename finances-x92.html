@@ -532,7 +532,7 @@ function renderMonth(c) {
   const pct = budget>0 ? Math.min(spent/budget*100,100) : 0;
   const over = budget>0 && spent>budget;
   const dailyAvg = dayOfMonth>0 ? spent/dayOfMonth : 0;
-  const pace = dailyAvg * daysInMonth;            // projected month-end at current pace
+  const perDayLeft = (budget>0 && daysLeft>0) ? Math.max(0,left)/daysLeft : null; // budget remaining / days left
 
   document.getElementById("tm-title").textContent = `This Month · ${monthName}`;
   document.getElementById("tm-daysleft").textContent = `${daysLeft} days left`;
