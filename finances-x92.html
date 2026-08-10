@@ -785,7 +785,7 @@ function renderAnalysis() {
   const ctxF = document.getElementById("chartFlow");
   if (months.length) {
     const inD = months.map(m=>DATA.income.filter(x=>monthKey(x.date)===m).reduce((s,x)=>s+(+x.amount||0),0));
-    const outD = months.map(m=>DATA.expenses.filter(x=>monthKey(x.date)===m).reduce((s,x)=>s+(+x.amount||0),0));
+    const outD = months.map(m=>DATA.expenses.filter(x=>monthKey(x.date)===m && x.inBalance!==false).reduce((s,x)=>s+(+x.amount||0),0));
     charts.flow = new Chart(ctxF, {
       type:"bar",
       data:{ labels:months.map(monthLabel), datasets:[
