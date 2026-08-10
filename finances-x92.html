@@ -818,7 +818,7 @@ function renderAnalysis() {
         plugins:{legend:{display:false}, tooltip:{callbacks:{label:i=>`Spent: ${money(i.raw)}`}}},
         scales:{ x:{grid:{display:false}}, y:{grid:{color:"rgba(255,255,255,0.05)"},ticks:{callback:v=>moneyK(v)}} } }
     });
-  } else showEmptyCanvas(ctxF, "Monthly cash flow appears once you log activity");
+  } else showEmptyCanvas(ctxF, "Monthly spending appears once you log expenses");
 
   // 4) bucket analysis
   const ba = document.getElementById("bucket-analysis");
