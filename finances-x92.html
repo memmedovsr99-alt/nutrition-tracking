@@ -457,12 +457,12 @@ const DATA = {
     { date:"2026-06-25", category:"Gear",   name:"Trekking gear",             amount:400,    bucket:"k2", inBalance:false, paid:true, emoji:"🥾" },
     { date:"2026-07-05", category:"Travel", name:"Flights",                   amount:391.20, bucket:"k2", inBalance:false, paid:true, emoji:"✈️" },
     { date:"2026-07-10", category:"Travel", name:"Cash transfer (trip spend)", amount:2550,   bucket:"k2", inBalance:false, paid:true, emoji:"💵" },
-    { date:"2026-07-15", category:"Other",  name:"Trip expense",              amount:283,    bucket:"k2", inBalance:false, paid:true, emoji:"🏔️", note:"unspecified — confirm what this was" }
+    { date:"2026-07-15", category:"Travel", name:"Travel expense",            amount:283,    bucket:"k2", inBalance:false, paid:true, emoji:"🚐" }
   ],
 
-  // Buckets = trips / projects created over time.
+  // Buckets = trips / projects. Pure dollar tracking (no budgets) — just total + itemized spend.
   buckets: [
-    { id:"k2", name:"K2 Base Camp Trek", emoji:"🏔️", budget:0, color:"#60a5fa", note:"Already-spent trip — tracked, not deducted from Balance Left" }
+    { id:"k2", name:"K2 Base Camp Trek", emoji:"🏔️", color:"#60a5fa", note:"Already-spent trip — tracked, not deducted from Balance Left" }
   ]
 };
 </script>
