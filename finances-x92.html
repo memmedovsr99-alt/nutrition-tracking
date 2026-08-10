@@ -496,7 +496,7 @@ function renderOverview() {
   bEl.textContent = c.hasStart ? money(c.balance) : "—";
   bEl.className = "amount " + (c.balance >= 0 ? "pos" : "neg");
   document.getElementById("hero-sub").textContent = c.hasStart
-    ? `Total pot for the year — in hand + coming, minus what you owe`
+    ? `Total pot · ${money(c.liquidNow)} in hand now`
     : "Send me your starting balance to begin";
   document.getElementById("stat-burn").textContent = c.avgBurn ? money(c.avgBurn) : "—";
   document.getElementById("stat-runway").textContent = c.runway ? c.runway.toFixed(1) : "—";
