@@ -583,15 +583,40 @@ function renderOverview() {
     ? `incl. ${money(c.tuition)} tuition · should match BofA`
     : "should match your BofA balance";
 
-  document.getElementById("stat-burn").textContent = c.avgBurn ? money(c.avgBurn) : "—";
-  document.getElementById("stat-runway").textContent = c.runway ? c.runway.toFixed(1) : "—";
-  document.getElementById("stat-proj").textContent = c.projected!==null ? money(c.projected) : "—";
-  document.getElementById("stat-proj-c").textContent = "by " + fmtDate(DATA.meta.endDate);
-  document.getElementById("stat-spent").textContent = money(c.paidOut);
-
   renderMonth(c);
   renderBreakdown(c);
+  renderMonthlyHistory();
   renderTxnList("recent-card", allTxns().slice(0,6), true);
+}
+
+/* ---------- render: monthly breakdown (previous months) ---------- */
+function monthsHistory() {
+  const byM = {};
+  DATA.expenses.filter(e=>e.paid!==false).forEach(e=>{      // all money actually out (incl. pre-spent trips)
+    const k = monthKey(e.date);
+    (byM[k] = byM[k] || {spent:0, n:0}).spent += (+e.amount||0);
+    byM[k].n++;
+  });
+  const cm = monthKey(today());
+  byM[cm] = byM[cm] || {spent:0, n:0};                       // always show the current month
+  return Object.keys(byM).sort().reverse().map(k=>({month:k, ...byM[k]}));
+}
+function renderMonthlyHistory() {
+  const rows = monthsHistory();
+  const max = Math.max(...rows.map(r=>r.spent), 1);
+  const cm = monthKey(today());
+  document.getElementById("months-card").innerHTML = rows.map(r=>{
+    const label = new Date(r.month+"-01T00:00:00").toLocaleDateString("en-US",{month:"long",year:"numeric"});
+    const isCur = r.month===cm;
+    return `<div class="mrow">
+      <div class="mrow-top">
+        <div class="mrow-name">${label}${isCur?' <span class="mtag">this month</span>':''}</div>
+        <div class="mrow-amt">${money(r.spent)}</div>
+      </div>
+      <div class="track"><div class="fill" style="width:${r.spent/max*100}%;background:var(--accent)"></div></div>
+      <div class="mrow-foot">${r.n} ${r.n===1?'transaction':'transactions'}</div>
+    </div>`;
+  }).join("");
 }
 
 /* ---------- render: this-month spending spotlight ---------- */
