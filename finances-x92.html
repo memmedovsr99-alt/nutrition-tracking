@@ -413,38 +413,48 @@ function monthsBetween(a, b) {
 function compute() {
   const m = DATA.meta;
   const start = m.startingBalance;
-  const totalIn = DATA.income.reduce((s,x)=>s+(+x.amount||0),0);
-  const totalOut = DATA.expenses.reduce((s,x)=>s+(+x.amount||0),0);
-  const balance = (start ?? 0) + totalIn - totalOut;
   const hasStart = start !== null && start !== undefined;
-
   const tk = today();
-  const thisMonth = monthKey(tk);
-  const monthOut = DATA.expenses.filter(e=>monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
-  const monthIn  = DATA.income.filter(e=>monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
+  const isRecv = x => x.received !== false;   // default: money is in hand
+  const isPaid = x => x.paid !== false;       // default: expense already left
 
-  // burn rate = avg monthly spend across months that have any expense
+  const recvIn  = DATA.income.filter(isRecv).reduce((s,x)=>s+(+x.amount||0),0);
+  const expIn   = DATA.income.filter(x=>!isRecv(x)).reduce((s,x)=>s+(+x.amount||0),0); // committed, coming
+  const paidOut = DATA.expenses.filter(isPaid).reduce((s,x)=>s+(+x.amount||0),0);
+  const owedOut = DATA.expenses.filter(x=>!isPaid(x)).reduce((s,x)=>s+(+x.amount||0),0); // owed
+
+  const totalIn = recvIn + expIn;
+  const totalOut = paidOut + owedOut;
+  const liquidNow = (start ?? 0) + recvIn - paidOut;        // money you can touch today
+  const balance   = (start ?? 0) + totalIn - totalOut;       // Balance Left = total pot for the year
+
+  const thisMonth = monthKey(tk);
+  const monthOut = DATA.expenses.filter(e=>isPaid(e) && monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
+  const monthIn  = DATA.income.filter(e=>isRecv(e) && monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
+
+  // Recurring living burn = paid, everyday spend (exclude debt payoff, tuition, and trip/bucket one-offs)
+  const living = DATA.expenses.filter(e=>isPaid(e) && !e.bucket && !["Debt","Tuition"].includes(e.category));
   const byMonthOut = {};
-  DATA.expenses.forEach(e => { const k=monthKey(e.date); byMonthOut[k]=(byMonthOut[k]||0)+(+e.amount||0); });
+  living.forEach(e => { const k=monthKey(e.date); byMonthOut[k]=(byMonthOut[k]||0)+(+e.amount||0); });
   const outMonths = Object.keys(byMonthOut);
   const plannedMonthly = DATA.budget.reduce((s,b)=>s+(+b.planned||0),0);
   const avgBurn = outMonths.length ? outMonths.reduce((s,k)=>s+byMonthOut[k],0)/outMonths.length
                 : (plannedMonthly || null);
 
-  // runway = months of balance left at burn rate
+  // runway = months the total pot lasts at burn rate
   const runway = (avgBurn && avgBurn>0 && hasStart) ? balance / avgBurn : null;
 
-  // projection to horizon: balance - futurePlannedSpend + futureScheduledIncome
+  // projected end-of-year: total pot minus remaining living burn (committed income/debt already in balance)
   let projected = null;
   if (hasStart) {
     const monthsLeft = Math.max(0, monthsBetween(tk, m.endDate));
-    const futureIncome = DATA.income.filter(x=>x.date > tk).reduce((s,x)=>s+(+x.amount||0),0);
     const burnForProj = avgBurn || plannedMonthly || 0;
-    projected = balance + futureIncome - burnForProj * monthsLeft;
+    projected = balance - burnForProj * monthsLeft;
   }
 
-  return { start, hasStart, totalIn, totalOut, balance, monthOut, monthIn, avgBurn, runway, projected,
-           thisMonth, byMonthOut, plannedMonthly, count: DATA.income.length + DATA.expenses.length };
+  return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
+           monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
+           count: DATA.income.length + DATA.expenses.length };
 }
 
 /* ---------- render: overview ---------- */
