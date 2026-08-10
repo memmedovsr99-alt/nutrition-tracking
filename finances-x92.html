@@ -470,19 +470,25 @@ function renderOverview() {
   bEl.textContent = c.hasStart ? money(c.balance) : "—";
   bEl.className = "amount " + (c.balance >= 0 ? "pos" : "neg");
   document.getElementById("hero-sub").textContent = c.hasStart
-    ? `Started ${money(c.start)} on ${fmtDate(DATA.meta.startDate)}`
+    ? `Total pot for the year — in hand + coming, minus what you owe`
     : "Send me your starting balance to begin";
-  document.getElementById("hero-in").textContent = c.totalIn ? money(c.totalIn) : "—";
-  document.getElementById("hero-out").textContent = c.totalOut ? money(c.totalOut) : "—";
-  document.getElementById("hero-runway").textContent = c.runway ? c.runway.toFixed(1)+" mo" : "—";
+  document.getElementById("hero-hand").textContent = money(c.liquidNow);
+  document.getElementById("hero-coming").textContent = c.expIn ? "+"+money(c.expIn) : "—";
+  document.getElementById("hero-owed").textContent = c.owedOut ? money(c.owedOut) : "—";
 
   document.getElementById("stat-burn").textContent = c.avgBurn ? money(c.avgBurn) : "—";
+  document.getElementById("stat-runway").textContent = c.runway ? c.runway.toFixed(1) : "—";
   document.getElementById("stat-proj").textContent = c.projected!==null ? money(c.projected) : "—";
   document.getElementById("stat-proj-c").textContent = "by " + fmtDate(DATA.meta.endDate);
   document.getElementById("stat-month").textContent = money(c.monthOut);
   document.getElementById("stat-month-c").textContent = monthLabel(c.thisMonth) + (c.monthIn?` · +${moneyK(c.monthIn)} in`:"");
-  document.getElementById("stat-count").textContent = c.count;
-  document.getElementById("stat-count-c").textContent = `${DATA.income.length} in · ${DATA.expenses.length} out`;
+
+  // scholarship context note
+  const scEl = document.getElementById("schol-note");
+  if (DATA.meta.scholarshipTotal) {
+    scEl.style.display = "";
+    scEl.innerHTML = `🎓 <b>McKinsey Scholarship ${money(DATA.meta.scholarshipTotal)}</b> — ${money(DATA.meta.scholarshipLiving)} living (in your pot) · ${money(DATA.meta.scholarshipTuition)} straight to tuition (not counted here).`;
+  } else scEl.style.display = "none";
 
   // budget vs actual (this month)
   const bc = document.getElementById("budget-card");
