@@ -277,76 +277,106 @@
 </div>
 
 <!-- ══════════ APP ══════════ -->
-<div class="app hidden" id="app">
+<div class="shell hidden" id="app">
 
-  <!-- Header -->
-  <div class="header">
-    <div class="header-left">
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="sidebar">
+    <div class="brand">
       <div class="avatar">💰</div>
       <div>
         <h1>Finances</h1>
         <div class="subtitle" id="hdr-sub">Wharton · Year 2</div>
       </div>
     </div>
-    <div class="badge" id="hdr-badge"><b>—</b> tracked</div>
-  </div>
+    <nav class="side-nav">
+      <button class="nav-item active" data-page="overview" onclick="showPage('overview')"><span class="tab-icon">🏦</span>Overview</button>
+      <button class="nav-item" data-page="ledger"   onclick="showPage('ledger')"><span class="tab-icon">🧾</span>Ledger</button>
+      <button class="nav-item" data-page="buckets"  onclick="showPage('buckets')"><span class="tab-icon">🎯</span>Buckets</button>
+      <button class="nav-item" data-page="analysis" onclick="showPage('analysis')"><span class="tab-icon">📊</span>Analysis</button>
+    </nav>
+    <div class="side-foot">
+      <div class="badge" id="hdr-badge"><b>—</b> tracked</div>
+    </div>
+  </aside>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main class="main">
 
   <!-- ───── PAGE: OVERVIEW ───── -->
   <div class="page active" id="page-overview">
-    <!-- Hero balance (slim) -->
-    <div class="card hero">
-      <div class="label">Balance Left</div>
-      <div class="amount" id="hero-balance">—</div>
-      <div class="sub" id="hero-sub">Set your starting balance to begin</div>
-    </div>
+    <div class="grid">
 
-    <!-- THIS MONTH · spending spotlight -->
-    <div class="section-title"><h2 id="tm-title">This Month · Spending</h2><span class="muted" id="tm-daysleft" style="font-size:.72rem;font-weight:700;"></span></div>
-    <div class="card month-card">
-      <div class="month-top">
-        <div>
-          <div class="month-spent" id="tm-spent">$0</div>
-          <div class="month-sub" id="tm-sub">no budget set</div>
-        </div>
-        <div class="month-right">
-          <div class="month-left-v" id="tm-left">—</div>
-          <div class="month-left-k">left this month</div>
+      <!-- Balance hero -->
+      <div class="cell c4 cell-hero">
+        <div class="card hero">
+          <div class="label">Balance Left</div>
+          <div class="amount" id="hero-balance">—</div>
+          <div class="sub" id="hero-sub">Set your starting balance to begin</div>
         </div>
       </div>
-      <div class="track big"><div class="fill" id="tm-fill" style="width:0%;background:var(--green)"></div></div>
-      <div class="month-stats">
-        <div><span id="tm-budget">—</span><small>budget</small></div>
-        <div><span id="tm-daily">—</span><small>spent / day</small></div>
-        <div><span id="tm-pace">—</span><small>left / day</small></div>
+
+      <!-- This month spotlight -->
+      <div class="cell c8">
+        <div class="section-title"><h2 id="tm-title">This Month · Spending</h2><span class="muted" id="tm-daysleft" style="font-size:.72rem;font-weight:700;"></span></div>
+        <div class="card month-card">
+          <div class="month-top">
+            <div>
+              <div class="month-spent" id="tm-spent">$0</div>
+              <div class="month-sub" id="tm-sub">no budget set</div>
+            </div>
+            <div class="month-right">
+              <div class="month-left-v" id="tm-left">—</div>
+              <div class="month-left-k">left this month</div>
+            </div>
+          </div>
+          <div class="track big"><div class="fill" id="tm-fill" style="width:0%;background:var(--green)"></div></div>
+          <div class="month-stats">
+            <div><span id="tm-budget">—</span><small>budget</small></div>
+            <div><span id="tm-daily">—</span><small>spent / day</small></div>
+            <div><span id="tm-pace">—</span><small>left / day</small></div>
+          </div>
+        </div>
       </div>
+
+      <!-- Where it went -->
+      <div class="cell c8">
+        <div class="section-title"><h2>Where It Went · <span id="cat-month">—</span></h2><span class="link" onclick="showPage('analysis')">Analysis →</span></div>
+        <div class="card" id="month-cat-card"></div>
+      </div>
+
+      <!-- Money breakdown -->
+      <div class="cell c4">
+        <div class="section-title"><h2>Money Breakdown</h2></div>
+        <div class="card" id="breakdown-card"></div>
+      </div>
+
+      <!-- Scholarship note -->
+      <div class="cell c12">
+        <div class="note-card" id="schol-note" style="display:none"></div>
+      </div>
+
+      <!-- Key numbers -->
+      <div class="cell c12">
+        <div class="section-title"><h2>Key Numbers</h2></div>
+        <div class="stat-grid">
+          <div class="stat"><div class="k">📉 Monthly Burn</div><div class="v" id="stat-burn">—</div><div class="c" id="stat-burn-c">avg living / month</div></div>
+          <div class="stat"><div class="k">🛬 Runway</div><div class="v" id="stat-runway">—</div><div class="c" id="stat-runway-c">months of pot left</div></div>
+          <div class="stat"><div class="k">🎯 Projected End</div><div class="v" id="stat-proj">—</div><div class="c" id="stat-proj-c">at year horizon</div></div>
+          <div class="stat"><div class="k">🧾 Spent to Date</div><div class="v" id="stat-spent">—</div><div class="c" id="stat-spent-c">since start</div></div>
+        </div>
+      </div>
+
+      <!-- Recent activity -->
+      <div class="cell c12">
+        <div class="section-title"><h2>Recent Activity</h2><span class="link" onclick="showPage('ledger')">All →</span></div>
+        <div class="card" id="recent-card"></div>
+      </div>
+
     </div>
-
-    <!-- Where it went · category breakdown this month -->
-    <div class="section-title"><h2>Where It Went · <span id="cat-month">—</span></h2><span class="link" onclick="showPage('analysis')">Analysis →</span></div>
-    <div class="card" id="month-cat-card"></div>
-
-    <!-- Money breakdown (compact) -->
-    <div class="section-title"><h2>Money Breakdown</h2></div>
-    <div class="card" id="breakdown-card"></div>
-
-    <!-- Scholarship context -->
-    <div class="note-card" id="schol-note" style="display:none"></div>
-
-    <!-- Secondary stats -->
-    <div class="stat-grid">
-      <div class="stat"><div class="k">📉 Monthly Burn</div><div class="v" id="stat-burn">—</div><div class="c" id="stat-burn-c">avg living / month</div></div>
-      <div class="stat"><div class="k">🛬 Runway</div><div class="v" id="stat-runway">—</div><div class="c" id="stat-runway-c">months of pot left</div></div>
-      <div class="stat"><div class="k">🎯 Projected End</div><div class="v" id="stat-proj">—</div><div class="c" id="stat-proj-c">at year horizon</div></div>
-      <div class="stat"><div class="k">🧾 Spent to Date</div><div class="v" id="stat-spent">—</div><div class="c" id="stat-spent-c">since start</div></div>
-    </div>
-
-    <!-- Recent activity -->
-    <div class="section-title"><h2>Recent Activity</h2><span class="link" onclick="showPage('ledger')">All →</span></div>
-    <div class="card" id="recent-card"></div>
   </div>
 
   <!-- ───── PAGE: LEDGER ───── -->
-  <div class="page" id="page-ledger">
+  <div class="page" id="page-ledger" style="max-width:960px;">
     <div class="section-title"><h2>Ledger</h2><span class="muted" id="ledger-count" style="font-size:.72rem;font-weight:600;"></span></div>
     <div class="filter-bar" id="ledger-filters"></div>
     <div class="card" id="ledger-card"></div>
@@ -358,32 +388,32 @@
     <div class="note-card" id="buckets-note">
       <b>Buckets</b> group spending by trip or project — like “China Trip” — so you can see budget vs actual for each. Tell me to add one anytime and I'll wire it in.
     </div>
-    <div id="buckets-list"></div>
+    <div id="buckets-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;"></div>
   </div>
 
   <!-- ───── PAGE: ANALYSIS ───── -->
   <div class="page" id="page-analysis">
-    <div class="section-title"><h2>Balance Over Time</h2></div>
-    <div class="card"><div class="chart-wrap"><canvas id="chartBalance"></canvas></div></div>
-
-    <div class="section-title"><h2>Spending by Category</h2></div>
-    <div class="card"><div class="chart-wrap tall"><canvas id="chartCategory"></canvas></div></div>
-
-    <div class="section-title"><h2>Money In vs Out · by Month</h2></div>
-    <div class="card"><div class="chart-wrap"><canvas id="chartFlow"></canvas></div></div>
-
-    <div class="section-title"><h2>Spending by Bucket</h2></div>
-    <div class="card" id="bucket-analysis"></div>
+    <div class="grid">
+      <div class="cell c8">
+        <div class="section-title"><h2>Balance Over Time</h2></div>
+        <div class="card"><div class="chart-wrap"><canvas id="chartBalance"></canvas></div></div>
+      </div>
+      <div class="cell c4">
+        <div class="section-title"><h2>Spending by Category</h2></div>
+        <div class="card"><div class="chart-wrap tall"><canvas id="chartCategory"></canvas></div></div>
+      </div>
+      <div class="cell c6">
+        <div class="section-title"><h2>Money In vs Out · by Month</h2></div>
+        <div class="card"><div class="chart-wrap"><canvas id="chartFlow"></canvas></div></div>
+      </div>
+      <div class="cell c6">
+        <div class="section-title"><h2>Spending by Bucket</h2></div>
+        <div class="card" id="bucket-analysis"></div>
+      </div>
+    </div>
   </div>
 
-</div>
-
-<!-- ══════════ TAB BAR ══════════ -->
-<div class="tab-bar hidden" id="tab-bar">
-  <button class="tab-item active" data-page="overview" onclick="showPage('overview')"><span class="tab-icon">🏦</span>Overview</button>
-  <button class="tab-item" data-page="ledger"   onclick="showPage('ledger')"><span class="tab-icon">🧾</span>Ledger</button>
-  <button class="tab-item" data-page="buckets"  onclick="showPage('buckets')"><span class="tab-icon">🎯</span>Buckets</button>
-  <button class="tab-item" data-page="analysis" onclick="showPage('analysis')"><span class="tab-icon">📊</span>Analysis</button>
+  </main>
 </div>
 
 <!-- ══════════ DATA ══════════ -->
