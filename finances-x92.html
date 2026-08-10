@@ -565,7 +565,10 @@ function renderMonth(c) {
       const bud = budMap[k]||0;
       const barPct = bud>0 ? Math.min(cats[k]/bud*100,100) : (total>0?cats[k]/total*100:0);
       const isOver = bud>0 && cats[k]>bud;
-      const col = isOver ? "var(--red)" : PALETTE[i%PALETTE.length];
+      // budgeted categories = semantic health color; unbudgeted = neutral palette (just showing share)
+      const col = bud>0
+        ? (isOver ? "var(--red)" : (cats[k]/bud>0.85 ? "var(--yellow)" : "var(--green)"))
+        : PALETTE[i%PALETTE.length];
       const foot = bud>0
         ? (isOver ? `over by ${money(cats[k]-bud)}` : `${money(bud-cats[k])} left of ${money(bud)}`)
         : `${total>0?(cats[k]/total*100).toFixed(0):0}% of spend`;
