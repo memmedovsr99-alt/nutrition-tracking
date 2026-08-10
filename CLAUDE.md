@@ -5,6 +5,15 @@
 - **Hosting**: GitHub Pages (free, no limits)
 - **Repo**: https://github.com/memmedovsr99-alt/nutrition-tracking.git
 
+## Finance Tracker (added Aug 2026) — separate app, same repo
+- **File**: `finances-x92.html` · **URL**: https://memmedovsr99-alt.github.io/nutrition-tracking/finances-x92.html
+- **Purpose**: Samir's Wharton Year 2 budget. Main indicator = **Balance Left**. "Buckets" track trips/projects (e.g. China Trip).
+- **Password gate**: client-side sha256. Default pw = `coconut`. Change: `python3 -c "import hashlib;print(hashlib.sha256('NEWPW'.encode()).hexdigest())"` → replace `PW_HASH`.
+- **Data**: edited DIRECTLY in the `const DATA = {...}` block in the HTML (NOT Supabase). Fields: `meta.startingBalance`, `budget[]`, `income[]`, `expenses[]`, `buckets[]`. USD only.
+- **Engine**: Balance = startingBalance + Σincome − Σexpenses. Attribute an expense to a trip by setting its `bucket` to a bucket `id`.
+- **Workflow**: Samir sends statements/updates in chat → edit DATA → auto-sync commits & pushes.
+- Currency USD only; public page, so real balances sit in source behind only the light gate (Samir was warned).
+
 ## Architecture (migrated to Supabase — April 2026)
 - **Data lives in Supabase**, NOT in the HTML file anymore
 - `nutrition_dashboard.html` is now just UI code — do NOT look for data arrays in it
