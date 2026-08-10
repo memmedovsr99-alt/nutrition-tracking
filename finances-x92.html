@@ -834,7 +834,6 @@ async function tryUnlock(){
 function unlock(){
   document.getElementById("gate").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
-  document.getElementById("tab-bar").classList.remove("hidden");
   renderAll();
 }
 document.getElementById("gate-input").addEventListener("keydown",e=>{ if(e.key==="Enter") tryUnlock(); });
