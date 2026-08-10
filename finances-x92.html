@@ -480,7 +480,8 @@ function money(n, opts={}) {
   if (n === null || n === undefined || isNaN(n)) return "—";
   const sign = n < 0 ? "-" : "";
   const v = Math.abs(n);
-  const dec = opts.dec ?? (v >= 1000 ? 0 : 0);
+  const hasCents = Math.round(v * 100) % 100 !== 0;   // show cents only when not a whole dollar
+  const dec = opts.dec ?? (hasCents ? 2 : 0);
   const s = v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
   return `${sign}${CUR.symbol}${s}`;
 }
