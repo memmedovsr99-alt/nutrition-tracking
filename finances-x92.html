@@ -664,7 +664,8 @@ function renderTxnList(elId, txns, compact=false) {
   }
   el.innerHTML = txns.map(t=>{
     const bk = t.bucket ? bucketById(t.bucket) : null;
-    const status = t.type==="in" ? (t.received===false?"expected":null) : (t.paid===false?"owed":null);
+    const status = t.type==="in" ? (t.received===false?"expected":null)
+      : (t.inBalance===false?"already spent" : (t.paid===false?"owed":null));
     const meta = [fmtDate(t.date), t.type==="in"?"Income":(t.category||"Spend"), status, bk?`${bk.emoji||"🎯"} ${bk.name}`:null]
       .filter(Boolean).join(" · ");
     const ico = t.emoji || (t.type==="in"?"💵":emojiFor(t.category));
