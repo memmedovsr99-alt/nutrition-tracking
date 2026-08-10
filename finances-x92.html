@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Samir · Finances</title>
+
+  <!-- Add-to-home-screen (no separate manifest; standalone page) -->
+  <meta name="theme-color" content="#0d1117"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Finances"/>
+  <meta name="robots" content="noindex, nofollow"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #1a2035;
+      --surface2: #212d45;
+      --surface3: #2a3855;
+      --border: #344468;
+      --border-light: #3d5080;
+      --accent: #7c6fff; --accent2: #4dd4ac;
+      --green: #34d399; --green-dim: rgba(52,211,153,0.14);
+      --yellow: #fbbf24; --red: #f87171; --red-dim: rgba(248,113,113,0.14);
+      --blue: #60a5fa; --orange: #fb923c; --pink: #ff6b8a; --purple: #a78bfa;
+      --text: #f0f4ff; --text2: #c4cfea; --muted: #7a8dae;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --tab-h: 62px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh; min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .app {
+      max-width: 480px; margin: 0 auto;
+      padding: calc(16px + var(--safe-top)) 16px calc(var(--tab-h) + var(--safe-bottom) + 24px);
+    }
+    h1 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px; }
+    h2 { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+    .muted { color: var(--muted); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+
+    /* ── Header ── */
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 10px; }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; box-shadow: 0 4px 16px rgba(124,111,255,0.3);
+    }
+    .subtitle { color: var(--muted); font-size: 0.75rem; margin-top: 1px; font-weight: 500; }
+    .badge {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 6px 11px; font-size: 0.72rem;
+      color: var(--muted); font-weight: 600;
+    }
+    .badge b { color: var(--text2); font-weight: 700; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 18px; position: relative; overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124,111,255,0.3), transparent);
+    }
+
+    /* ── Hero balance ── */
+    .hero {
+      background: linear-gradient(160deg, #1c2740, #171d31 70%);
+      border: 1px solid var(--border-light);
+      text-align: center; padding: 26px 18px 22px;
+    }
+    .hero .label { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
+    .hero .amount { font-size: 2.8rem; font-weight: 900; letter-spacing: -1.5px; margin: 6px 0 2px; line-height: 1; }
+    .hero .amount.pos { color: var(--green); }
+    .hero .amount.neg { color: var(--red); }
+    .hero .sub { font-size: 0.8rem; color: var(--text2); font-weight: 500; }
+    .hero-split { display: flex; gap: 10px; margin-top: 18px; }
+    .hero-split .hs {
+      flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 12px; padding: 11px 8px; text-align: center;
+    }
+    .hero-split .hs .k { font-size: 0.64rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+    .hero-split .hs .v { font-size: 1.02rem; font-weight: 800; margin-top: 3px; }
+
+    /* ── Stat grid ── */
+    .stat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 14px; }
+    .stat {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px; position: relative; overflow: hidden;
+    }
+    .stat .k { font-size: 0.66rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+    .stat .v { font-size: 1.35rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.5px; }
+    .stat .c { font-size: 0.68rem; color: var(--muted); margin-top: 2px; font-weight: 500; }
+    .stat .barwrap { height: 6px; background: var(--surface3); border-radius: 4px; margin-top: 9px; overflow: hidden; }
+    .stat .bar { height: 100%; border-radius: 4px; transition: width .5s; }
+
+    /* ── Progress bar (buckets/budget) ── */
+    .prow { margin-bottom: 14px; }
+    .prow:last-child { margin-bottom: 0; }
+    .prow-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; gap: 8px; }
+    .prow-name { font-size: 0.86rem; font-weight: 700; display: flex; align-items: center; gap: 7px; }
+    .prow-name .emoji { font-size: 1rem; }
+    .prow-val { font-size: 0.78rem; font-weight: 600; color: var(--text2); white-space: nowrap; }
+    .prow-val .spent { font-weight: 800; color: var(--text); }
+    .track { height: 9px; background: var(--surface3); border-radius: 6px; overflow: hidden; }
+    .fill { height: 100%; border-radius: 6px; transition: width .6s cubic-bezier(.4,0,.2,1); }
+    .prow-foot { display: flex; justify-content: space-between; margin-top: 5px; font-size: 0.68rem; color: var(--muted); font-weight: 500; }
+
+    /* ── Ledger rows ── */
+    .filter-bar { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; scrollbar-width: none; }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .chip {
+      background: var(--surface2); border: 1px solid var(--border); color: var(--muted);
+      border-radius: 20px; padding: 7px 13px; font-size: 0.76rem; font-weight: 600;
+      white-space: nowrap; cursor: pointer; transition: all .15s; font-family: inherit;
+    }
+    .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .txn {
+      display: flex; align-items: center; gap: 12px; padding: 12px 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .txn:last-child { border-bottom: none; }
+    .txn-ico {
+      width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+      background: var(--surface2); border: 1px solid var(--border);
+    }
+    .txn-mid { flex: 1; min-width: 0; }
+    .txn-name { font-size: 0.87rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .txn-meta { font-size: 0.7rem; color: var(--muted); margin-top: 2px; font-weight: 500; }
+    .txn-amt { font-size: 0.95rem; font-weight: 800; white-space: nowrap; }
+    .txn-amt.in { color: var(--green); }
+    .txn-amt.out { color: var(--text); }
+
+    /* ── Empty states ── */
+    .empty {
+      text-align: center; padding: 34px 18px; color: var(--muted);
+    }
+    .empty .big { font-size: 2rem; margin-bottom: 8px; }
+    .empty .t { font-size: 0.9rem; font-weight: 700; color: var(--text2); }
+    .empty .d { font-size: 0.78rem; margin-top: 6px; line-height: 1.5; }
+
+    /* ── Section titles ── */
+    .section-title { display: flex; align-items: center; justify-content: space-between; margin: 22px 2px 12px; }
+    .section-title h2 { margin: 0; }
+    .section-title .link { font-size: 0.72rem; color: var(--accent); font-weight: 700; cursor: pointer; }
+
+    /* ── Chart card ── */
+    .chart-wrap { position: relative; height: 210px; }
+    .chart-wrap.tall { height: 240px; }
+
+    /* ── Tab bar ── */
+    .tab-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      max-width: 480px; margin: 0 auto;
+      background: rgba(16,20,33,0.92); backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      display: flex; padding-bottom: var(--safe-bottom);
+    }
+    .tab-item {
+      flex: 1; background: none; border: none; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      padding: 9px 0 8px; font-size: 0.62rem; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: color .15s; letter-spacing: 0.3px;
+    }
+    .tab-item .tab-icon { font-size: 1.25rem; line-height: 1; }
+    .tab-item.active { color: var(--accent); }
+
+    .page { display: none; animation: fade .25s ease; }
+    .page.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* ── Password gate ── */
+    .gate {
+      position: fixed; inset: 0; z-index: 999; background: var(--bg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px; text-align: center;
+    }
+    .gate .lock { font-size: 3rem; margin-bottom: 14px; }
+    .gate h1 { font-size: 1.15rem; margin-bottom: 6px; }
+    .gate p { color: var(--muted); font-size: 0.82rem; margin-bottom: 22px; }
+    .gate input {
+      background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+      border-radius: 12px; padding: 14px 16px; font-size: 1rem; width: 100%; max-width: 260px;
+      text-align: center; font-family: inherit; letter-spacing: 1px;
+    }
+    .gate input:focus { outline: none; border-color: var(--accent); }
+    .gate button {
+      margin-top: 12px; background: var(--accent); color: #fff; border: none;
+      border-radius: 12px; padding: 13px 20px; font-size: 0.92rem; font-weight: 700;
+      width: 100%; max-width: 260px; cursor: pointer; font-family: inherit;
+    }
+    .gate .err { color: var(--red); font-size: 0.78rem; margin-top: 12px; min-height: 18px; font-weight: 600; }
+    .hidden { display: none !important; }
+
+    .note-card {
+      background: var(--green-dim); border: 1px solid rgba(52,211,153,0.3);
+      border-radius: 14px; padding: 14px 16px; font-size: 0.78rem; color: var(--text2);
+      line-height: 1.55; margin-bottom: 14px;
+    }
+    .note-card b { color: var(--green); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ PASSWORD GATE ══════════ -->
+<div class="gate" id="gate">
+  <div class="lock">🔒</div>
+  <h1>Samir's Finances</h1>
+  <p>Private. Enter password to continue.</p>
+  <input id="gate-input" type="password" inputmode="text" autocomplete="off" placeholder="Password" />
+  <button onclick="tryUnlock()">Unlock</button>
+  <div class="err" id="gate-err"></div>
+</div>
+
+<!-- ══════════ APP ══════════ -->
+<div class="app hidden" id="app">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="avatar">💰</div>
+      <div>
+        <h1>Finances</h1>
+        <div class="subtitle" id="hdr-sub">Wharton · Year 2</div>
+      </div>
+    </div>
+    <div class="badge" id="hdr-badge"><b>—</b> tracked</div>
+  </div>
+
+  <!-- ───── PAGE: OVERVIEW ───── -->
+  <div class="page active" id="page-overview">
+    <!-- Hero balance -->
+    <div class="card hero">
+      <div class="label">Balance Left</div>
+      <div class="amount" id="hero-balance">—</div>
+      <div class="sub" id="hero-sub">Set your starting balance to begin</div>
+      <div class="hero-split">
+        <div class="hs"><div class="k">Money In</div><div class="v green" id="hero-in">—</div></div>
+        <div class="hs"><div class="k">Money Out</div><div class="v red" id="hero-out">—</div></div>
+        <div class="hs"><div class="k">Runway</div><div class="v" id="hero-runway">—</div></div>
+      </div>
+    </div>
+
+    <!-- Projection + burn -->
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="k">📉 Monthly Burn</div>
+        <div class="v" id="stat-burn">—</div>
+        <div class="c" id="stat-burn-c">avg spend / month</div>
+      </div>
+      <div class="stat">
+        <div class="k">🎯 Projected End</div>
+        <div class="v" id="stat-proj">—</div>
+        <div class="c" id="stat-proj-c">at year horizon</div>
+      </div>
+      <div class="stat">
+        <div class="k">📅 This Month Out</div>
+        <div class="v" id="stat-month">—</div>
+        <div class="c" id="stat-month-c">—</div>
+      </div>
+      <div class="stat">
+        <div class="k">🧾 Transactions</div>
+        <div class="v" id="stat-count">—</div>
+        <div class="c" id="stat-count-c">logged</div>
+      </div>
+    </div>
+
+    <!-- Budget vs actual (this month) -->
+    <div class="section-title"><h2>This Month · Budget vs Actual</h2><span class="link" onclick="showPage('analysis')">Analysis →</span></div>
+    <div class="card" id="budget-card"></div>
+
+    <!-- Recent activity -->
+    <div class="section-title"><h2>Recent Activity</h2><span class="link" onclick="showPage('ledger')">All →</span></div>
+    <div class="card" id="recent-card"></div>
+  </div>
+
+  <!-- ───── PAGE: LEDGER ───── -->
+  <div class="page" id="page-ledger">
+    <div class="section-title"><h2>Ledger</h2><span class="muted" id="ledger-count" style="font-size:.72rem;font-weight:600;"></span></div>
+    <div class="filter-bar" id="ledger-filters"></div>
+    <div class="card" id="ledger-card"></div>
+  </div>
+
+  <!-- ───── PAGE: BUCKETS ───── -->
+  <div class="page" id="page-buckets">
+    <div class="section-title"><h2>Buckets & Trips</h2></div>
+    <div class="note-card" id="buckets-note">
+      <b>Buckets</b> group spending by trip or project — like “China Trip” — so you can see budget vs actual for each. Tell me to add one anytime and I'll wire it in.
+    </div>
+    <div id="buckets-list"></div>
+  </div>
+
+  <!-- ───── PAGE: ANALYSIS ───── -->
+  <div class="page" id="page-analysis">
+    <div class="section-title"><h2>Balance Over Time</h2></div>
+    <div class="card"><div class="chart-wrap"><canvas id="chartBalance"></canvas></div></div>
+
+    <div class="section-title"><h2>Spending by Category</h2></div>
+    <div class="card"><div class="chart-wrap tall"><canvas id="chartCategory"></canvas></div></div>
+
+    <div class="section-title"><h2>Money In vs Out · by Month</h2></div>
+    <div class="card"><div class="chart-wrap"><canvas id="chartFlow"></canvas></div></div>
+
+    <div class="section-title"><h2>Spending by Bucket</h2></div>
+    <div class="card" id="bucket-analysis"></div>
+  </div>
+
+</div>
+
+<!-- ══════════ TAB BAR ══════════ -->
+<div class="tab-bar hidden" id="tab-bar">
+  <button class="tab-item active" data-page="overview" onclick="showPage('overview')"><span class="tab-icon">🏦</span>Overview</button>
+  <button class="tab-item" data-page="ledger"   onclick="showPage('ledger')"><span class="tab-icon">🧾</span>Ledger</button>
+  <button class="tab-item" data-page="buckets"  onclick="showPage('buckets')"><span class="tab-icon">🎯</span>Buckets</button>
+  <button class="tab-item" data-page="analysis" onclick="showPage('analysis')"><span class="tab-icon">📊</span>Analysis</button>
+</div>
+
+<!-- ══════════ DATA ══════════ -->
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   SAMIR'S FINANCE DATA  ·  single source of truth
+   Claude edits this block when you send statements / updates.
+   All amounts in USD. Dates ISO format "YYYY-MM-DD".
+   ═══════════════════════════════════════════════════════════════ */
+const DATA = {
+  meta: {
+    owner: "Samir",
+    subtitle: "Wharton · Year 2",
+    currency: "USD",
+    startDate: "2026-08-01",     // when tracking begins
+    endDate:   "2027-06-30",     // horizon = end of academic year
+    startingBalance: null        // ← your total money on startDate (fill me in)
+  },
+
+  // Planned monthly budget by category (the "plan"). Used for budget-vs-actual + projection.
+  // e.g. { category: "Rent", planned: 1800, emoji: "🏠" }
+  budget: [],
+
+  // Money coming IN — one row per inflow event.
+  // e.g. { date: "2026-08-20", source: "Loan disbursement", amount: 15000, emoji: "🏦", note: "Fall term" }
+  income: [],
+
+  // Money going OUT — one row per expense.
+  // bucket: null for everyday spend, or a bucket id (see buckets[]) to attribute it to a trip/project.
+  // e.g. { date: "2026-08-05", category: "Rent", name: "August rent", amount: 1800, bucket: null, emoji: "🏠" }
+  expenses: [],
+
+  // Buckets = trips / projects created over time.
+  // e.g. { id: "china", name: "China Trip", emoji: "🇨🇳", budget: 3000, color: "#f87171" }
+  buckets: []
+};
+</script>
+
+<!-- ══════════ ENGINE + RENDER ══════════ -->
+<script>
+const CUR = { symbol: "$", code: "USD" };
+const CAT_EMOJI = { Rent:"🏠", Groceries:"🛒", Food:"🍽️", Dining:"🍽️", Transport:"🚇", Travel:"✈️",
+  Tuition:"🎓", Insurance:"🩺", Health:"🩺", Phone:"📱", Subscriptions:"🔁", Shopping:"🛍️",
+  Utilities:"💡", Fun:"🎉", Social:"🍻", Gym:"💪", Books:"📚", Fees:"🧾", Misc:"•", Other:"•" };
+const PALETTE = ["#7c6fff","#4dd4ac","#f87171","#fbbf24","#60a5fa","#fb923c","#ff6b8a","#a78bfa","#34d399","#f472b6"];
+
+/* ---------- helpers ---------- */
+function money(n, opts={}) {
+  if (n === null || n === undefined || isNaN(n)) return "—";
+  const sign = n < 0 ? "-" : "";
+  const v = Math.abs(n);
+  const dec = opts.dec ?? (v >= 1000 ? 0 : 0);
+  const s = v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  return `${sign}${CUR.symbol}${s}`;
+}
+function moneyK(n) {
+  if (n === null || isNaN(n)) return "—";
+  const a = Math.abs(n);
+  if (a >= 1000) return (n<0?"-":"")+CUR.symbol+(a/1000).toFixed(a>=10000?0:1)+"k";
+  return money(n);
+}
+function parseD(s) { return new Date(s + "T00:00:00"); }
+function today() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function fmtDate(d) { return parseD(d).toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
+function monthKey(d) { return d.slice(0,7); }
+function monthLabel(k) { return new Date(k+"-01T00:00:00").toLocaleDateString("en-US",{month:"short",year:"2-digit"}); }
+function emojiFor(cat) { return CAT_EMOJI[cat] || "•"; }
+function bucketById(id) { return DATA.buckets.find(b => b.id === id); }
+function monthsBetween(a, b) {
+  const d1 = parseD(a), d2 = parseD(b);
+  return (d2.getFullYear()-d1.getFullYear())*12 + (d2.getMonth()-d1.getMonth()) + (d2.getDate()>=d1.getDate()?0:-0);
+}
+
+/* ---------- derived engine ---------- */
+function compute() {
+  const m = DATA.meta;
+  const start = m.startingBalance;
+  const totalIn = DATA.income.reduce((s,x)=>s+(+x.amount||0),0);
+  const totalOut = DATA.expenses.reduce((s,x)=>s+(+x.amount||0),0);
+  const balance = (start ?? 0) + totalIn - totalOut;
+  const hasStart = start !== null && start !== undefined;
+
+  const tk = today();
+  const thisMonth = monthKey(tk);
+  const monthOut = DATA.expenses.filter(e=>monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
+  const monthIn  = DATA.income.filter(e=>monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
+
+  // burn rate = avg monthly spend across months that have any expense
+  const byMonthOut = {};
+  DATA.expenses.forEach(e => { const k=monthKey(e.date); byMonthOut[k]=(byMonthOut[k]||0)+(+e.amount||0); });
+  const outMonths = Object.keys(byMonthOut);
+  const plannedMonthly = DATA.budget.reduce((s,b)=>s+(+b.planned||0),0);
+  const avgBurn = outMonths.length ? outMonths.reduce((s,k)=>s+byMonthOut[k],0)/outMonths.length
+                : (plannedMonthly || null);
+
+  // runway = months of balance left at burn rate
+  const runway = (avgBurn && avgBurn>0 && hasStart) ? balance / avgBurn : null;
+
+  // projection to horizon: balance - futurePlannedSpend + futureScheduledIncome
+  let projected = null;
+  if (hasStart) {
+    const monthsLeft = Math.max(0, monthsBetween(tk, m.endDate));
+    const futureIncome = DATA.income.filter(x=>x.date > tk).reduce((s,x)=>s+(+x.amount||0),0);
+    const burnForProj = avgBurn || plannedMonthly || 0;
+    projected = balance + futureIncome - burnForProj * monthsLeft;
+  }
+
+  return { start, hasStart, totalIn, totalOut, balance, monthOut, monthIn, avgBurn, runway, projected,
+           thisMonth, byMonthOut, plannedMonthly, count: DATA.income.length + DATA.expenses.length };
+}
+
+/* ---------- render: overview ---------- */
+function renderOverview() {
+  const c = compute();
+  document.getElementById("hdr-sub").textContent = DATA.meta.subtitle || "";
+  document.getElementById("hdr-badge").innerHTML = `<b>${c.count}</b> tracked`;
+
+  const bEl = document.getElementById("hero-balance");
+  bEl.textContent = c.hasStart ? money(c.balance) : "—";
+  bEl.className = "amount " + (c.balance >= 0 ? "pos" : "neg");
+  document.getElementById("hero-sub").textContent = c.hasStart
+    ? `Started ${money(c.start)} on ${fmtDate(DATA.meta.startDate)}`
+    : "Send me your starting balance to begin";
+  document.getElementById("hero-in").textContent = c.totalIn ? money(c.totalIn) : "—";
+  document.getElementById("hero-out").textContent = c.totalOut ? money(c.totalOut) : "—";
+  document.getElementById("hero-runway").textContent = c.runway ? c.runway.toFixed(1)+" mo" : "—";
+
+  document.getElementById("stat-burn").textContent = c.avgBurn ? money(c.avgBurn) : "—";
+  document.getElementById("stat-proj").textContent = c.projected!==null ? money(c.projected) : "—";
+  document.getElementById("stat-proj-c").textContent = "by " + fmtDate(DATA.meta.endDate);
+  document.getElementById("stat-month").textContent = money(c.monthOut);
+  document.getElementById("stat-month-c").textContent = monthLabel(c.thisMonth) + (c.monthIn?` · +${moneyK(c.monthIn)} in`:"");
+  document.getElementById("stat-count").textContent = c.count;
+  document.getElementById("stat-count-c").textContent = `${DATA.income.length} in · ${DATA.expenses.length} out`;
+
+  // budget vs actual (this month)
+  const bc = document.getElementById("budget-card");
+  if (!DATA.budget.length) {
+    bc.innerHTML = emptyState("📊","No budget plan yet","Send me your monthly budget (rent, food, transport…) and this fills with plan-vs-actual bars.");
+  } else {
+    const actualByCat = {};
+    DATA.expenses.filter(e=>monthKey(e.date)===c.thisMonth)
+      .forEach(e=>{ actualByCat[e.category]=(actualByCat[e.category]||0)+(+e.amount||0); });
+    bc.innerHTML = DATA.budget.map(b=>{
+      const spent = actualByCat[b.category]||0;
+      const pct = b.planned>0 ? Math.min(spent/b.planned*100,100) : 0;
+      const over = spent > b.planned;
+      const col = over ? "var(--red)" : (pct>85?"var(--yellow)":"var(--green)");
+      return progressRow(b.emoji||emojiFor(b.category), b.category, spent, b.planned, pct, col,
+        `${money(spent)} of ${money(b.planned)}`, over?`over by ${money(spent-b.planned)}`:`${money(b.planned-spent)} left`);
+    }).join("");
+  }
+
+  // recent activity
+  renderTxnList("recent-card", allTxns().slice(0,6), true);
+}
+
+/* ---------- combined transactions ---------- */
+function allTxns() {
+  const inc = DATA.income.map(x=>({...x, type:"in", name:x.source, amount:+x.amount}));
+  const exp = DATA.expenses.map(x=>({...x, type:"out", amount:+x.amount}));
+  return [...inc, ...exp].sort((a,b)=> b.date < a.date ? -1 : b.date > a.date ? 1 : 0);
+}
+function renderTxnList(elId, txns, compact=false) {
+  const el = document.getElementById(elId);
+  if (!txns.length) {
+    el.innerHTML = emptyState("🧾","Nothing logged yet","Send me a bank statement or a few transactions and they'll appear here.");
+    return;
+  }
+  el.innerHTML = txns.map(t=>{
+    const bk = t.bucket ? bucketById(t.bucket) : null;
+    const meta = [fmtDate(t.date), t.type==="in"?"Income":(t.category||"Spend"), bk?`${bk.emoji||"🎯"} ${bk.name}`:null]
+      .filter(Boolean).join(" · ");
+    const ico = t.emoji || (t.type==="in"?"💵":emojiFor(t.category));
+    return `<div class="txn">
+      <div class="txn-ico">${ico}</div>
+      <div class="txn-mid"><div class="txn-name">${escapeHtml(t.name||"—")}</div><div class="txn-meta">${meta}</div></div>
+      <div class="txn-amt ${t.type==="in"?"in":"out"}">${t.type==="in"?"+":"–"}${money(t.amount)}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ---------- render: ledger ---------- */
+let ledgerFilter = "all";
+function renderLedger() {
+  const txns = allTxns();
+  document.getElementById("ledger-count").textContent = `${txns.length} entries`;
+  // build filter chips: all, income, + each category present
+  const cats = [...new Set(DATA.expenses.map(e=>e.category).filter(Boolean))];
+  const chips = [["all","All"],["in","Income"],...cats.map(c=>[c,c])];
+  document.getElementById("ledger-filters").innerHTML = chips.map(([k,l])=>
+    `<button class="chip ${ledgerFilter===k?'active':''}" onclick="setLedgerFilter('${k}')">${l}</button>`).join("");
+  let filtered = txns;
+  if (ledgerFilter==="in") filtered = txns.filter(t=>t.type==="in");
+  else if (ledgerFilter!=="all") filtered = txns.filter(t=>t.category===ledgerFilter);
+  renderTxnList("ledger-card", filtered);
+}
+function setLedgerFilter(k) { ledgerFilter = k; renderLedger(); }
+
+/* ---------- render: buckets ---------- */
+function renderBuckets() {
+  const el = document.getElementById("buckets-list");
+  if (!DATA.buckets.length) {
+    el.innerHTML = `<div class="card">${emptyState("🎯","No buckets yet",
+      "Buckets track a trip or project end-to-end. Say “add a China Trip bucket, budget $3,000” and I'll set it up.")}</div>`;
+    return;
+  }
+  el.innerHTML = DATA.buckets.map(b=>{
+    const spent = DATA.expenses.filter(e=>e.bucket===b.id).reduce((s,x)=>s+(+x.amount||0),0);
+    const n = DATA.expenses.filter(e=>e.bucket===b.id).length;
+    const pct = b.budget>0 ? Math.min(spent/b.budget*100,100) : 0;
+    const over = spent > b.budget && b.budget>0;
+    const col = over ? "var(--red)" : (b.color||"var(--accent)");
+    return `<div class="card">
+      ${progressRow(b.emoji||"🎯", b.name, spent, b.budget, pct, col,
+        b.budget>0?`${money(spent)} of ${money(b.budget)}`:money(spent),
+        b.budget>0?(over?`over by ${money(spent-b.budget)}`:`${money(b.budget-spent)} left`):`${n} txns · no budget set`)}
+    </div>`;
+  }).join("");
+}
+
+/* ---------- shared UI bits ---------- */
+function progressRow(emoji, name, spent, total, pct, color, valTxt, footRight) {
+  return `<div class="prow">
+    <div class="prow-top">
+      <div class="prow-name"><span class="emoji">${emoji}</span>${escapeHtml(name)}</div>
+      <div class="prow-val"><span class="spent">${valTxt}</span></div>
+    </div>
+    <div class="track"><div class="fill" style="width:${pct}%;background:${color}"></div></div>
+    <div class="prow-foot"><span>${pct.toFixed(0)}%</span><span>${footRight}</span></div>
+  </div>`;
+}
+function emptyState(big, t, d) {
+  return `<div class="empty"><div class="big">${big}</div><div class="t">${t}</div><div class="d">${d}</div></div>`;
+}
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------- charts ---------- */
+let charts = {};
+Chart.defaults.color = "#7a8dae";
+Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+Chart.defaults.font.size = 11;
+function destroyChart(k){ if(charts[k]){charts[k].destroy(); delete charts[k];} }
+
+function renderAnalysis() {
+  const c = compute();
+  // 1) balance over time
+  destroyChart("balance");
+  const txns = allTxns().slice().reverse(); // oldest first
+  const labels = [], pts = [];
+  let run = c.hasStart ? c.start : 0;
+  labels.push("Start"); pts.push(run);
+  txns.forEach(t=>{ run += (t.type==="in"?1:-1)*t.amount; labels.push(fmtDate(t.date)); pts.push(run); });
+  const ctxB = document.getElementById("chartBalance");
+  if (txns.length && c.hasStart) {
+    charts.balance = new Chart(ctxB, {
+      type:"line",
+      data:{ labels, datasets:[{ data:pts, borderColor:"#7c6fff", borderWidth:2.5, fill:true,
+        backgroundColor:(ctx)=>{ const g=ctx.chart.ctx.createLinearGradient(0,0,0,210); g.addColorStop(0,"rgba(124,111,255,0.35)"); g.addColorStop(1,"rgba(124,111,255,0)"); return g; },
+        tension:0.25, pointRadius:0, pointHoverRadius:4 }] },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:(i)=>money(i.raw)}}},
+        scales:{ x:{grid:{display:false},ticks:{maxTicksLimit:6}}, y:{grid:{color:"rgba(255,255,255,0.05)"},ticks:{callback:v=>moneyK(v)}} } }
+    });
+  } else showEmptyCanvas(ctxB, "Balance trend appears once you have a starting balance + transactions");
+
+  // 2) spending by category (donut)
+  destroyChart("category");
+  const byCat = {};
+  DATA.expenses.forEach(e=>{ byCat[e.category||"Other"]=(byCat[e.category||"Other"]||0)+(+e.amount||0); });
+  const catKeys = Object.keys(byCat).sort((a,b)=>byCat[b]-byCat[a]);
+  const ctxC = document.getElementById("chartCategory");
+  if (catKeys.length) {
+    charts.category = new Chart(ctxC, {
+      type:"doughnut",
+      data:{ labels:catKeys, datasets:[{ data:catKeys.map(k=>byCat[k]),
+        backgroundColor:catKeys.map((_,i)=>PALETTE[i%PALETTE.length]), borderColor:"#1a2035", borderWidth:2 }] },
+      options:{ responsive:true, maintainAspectRatio:false, cutout:"62%",
+        plugins:{ legend:{position:"bottom",labels:{padding:12,boxWidth:10,font:{size:11}}},
+          tooltip:{callbacks:{label:(i)=>`${i.label}: ${money(i.raw)}`}} } }
+    });
+  } else showEmptyCanvas(ctxC, "Category breakdown appears once expenses are logged");
+
+  // 3) money in vs out by month
+  destroyChart("flow");
+  const months = [...new Set([...DATA.income.map(x=>monthKey(x.date)),...DATA.expenses.map(x=>monthKey(x.date))])].sort();
+  const ctxF = document.getElementById("chartFlow");
+  if (months.length) {
+    const inD = months.map(m=>DATA.income.filter(x=>monthKey(x.date)===m).reduce((s,x)=>s+(+x.amount||0),0));
+    const outD = months.map(m=>DATA.expenses.filter(x=>monthKey(x.date)===m).reduce((s,x)=>s+(+x.amount||0),0));
+    charts.flow = new Chart(ctxF, {
+      type:"bar",
+      data:{ labels:months.map(monthLabel), datasets:[
+        {label:"In", data:inD, backgroundColor:"#34d399", borderRadius:5},
+        {label:"Out", data:outD, backgroundColor:"#f87171", borderRadius:5} ] },
+      options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{position:"bottom",labels:{boxWidth:10,padding:12}}, tooltip:{callbacks:{label:i=>`${i.dataset.label}: ${money(i.raw)}`}}},
+        scales:{ x:{grid:{display:false}}, y:{grid:{color:"rgba(255,255,255,0.05)"},ticks:{callback:v=>moneyK(v)}} } }
+    });
+  } else showEmptyCanvas(ctxF, "Monthly cash flow appears once you log activity");
+
+  // 4) bucket analysis
+  const ba = document.getElementById("bucket-analysis");
+  if (!DATA.buckets.length) ba.innerHTML = emptyState("🎯","No buckets yet","Trip/project spending will break down here.");
+  else {
+    ba.innerHTML = DATA.buckets.map((b,i)=>{
+      const spent = DATA.expenses.filter(e=>e.bucket===b.id).reduce((s,x)=>s+(+x.amount||0),0);
+      const pct = b.budget>0?Math.min(spent/b.budget*100,100):0;
+      return progressRow(b.emoji||"🎯", b.name, spent, b.budget, pct, b.color||PALETTE[i%PALETTE.length],
+        b.budget>0?`${money(spent)} / ${money(b.budget)}`:money(spent), b.budget>0?`${money(Math.max(0,b.budget-spent))} left`:"no budget");
+    }).join("");
+  }
+}
+function showEmptyCanvas(canvas, msg) {
+  const p = canvas.parentElement;
+  p.innerHTML = `<div class="empty" style="padding-top:60px"><div class="d">${msg}</div></div>`;
+}
+
+/* ---------- navigation ---------- */
+function showPage(name) {
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page-"+name).classList.add("active");
+  document.querySelectorAll(".tab-item").forEach(t=>t.classList.toggle("active", t.dataset.page===name));
+  window.scrollTo(0,0);
+  if (name==="analysis") renderAnalysis();
+  if (name==="ledger") renderLedger();
+  if (name==="buckets") renderBuckets();
+}
+
+function renderAll() {
+  CUR.symbol = "$";
+  renderOverview();
+  renderLedger();
+  renderBuckets();
+}
+
+/* ---------- password gate ---------- */
+const PW_HASH = "23ebce72c4424e81ef48a495bc9ca88c93b8a34ab398bed854b76f1c784ab227"; // sha256("coconut")
+async function sha256(str){ const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(str));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); }
+async function tryUnlock(){
+  const v = document.getElementById("gate-input").value;
+  const h = await sha256(v);
+  if (h === PW_HASH) { sessionStorage.setItem("fin_ok","1"); unlock(); }
+  else { document.getElementById("gate-err").textContent = "Wrong password"; }
+}
+function unlock(){
+  document.getElementById("gate").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  document.getElementById("tab-bar").classList.remove("hidden");
+  renderAll();
+}
+document.getElementById("gate-input").addEventListener("keydown",e=>{ if(e.key==="Enter") tryUnlock(); });
+if (sessionStorage.getItem("fin_ok")==="1") unlock();
+else document.getElementById("gate-input").focus();
+</script>
+
+</body>
+</html>
