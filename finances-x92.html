@@ -253,18 +253,26 @@
       <div class="amount" id="hero-balance">—</div>
       <div class="sub" id="hero-sub">Set your starting balance to begin</div>
       <div class="hero-split">
-        <div class="hs"><div class="k">Money In</div><div class="v green" id="hero-in">—</div></div>
-        <div class="hs"><div class="k">Money Out</div><div class="v red" id="hero-out">—</div></div>
-        <div class="hs"><div class="k">Runway</div><div class="v" id="hero-runway">—</div></div>
+        <div class="hs"><div class="k">In Hand</div><div class="v" id="hero-hand">—</div></div>
+        <div class="hs"><div class="k">Coming In</div><div class="v green" id="hero-coming">—</div></div>
+        <div class="hs"><div class="k">Owed</div><div class="v red" id="hero-owed">—</div></div>
       </div>
     </div>
+
+    <!-- Scholarship context -->
+    <div class="note-card" id="schol-note" style="display:none"></div>
 
     <!-- Projection + burn -->
     <div class="stat-grid">
       <div class="stat">
         <div class="k">📉 Monthly Burn</div>
         <div class="v" id="stat-burn">—</div>
-        <div class="c" id="stat-burn-c">avg spend / month</div>
+        <div class="c" id="stat-burn-c">avg living / month</div>
+      </div>
+      <div class="stat">
+        <div class="k">🛬 Runway</div>
+        <div class="v" id="stat-runway">—</div>
+        <div class="c" id="stat-runway-c">months at burn rate</div>
       </div>
       <div class="stat">
         <div class="k">🎯 Projected End</div>
@@ -275,11 +283,6 @@
         <div class="k">📅 This Month Out</div>
         <div class="v" id="stat-month">—</div>
         <div class="c" id="stat-month-c">—</div>
-      </div>
-      <div class="stat">
-        <div class="k">🧾 Transactions</div>
-        <div class="v" id="stat-count">—</div>
-        <div class="c" id="stat-count-c">logged</div>
       </div>
     </div>
 
