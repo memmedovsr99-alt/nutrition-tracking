@@ -166,6 +166,18 @@
     .month-stats span { display: block; font-size: 0.92rem; font-weight: 800; }
     .month-stats small { font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
 
+    /* ── Bucket cards (dollar tracking, no budget) ── */
+    .bucket-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 10px; }
+    .bucket-title { font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 9px; }
+    .bucket-emoji { font-size: 1.35rem; }
+    .bucket-total { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px; white-space: nowrap; }
+    .bucket-count { font-size: 0.7rem; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+    .bitem { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-top: 1px solid var(--border); font-size: 0.86rem; gap: 10px; }
+    .bitem .bi-name { color: var(--text2); font-weight: 600; display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+    .bitem .bi-name .bi-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bitem .bi-date { color: var(--muted); font-weight: 500; font-size: 0.72rem; white-space: nowrap; }
+    .bitem .bi-amt { font-weight: 800; white-space: nowrap; }
+
     /* ── Money breakdown ── */
     .bd-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
     .bd-row:last-child { border-bottom: none; }
