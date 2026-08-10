@@ -807,7 +807,7 @@ function showEmptyCanvas(canvas, msg) {
 function showPage(name) {
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("page-"+name).classList.add("active");
-  document.querySelectorAll(".tab-item").forEach(t=>t.classList.toggle("active", t.dataset.page===name));
+  document.querySelectorAll(".nav-item").forEach(t=>t.classList.toggle("active", t.dataset.page===name));
   window.scrollTo(0,0);
   if (name==="analysis") renderAnalysis();
   if (name==="ledger") renderLedger();
