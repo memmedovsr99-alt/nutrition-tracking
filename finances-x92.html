@@ -743,7 +743,8 @@ function renderAnalysis() {
   const c = compute();
   // 1) balance over time
   destroyChart("balance");
-  const txns = allTxns().slice().reverse(); // oldest first
+  // exclude pre-spent expenses so the balance line matches Balance Left
+  const txns = allTxns().filter(t=>!(t.type==="out" && t.inBalance===false)).slice().reverse(); // oldest first
   const labels = [], pts = [];
   let run = c.hasStart ? c.start : 0;
   labels.push("Start"); pts.push(run);
