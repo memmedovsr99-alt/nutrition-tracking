@@ -547,7 +547,12 @@ function compute() {
     projected = balance - burnForProj * monthsLeft;
   }
 
+  // Tuition portion of scholarship: not spendable, but flows through BofA → include it in the TOTAL only
+  const tuition = +m.scholarshipTuition || 0;
+  const totalWithTuition = balance + tuition;
+
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
+           tuition, totalWithTuition,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
            count: DATA.income.length + DATA.expenses.length };
 }
