@@ -820,16 +820,17 @@ function renderAnalysis() {
     });
   } else showEmptyCanvas(ctxF, "Monthly spending appears once you log expenses");
 
-  // 4) bucket analysis
+  // 4) spending by trip (magnitude bars, no budget)
   const ba = document.getElementById("bucket-analysis");
-  if (!DATA.buckets.length) ba.innerHTML = emptyState("🎯","No buckets yet","Trip/project spending will break down here.");
+  if (!DATA.buckets.length) ba.innerHTML = emptyState("🎯","No trips yet","Trip/project spending will break down here.");
   else {
-    ba.innerHTML = DATA.buckets.map((b,i)=>{
-      const spent = DATA.expenses.filter(e=>e.bucket===b.id).reduce((s,x)=>s+(+x.amount||0),0);
-      const pct = b.budget>0?Math.min(spent/b.budget*100,100):0;
-      return progressRow(b.emoji||"🎯", b.name, spent, b.budget, pct, b.color||PALETTE[i%PALETTE.length],
-        b.budget>0?`${money(spent)} / ${money(b.budget)}`:money(spent), b.budget>0?`${money(Math.max(0,b.budget-spent))} left`:"no budget");
-    }).join("");
+    const rows = DATA.buckets.map((b,i)=>({b, i, spent: DATA.expenses.filter(e=>e.bucket===b.id).reduce((s,x)=>s+(+x.amount||0),0)}));
+    const max = Math.max(...rows.map(r=>r.spent), 1);
+    ba.innerHTML = rows.sort((a,z)=>z.spent-a.spent).map(({b,i,spent})=>`<div class="prow">
+      <div class="prow-top"><div class="prow-name"><span class="emoji">${b.emoji||"🎯"}</span>${escapeHtml(b.name)}</div>
+        <div class="prow-val"><span class="spent">${money(spent)}</span></div></div>
+      <div class="track"><div class="fill" style="width:${spent/max*100}%;background:${b.color||PALETTE[i%PALETTE.length]}"></div></div>
+    </div>`).join("");
   }
 }
 function showEmptyCanvas(canvas, msg) {
