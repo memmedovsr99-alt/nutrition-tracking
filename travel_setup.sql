@@ -24,15 +24,33 @@ create table if not exists travel_flights (
   created_at timestamptz default now()
 );
 
+-- People / avatars (so your photo or emoji becomes your sticker on the map)
+create table if not exists travel_people (
+  person  text primary key,        -- 'samir' | 'mina'
+  emoji   text,                     -- fallback sticker if no photo
+  photo   text,                     -- base64 data URL of a cropped photo
+  color   text
+);
+
 -- Row Level Security on, with permissive policies (same posture as the other apps)
 alter table travel_countries enable row level security;
 alter table travel_flights   enable row level security;
+alter table travel_people    enable row level security;
 
 drop policy if exists "anon all countries" on travel_countries;
 drop policy if exists "anon all flights"   on travel_flights;
+drop policy if exists "anon all people"    on travel_people;
 create policy "anon all countries" on travel_countries for all using (true) with check (true);
 create policy "anon all flights"   on travel_flights   for all using (true) with check (true);
+create policy "anon all people"    on travel_people    for all using (true) with check (true);
 
 -- Make sure the API roles can reach the tables
 grant all on travel_countries to anon, authenticated;
 grant all on travel_flights   to anon, authenticated;
+grant all on travel_people    to anon, authenticated;
+
+-- Seed the two of you with default emoji stickers (change anytime in the app)
+insert into travel_people (person, emoji, color) values
+  ('samir', '😎', '#3a86ff'),
+  ('mina',  '🥰', '#ff5d8f')
+on conflict (person) do nothing;
