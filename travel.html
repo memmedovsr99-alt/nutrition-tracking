@@ -331,7 +331,7 @@ async function initMap(){
   const W=980,Hh=520;
   svgSel=d3.select('#map').attr('viewBox',`0 0 ${W} ${Hh}`);
   let world;
-  try{ world=await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r=>r.json()); }
+  try{ world=await fetch('vendor/countries-110m.json').then(r=>r.json()); }
   catch(e){ document.querySelector('.inner').innerHTML='<div class="loading">Map couldn\'t load — check your connection.</div>'; return; }
   feats=topojson.feature(world,world.objects.countries).features.filter(f=>f.properties.name!=='Antarctica');
   proj=d3.geoNaturalEarth1().fitSize([W,Hh],{type:'FeatureCollection',features:feats});
