@@ -830,7 +830,7 @@ function renderAnalysis() {
   // 2) spending by category (donut)
   destroyChart("category");
   const byCat = {};
-  DATA.expenses.filter(e=>e.inBalance!==false && e.paid!==false).forEach(e=>{ byCat[e.category||"Other"]=(byCat[e.category||"Other"]||0)+(+e.amount||0); });
+  DATA.expenses.filter(e=>e.inBalance!==false && e.paid!==false && !NON_SPEND_CATS.includes(e.category)).forEach(e=>{ byCat[e.category||"Other"]=(byCat[e.category||"Other"]||0)+(+e.amount||0); });
   const catKeys = Object.keys(byCat).sort((a,b)=>byCat[b]-byCat[a]);
   const ctxC = document.getElementById("chartCategory");
   if (catKeys.length) {
