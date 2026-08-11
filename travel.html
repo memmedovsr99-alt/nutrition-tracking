@@ -362,6 +362,7 @@ function repaint(){
 function curK(){ try{ return d3.zoomTransform(svgSel.node()).k||1; }catch(e){ return 1; } }
 function drawAvatars(){
   if(!gAv) return; gAv.selectAll('*').remove();
+  svgSel.select('defs').selectAll('clipPath').remove(); // avoid unbounded growth
   const k=curK();
   feats.forEach(d=>{
     const id=String(d.id??d.properties.name); const rows=rowsOf(id); if(!rows.length) return;
