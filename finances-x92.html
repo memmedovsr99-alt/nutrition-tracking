@@ -611,7 +611,7 @@ function renderOverview() {
 /* ---------- render: monthly breakdown (previous months) ---------- */
 function monthsHistory() {
   const byM = {};
-  DATA.expenses.filter(e=>e.paid!==false).forEach(e=>{      // all money actually out (incl. pre-spent trips)
+  DATA.expenses.filter(e=>e.paid!==false && !NON_SPEND_CATS.includes(e.category)).forEach(e=>{  // all spending (incl. pre-spent trips), excl. transfers
     const k = monthKey(e.date);
     (byM[k] = byM[k] || {spent:0, n:0}).spent += (+e.amount||0);
     byM[k].n++;
