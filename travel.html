@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+<title>Samir & Mina · Travel</title>
+<meta name="theme-color" content="#0d1117" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0d1117; --surface:#161c2d; --surface2:#1e2640; --surface3:#28324f;
+    --border:#2c3757; --border-light:#3d4d78;
+    --text:#f0f4ff; --text2:#c4cfea; --muted:#8092b5;
+    --samir:#7c6fff; --samir-soft:#7c6fff33;
+    --mina:#ff6b9d; --mina-soft:#ff6b9d33;
+    --both:#ffcf5c; --both2:#ff9b4a;
+    --green:#34d399;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  body::before{ /* soft aurora backdrop */
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(700px 500px at 12% -5%, #7c6fff22, transparent 60%),
+      radial-gradient(700px 500px at 100% 8%, #ff6b9d22, transparent 60%);
+  }
+  #app{ position:relative; z-index:1; max-width:760px; margin:0 auto; padding-top:var(--safe-top); }
+
+  header{ padding:18px 18px 6px; }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .globe{
+    width:44px; height:44px; border-radius:14px; flex:none;
+    background:linear-gradient(135deg,var(--samir),var(--mina));
+    display:grid; place-items:center; font-size:1.35rem;
+    box-shadow:0 8px 24px -8px #7c6fff88;
+  }
+  h1{ font-size:1.18rem; font-weight:900; letter-spacing:-.4px; }
+  .sub{ color:var(--muted); font-size:.76rem; font-weight:600; margin-top:1px; }
+
+  /* Tabs */
+  .tabs{
+    display:flex; gap:8px; overflow-x:auto; padding:14px 18px 4px;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab{
+    flex:none; padding:9px 16px; border-radius:12px; font-size:.85rem; font-weight:800;
+    background:var(--surface); border:1px solid var(--border); color:var(--muted);
+    cursor:pointer; white-space:nowrap; transition:.18s; letter-spacing:.2px;
+  }
+  .tab.active{ color:#fff; background:linear-gradient(135deg,var(--samir),var(--mina)); border-color:transparent; box-shadow:0 6px 18px -8px #7c6fffcc; }
+
+  .view{ display:none; padding:12px 18px calc(48px + var(--safe-bottom)); }
+  .view.active{ display:block; }
+
+  /* ---- MAP VIEW ---- */
+  .person-toggle{
+    display:flex; gap:8px; background:var(--surface); border:1px solid var(--border);
+    border-radius:14px; padding:5px; margin-bottom:12px;
+  }
+  .person-toggle button{
+    flex:1; padding:11px 8px; border:none; border-radius:10px; cursor:pointer;
+    font-family:inherit; font-weight:800; font-size:.92rem; color:var(--muted);
+    background:transparent; transition:.16s; display:flex; align-items:center; justify-content:center; gap:7px;
+  }
+  .person-toggle button .dot{ width:11px; height:11px; border-radius:50%; }
+  .person-toggle button[data-p="samir"] .dot{ background:var(--samir); }
+  .person-toggle button[data-p="mina"] .dot{ background:var(--mina); }
+  .person-toggle button.on[data-p="samir"]{ background:var(--samir-soft); color:#fff; box-shadow:inset 0 0 0 1px var(--samir); }
+  .person-toggle button.on[data-p="mina"]{ background:var(--mina-soft); color:#fff; box-shadow:inset 0 0 0 1px var(--mina); }
+
+  .maphint{ text-align:center; color:var(--muted); font-size:.74rem; font-weight:600; margin:-2px 0 10px; }
+
+  .mapwrap{
+    position:relative; background:var(--surface); border:1px solid var(--border);
+    border-radius:20px; overflow:hidden; touch-action:none;
+    box-shadow:0 20px 50px -30px #000;
+  }
+  #map{ display:block; width:100%; height:auto; }
+  .country{ cursor:pointer; transition:fill .35s ease, stroke .2s; }
+  .sticker{ font-size:15px; pointer-events:none; }
+
+  .legend{ display:flex; gap:9px; margin-top:12px; }
+  .lcard{
+    flex:1; background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:12px 10px; text-align:center; position:relative; overflow:hidden;
+  }
+  .lcard .n{ font-size:1.55rem; font-weight:900; line-height:1; }
+  .lcard .l{ font-size:.68rem; font-weight:800; color:var(--muted); margin-top:5px; text-transform:uppercase; letter-spacing:.6px; }
+  .lcard.samir{ box-shadow:inset 0 -3px 0 var(--samir); }
+  .lcard.mina{ box-shadow:inset 0 -3px 0 var(--mina); }
+  .lcard.both{ box-shadow:inset 0 -3px 0 var(--both); }
+  .lcard.samir .n{ color:var(--samir); }
+  .lcard.mina .n{ color:var(--mina); }
+  .lcard.both .n{ color:var(--both); }
+
+  .countrylist{ margin-top:14px; }
+  .countrylist h3{ font-size:.72rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:9px; font-weight:800; }
+  .chips{ display:flex; flex-wrap:wrap; gap:7px; }
+  .chip{
+    font-size:.78rem; font-weight:700; padding:6px 11px; border-radius:999px;
+    background:var(--surface2); border:1px solid var(--border); color:var(--text2);
+    display:flex; align-items:center; gap:6px;
+  }
+  .chip .fl{ width:8px; height:8px; border-radius:50%; }
+
+  /* ---- YEAR VIEW ---- */
+  .yearhead{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:6px; }
+  .yearhead .big{ font-size:2rem; font-weight:900; letter-spacing:-1px; }
+  .yearhead .together{ font-size:.76rem; font-weight:700; color:var(--muted); }
+  .yearhead .together b{ color:var(--text); }
+
+  .pcard{
+    background:var(--surface); border:1px solid var(--border); border-radius:18px;
+    padding:16px; margin-top:12px; position:relative; overflow:hidden;
+  }
+  .pcard::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; }
+  .pcard.samir::before{ background:var(--samir); }
+  .pcard.mina::before{ background:var(--mina); }
+  .pcard .phead{ display:flex; align-items:center; gap:9px; margin-bottom:14px; }
+  .pcard .avatar{ width:30px; height:30px; border-radius:9px; display:grid; place-items:center; font-size:.9rem; font-weight:900; color:#fff; }
+  .pcard.samir .avatar{ background:var(--samir); }
+  .pcard.mina .avatar{ background:var(--mina); }
+  .pcard .pname{ font-weight:900; font-size:1.02rem; }
+
+  .stats{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .stat{ background:var(--surface2); border:1px solid var(--border); border-radius:13px; padding:12px; }
+  .stat .v{ font-size:1.4rem; font-weight:900; line-height:1; }
+  .stat .k{ font-size:.68rem; font-weight:700; color:var(--muted); margin-top:6px; text-transform:uppercase; letter-spacing:.5px; }
+  .stat.wide{ grid-column:1 / -1; }
+  .stat .bar{ height:7px; border-radius:4px; background:var(--surface3); margin-top:9px; overflow:hidden; }
+  .stat .bar > i{ display:block; height:100%; border-radius:4px; background:linear-gradient(90deg,var(--samir),var(--mina)); }
+
+  .flights{ margin-top:12px; }
+  .frow{
+    display:flex; align-items:center; gap:10px; padding:10px 0; border-top:1px solid var(--border);
+  }
+  .frow:first-child{ border-top:none; }
+  .frow .route{ font-weight:800; font-size:.9rem; }
+  .frow .meta{ font-size:.72rem; color:var(--muted); font-weight:600; margin-top:2px; }
+  .frow .km{ margin-left:auto; font-weight:800; font-size:.86rem; white-space:nowrap; }
+  .frow .del{ background:none; border:none; color:var(--muted); font-size:1.1rem; cursor:pointer; padding:2px 4px; opacity:.6; }
+  .frow .del:active{ opacity:1; color:var(--mina); }
+  .empty{ color:var(--muted); font-size:.82rem; text-align:center; padding:14px; font-weight:600; }
+
+  .addbtn{
+    width:100%; margin-top:14px; padding:13px; border-radius:14px; cursor:pointer;
+    background:var(--surface2); border:1px dashed var(--border-light); color:var(--text2);
+    font-family:inherit; font-weight:800; font-size:.9rem; transition:.15s;
+  }
+  .addbtn:active{ background:var(--surface3); }
+
+  /* ---- MODAL ---- */
+  .modal{
+    position:fixed; inset:0; z-index:50; display:none; align-items:flex-end; justify-content:center;
+    background:#0008; backdrop-filter:blur(4px);
+  }
+  .modal.open{ display:flex; }
+  .sheet{
+    width:100%; max-width:760px; background:var(--surface); border:1px solid var(--border);
+    border-radius:22px 22px 0 0; padding:20px 18px calc(24px + var(--safe-bottom));
+    animation:up .25s cubic-bezier(.2,.9,.3,1);
+  }
+  @keyframes up{ from{ transform:translateY(100%); } to{ transform:translateY(0); } }
+  .sheet h2{ font-size:1.1rem; font-weight:900; margin-bottom:16px; }
+  .field{ margin-bottom:13px; }
+  .field label{ display:block; font-size:.72rem; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; margin-bottom:6px; }
+  .field input, .field select{
+    width:100%; padding:12px; border-radius:12px; background:var(--surface2);
+    border:1px solid var(--border); color:var(--text); font-family:inherit; font-size:.95rem; font-weight:600;
+  }
+  .field input:focus, .field select:focus{ outline:none; border-color:var(--samir); }
+  .two{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .seg{ display:flex; gap:8px; }
+  .seg button{ flex:1; padding:11px; border-radius:11px; border:1px solid var(--border); background:var(--surface2); color:var(--muted); font-family:inherit; font-weight:800; cursor:pointer; }
+  .seg button.on[data-p="samir"]{ background:var(--samir-soft); color:#fff; border-color:var(--samir); }
+  .seg button.on[data-p="mina"]{ background:var(--mina-soft); color:#fff; border-color:var(--mina); }
+  .kmhint{ font-size:.74rem; font-weight:700; color:var(--green); margin-top:6px; min-height:16px; }
+  .sheet .actions{ display:flex; gap:10px; margin-top:8px; }
+  .btn{ flex:1; padding:14px; border-radius:14px; border:none; font-family:inherit; font-weight:900; font-size:.95rem; cursor:pointer; }
+  .btn.ghost{ background:var(--surface2); color:var(--text2); border:1px solid var(--border); }
+  .btn.go{ background:linear-gradient(135deg,var(--samir),var(--mina)); color:#fff; }
+
+  /* banners / toast */
+  .banner{ background:#3a2a12; border:1px solid #6b4d1e; color:#ffd99b; border-radius:14px; padding:13px 15px; font-size:.82rem; font-weight:600; margin-bottom:12px; line-height:1.5; }
+  .banner b{ color:#fff; }
+  #toast{ position:fixed; left:50%; bottom:calc(26px + var(--safe-bottom)); transform:translateX(-50%) translateY(20px); background:#000d; color:#fff; padding:11px 18px; border-radius:999px; font-size:.85rem; font-weight:800; opacity:0; transition:.25s; z-index:60; pointer-events:none; }
+  #toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .loading{ text-align:center; color:var(--muted); padding:40px; font-weight:700; }
+  .confetti{ position:fixed; z-index:70; pointer-events:none; font-size:20px; will-change:transform,opacity; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">
+      <div class="globe">🌍</div>
+      <div>
+        <h1>Samir & Mina</h1>
+        <div class="sub">Our travels around the world ✈️</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs"></nav>
+
+  <!-- MAP -->
+  <section class="view active" id="view-map">
+    <div id="map-banner"></div>
+    <div class="person-toggle" id="personToggle">
+      <button data-p="samir" class="on"><span class="dot"></span> Samir</button>
+      <button data-p="mina"><span class="dot"></span> Mina</button>
+    </div>
+    <div class="maphint">Tap a country to tag it for <b id="hintName">Samir</b> · tap again to remove</div>
+    <div class="mapwrap"><svg id="map"></svg></div>
+    <div class="legend">
+      <div class="lcard samir"><div class="n" id="cSamir">0</div><div class="l">Samir 💜</div></div>
+      <div class="lcard mina"><div class="n" id="cMina">0</div><div class="l">Mina 💗</div></div>
+      <div class="lcard both"><div class="n" id="cBoth">0</div><div class="l">Together ✨</div></div>
+    </div>
+    <div class="countrylist" id="countrylist"></div>
+  </section>
+
+  <!-- YEAR views injected here -->
+  <div id="yearViews"></div>
+</div>
+
+<!-- Add flight modal -->
+<div class="modal" id="modal">
+  <div class="sheet">
+    <h2>✈️ Add a flight</h2>
+    <div class="field">
+      <label>Who flew?</label>
+      <div class="seg" id="whoSeg">
+        <button data-p="samir" class="on">💜 Samir</button>
+        <button data-p="mina">💗 Mina</button>
+      </div>
+    </div>
+    <div class="two">
+      <div class="field"><label>From</label><input id="fFrom" list="airports" placeholder="e.g. Baku or GYD" autocomplete="off"/></div>
+      <div class="field"><label>To</label><input id="fTo" list="airports" placeholder="e.g. New York or JFK" autocomplete="off"/></div>
+    </div>
+    <datalist id="airports"></datalist>
+    <div class="two">
+      <div class="field"><label>Date</label><input id="fDate" type="date"/></div>
+      <div class="field"><label>Distance (km)</label><input id="fKm" type="number" inputmode="numeric" placeholder="auto"/></div>
+    </div>
+    <div class="kmhint" id="kmHint"></div>
+    <div class="actions">
+      <button class="btn ghost" id="cancelBtn">Cancel</button>
+      <button class="btn go" id="saveBtn">Save flight</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script>
+/* ============ SUPABASE ============ */
+const SUPABASE_URL = 'https://dhwquwnqlxnmbsrokiff.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5Sr1y3JmWCHXNCFMMt10Dg_1TgtLnLu';
+const H = { 'apikey':SUPABASE_KEY, 'Authorization':`Bearer ${SUPABASE_KEY}` };
+
+async function sbGet(table, q=''){
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${q}`, { headers:H });
+  if(!r.ok) throw new Error(`${table} ${r.status}`);
+  return r.json();
+}
+async function sbInsert(table, data){
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method:'POST', headers:{...H,'Content-Type':'application/json','Prefer':'return=representation'},
+    body:JSON.stringify(data)
+  });
+  if(!r.ok) throw new Error(`insert ${table}: ${await r.text()}`);
+  return r.json();
+}
+async function sbDelete(table, filter){
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}`, { method:'DELETE', headers:H });
+  if(!r.ok) throw new Error(`delete ${table}: ${await r.text()}`);
+}
+
+/* ============ STATE ============ */
+let COUNTRIES = [];   // {id, country_id, country_name, person}
+let FLIGHTS = [];     // {id, date, year, person, from_name, to_name, km}
+let selectedPerson = 'samir';
+let tablesMissing = false;
+const PEOPLE = { samir:{name:'Samir', emoji:'💜'}, mina:{name:'Mina', emoji:'💗'} };
+const EARTH_KM = 40075, MOON_KM = 384400;
+
+/* ============ AIRPORTS (major, for auto-distance) ============ */
+const AIRPORTS = {
+  GYD:['Baku',40.47,50.05], IST:['Istanbul',41.28,28.75], SAW:['Istanbul SAW',40.90,29.31],
+  JFK:['New York',40.64,-73.78], EWR:['Newark',40.69,-74.17], LGA:['New York LGA',40.78,-73.87],
+  PHL:['Philadelphia',39.87,-75.24], BOS:['Boston',42.36,-71.01], IAD:['Washington',38.95,-77.46],
+  LAX:['Los Angeles',33.94,-118.41], SFO:['San Francisco',37.62,-122.38], ORD:['Chicago',41.98,-87.90],
+  MIA:['Miami',25.79,-80.29], LAS:['Las Vegas',36.08,-115.15], SEA:['Seattle',47.45,-122.31],
+  ATL:['Atlanta',33.64,-84.43], DFW:['Dallas',32.90,-97.04], DEN:['Denver',39.86,-104.67],
+  YYZ:['Toronto',43.68,-79.61], YUL:['Montreal',45.47,-73.74],
+  LHR:['London',51.47,-0.46], LGW:['London LGW',51.15,-0.19], CDG:['Paris',49.01,2.55],
+  AMS:['Amsterdam',52.31,4.76], FRA:['Frankfurt',50.04,8.56], MUC:['Munich',48.35,11.79],
+  BER:['Berlin',52.36,13.50], MAD:['Madrid',40.47,-3.56], BCN:['Barcelona',41.30,2.08],
+  FCO:['Rome',41.80,12.24], MXP:['Milan',45.63,8.72], VIE:['Vienna',48.11,16.57],
+  ZRH:['Zurich',47.46,8.55], LIS:['Lisbon',38.77,-9.13], ATH:['Athens',37.94,23.94],
+  CPH:['Copenhagen',55.62,12.65], ARN:['Stockholm',59.65,17.92], OSL:['Oslo',60.19,11.10],
+  DUB:['Dublin',53.42,-6.27], PRG:['Prague',50.10,14.26], WAW:['Warsaw',52.17,20.97],
+  BUD:['Budapest',47.44,19.26], SVO:['Moscow',55.97,37.41], IKA:['Tehran',35.42,51.15],
+  DXB:['Dubai',25.25,55.36], AUH:['Abu Dhabi',24.43,54.65], DOH:['Doha',25.27,51.61],
+  TLV:['Tel Aviv',32.01,34.89], CAI:['Cairo',30.11,31.41], TBS:['Tbilisi',41.67,44.95],
+  EVN:['Yerevan',40.15,44.40], ALA:['Almaty',43.35,77.04], NQZ:['Astana',51.02,71.47],
+  DEL:['Delhi',28.57,77.10], BOM:['Mumbai',19.09,72.87], BKK:['Bangkok',13.69,100.75],
+  SIN:['Singapore',1.36,103.99], KUL:['Kuala Lumpur',2.75,101.71], HKG:['Hong Kong',22.31,113.91],
+  PEK:['Beijing',40.08,116.58], PVG:['Shanghai',31.14,121.81], ICN:['Seoul',37.46,126.44],
+  NRT:['Tokyo',35.77,140.39], HND:['Tokyo HND',35.55,139.78], TPE:['Taipei',25.08,121.23],
+  SYD:['Sydney',-33.95,151.18], MEL:['Melbourne',-37.67,144.84], AKL:['Auckland',-37.01,174.79],
+  GRU:['Sao Paulo',-23.43,-46.47], EZE:['Buenos Aires',-34.82,-58.54], BOG:['Bogota',4.70,-74.15],
+  MEX:['Mexico City',19.44,-99.07], CUN:['Cancun',21.04,-86.87], JNB:['Johannesburg',-26.13,28.24],
+  CPT:['Cape Town',-33.97,18.60], NBO:['Nairobi',-1.32,36.93], CMN:['Casablanca',33.37,-7.59],
+  KEF:['Reykjavik',63.99,-22.61], HEL:['Helsinki',60.32,24.96], SVG:['Stavanger',58.88,5.63]
+};
+// name -> code index for fuzzy lookup
+const NAME2CODE = {};
+Object.entries(AIRPORTS).forEach(([c,[n]])=>{ NAME2CODE[n.toLowerCase()]=c; });
+
+function resolveAirport(str){
+  if(!str) return null;
+  const s = str.trim();
+  const up = s.toUpperCase();
+  if(AIRPORTS[up]) return AIRPORTS[up];
+  const low = s.toLowerCase();
+  if(NAME2CODE[low]) return AIRPORTS[NAME2CODE[low]];
+  // partial name match
+  for(const [n,c] of Object.entries(NAME2CODE)){ if(n.startsWith(low) || low.startsWith(n)) return AIRPORTS[c]; }
+  return null;
+}
+function haversine(a,b){
+  const R=6371, toR=x=>x*Math.PI/180;
+  const dLat=toR(b[1]-a[1]), dLon=toR(b[2]-a[2]);
+  const la1=toR(a[1]), la2=toR(b[1]);
+  const h=Math.sin(dLat/2)**2 + Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2;
+  return Math.round(2*R*Math.asin(Math.sqrt(h)));
+}
+
+/* ============ HELPERS ============ */
+const $ = s => document.querySelector(s);
+const nf = n => Math.round(n).toLocaleString('en-US');
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1800); }
+
+function confettiBurst(x,y){
+  const emos=['✨','🎉','💜','💗','🌟'];
+  for(let i=0;i<14;i++){
+    const s=document.createElement('div'); s.className='confetti'; s.textContent=emos[i%emos.length];
+    s.style.left=x+'px'; s.style.top=y+'px';
+    document.body.appendChild(s);
+    const ang=Math.random()*Math.PI*2, dist=40+Math.random()*90;
+    const dx=Math.cos(ang)*dist, dy=Math.sin(ang)*dist - 40;
+    s.animate([
+      {transform:'translate(0,0) scale(1)',opacity:1},
+      {transform:`translate(${dx}px,${dy}px) scale(.4) rotate(${(Math.random()*360)|0}deg)`,opacity:0}
+    ],{duration:750+Math.random()*350,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>s.remove();
+  }
+}
+
+/* ============ MAP ============ */
+let mapFeatures=[], pathGen, gMap, gStick, svgSel, zoomBehavior;
+const countryOf = id => COUNTRIES.filter(c=>String(c.country_id)===String(id));
+const personSet = p => new Set(COUNTRIES.filter(c=>c.person===p).map(c=>String(c.country_id)));
+
+async function initMap(){
+  const W=760, Hh=430;
+  svgSel = d3.select('#map').attr('viewBox',`0 0 ${W} ${Hh}`);
+  let world;
+  try{
+    world = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r=>r.json());
+  }catch(e){ $('#map').outerHTML='<div class="loading">Map failed to load (offline?)</div>'; return; }
+  const feats = topojson.feature(world, world.objects.countries).features
+    .filter(f=>f.properties.name!=='Antarctica');
+  mapFeatures = feats;
+
+  const proj = d3.geoNaturalEarth1().fitSize([W, Hh], {type:'FeatureCollection', features:feats});
+  pathGen = d3.geoPath(proj);
+
+  // defs: gold stripe pattern for "both"
+  const defs = svgSel.append('defs');
+  const pat = defs.append('pattern').attr('id','bothFill').attr('width',7).attr('height',7)
+    .attr('patternUnits','userSpaceOnUse').attr('patternTransform','rotate(45)');
+  pat.append('rect').attr('width',7).attr('height',7).attr('fill','var(--both)');
+  pat.append('rect').attr('width',3.5).attr('height',7).attr('fill','var(--both2)');
+
+  // ocean sphere
+  svgSel.append('path').attr('d',pathGen({type:'Sphere'})).attr('fill','#0b1220').attr('stroke','#22304f').attr('stroke-width',1);
+
+  gMap = svgSel.append('g');
+  gStick = svgSel.append('g');
+
+  gMap.selectAll('path.country').data(feats).enter().append('path')
+    .attr('class','country').attr('d',pathGen)
+    .attr('stroke','#26314f').attr('stroke-width',.5)
+    .attr('id', d=>'c'+(d.id ?? d.properties.name))
+    .on('click', (ev,d)=>onCountry(ev,d));
+
+  // zoom/pan
+  zoomBehavior = d3.zoom().scaleExtent([1,8]).on('zoom', ev=>{
+    gMap.attr('transform', ev.transform);
+    gStick.attr('transform', ev.transform);
+    gStick.selectAll('text').attr('font-size', 15/ev.transform.k);
+  });
+  svgSel.call(zoomBehavior).on('dblclick.zoom', null);
+
+  paintAllCountries();
+}
+
+function fillFor(id){
+  const rows = countryOf(id);
+  const hasS = rows.some(r=>r.person==='samir');
+  const hasM = rows.some(r=>r.person==='mina');
+  if(hasS && hasM) return 'url(#bothFill)';
+  if(hasS) return 'var(--samir)';
+  if(hasM) return 'var(--mina)';
+  return '#1c2740';
+}
+function paintCountry(id){
+  const el = document.getElementById('c'+id);
+  if(el) el.setAttribute('fill', fillFor(id));
+}
+function paintAllCountries(){
+  gMap.selectAll('path.country').attr('fill', d=>fillFor(d.id ?? d.properties.name));
+  renderStickers(); renderLegend(); renderCountryList();
+}
+function renderStickers(){
+  gStick.selectAll('*').remove();
+  const seen=new Set();
+  mapFeatures.forEach(d=>{
+    const id=String(d.id ?? d.properties.name);
+    const rows=countryOf(id); if(!rows.length) return;
+    const [x,y]=pathGen.centroid(d); if(isNaN(x)) return;
+    const hasS=rows.some(r=>r.person==='samir'), hasM=rows.some(r=>r.person==='mina');
+    const emo = hasS&&hasM ? '❤️' : hasS ? '📍' : '📍';
+    gStick.append('text').attr('x',x).attr('y',y).attr('class','sticker')
+      .attr('text-anchor','middle').attr('dominant-baseline','central')
+      .attr('fill', hasS&&hasM?'#fff':(hasS?'#fff':'#fff'))
+      .text(hasS&&hasM?'💞':(hasS?'💜':'💗'));
+  });
+}
+
+async function onCountry(ev,d){
+  if(tablesMissing){ toast('Run the setup SQL first ⚙️'); return; }
+  const id=String(d.id ?? d.properties.name);
+  const name=d.properties.name;
+  const existing=COUNTRIES.find(c=>String(c.country_id)===id && c.person===selectedPerson);
+  try{
+    if(existing){
+      await sbDelete('travel_countries', `id=eq.${existing.id}`);
+      COUNTRIES = COUNTRIES.filter(c=>c.id!==existing.id);
+      toast(`Removed ${name}`);
+    }else{
+      const [row]=await sbInsert('travel_countries', {country_id:id, country_name:name, person:selectedPerson});
+      COUNTRIES.push(row);
+      toast(`${PEOPLE[selectedPerson].emoji} ${name}!`);
+      confettiBurst(ev.clientX, ev.clientY);
+      // pop animation on sticker
+    }
+    paintCountry(id); renderStickers(); renderLegend(); renderCountryList();
+    const el=document.getElementById('c'+id);
+    if(el && !existing){ el.animate([{opacity:.3},{opacity:1}],{duration:400}); }
+  }catch(e){ toast('Save failed'); console.error(e); }
+}
+
+function renderLegend(){
+  const s=personSet('samir'), m=personSet('mina');
+  let both=0; s.forEach(id=>{ if(m.has(id)) both++; });
+  $('#cSamir').textContent=s.size; $('#cMina').textContent=m.size; $('#cBoth').textContent=both;
+}
+function renderCountryList(){
+  const box=$('#countrylist');
+  if(!COUNTRIES.length){ box.innerHTML=''; return; }
+  const byId={};
+  COUNTRIES.forEach(c=>{ const k=String(c.country_id); (byId[k]=byId[k]||{name:c.country_name,s:false,m:false}); if(c.person==='samir')byId[k].s=true; if(c.person==='mina')byId[k].m=true; });
+  const items=Object.values(byId).sort((a,b)=>a.name.localeCompare(b.name));
+  box.innerHTML = `<h3>${items.length} countries visited</h3><div class="chips">`+
+    items.map(it=>{
+      const col = it.s&&it.m ? 'var(--both)' : it.s ? 'var(--samir)' : 'var(--mina)';
+      const e = it.s&&it.m ? '💞' : it.s ? '💜' : '💗';
+      return `<span class="chip"><span class="fl" style="background:${col}"></span>${e} ${it.name}</span>`;
+    }).join('')+`</div>`;
+}
+
+/* ============ YEAR VIEWS ============ */
+function allYears(){
+  const ys=new Set([2026]);
+  const now=new Date().getFullYear();
+  for(let y=2026;y<=Math.max(2026,now);y++) ys.add(y);
+  FLIGHTS.forEach(f=>ys.add(Number(f.year)));
+  return [...ys].sort((a,b)=>a-b);
+}
+function statsFor(person, year){
+  const fl=FLIGHTS.filter(f=>f.person===person && Number(f.year)===year);
+  const km=fl.reduce((s,f)=>s+Number(f.km||0),0);
+  const longest=fl.reduce((mx,f)=>Math.max(mx,Number(f.km||0)),0);
+  return { count:fl.length, km, longest, list:fl.sort((a,b)=>(b.date||'').localeCompare(a.date||'')) };
+}
+function personCardHTML(person, year){
+  const st=statsFor(person,year);
+  const P=PEOPLE[person];
+  const rounds=(st.km/EARTH_KM);
+  const moonPct=(st.km/MOON_KM*100);
+  const list = st.list.length ? st.list.map(f=>`
+      <div class="frow">
+        <div>
+          <div class="route">${f.from_name||'?'} <span style="color:var(--muted)">→</span> ${f.to_name||'?'}</div>
+          <div class="meta">${f.date||'—'} · ${nf(f.km)} km</div>
+        </div>
+        <div class="km">${nf(f.km)} km</div>
+        <button class="del" data-id="${f.id}" title="delete">✕</button>
+      </div>`).join('')
+    : `<div class="empty">No flights logged yet</div>`;
+  return `
+  <div class="pcard ${person}">
+    <div class="phead"><div class="avatar">${P.name[0]}</div><div class="pname">${P.emoji} ${P.name}</div></div>
+    <div class="stats">
+      <div class="stat"><div class="v">${st.count}</div><div class="k">Flights</div></div>
+      <div class="stat"><div class="v">${nf(st.km)}</div><div class="k">Total km</div></div>
+      <div class="stat"><div class="v">${nf(st.longest)}</div><div class="k">Longest flight</div></div>
+      <div class="stat"><div class="v">${rounds.toFixed(2)}×</div><div class="k">🌍 Around Earth</div></div>
+      <div class="stat wide">
+        <div class="v">${moonPct.toFixed(1)}%</div><div class="k">🌙 Of the way to the Moon</div>
+        <div class="bar"><i style="width:${Math.min(100,moonPct)}%"></i></div>
+      </div>
+    </div>
+    <div class="flights">${list}</div>
+    <button class="addbtn" data-add="${person}" data-year="${year}">＋ Add ${P.name}'s flight</button>
+  </div>`;
+}
+function renderYearView(year){
+  const sS=statsFor('samir',year), sM=statsFor('mina',year);
+  const together=sS.km+sM.km, flights=sS.count+sM.count;
+  const banner = tablesMissing ? setupBanner() : '';
+  return `
+  <section class="view" id="view-${year}">
+    ${banner}
+    <div class="yearhead">
+      <div class="big">${year}</div>
+      <div class="together">Together: <b>${nf(together)} km</b> · <b>${flights}</b> flights</div>
+    </div>
+    ${personCardHTML('samir',year)}
+    ${personCardHTML('mina',year)}
+  </section>`;
+}
+function setupBanner(){
+  return `<div class="banner">⚙️ <b>One-time setup needed.</b> The travel tables don't exist in Supabase yet. Ask Claude to give you the setup SQL, paste it in the Supabase SQL editor, then reload. Until then, saving is disabled.</div>`;
+}
+
+/* ============ TABS ============ */
+function buildTabs(){
+  const tabs=$('#tabs');
+  const years=allYears();
+  tabs.innerHTML = `<button class="tab active" data-view="map">🗺️ Map</button>` +
+    years.map(y=>`<button class="tab" data-view="${y}">${y}</button>`).join('');
+
+  const yv=$('#yearViews'); yv.innerHTML=years.map(renderYearView).join('');
+
+  tabs.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{
+    tabs.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    const v=btn.dataset.view;
+    $(v==='map'?'#view-map':`#view-${v}`).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // wire add buttons + deletes
+  yv.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>openModal(b.dataset.add, b.dataset.year));
+  yv.querySelectorAll('.del').forEach(b=>b.onclick=()=>deleteFlight(b.dataset.id));
+}
+
+/* ============ MODAL ============ */
+let modalPerson='samir';
+function openModal(person, year){
+  if(tablesMissing){ toast('Run the setup SQL first ⚙️'); return; }
+  modalPerson=person;
+  $('#whoSeg').querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.p===person));
+  $('#fDate').value = `${year}-01-01`.slice(0,4)+ new Date().toISOString().slice(4,10);
+  $('#fFrom').value=''; $('#fTo').value=''; $('#fKm').value=''; $('#kmHint').textContent='';
+  $('#modal').classList.add('open');
+}
+function closeModal(){ $('#modal').classList.remove('open'); }
+function updateKmHint(){
+  const a=resolveAirport($('#fFrom').value), b=resolveAirport($('#fTo').value);
+  if(a&&b){ const km=haversine(a,b); $('#kmHint').textContent=`≈ ${nf(km)} km (${a[0]} → ${b[0]})`; if(!$('#fKm').value) $('#fKm').dataset.auto=km; }
+  else { $('#kmHint').textContent=''; $('#fKm').removeAttribute('data-auto'); }
+}
+async function saveFlight(){
+  const from=$('#fFrom').value.trim(), to=$('#fTo').value.trim();
+  const a=resolveAirport(from), b=resolveAirport(to);
+  let km=Number($('#fKm').value);
+  if(!km && a && b) km=haversine(a,b);
+  const date=$('#fDate').value || '2026-01-01';
+  if(!from||!to){ toast('Add from & to'); return; }
+  if(!km){ toast('Enter distance (km)'); return; }
+  const rec={ person:modalPerson, date, year:Number(date.slice(0,4)),
+    from_name:a?a[0]:from, to_name:b?b[0]:to, km:Math.round(km) };
+  try{
+    const [row]=await sbInsert('travel_flights', rec);
+    FLIGHTS.push(row);
+    closeModal(); buildTabs();
+    // stay on the year tab we added to
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    const t=[...document.querySelectorAll('.tab')].find(b=>b.dataset.view===String(rec.year));
+    if(t){ t.classList.add('active'); $(`#view-${rec.year}`).classList.add('active'); }
+    toast(`✈️ ${nf(rec.km)} km added!`);
+  }catch(e){ toast('Save failed'); console.error(e); }
+}
+async function deleteFlight(id){
+  try{ await sbDelete('travel_flights',`id=eq.${id}`); FLIGHTS=FLIGHTS.filter(f=>String(f.id)!==String(id)); buildTabs(); toast('Flight removed'); }
+  catch(e){ toast('Delete failed'); }
+}
+
+/* ============ WIRING ============ */
+function wirePersonToggle(){
+  $('#personToggle').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    selectedPerson=b.dataset.p;
+    $('#personToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('on', x.dataset.p===selectedPerson));
+    $('#hintName').textContent=PEOPLE[selectedPerson].name;
+  });
+  $('#whoSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    modalPerson=b.dataset.p;
+    $('#whoSeg').querySelectorAll('button').forEach(x=>x.classList.toggle('on', x.dataset.p===modalPerson));
+  });
+  $('#cancelBtn').onclick=closeModal;
+  $('#saveBtn').onclick=saveFlight;
+  $('#modal').onclick=e=>{ if(e.target.id==='modal') closeModal(); };
+  $('#fFrom').oninput=updateKmHint; $('#fTo').oninput=updateKmHint;
+  // fill datalist
+  const dl=$('#airports');
+  dl.innerHTML=Object.entries(AIRPORTS).map(([c,[n]])=>`<option value="${n}">${c} · ${n}</option>`).join('');
+}
+
+async function load(){
+  try{
+    [COUNTRIES, FLIGHTS] = await Promise.all([
+      sbGet('travel_countries','select=*'),
+      sbGet('travel_flights','select=*')
+    ]);
+  }catch(e){
+    tablesMissing=true;
+    $('#map-banner').innerHTML=setupBanner();
+    console.warn('Tables missing or unreachable:', e.message);
+  }
+  buildTabs();
+  wirePersonToggle();
+  await initMap();
+}
+load();
+</script>
+</body>
+</html>
