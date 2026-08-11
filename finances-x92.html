@@ -552,7 +552,7 @@ function compute() {
   const balance   = (start ?? 0) + totalIn - totalOut;       // Balance Left = total pot for the year
 
   const thisMonth = monthKey(tk);
-  const monthOut = bExp.filter(e=>isPaid(e) && monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
+  const monthOut = bExp.filter(e=>isPaid(e) && monthKey(e.date)===thisMonth && !NON_SPEND_CATS.includes(e.category)).reduce((s,x)=>s+(+x.amount||0),0);
   const monthIn  = DATA.income.filter(e=>isRecv(e) && monthKey(e.date)===thisMonth).reduce((s,x)=>s+(+x.amount||0),0);
 
   // Recurring living burn = paid, everyday spend (exclude debt payoff, tuition, and trip/bucket one-offs)
