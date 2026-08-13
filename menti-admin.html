@@ -559,8 +559,12 @@ function renderShare(){
       <div class="qrbox" id="qrbox"></div>
       <p class="small muted center">${esc(link)}</p>`;
     const box=$('qrbox'); box.innerHTML='';
-    if(window.QRCode){ new QRCode(box,{text:link,width:220,height:220,correctLevel:QRCode.CorrectLevel.M}); }
-    else { box.innerHTML='<span class="small" style="color:#333">QR library offline — use the link tab.</span>'; }
+    try{
+      if(window.QRCode){ new QRCode(box,{text:link,width:220,height:220,correctLevel:QRCode.CorrectLevel.M}); }
+      else { throw new Error('QR library not loaded'); }
+    }catch(err){
+      box.innerHTML='<span class="small" style="color:#333;max-width:200px;text-align:center">Couldn\'t draw a QR code — use the Link tab instead.</span>';
+    }
   }
 }
 
