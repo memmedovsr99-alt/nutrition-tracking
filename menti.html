@@ -109,7 +109,7 @@ let submittedQids = new Set(JSON.parse(store.get('menti_submitted') || '[]'));
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1900); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function qs(k){ return new URLSearchParams(location.search).get(k); }
-function saveSubmitted(){ localStorage.setItem('menti_submitted', JSON.stringify([...submittedQids])); }
+function saveSubmitted(){ store.set('menti_submitted', JSON.stringify([...submittedQids])); }
 
 /* ---------------- entry flow ---------------- */
 async function boot(){
