@@ -198,7 +198,7 @@ function whoamiBar(){
 }
 function bindSwitch(){
   const s=document.getElementById('switchme');
-  if(s) s.onclick=(e)=>{ e.preventDefault(); localStorage.removeItem('menti_student'); student=null; renderIdentity(); };
+  if(s) s.onclick=(e)=>{ e.preventDefault(); store.del('menti_student'); student=null; renderIdentity(); };
 }
 
 /* ---------------- live loop ---------------- */
