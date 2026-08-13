@@ -94,13 +94,16 @@ async function sbUpsert(table, data, onConflict){
 }
 
 /* ---------------- state ---------------- */
+const store={ get(k){try{return localStorage.getItem(k);}catch(e){return null;}},
+              set(k,v){try{localStorage.setItem(k,v);}catch(e){}},
+              del(k){try{localStorage.removeItem(k);}catch(e){}} };
 const app = document.getElementById('app');
-let student = JSON.parse(localStorage.getItem('menti_student') || 'null'); // {name, id}
+let student = JSON.parse(store.get('menti_student') || 'null'); // {name, id}
 let poll = null;            // current poll row
 let currentQ = null;        // current live question row
 let lastQid = null;         // to detect question changes
 let pollTimer = null;
-let submittedQids = new Set(JSON.parse(localStorage.getItem('menti_submitted') || '[]'));
+let submittedQids = new Set(JSON.parse(store.get('menti_submitted') || '[]'));
 
 /* ---------------- helpers ---------------- */
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1900); }
