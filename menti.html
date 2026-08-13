@@ -187,7 +187,7 @@ function renderIdentity(){
     if(nm.length<2){ err.textContent='Please enter your name.'; return; }
     if(sid.length<1){ err.textContent='Please enter your student ID.'; return; }
     student = { name:nm, id:sid };
-    localStorage.setItem('menti_student', JSON.stringify(student));
+    store.set('menti_student', JSON.stringify(student));
     startLiveLoop();
   };
 }
