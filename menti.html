@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0b1020">
+<title>Join — Live Q&amp;A</title>
+<style>
+  :root{
+    --bg:#0b1020; --card:#151b30; --card2:#1c2340; --line:#2a3352;
+    --txt:#eef2ff; --mut:#9aa6cc; --accent:#6d8bff; --accent2:#38e0c8;
+    --good:#3ad29f; --bad:#ff6b6b; --radius:16px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%, #16204a 0%, var(--bg) 55%);
+    color:var(--txt); min-height:100vh; padding:20px 16px 40px;
+  }
+  .wrap{max-width:520px; margin:0 auto}
+  .brand{display:flex; align-items:center; gap:10px; justify-content:center; margin:8px 0 22px; color:var(--mut); font-weight:600; letter-spacing:.3px}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent2);box-shadow:0 0 14px var(--accent2)}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  h1{font-size:22px; margin:0 0 4px} h2{font-size:19px; margin:0 0 14px; line-height:1.35}
+  p.sub{color:var(--mut); margin:0 0 18px; font-size:14px}
+  label{display:block; font-size:13px; color:var(--mut); margin:14px 0 6px; font-weight:600}
+  input[type=text]{width:100%; padding:14px 14px; font-size:16px; border-radius:12px; border:1px solid var(--line); background:var(--card2); color:var(--txt); outline:none}
+  input[type=text]:focus{border-color:var(--accent)}
+  input.code{text-transform:uppercase; letter-spacing:4px; font-weight:700; text-align:center; font-size:22px}
+  .btn{display:block; width:100%; margin-top:18px; padding:15px; font-size:16px; font-weight:700; border:none; border-radius:12px;
+       background:linear-gradient(135deg,var(--accent),#7c5cff); color:white; cursor:pointer; transition:transform .06s}
+  .btn:active{transform:scale(.985)}
+  .btn.sec{background:var(--card2); border:1px solid var(--line); color:var(--txt)}
+  .btn:disabled{opacity:.5; cursor:default}
+  .opt{display:flex; align-items:center; gap:12px; padding:15px 16px; margin:10px 0; border-radius:12px; border:1px solid var(--line);
+       background:var(--card2); cursor:pointer; font-size:16px; transition:all .12s}
+  .opt:active{transform:scale(.99)}
+  .opt.sel{border-color:var(--accent); background:linear-gradient(135deg, rgba(109,139,255,.22), rgba(124,92,255,.12)); box-shadow:0 0 0 1px var(--accent) inset}
+  .opt .bullet{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;display:grid;place-items:center}
+  .opt.sel .bullet{border-color:var(--accent)}
+  .opt.sel .bullet::after{content:'';width:11px;height:11px;border-radius:50%;background:var(--accent)}
+  .rankrow{display:flex; align-items:center; gap:12px; padding:13px 14px; margin:9px 0; border-radius:12px; border:1px solid var(--line); background:var(--card2)}
+  .rankrow .num{width:26px;height:26px;border-radius:8px;background:var(--accent);color:#fff;font-weight:800;display:grid;place-items:center;flex:0 0 auto}
+  .rankrow .lbl{flex:1}
+  .rankbtns{display:flex;flex-direction:column;gap:4px}
+  .rankbtns button{width:34px;height:24px;border-radius:7px;border:1px solid var(--line);background:var(--card);color:var(--txt);cursor:pointer;font-size:13px;line-height:1}
+  .rankbtns button:disabled{opacity:.3}
+  .scale{display:flex; gap:8px; justify-content:space-between; margin-top:6px}
+  .scale button{flex:1; padding:16px 0; border-radius:12px; border:1px solid var(--line); background:var(--card2); color:var(--txt); font-size:18px; font-weight:700; cursor:pointer}
+  .scale button.sel{border-color:var(--accent); background:linear-gradient(135deg,var(--accent),#7c5cff); color:#fff}
+  .scale-ends{display:flex;justify-content:space-between;color:var(--mut);font-size:12px;margin-top:8px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;display:flex;align-items:center;gap:8px}
+  .chip button{background:none;border:none;color:var(--mut);cursor:pointer;font-size:16px;line-height:1;padding:0}
+  .center{text-align:center}
+  .big-emoji{font-size:52px;margin:8px 0}
+  .muted{color:var(--mut);font-size:14px}
+  .spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:18px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#0f1730;border:1px solid var(--line);color:var(--txt);padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1}
+  .whoami{display:flex;align-items:center;justify-content:space-between;margin:-6px 0 16px;font-size:12px;color:var(--mut)}
+  .whoami b{color:var(--txt)}
+  .err{color:var(--bad);font-size:13px;margin-top:10px;min-height:16px}
+  .tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);font-weight:700;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="dot"></span> Live Q&amp;A</div>
+  <div id="app"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- Supabase config ---------------- */
+const SB_URL = 'https://dhwquwnqlxnmbsrokiff.supabase.co';
+const SB_KEY = 'sb_publishable_5Sr1y3JmWCHXNCFMMt10Dg_1TgtLnLu';
+const HEADERS = { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' };
+
+async function sbGet(path){
+  const r = await fetch(SB_URL + '/rest/v1/' + path, { headers: HEADERS });
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function sbUpsert(table, data, onConflict){
+  const p = '/rest/v1/' + table + (onConflict ? '?on_conflict=' + onConflict : '');
+  const r = await fetch(SB_URL + p, { method:'POST',
+    headers: {...HEADERS, Prefer:'resolution=merge-duplicates,return=representation'},
+    body: JSON.stringify(data) });
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+/* ---------------- state ---------------- */
+const app = document.getElementById('app');
+let student = JSON.parse(localStorage.getItem('menti_student') || 'null'); // {name, id}
+let poll = null;            // current poll row
+let currentQ = null;        // current live question row
+let lastQid = null;         // to detect question changes
+let pollTimer = null;
+let submittedQids = new Set(JSON.parse(localStorage.getItem('menti_submitted') || '[]'));
+
+/* ---------------- helpers ---------------- */
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1900); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function qs(k){ return new URLSearchParams(location.search).get(k); }
+function saveSubmitted(){ localStorage.setItem('menti_submitted', JSON.stringify([...submittedQids])); }
+
+/* ---------------- entry flow ---------------- */
+async function boot(){
+  const pollId = qs('poll');
+  const codeParam = qs('code');
+  try{
+    if(pollId){
+      const rows = await sbGet('menti_polls?id=eq.'+encodeURIComponent(pollId)+'&limit=1');
+      if(rows.length){ poll = rows[0]; return afterPollFound(); }
+    }
+    if(codeParam){
+      const ok = await joinByCode(codeParam);
+      if(ok) return;
+    }
+  }catch(e){ /* fall through to manual */ }
+  renderCodeEntry();
+}
+
+async function joinByCode(code){
+  code = (code||'').trim().toUpperCase();
+  if(!code) return false;
+  const rows = await sbGet('menti_polls?join_code=eq.'+encodeURIComponent(code)+'&limit=1');
+  if(rows.length){ poll = rows[0]; afterPollFound(); return true; }
+  return false;
+}
+
+function afterPollFound(){
+  if(!student){ renderIdentity(); }
+  else { startLiveLoop(); }
+}
+
+/* ---------------- screens ---------------- */
+function renderCodeEntry(){
+  app.innerHTML = `
+  <div class="card">
+    <span class="tag">Join a session</span>
+    <h1>Enter the code</h1>
+    <p class="sub">Type the code your teacher shared on screen.</p>
+    <input id="code" class="code" type="text" maxlength="8" autocomplete="off" placeholder="ABC123" inputmode="text">
+    <div class="err" id="err"></div>
+    <button class="btn" id="go">Join</button>
+  </div>`;
+  const input = document.getElementById('code');
+  input.focus();
+  input.addEventListener('input', ()=> input.value = input.value.toUpperCase());
+  document.getElementById('go').onclick = async ()=>{
+    const err = document.getElementById('err'); err.textContent='';
+    const btn = document.getElementById('go'); btn.disabled=true; btn.textContent='Joining…';
+    try{
+      const ok = await joinByCode(input.value);
+      if(!ok){ err.textContent='No session found for that code.'; btn.disabled=false; btn.textContent='Join'; }
+    }catch(e){ err.textContent='Connection error. Try again.'; btn.disabled=false; btn.textContent='Join'; }
+  };
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('go').click(); });
+}
+
+function renderIdentity(){
+  app.innerHTML = `
+  <div class="card">
+    <span class="tag">${esc(poll.title||'Session')}</span>
+    <h1>Who are you?</h1>
+    <p class="sub">Your answers are saved under your name so your teacher can see your responses.</p>
+    <label>Full name</label>
+    <input id="nm" type="text" autocomplete="name" placeholder="e.g. Samir Mammadov">
+    <label>Student ID</label>
+    <input id="sid" type="text" autocomplete="off" placeholder="e.g. 2026-042 or your email">
+    <div class="err" id="err"></div>
+    <button class="btn" id="go">Continue</button>
+  </div>`;
+  document.getElementById('nm').focus();
+  document.getElementById('go').onclick = ()=>{
+    const nm = document.getElementById('nm').value.trim();
+    const sid = document.getElementById('sid').value.trim();
+    const err = document.getElementById('err');
+    if(nm.length<2){ err.textContent='Please enter your name.'; return; }
+    if(sid.length<1){ err.textContent='Please enter your student ID.'; return; }
+    student = { name:nm, id:sid };
+    localStorage.setItem('menti_student', JSON.stringify(student));
+    startLiveLoop();
+  };
+}
+
+function whoamiBar(){
+  return `<div class="whoami"><span>Answering as <b>${esc(student.name)}</b> · ${esc(student.id)}</span>
+    <a href="#" id="switchme" style="color:var(--accent)">not you?</a></div>`;
+}
+function bindSwitch(){
+  const s=document.getElementById('switchme');
+  if(s) s.onclick=(e)=>{ e.preventDefault(); localStorage.removeItem('menti_student'); student=null; renderIdentity(); };
+}
+
+/* ---------------- live loop ---------------- */
+function startLiveLoop(){
+  if(pollTimer) clearInterval(pollTimer);
+  refreshLive();
+  pollTimer = setInterval(refreshLive, 2500);
+}
+
+async function refreshLive(){
+  try{
+    const rows = await sbGet('menti_polls?id=eq.'+poll.id+'&limit=1');
+    if(!rows.length) return;
+    poll = rows[0];
+    if(!poll.is_open){ clearInterval(pollTimer); renderClosed(); return; }
+    const qid = poll.active_question_id;
+    if(!qid){ if(lastQid!=='__wait'){ lastQid='__wait'; renderWaiting(); } return; }
+    if(qid !== lastQid){
+      const qrows = await sbGet('menti_questions?id=eq.'+qid+'&limit=1');
+      if(qrows.length){ currentQ = qrows[0]; lastQid = qid; renderQuestion(); }
+    }
+  }catch(e){ /* keep last screen; will retry */ }
+}
+
+function renderWaiting(){
+  app.innerHTML = `
+  <div class="card center">
+    ${whoamiBar()}
+    <div class="big-emoji">👀</div>
+    <h2>You're in!</h2>
+    <p class="muted">Waiting for your teacher to start a question…</p>
+    <div class="spinner"></div>
+  </div>`;
+  bindSwitch();
+}
+
+function renderClosed(){
+  app.innerHTML = `
+  <div class="card center">
+    ${whoamiBar()}
+    <div class="big-emoji">🏁</div>
+    <h2>Session closed</h2>
+    <p class="muted">Thanks for participating!</p>
+  </div>`;
+  bindSwitch();
+}
+
+/* ---------------- question rendering per type ---------------- */
+function renderQuestion(){
+  const q = currentQ;
+  const already = submittedQids.has(q.id);
+  let body = '';
+  if(q.type==='multiple_choice') body = mcUI(q);
+  else if(q.type==='open_text')  body = textUI(q);
+  else if(q.type==='scale')      body = scaleUI(q);
+  else if(q.type==='word_cloud') body = wordUI(q);
+  else if(q.type==='ranking')    body = rankUI(q);
+
+  app.innerHTML = `
+  <div class="card">
+    ${whoamiBar()}
+    <h2>${esc(q.prompt)}</h2>
+    <div id="qbody">${body}</div>
+    <div class="err" id="err"></div>
+    <button class="btn" id="submit">${already?'Update my answer':'Submit'}</button>
+  </div>`;
+  bindSwitch();
+  wireInteractions(q);
+  document.getElementById('submit').onclick = ()=>submitAnswer(q);
+  if(already && draft==null) prefillNote();
+}
+
+/* draft holds the in-progress answer */
+let draft = null;
+function prefillNote(){ /* keep simple: allow resubmission */ }
+
+function mcUI(q){
+  const opts = q.options||[];
+  return opts.map((o,i)=>`<div class="opt" data-i="${i}"><span class="bullet"></span><span>${esc(o)}</span></div>`).join('');
+}
+function scaleUI(q){
+  let btns='';
+  for(let v=q.scale_min; v<=q.scale_max; v++) btns+=`<button data-v="${v}">${v}</button>`;
+  return `<div class="scale">${btns}</div>
+    <div class="scale-ends"><span>Low (${q.scale_min})</span><span>High (${q.scale_max})</span></div>`;
+}
+function textUI(q){
+  return `<textarea id="txt" rows="4" placeholder="Type your answer…" style="width:100%;padding:14px;font-size:16px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--txt);outline:none;resize:vertical"></textarea>`;
+}
+function wordUI(q){
+  const max = q.max_words||1;
+  return `<p class="muted" style="margin-top:0">Add up to ${max} word${max>1?'s':''}.</p>
+    <input id="word" type="text" placeholder="Type a word, press Enter" autocomplete="off">
+    <div class="chips" id="chips"></div>`;
+}
+function rankUI(q){
+  const opts = (q.options||[]).slice();
+  draft = draft && draft.__type==='ranking' ? draft : { __type:'ranking', order: opts.slice() };
+  return renderRankList(q);
+}
+function renderRankList(q){
+  return `<p class="muted" style="margin-top:0">Put them in your preferred order (1 = top).</p>
+    <div id="ranklist">${draft.order.map((o,i)=>`
+      <div class="rankrow">
+        <span class="num">${i+1}</span><span class="lbl">${esc(o)}</span>
+        <span class="rankbtns">
+          <button data-dir="up" data-i="${i}" ${i===0?'disabled':''}>▲</button>
+          <button data-dir="down" data-i="${i}" ${i===draft.order.length-1?'disabled':''}>▼</button>
+        </span>
+      </div>`).join('')}</div>`;
+}
+
+function wireInteractions(q){
+  if(q.type==='multiple_choice'){
+    draft = null;
+    app.querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        app.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+        el.classList.add('sel');
+        draft = { __type:'mc', choice: q.options[+el.dataset.i] };
+      };
+    });
+  } else if(q.type==='scale'){
+    draft = null;
+    app.querySelectorAll('.scale button').forEach(el=>{
+      el.onclick=()=>{
+        app.querySelectorAll('.scale button').forEach(x=>x.classList.remove('sel'));
+        el.classList.add('sel');
+        draft = { __type:'scale', value:+el.dataset.v };
+      };
+    });
+  } else if(q.type==='word_cloud'){
+    draft = { __type:'word', words:[] };
+    const input=document.getElementById('word'); const chips=document.getElementById('chips');
+    const max=q.max_words||1;
+    const redraw=()=>{ chips.innerHTML = draft.words.map((w,i)=>`<span class="chip">${esc(w)} <button data-i="${i}">×</button></span>`).join('');
+      chips.querySelectorAll('button').forEach(b=>b.onclick=()=>{ draft.words.splice(+b.dataset.i,1); redraw(); }); };
+    const add=()=>{ const w=input.value.trim(); if(!w) return; if(draft.words.length>=max){ toast('Max '+max+' word'+(max>1?'s':'')); return; } draft.words.push(w); input.value=''; redraw(); };
+    input.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); add(); }});
+    input.addEventListener('blur', add);
+  } else if(q.type==='ranking'){
+    const wire=()=>{
+      app.querySelectorAll('.rankbtns button').forEach(b=>{
+        b.onclick=()=>{
+          const i=+b.dataset.i, dir=b.dataset.dir;
+          const j = dir==='up'? i-1 : i+1;
+          if(j<0||j>=draft.order.length) return;
+          [draft.order[i],draft.order[j]]=[draft.order[j],draft.order[i]];
+          document.getElementById('qbody').innerHTML = renderRankList(currentQ); wire();
+        };
+      });
+    };
+    wire();
+  }
+}
+
+async function submitAnswer(q){
+  const err=document.getElementById('err'); err.textContent='';
+  let answer=null;
+  if(q.type==='multiple_choice'){ if(!draft){ err.textContent='Pick an option.'; return;} answer={type:'multiple_choice', choice:draft.choice}; }
+  else if(q.type==='scale'){ if(!draft){ err.textContent='Pick a number.'; return;} answer={type:'scale', value:draft.value}; }
+  else if(q.type==='open_text'){ const t=document.getElementById('txt').value.trim(); if(t.length<1){ err.textContent='Type an answer.'; return;} answer={type:'open_text', text:t}; }
+  else if(q.type==='word_cloud'){ if(!draft||!draft.words.length){ err.textContent='Add at least one word.'; return;} answer={type:'word_cloud', words:draft.words}; }
+  else if(q.type==='ranking'){ answer={type:'ranking', order:draft.order}; }
+
+  const btn=document.getElementById('submit'); btn.disabled=true; btn.textContent='Sending…';
+  try{
+    await sbUpsert('menti_responses', {
+      poll_id: poll.id, question_id: q.id,
+      student_name: student.name, student_id: student.id,
+      answer: answer, created_at: new Date().toISOString()
+    }, 'question_id,student_id');
+    submittedQids.add(q.id); saveSubmitted();
+    renderThanks(q);
+  }catch(e){
+    err.textContent='Could not send — check connection.'; btn.disabled=false; btn.textContent='Submit';
+  }
+}
+
+function renderThanks(q){
+  app.innerHTML = `
+  <div class="card center">
+    ${whoamiBar()}
+    <div class="big-emoji">✅</div>
+    <h2>Answer received</h2>
+    <p class="muted">Waiting for the next question…</p>
+    <button class="btn sec" id="edit" style="max-width:220px;margin:16px auto 0">Change my answer</button>
+  </div>`;
+  bindSwitch();
+  document.getElementById('edit').onclick = ()=>{ draft=null; renderQuestion(); };
+  // keep polling; if teacher advances, refreshLive swaps the screen
+}
+
+boot();
+</script>
+</body>
+</html>
