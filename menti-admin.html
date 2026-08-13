@@ -188,15 +188,16 @@ async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEn
 const TYPE_LABEL={multiple_choice:'Multiple choice',open_text:'Open text',scale:'Scale',word_cloud:'Word cloud',ranking:'Ranking'};
 
 /* ================= login ================= */
+const store={ get(k){try{return sessionStorage.getItem(k);}catch(e){return null;}}, set(k,v){try{sessionStorage.setItem(k,v);}catch(e){}} };
 async function verify(pw){ return (await sha256(pw)) === PW_HASH; }
 $('pwbtn').onclick=async()=>{
   const ok=await verify($('pw').value);
-  if(ok){ sessionStorage.setItem('menti_admin','1'); showApp(); }
+  if(ok){ store.set('menti_admin','1'); showApp(); }
   else { $('pwerr').textContent='Wrong password.'; }
 };
 $('pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('pwbtn').click();});
 function showApp(){ $('login').classList.add('hide'); $('main').classList.remove('hide'); init(); }
-if(sessionStorage.getItem('menti_admin')==='1') showApp();
+if(store.get('menti_admin')==='1') showApp();
 
 /* ================= state ================= */
 let polls=[], currentPoll=null, questions=[], responses=[], liveTimer=null, activeTab='build';
