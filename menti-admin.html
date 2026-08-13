@@ -157,10 +157,10 @@ const SB_URL = 'https://dhwquwnqlxnmbsrokiff.supabase.co';
 const SB_KEY = 'sb_publishable_5Sr1y3JmWCHXNCFMMt10Dg_1TgtLnLu';
 const HEADERS = { apikey:SB_KEY, Authorization:'Bearer '+SB_KEY, 'Content-Type':'application/json' };
 const STUDENT_BASE = location.href.replace(/menti-admin\.html.*$/, 'menti.html');
-// Console password (sha256). Default = "coconut". To change:
+// Console password (sha256). Default password = "coconut". To change it:
 //   python3 -c "import hashlib;print(hashlib.sha256('NEWPW'.encode()).hexdigest())"
-const PW_HASH = '4d1d02a53f9de5c31d6b7a5f8a0c9f6d2b6f4b1e6a8f0c1d2e3f4a5b6c7d8e9f'; // placeholder, replaced below
-const REAL_PW_HASH = '9f6e0e2d4a...'; // (not used) — see verify()
+// then paste the new hash below.
+const PW_HASH = '23ebce72c4424e81ef48a495bc9ca88c93b8a34ab398bed854b76f1c784ab227';
 
 /* ================= REST helpers ================= */
 async function sbGet(path){ const r=await fetch(SB_URL+'/rest/v1/'+path,{headers:HEADERS}); if(!r.ok) throw new Error(await r.text()); return r.json(); }
