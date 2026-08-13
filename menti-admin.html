@@ -188,13 +188,7 @@ async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEn
 const TYPE_LABEL={multiple_choice:'Multiple choice',open_text:'Open text',scale:'Scale',word_cloud:'Word cloud',ranking:'Ranking'};
 
 /* ================= login ================= */
-// sha256("coconut")
-const COCONUT_HASH='0c5b2a1e9b6f7d1c3f8a4b2e6d9c0a7f5e3b1d8c2a6f4e0b9d7c5a3f1e8b6d4c'; // computed at runtime instead
-async function verify(pw){
-  const h=await sha256(pw);
-  const target=await sha256('coconut'); // default password
-  return h===target;
-}
+async function verify(pw){ return (await sha256(pw)) === PW_HASH; }
 $('pwbtn').onclick=async()=>{
   const ok=await verify($('pw').value);
   if(ok){ sessionStorage.setItem('menti_admin','1'); showApp(); }
