@@ -14,6 +14,18 @@
 - **Workflow**: Samir sends statements/updates in chat → edit DATA → auto-sync commits & pushes.
 - Currency USD only; public page, so real balances sit in source behind only the light gate (Samir was warned).
 
+## Live Q&A / Menti (added Aug 2026) — separate app, same repo, same Supabase
+- **Files**: `menti-admin.html` (teacher console) + `menti.html` (student answering page) + `menti_setup.sql` (one-time DB setup).
+- **URLs**: admin → `.../nutrition-tracking/menti-admin.html` · student → `.../nutrition-tracking/menti.html`
+- **Purpose**: Mentimeter-style live Q&A. Teacher makes a question "live"; students answer individually; every answer is stored with **name + student ID** (who-answered-what tracking, kept forever).
+- **Admin password gate**: client-side sha256, default `coconut` (const `PW_HASH` in `menti-admin.html`). Change like the finance page.
+- **Question types**: `multiple_choice`, `open_text`, `scale`, `word_cloud`, `ranking`.
+- **Tables** (created by `menti_setup.sql`): `menti_polls` (session; `active_question_id` = which Q is live), `menti_questions`, `menti_responses` (unique on `question_id,student_id` → resubmitting UPSERTs). No RLS, granted to anon (same pattern as nutrition/finance tables).
+- **Live**: both pages poll the REST API every ~2.5s (admin shows results streaming in; students auto-advance when the teacher switches the live question).
+- **Share per poll**: teacher picks code / link / QR (`access_mode`); QR drawn client-side via qrcodejs CDN.
+- **Setup step (once)**: run `menti_setup.sql` in Supabase → SQL Editor before first use, or the admin shows a "Database not ready" message.
+- Student page is open (anyone with the link/code can submit under a self-typed name) — acceptable for classroom use, same public-page tradeoff as the other apps.
+
 ## Architecture (migrated to Supabase — April 2026)
 - **Data lives in Supabase**, NOT in the HTML file anymore
 - `nutrition_dashboard.html` is now just UI code — do NOT look for data arrays in it
