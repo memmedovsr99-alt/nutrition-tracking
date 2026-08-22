@@ -647,9 +647,9 @@ function renderOverview() {
   document.getElementById("hero-sub").textContent = c.hasStart
     ? `yours to spend · excl. tuition`
     : "Send me your starting balance to begin";
-  document.getElementById("hero-total").textContent = c.hasStart ? money(c.totalWithTuition) : "—";
+  document.getElementById("hero-total").textContent = c.hasStart ? money(c.bofaNow) : "—";
   document.getElementById("hero-total-sub").textContent = c.tuitionInBank
-    ? `incl. ${money(c.tuitionInBank)} tuition held for Penn · should match BofA`
+    ? `incl. ${money(c.tuitionInBank)} tuition held for Penn · matches BofA`
     : "should match your BofA balance";
 
   renderMonth(c);
