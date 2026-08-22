@@ -591,9 +591,15 @@ function compute() {
     projected = balance - burnForProj * monthsLeft;
   }
 
-  // Tuition portion of scholarship: not spendable, but flows through BofA → include it in the TOTAL only
+  // Tuition portion of scholarship: not spendable, but the full amount landed in BofA and flows
+  // out to Penn in installments → the money physically in BofA now = what you've received minus
+  // what you've paid (liquidNow), plus the tuition still sitting in the account.
+  // NOTE: uses liquidNow (actual cash position), NOT balance — balance nets out money still
+  // owed/coming that hasn't hit the bank yet, so it would never match the real BofA statement.
   const tuition = +m.scholarshipTuition || 0;
-  const totalWithTuition = balance + tuition;
+  const tuitionPaid = DATA.expenses.filter(e=>e.category==="Tuition" && isPaid(e)).reduce((s,x)=>s+(+x.amount||0),0);
+  const tuitionInBank = Math.max(0, tuition - tuitionPaid);   // tuition money not yet sent to Penn
+  const totalWithTuition = liquidNow + tuitionInBank;
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
            tuition, totalWithTuition,
