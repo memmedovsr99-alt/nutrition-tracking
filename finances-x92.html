@@ -765,14 +765,16 @@ function renderBreakdown(c) {
     ? payItems.map(x => item(x.emoji || "💳", x.name, "−" + money(+x.amount || 0), "red")).join("")
     : `<div class="rc-empty">You owe nothing right now</div>`;
 
-  const netAfter = c.totalWithTuition + c.expIn - c.owedOut;   // real BofA + receivables − payables
+  const netAfter = c.totalWithTuition + c.expIn - c.owedOut;   // all liquid + receivables − payables
 
   document.getElementById("breakdown-card").innerHTML = `
     <div class="rc-hero">
       <div class="rc-hero-k">🏦 Real balance in BofA now</div>
-      <div class="rc-hero-v">${money(c.totalWithTuition)}</div>
+      <div class="rc-hero-v">${money(c.bofaNow)}</div>
       ${c.tuitionInBank ? `<div class="rc-hero-sub">includes ${money(c.tuitionInBank)} tuition still held for Penn</div>` : ""}
     </div>
+
+    ${c.cash ? `<div class="rc-item" style="padding-top:12px;"><span class="rc-name">💵 Cash on hand (not in BofA)</span><span class="rc-amt">+${money(c.cash)}</span></div>` : ""}
 
     <div class="rc-group">
       <div class="rc-head"><span>💰 Receivables · owed to you</span><span class="rc-tot green">+${money(c.expIn)}</span></div>
