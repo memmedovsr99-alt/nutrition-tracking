@@ -602,7 +602,7 @@ function compute() {
   const totalWithTuition = liquidNow + tuitionInBank;
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
-           tuition, totalWithTuition,
+           tuition, tuitionPaid, tuitionInBank, totalWithTuition,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
            count: DATA.income.length + DATA.expenses.length };
 }
