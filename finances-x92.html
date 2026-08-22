@@ -730,8 +730,9 @@ function renderBreakdown(c) {
     <div class="bd-row"><span class="bd-k">🟢 Coming in (committed)</span><span class="bd-v green">${c.expIn?"+"+money(c.expIn):"—"}</span></div>
     <div class="bd-row"><span class="bd-k">🔴 Owed (debt)</span><span class="bd-v red">${c.owedOut?"−"+money(c.owedOut):"—"}</span></div>
     <div class="bd-row total"><span class="bd-k">Spending Balance</span><span class="bd-v green">${money(c.balance)}</span></div>
-    <div class="bd-row"><span class="bd-k">🎓 Tuition (scholarship → Penn)</span><span class="bd-v">+${money(c.tuition)}</span></div>
-    <div class="bd-row total"><span class="bd-k">Total · incl. tuition (BofA)</span><span class="bd-v">${money(c.totalWithTuition)}</span></div>`;
+    <div class="bd-row"><span class="bd-k">🎓 Tuition held for Penn (unpaid)</span><span class="bd-v">+${money(c.tuitionInBank)}</span></div>
+    ${c.tuitionPaid ? `<div class="bd-sub">of ${money(c.tuition)} total · ${money(c.tuitionPaid)} already paid to Penn</div>` : ""}
+    <div class="bd-row total"><span class="bd-k">Total in BofA (incl. tuition)</span><span class="bd-v">${money(c.totalWithTuition)}</span></div>`;
 }
 
 /* ---------- combined transactions ---------- */
