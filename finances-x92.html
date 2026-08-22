@@ -625,7 +625,9 @@ function compute() {
   const tuition = +m.scholarshipTuition || 0;
   const tuitionPaid = DATA.expenses.filter(e=>e.category==="Tuition" && isPaid(e)).reduce((s,x)=>s+(+x.amount||0),0);
   const tuitionInBank = Math.max(0, tuition - tuitionPaid);   // tuition money not yet sent to Penn
-  const totalWithTuition = liquidNow + tuitionInBank;
+  const totalWithTuition = liquidNow + tuitionInBank;         // all liquid (BofA + cash) incl. tuition
+  const cash   = (m.accounts && +m.accounts.cash) || 0;        // physical cash, not in BofA
+  const bofaNow = totalWithTuition - cash;                     // savings + checking only — should match BofA app
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
            tuition, tuitionPaid, tuitionInBank, totalWithTuition,
