@@ -630,7 +630,7 @@ function compute() {
   const bofaNow = totalWithTuition - cash;                     // savings + checking only — should match BofA app
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
-           tuition, tuitionPaid, tuitionInBank, totalWithTuition,
+           tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, bofaNow,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
            count: DATA.income.length + DATA.expenses.length };
 }
