@@ -757,7 +757,7 @@ function renderTxnList(elId, txns, compact=false) {
 /* ---------- render: ledger ---------- */
 let ledgerFilter = "all";
 function renderLedger() {
-  const txns = allTxns();
+  const txns = allTxns().slice().reverse();   // ledger: oldest → newest
   document.getElementById("ledger-count").textContent = `${txns.length} entries`;
   // build filter chips: all, income, + each category present
   const cats = [...new Set(DATA.expenses.map(e=>e.category).filter(Boolean))];
