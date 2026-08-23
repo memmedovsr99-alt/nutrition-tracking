@@ -875,20 +875,7 @@ function renderBreakdown(c) {
     .map(k => item(emojiFor(k), k, "−"+money(yb[k]), "red")).join("");
 
   document.getElementById("breakdown-card").innerHTML = `
-    ${c.yearBudget ? `
     <div class="rc-hero">
-      <div class="rc-hero-k">🎯 Left of your $96k year budget</div>
-      <div class="rc-hero-v">${money(c.yearLeft)}</div>
-      <div class="rc-hero-sub">${money(c.yearDrawdown)} spent so far of ${money(c.yearBudget)} · ${c.yearPct.toFixed(1)}% used</div>
-    </div>
-    <div class="track big" style="margin:12px 0 8px;"><div class="fill" style="width:${c.yearPct}%;background:${c.yearDrawdown>c.yearBudget?'var(--red)':'var(--accent)'}"></div></div>
-    <div class="rc-item"><span class="rc-name">Direct spending</span><span class="rc-amt red">−${money(c.selfSpent)}</span></div>
-    <div class="rc-item"><span class="rc-name">Other movements (debts / loans / FX)</span><span class="rc-amt red">−${money(c.yearOther)}</span></div>
-    <div class="rc-head" style="margin-top:12px;"><span>Where the spending went</span><span></span></div>
-    ${ybRows}
-    ` : ""}
-
-    <div class="rc-hero" style="margin-top:18px;${c.yearBudget?'border-top:2px solid var(--border-light);padding-top:16px;':''}">
       <div class="rc-hero-k">🏦 Real balance in BofA now</div>
       <div class="rc-hero-v">${money(c.bofaNow)}</div>
       ${c.tuitionInBank ? `<div class="rc-hero-sub">includes ${money(c.tuitionInBank)} tuition still held for Penn</div>` : ""}
@@ -909,7 +896,18 @@ function renderBreakdown(c) {
     <div class="rc-net">
       <div class="rc-net-row"><span class="rc-net-k">Net after settling everything</span><span class="rc-net-v">${money(netAfter)}</span></div>
       <div class="rc-net-row sub"><span class="rc-net-k">Truly yours to spend · excl. tuition</span><span class="rc-net-v">${money(c.balance)}</span></div>
-    </div>`;
+    </div>
+
+    ${c.yearBudget ? `
+    <div class="rc-group" style="margin-top:18px;border-top:2px solid var(--border-light);padding-top:14px;">
+      <div class="rc-head"><span>🎯 Spending vs your $96k budget</span><span class="rc-tot" style="color:var(--text)">${money(c.yearBudget)}</span></div>
+      <div class="track big" style="margin:12px 0 8px;"><div class="fill" style="width:${c.yearPct}%;background:${c.yearDrawdown>c.yearBudget?'var(--red)':'var(--accent)'}"></div></div>
+      <div class="rc-item"><span class="rc-name">Direct spending</span><span class="rc-amt red">−${money(c.selfSpent)}</span></div>
+      <div class="rc-item"><span class="rc-name">Other movements (debts / loans / FX)</span><span class="rc-amt red">−${money(c.yearOther)}</span></div>
+      <div class="rc-item" style="border-top:1px solid var(--border);margin-top:4px;padding-top:9px;"><span class="rc-name" style="font-weight:800;color:var(--text)">Left of your $96k (${(100-c.yearPct).toFixed(1)}%)</span><span class="rc-amt green">${money(c.yearLeft)}</span></div>
+      <div class="rc-head" style="margin-top:14px;"><span>Where the spending went</span><span></span></div>
+      ${ybRows}
+    </div>` : ""}`;
 }
 
 /* ---------- combined transactions ---------- */
