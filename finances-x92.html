@@ -703,9 +703,29 @@ function compute() {
   const yearOther    = yearDrawdown - selfSpent;   // non-consumption movements (debt/loans/FX/receivable timing) so it ties exactly
   const yearPct      = yearBudget ? Math.min(Math.max(yearDrawdown/yearBudget*100,0),100) : 0;
 
+  // ── Monthly daily-spend allowance, cycle keyed to a day-of-month (default 22nd) ──
+  const allowAmt = (m.allowance && +m.allowance.amount) || plannedMonthly || 0;
+  const allowDay = (m.allowance && +m.allowance.day) || 1;
+  const _isoLocal = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  const tD = parseD(tk);
+  let _py = tD.getFullYear(), _pm = tD.getMonth();
+  if (tD.getDate() < allowDay) { _pm--; if (_pm < 0) { _pm = 11; _py--; } }
+  const pStart = new Date(_py, _pm, allowDay);
+  const pEnd   = new Date(_py, _pm + 1, allowDay);   // exclusive — next period's start
+  const periodStart = _isoLocal(pStart), periodEnd = _isoLocal(pEnd);
+  // spend counted against the allowance: paid, non-trip, non-debt/tuition/loan, not flagged daily:false, within period
+  const allowSpent = DATA.expenses.filter(e => isPaid(e) && !e.bucket && e.daily !== false
+      && !NON_SPEND_CATS.includes(e.category) && e.date >= periodStart && e.date < periodEnd)
+    .reduce((s,x)=>s+(+x.amount||0),0);
+  const allowLeft = allowAmt - allowSpent;
+  const daysInPeriod = Math.round((pEnd - pStart) / 86400000);
+  const dayInPeriod  = Math.min(daysInPeriod, Math.max(1, Math.round((tD - pStart) / 86400000) + 1));
+  const daysLeftPeriod = Math.max(0, daysInPeriod - dayInPeriod);
+
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
            tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, bofaNow,
            yearBudget, selfSpent, yearLeft, yearDrawdown, yearOther, yearPct,
+           allowAmt, allowSpent, allowLeft, periodStart, periodEnd, daysInPeriod, dayInPeriod, daysLeftPeriod,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
            count: DATA.income.length + DATA.expenses.length };
 }
