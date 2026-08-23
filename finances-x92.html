@@ -309,13 +309,10 @@
     }
     .note-card b { color: var(--green); }
 
-    /* ── Privacy mode (blur money until revealed) ── */
+    /* ── Privacy mode: blur ONLY the big headline totals; ledger + daily spend stay visible ── */
     body.privacy .amount, body.privacy .amount2,
-    body.privacy .rc-hero-v, body.privacy .rc-amt, body.privacy .rc-tot, body.privacy .rc-net-v,
-    body.privacy .month-spent, body.privacy .month-left-v, body.privacy .month-stats span,
-    body.privacy .txn-amt, body.privacy .mrow-amt, body.privacy .bd-v,
-    body.privacy .prow-val, body.privacy .bi-amt, body.privacy .bucket-total,
-    body.privacy #page-analysis canvas {
+    body.privacy .rc-hero-v, body.privacy .rc-net-v,
+    body.privacy .rc-tot:not(.green):not(.red) {
       filter: blur(10px); -webkit-filter: blur(10px);
       user-select: none; pointer-events: none; transition: filter .12s ease;
     }
