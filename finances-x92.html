@@ -874,11 +874,12 @@ function renderBreakdown(c) {
 
     ${c.yearBudget ? `
     <div class="rc-group" style="margin-top:18px;border-top:2px solid var(--border-light);padding-top:14px;">
-      <div class="rc-head"><span>🎯 Year self-budget · spent vs plan</span><span class="rc-tot" style="color:var(--text)">${money(c.yearBudget)}</span></div>
-      <div class="track big" style="margin:12px 0 8px;"><div class="fill" style="width:${c.yearPct}%;background:${c.selfSpent>c.yearBudget?'var(--red)':'var(--accent)'}"></div></div>
-      <div class="rc-item"><span class="rc-name">Spent on yourself so far (${c.yearPct.toFixed(1)}%)</span><span class="rc-amt red">−${money(c.selfSpent)}</span></div>
-      <div class="rc-item" style="border-top:1px solid var(--border);margin-top:4px;padding-top:9px;"><span class="rc-name" style="font-weight:800;color:var(--text)">Left of your $96k plan</span><span class="rc-amt green">${money(c.yearLeft)}</span></div>
-      <div class="rc-head" style="margin-top:14px;"><span>Where it went</span><span></span></div>
+      <div class="rc-head"><span>🎯 What's left of your $96k</span><span class="rc-tot" style="color:var(--text)">${money(c.yearBudget)}</span></div>
+      <div class="track big" style="margin:12px 0 8px;"><div class="fill" style="width:${c.yearPct}%;background:${c.yearDrawdown>c.yearBudget?'var(--red)':'var(--accent)'}"></div></div>
+      <div class="rc-item"><span class="rc-name">Direct spending</span><span class="rc-amt red">−${money(c.selfSpent)}</span></div>
+      <div class="rc-item"><span class="rc-name">Other movements (debts / loans / FX)</span><span class="rc-amt red">−${money(c.yearOther)}</span></div>
+      <div class="rc-item" style="border-top:1px solid var(--border);margin-top:4px;padding-top:9px;"><span class="rc-name" style="font-weight:800;color:var(--text)">Left of your $96k (${(100-c.yearPct).toFixed(1)}%)</span><span class="rc-amt green">${money(c.yearLeft)}</span></div>
+      <div class="rc-head" style="margin-top:14px;"><span>Where the spending went</span><span></span></div>
       ${ybRows}
     </div>` : ""}`;
 }
