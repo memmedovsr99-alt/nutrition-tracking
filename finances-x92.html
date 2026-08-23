@@ -309,13 +309,36 @@
     }
     .note-card b { color: var(--green); }
 
-    /* ── Privacy mode: blur ONLY the big headline totals; ledger + daily spend stay visible ── */
-    body.privacy .amount, body.privacy .amount2,
-    body.privacy .rc-hero-v, body.privacy .rc-net-v,
-    body.privacy .rc-tot:not(.green):not(.red) {
-      filter: blur(10px); -webkit-filter: blur(10px);
+    /* ── Privacy mode: blur only the big money figures; ledger/daily/line-items stay visible ── */
+    body.privacy .money-big {
+      filter: blur(11px); -webkit-filter: blur(11px);
       user-select: none; pointer-events: none; transition: filter .12s ease;
     }
+
+    /* ── Balance page components ── */
+    .stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    .stat-tile { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; }
+    .st-ic { font-size: 1.15rem; }
+    .st-k { font-size: 0.63rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 7px; }
+    .st-v { font-size: 1.15rem; font-weight: 900; margin-top: 4px; letter-spacing: -0.5px; color: var(--text); }
+    .st-v.green { color: var(--green); } .st-v.red { color: var(--red); }
+    .split-bar { height: 12px; border-radius: 8px; background: var(--yellow); overflow: hidden; }
+    .split-fill { height: 100%; background: var(--green); border-radius: 8px 0 0 8px; }
+    .split-legend { display: flex; justify-content: space-between; gap: 12px; font-size: 0.72rem; color: var(--text2); font-weight: 600; }
+    .split-legend b { color: var(--text); font-weight: 800; margin-left: 5px; }
+    .split-legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+    .dot.yours { background: var(--green); } .dot.tuit { background: var(--yellow); }
+    .budget-head { display: grid; grid-template-columns: auto 1.5fr auto; gap: 18px; align-items: center; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .bh-k { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+    .bh-v { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.6px; margin-top: 4px; }
+    .bh-pct { font-size: 0.68rem; color: var(--muted); font-weight: 600; margin-top: 7px; text-align: center; }
+    .wf-row { display: flex; justify-content: space-between; padding: 9px 2px; font-size: 0.86rem; font-weight: 600; color: var(--text2); border-bottom: 1px solid var(--border); }
+    .wf-row:last-child { border-bottom: none; }
+    .wf-row span:last-child { font-weight: 800; color: var(--text); }
+    .wf-row.total { margin-top: 4px; padding-top: 13px; border-top: 2px solid var(--border-light); font-weight: 900; font-size: 1.06rem; color: var(--text); }
+    .wf-row.total span:last-child { color: var(--green); }
+    .wf-row .green { color: var(--green); } .wf-row .red { color: var(--red); }
+    @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2,1fr); } .budget-head { grid-template-columns: 1fr; gap: 10px; text-align: left; } .bh-pct { text-align: left; } }
     .reveal-btn {
       display: flex; align-items: center; gap: 8px; width: 100%;
       padding: 9px 12px; margin-bottom: 10px; border-radius: 10px;
