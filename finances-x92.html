@@ -823,8 +823,8 @@ function renderMonth(c) {
   const budMap = {}; DATA.budget.forEach(b=>budMap[b.category]=+b.planned||0);
   const mc = document.getElementById("month-cat-card");
   if (!keys.length) {
-    mc.innerHTML = emptyState("🧾","No spending logged in "+monthName,
-      "Send me your expenses — or just a bank statement — and they'll break down here by category with budget bars.");
+    mc.innerHTML = emptyState("🧾","No daily spending yet this period",
+      "Send me your daily expenses and they'll break down here by category against your $1,500 allowance.");
   } else {
     mc.innerHTML = keys.map((k,i)=>{
       const bud = budMap[k]||0;
