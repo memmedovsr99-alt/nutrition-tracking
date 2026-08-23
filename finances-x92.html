@@ -1121,11 +1121,13 @@ function showPage(name) {
   if (name==="analysis") renderAnalysis();
   if (name==="ledger") renderLedger();
   if (name==="buckets") renderBuckets();
+  if (name==="balance") renderBalance();
 }
 
 function renderAll() {
   CUR.symbol = "$";
   renderOverview();
+  renderBalance();
   renderLedger();
   renderBuckets();
 }
