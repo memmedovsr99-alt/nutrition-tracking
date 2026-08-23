@@ -308,6 +308,45 @@
       line-height: 1.55; margin-bottom: 14px;
     }
     .note-card b { color: var(--green); }
+
+    /* ── Privacy mode (blur money until revealed) ── */
+    body.privacy .amount, body.privacy .amount2,
+    body.privacy .rc-hero-v, body.privacy .rc-amt, body.privacy .rc-tot, body.privacy .rc-net-v,
+    body.privacy .month-spent, body.privacy .month-left-v, body.privacy .month-stats span,
+    body.privacy .txn-amt, body.privacy .mrow-amt, body.privacy .bd-v,
+    body.privacy .prow-val, body.privacy .bi-amt, body.privacy .bucket-total,
+    body.privacy #page-analysis canvas {
+      filter: blur(10px); -webkit-filter: blur(10px);
+      user-select: none; pointer-events: none; transition: filter .12s ease;
+    }
+    .reveal-btn {
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      padding: 9px 12px; margin-bottom: 10px; border-radius: 10px;
+      background: var(--surface2); border: 1px solid var(--border-light);
+      color: var(--text2); font-family: inherit; font-size: 0.76rem; font-weight: 700;
+      cursor: pointer; text-align: left;
+    }
+    .reveal-btn:hover { color: var(--text); border-color: var(--accent); }
+    .reveal-overlay {
+      position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
+      background: rgba(5,8,15,0.72); backdrop-filter: blur(4px);
+    }
+    .reveal-box {
+      background: var(--surface); border: 1px solid var(--border-light); border-radius: 18px;
+      padding: 28px 26px; width: 90%; max-width: 320px; text-align: center;
+    }
+    .reveal-box .lock { font-size: 2rem; margin-bottom: 8px; }
+    .reveal-box p { color: var(--text2); font-size: 0.82rem; font-weight: 600; margin-bottom: 16px; }
+    .reveal-box input {
+      width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border-light);
+      background: var(--bg); color: var(--text); font-size: 0.95rem; font-family: inherit; text-align: center;
+    }
+    .reveal-box .rbtn {
+      width: 100%; margin-top: 12px; padding: 11px; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--accent); color: #fff; font-weight: 800; font-family: inherit; font-size: 0.9rem;
+    }
+    .reveal-box .rcancel { margin-top: 10px; background: none; border: none; color: var(--muted); font-weight: 700; font-size: 0.76rem; cursor: pointer; font-family: inherit; }
+    .reveal-box .err { color: var(--red); font-size: 0.76rem; margin-top: 10px; min-height: 16px; font-weight: 600; }
   </style>
 </head>
 <body>
