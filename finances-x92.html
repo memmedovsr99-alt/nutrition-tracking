@@ -501,6 +501,18 @@
   </main>
 </div>
 
+<!-- ══════════ REVEAL PASSCODE MODAL ══════════ -->
+<div class="reveal-overlay hidden" id="reveal-modal">
+  <div class="reveal-box">
+    <div class="lock">🔒</div>
+    <p>Enter passcode to reveal balances</p>
+    <input id="reveal-input" type="password" inputmode="text" autocomplete="off" placeholder="Passcode" />
+    <button class="rbtn" onclick="tryReveal()">Reveal</button>
+    <div class="err" id="reveal-err"></div>
+    <button class="rcancel" onclick="closeReveal()">Cancel</button>
+  </div>
+</div>
+
 <!-- ══════════ DATA ══════════ -->
 <script>
 /* ═══════════════════════════════════════════════════════════════
