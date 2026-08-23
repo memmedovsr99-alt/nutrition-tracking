@@ -1046,9 +1046,38 @@ async function tryUnlock(){
 function unlock(){
   document.getElementById("gate").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
+  setPrivacy(true);   // balances always hidden when the app opens
   renderAll();
 }
 document.getElementById("gate-input").addEventListener("keydown",e=>{ if(e.key==="Enter") tryUnlock(); });
+
+/* ---------- privacy / reveal passcode ---------- */
+const REVEAL_HASH = "b493d48364afe44d11c0165cf470a4164d1e2609911ef998be868d46ade3de4e"; // sha256("banana") — separate reveal passcode
+function setPrivacy(on){
+  document.body.classList.toggle("privacy", on);
+  const btn = document.getElementById("reveal-toggle");
+  if (btn) btn.innerHTML = on ? "👁️ Show balances" : "🙈 Hide balances";
+}
+function toggleReveal(){
+  if (document.body.classList.contains("privacy")) openReveal();  // revealing needs the passcode
+  else setPrivacy(true);                                          // hiding is free
+}
+function openReveal(){
+  document.getElementById("reveal-modal").classList.remove("hidden");
+  const i = document.getElementById("reveal-input"); i.value = ""; i.focus();
+  document.getElementById("reveal-err").textContent = "";
+}
+function closeReveal(){
+  document.getElementById("reveal-modal").classList.add("hidden");
+  document.getElementById("reveal-err").textContent = "";
+}
+async function tryReveal(){
+  const h = await sha256(document.getElementById("reveal-input").value);
+  if (h === REVEAL_HASH) { setPrivacy(false); closeReveal(); }
+  else document.getElementById("reveal-err").textContent = "Wrong passcode";
+}
+document.getElementById("reveal-input").addEventListener("keydown",e=>{ if(e.key==="Enter") tryReveal(); });
+
 if (sessionStorage.getItem("fin_ok")==="1") unlock();
 else document.getElementById("gate-input").focus();
 </script>
