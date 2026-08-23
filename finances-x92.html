@@ -460,23 +460,37 @@
   <!-- ───── PAGE: BALANCE ───── -->
   <div class="page" id="page-balance">
     <div class="grid">
-      <!-- Balance hero: two numbers -->
-      <div class="cell c4 cell-hero">
-        <div class="card hero">
-          <div class="label">🎯 Left of your $96,000</div>
-          <div class="amount" id="hero-balance">—</div>
-          <div class="sub" id="hero-sub">yours to spend · excl. tuition</div>
-          <div class="track" style="max-width:220px;margin:13px auto 2px;"><div class="fill" id="hero-year-fill" style="width:0%;background:var(--accent)"></div></div>
-          <div class="hero-divider"></div>
-          <div class="label">Total · incl. tuition</div>
-          <div class="amount2" id="hero-total">—</div>
-          <div class="sub" id="hero-total-sub">should match your BofA balance</div>
-        </div>
+      <!-- Hero: available to spend (the star) -->
+      <div class="cell c6 cell-hero">
+        <div class="card hero" id="bal-available"></div>
       </div>
-      <!-- Balance reconciliation -->
-      <div class="cell c8">
-        <div class="section-title"><h2>Balance Reconciliation</h2></div>
-        <div class="card" id="breakdown-card"></div>
+      <!-- Hero: in the bank, with your-money / tuition split -->
+      <div class="cell c6 cell-hero">
+        <div class="card hero" id="bal-bank"></div>
+      </div>
+      <!-- KPI tiles -->
+      <div class="cell c12">
+        <div class="stat-row" id="bal-stats"></div>
+      </div>
+      <!-- Receivables -->
+      <div class="cell c6">
+        <div class="section-title"><h2>💰 Receivables · owed to you</h2><span class="muted" id="bal-recv-tot" style="font-size:.74rem;font-weight:800;"></span></div>
+        <div class="card" id="bal-recv"></div>
+      </div>
+      <!-- Payables -->
+      <div class="cell c6">
+        <div class="section-title"><h2>💳 Payables · you owe</h2><span class="muted" id="bal-pay-tot" style="font-size:.74rem;font-weight:800;"></span></div>
+        <div class="card" id="bal-pay"></div>
+      </div>
+      <!-- Year budget tracker -->
+      <div class="cell c7">
+        <div class="section-title"><h2>🎯 Year Budget · $96,000</h2></div>
+        <div class="card" id="bal-budget"></div>
+      </div>
+      <!-- Reconciliation waterfall -->
+      <div class="cell c5">
+        <div class="section-title"><h2>🧮 How it adds up</h2></div>
+        <div class="card" id="bal-waterfall"></div>
       </div>
     </div>
   </div>
