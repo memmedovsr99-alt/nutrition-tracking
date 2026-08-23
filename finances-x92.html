@@ -838,6 +838,13 @@ function renderBreakdown(c) {
 
   const netAfter = c.totalWithTuition + c.expIn - c.owedOut;   // all liquid + receivables − payables
 
+  // Where the year self-budget went, by category (since journey start, excl. debt/tuition/loans)
+  const yb = {};
+  DATA.expenses.filter(e => (e.date||"") >= DATA.meta.startDate && !NON_SPEND_CATS.includes(e.category))
+    .forEach(e => { const k=e.category||"Other"; yb[k]=(yb[k]||0)+(+e.amount||0); });
+  const ybRows = Object.keys(yb).sort((a,b)=>yb[b]-yb[a])
+    .map(k => item(emojiFor(k), k, "−"+money(yb[k]), "red")).join("");
+
   document.getElementById("breakdown-card").innerHTML = `
     <div class="rc-hero">
       <div class="rc-hero-k">🏦 Real balance in BofA now</div>
