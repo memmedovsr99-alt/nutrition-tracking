@@ -696,8 +696,11 @@ function compute() {
   const selfSpent  = DATA.expenses
     .filter(e => (e.date || "") >= m.startDate && !NON_SPEND_CATS.includes(e.category))
     .reduce((s,x)=>s+(+x.amount||0),0);
-  const yearLeft = yearBudget - selfSpent;
-  const yearPct  = yearBudget ? Math.min(Math.max(selfSpent/yearBudget*100,0),100) : 0;
+  // $96k WAS Samir's true starting spendable → current "truly yours" (balance) is what's LEFT of it.
+  const yearLeft     = balance;                    // remaining of the $96k = current truly-yours
+  const yearDrawdown = yearBudget - balance;       // total drawn down from the $96k so far
+  const yearOther    = yearDrawdown - selfSpent;   // non-consumption movements (debt/loans/FX/receivable timing) so it ties exactly
+  const yearPct      = yearBudget ? Math.min(Math.max(yearDrawdown/yearBudget*100,0),100) : 0;
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
            tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, bofaNow,
