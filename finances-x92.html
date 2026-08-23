@@ -872,64 +872,78 @@ function renderMonth(c) {
 }
 
 /* ---------- render: compact money breakdown ---------- */
-function renderBreakdown(c) {
+function renderBalance(c) {
   c = c || compute();
-  // Receivables = income not yet received · Payables = expenses owed that hit the balance
-  const recvItems = DATA.income.filter(x => x.received === false);
-  const payItems  = DATA.expenses.filter(x => x.paid === false && x.inBalance !== false);
+  const yourMoney = c.bofaNow - c.tuitionInBank;              // your own money in BofA (excl. tuition for Penn)
   const item = (emoji, name, amt, cls) =>
     `<div class="rc-item"><span class="rc-name">${emoji ? emoji + " " : ""}${escapeHtml(name)}</span><span class="rc-amt ${cls}">${amt}</span></div>`;
 
-  const recvRows = recvItems.length
+  /* 1 — Hero: available to spend (the one number that matters) */
+  document.getElementById("bal-available").innerHTML = `
+    <div class="label">Available to spend</div>
+    <div class="amount pos money-big">${money(c.balance)}</div>
+    <div class="sub">of your ${money(c.yearBudget)} year budget</div>
+    <div class="track big" style="max-width:280px;margin:18px auto 9px;"><div class="fill" style="width:${c.yearPct}%;background:${c.yearDrawdown>c.yearBudget?'var(--red)':'var(--accent)'}"></div></div>
+    <div class="sub">${money(c.yearDrawdown)} spent · ${(100-c.yearPct).toFixed(1)}% left</div>`;
+
+  /* 2 — Hero: in the bank, with a your-money vs tuition split bar */
+  const yoursPct = c.bofaNow > 0 ? Math.max(0, Math.min(100, yourMoney / c.bofaNow * 100)) : 100;
+  document.getElementById("bal-bank").innerHTML = `
+    <div class="label">In your bank · BofA</div>
+    <div class="amount2 money-big">${money(c.bofaNow)}</div>
+    <div class="sub">matches your BofA statement</div>
+    <div class="split-bar" style="margin:18px 0 12px;"><div class="split-fill" style="width:${yoursPct}%;"></div></div>
+    <div class="split-legend">
+      <span><i class="dot yours"></i>Yours<b class="money-big">${money(yourMoney)}</b></span>
+      <span><i class="dot tuit"></i>Tuition→Penn<b class="money-big">${money(c.tuitionInBank)}</b></span>
+    </div>`;
+
+  /* 3 — KPI tiles */
+  document.getElementById("bal-stats").innerHTML = [
+    ["💵","Cash on hand", c.cash, ""],
+    ["💰","Receivables", c.expIn, "green"],
+    ["💳","Payables", c.owedOut, "red"],
+    ["🎓","Tuition held", c.tuitionInBank, ""]
+  ].map(([e,l,v,cl]) => `<div class="stat-tile"><div class="st-ic">${e}</div><div class="st-k">${l}</div><div class="st-v ${cl}${cl===''&&l==='Tuition held'?' money-big':''}">${money(v)}</div></div>`).join("");
+
+  /* 4 — Receivables & Payables (side by side) */
+  const recvItems = DATA.income.filter(x => x.received === false);
+  const payItems  = DATA.expenses.filter(x => x.paid === false && x.inBalance !== false);
+  document.getElementById("bal-recv").innerHTML = recvItems.length
     ? recvItems.map(x => item(x.emoji || "💰", x.source, "+" + money(+x.amount || 0), "green")).join("")
     : `<div class="rc-empty">Nothing owed to you right now</div>`;
-  const payRows = payItems.length
+  document.getElementById("bal-pay").innerHTML = payItems.length
     ? payItems.map(x => item(x.emoji || "💳", x.name, "−" + money(+x.amount || 0), "red")).join("")
     : `<div class="rc-empty">You owe nothing right now</div>`;
+  document.getElementById("bal-recv-tot").textContent = "+" + money(c.expIn);
+  document.getElementById("bal-pay-tot").textContent  = "−" + money(c.owedOut);
 
-  const netAfter = c.totalWithTuition + c.expIn - c.owedOut;   // all liquid + receivables − payables
-
-  // Where the year self-budget went, by category (since journey start, excl. debt/tuition/loans)
+  /* 5 — Year budget tracker with where-it-went category bars */
   const yb = {};
   DATA.expenses.filter(e => (e.date||"") >= DATA.meta.startDate && !NON_SPEND_CATS.includes(e.category))
     .forEach(e => { const k=e.category||"Other"; yb[k]=(yb[k]||0)+(+e.amount||0); });
-  const ybRows = Object.keys(yb).sort((a,b)=>yb[b]-yb[a])
-    .map(k => item(emojiFor(k), k, "−"+money(yb[k]), "red")).join("");
-
-  document.getElementById("breakdown-card").innerHTML = `
-    <div class="rc-hero">
-      <div class="rc-hero-k">🏦 Real balance in BofA now</div>
-      <div class="rc-hero-v">${money(c.bofaNow)}</div>
-      ${c.tuitionInBank ? `<div class="rc-hero-sub">includes ${money(c.tuitionInBank)} tuition still held for Penn</div>` : ""}
+  const ybKeys = Object.keys(yb).sort((a,b)=>yb[b]-yb[a]);
+  const ybMax = Math.max(...ybKeys.map(k=>yb[k]), 1);
+  const ybBars = ybKeys.map((k,i) => progressRow(emojiFor(k), k, yb[k], 0, yb[k]/ybMax*100, PALETTE[i%PALETTE.length], money(yb[k]),
+    `${(yb[k]/c.selfSpent*100).toFixed(0)}% of spend`)).join("");
+  document.getElementById("bal-budget").innerHTML = `
+    <div class="budget-head">
+      <div><div class="bh-k">Spent so far</div><div class="bh-v" style="color:var(--red)">${money(c.yearDrawdown)}</div></div>
+      <div><div class="track big"><div class="fill" style="width:${c.yearPct}%;background:${c.yearDrawdown>c.yearBudget?'var(--red)':'var(--accent)'}"></div></div><div class="bh-pct">${c.yearPct.toFixed(1)}% of ${money(c.yearBudget)} used</div></div>
+      <div style="text-align:right"><div class="bh-k">Left</div><div class="bh-v green money-big">${money(c.yearLeft)}</div></div>
     </div>
+    <div class="rc-item"><span class="rc-name">Direct spending</span><span class="rc-amt red">−${money(c.selfSpent)}</span></div>
+    <div class="rc-item"><span class="rc-name">Other movements (debts / loans / FX)</span><span class="rc-amt red">−${money(c.yearOther)}</span></div>
+    <div class="rc-head" style="margin:14px 0 4px;"><span>Where the spending went</span><span></span></div>
+    ${ybBars}`;
 
-    ${c.cash ? `<div class="rc-item" style="padding-top:12px;"><span class="rc-name">💵 Cash on hand (not in BofA)</span><span class="rc-amt">+${money(c.cash)}</span></div>` : ""}
-
-    <div class="rc-group">
-      <div class="rc-head"><span>💰 Receivables · owed to you</span><span class="rc-tot green">+${money(c.expIn)}</span></div>
-      ${recvRows}
-    </div>
-
-    <div class="rc-group">
-      <div class="rc-head"><span>💳 Payables · you owe</span><span class="rc-tot red">−${money(c.owedOut)}</span></div>
-      ${payRows}
-    </div>
-
-    <div class="rc-net">
-      <div class="rc-net-row"><span class="rc-net-k">Net after settling everything</span><span class="rc-net-v">${money(netAfter)}</span></div>
-      <div class="rc-net-row sub"><span class="rc-net-k">Truly yours to spend · excl. tuition</span><span class="rc-net-v">${money(c.balance)}</span></div>
-    </div>
-
-    ${c.yearBudget ? `
-    <div class="rc-group" style="margin-top:18px;border-top:2px solid var(--border-light);padding-top:14px;">
-      <div class="rc-head"><span>🎯 Spending vs your $96k budget</span><span class="rc-tot" style="color:var(--text)">${money(c.yearBudget)}</span></div>
-      <div class="track big" style="margin:12px 0 8px;"><div class="fill" style="width:${c.yearPct}%;background:${c.yearDrawdown>c.yearBudget?'var(--red)':'var(--accent)'}"></div></div>
-      <div class="rc-item"><span class="rc-name">Direct spending</span><span class="rc-amt red">−${money(c.selfSpent)}</span></div>
-      <div class="rc-item"><span class="rc-name">Other movements (debts / loans / FX)</span><span class="rc-amt red">−${money(c.yearOther)}</span></div>
-      <div class="rc-item" style="border-top:1px solid var(--border);margin-top:4px;padding-top:9px;"><span class="rc-name" style="font-weight:800;color:var(--text)">Left of your $96k (${(100-c.yearPct).toFixed(1)}%)</span><span class="rc-amt green">${money(c.yearLeft)}</span></div>
-      <div class="rc-head" style="margin-top:14px;"><span>Where the spending went</span><span></span></div>
-      ${ybRows}
-    </div>` : ""}`;
+  /* 6 — Reconciliation waterfall */
+  document.getElementById("bal-waterfall").innerHTML = `
+    <div class="wf-row"><span>🏦 Your money in BofA</span><span>${money(yourMoney)}</span></div>
+    <div class="wf-row"><span>💵 Cash on hand</span><span class="green">+${money(c.cash)}</span></div>
+    <div class="wf-row"><span>💰 Receivables (owed to you)</span><span class="green">+${money(c.expIn)}</span></div>
+    <div class="wf-row"><span>💳 Payables (you owe)</span><span class="red">−${money(c.owedOut)}</span></div>
+    <div class="wf-row total"><span>🎯 Truly yours to spend</span><span class="money-big">${money(c.balance)}</span></div>`;
 }
 
 /* ---------- combined transactions ---------- */
