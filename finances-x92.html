@@ -777,22 +777,7 @@ function renderOverview() {
   const c = compute();
   document.getElementById("hdr-sub").textContent = DATA.meta.subtitle || "";
   document.getElementById("hdr-badge").innerHTML = `<b>${c.count}</b> tracked`;
-
-  const bEl = document.getElementById("hero-balance");
-  bEl.textContent = c.hasStart ? money(c.yearBudget ? c.yearLeft : c.balance) : "—";
-  bEl.className = "amount " + (c.balance >= 0 ? "pos" : "neg");
-  document.getElementById("hero-sub").textContent = c.hasStart
-    ? (c.yearBudget ? `${money(c.yearDrawdown)} spent of ${money(c.yearBudget)} · ${c.yearPct.toFixed(1)}% used` : `yours to spend · excl. tuition`)
-    : "Send me your starting balance to begin";
-  const yFill = document.getElementById("hero-year-fill");
-  if (yFill) { yFill.style.width = (c.yearBudget ? c.yearPct : 0) + "%"; yFill.style.background = c.yearDrawdown > c.yearBudget ? "var(--red)" : "var(--accent)"; }
-  document.getElementById("hero-total").textContent = c.hasStart ? money(c.bofaNow) : "—";
-  document.getElementById("hero-total-sub").textContent = c.tuitionInBank
-    ? `incl. ${money(c.tuitionInBank)} tuition held for Penn · matches BofA`
-    : "should match your BofA balance";
-
   renderMonth(c);
-  renderBreakdown(c);
   renderMonthlyHistory();
   renderTxnList("recent-card", allTxns().slice(0,6), true);
 }
