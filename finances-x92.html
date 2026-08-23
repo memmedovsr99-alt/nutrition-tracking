@@ -688,6 +688,17 @@ function compute() {
   const cash   = (m.accounts && +m.accounts.cash) || 0;        // physical cash, not in BofA
   const bofaNow = totalWithTuition - cash;                     // savings + checking only — should match BofA app
 
+  // Year self-budget: what Samir started the year with to spend on himself, vs actual spend so far.
+  // "Spent on yourself" = every expense since journey start EXCEPT debt principal, tuition, and
+  // loans / money-held-for-others (NON_SPEND_CATS). Includes card-charged & pre-reflected spend
+  // (inBalance:false) because it's still real consumption.
+  const yearBudget = +m.yearBudget || 0;
+  const selfSpent  = DATA.expenses
+    .filter(e => (e.date || "") >= m.startDate && !NON_SPEND_CATS.includes(e.category))
+    .reduce((s,x)=>s+(+x.amount||0),0);
+  const yearLeft = yearBudget - selfSpent;
+  const yearPct  = yearBudget ? Math.min(Math.max(selfSpent/yearBudget*100,0),100) : 0;
+
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
            tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, bofaNow,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
