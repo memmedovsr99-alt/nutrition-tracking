@@ -1007,6 +1007,44 @@ function renderTxnList(elId, txns, compact=false) {
   }).join("");
 }
 
+/* ---------- render: statement (running BofA balance) ---------- */
+function buildStatement() {
+  const m = DATA.meta;
+  const cash = (m.accounts && +m.accounts.cash) || 0;
+  const openingBofa = (m.startingBalance || 0) - cash;   // bank + card at the start (cash held separately)
+  const ev = [];
+  // money IN that actually landed in BofA (received income)
+  DATA.income.filter(x => x.received !== false)
+    .forEach(x => ev.push({ date: x.date, name: x.source, emoji: x.emoji || "💵", amt: +x.amount || 0, dir: +1 }));
+  // scholarship tuition: full amount landed in BofA (drains to Penn via installments below)
+  const tuition = +m.scholarshipTuition || 0;
+  if (tuition) ev.push({ date: m.startDate, name: "Scholarship tuition (held in BofA for Penn)", emoji: "🎓", amt: tuition, dir: +1, muted: true });
+  // money OUT of BofA: paid AND (hits balance OR is a tuition installment to Penn)
+  DATA.expenses.forEach(x => {
+    const paid = x.paid !== false;
+    const movesCash = paid && (x.inBalance !== false || x.category === "Tuition");
+    if (movesCash) ev.push({ date: x.date, name: x.name, emoji: x.emoji || emojiFor(x.category), amt: +x.amount || 0, dir: -1 });
+  });
+  // chronological → running balance
+  ev.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+  let run = openingBofa;
+  ev.forEach(e => { run += e.dir * e.amt; e.running = run; });
+  return { openingBofa, ev, end: run };
+}
+function renderStatement() {
+  const s = buildStatement();
+  const rowHtml = e => `<div class="stmt-row${e.muted ? ' muted-in' : ''}">
+    <div class="stmt-date">${fmtDate(e.date)}</div>
+    <div class="stmt-name"><span class="em">${e.emoji}</span><span class="nm">${escapeHtml(e.name)}</span></div>
+    <div class="stmt-amt ${e.dir > 0 ? 'pos' : 'neg'}">${e.dir > 0 ? '+' : '−'}${money(e.amt)}</div>
+    <div class="stmt-run">${money(e.running)}</div></div>`;
+  const colhead = `<div class="stmt-colhead"><span>Date</span><span>Transaction</span><span>Amount</span><span>Balance</span></div>`;
+  const foot = `<div class="stmt-row foot"><div class="stmt-date"></div><div class="stmt-name"><span class="em">🏦</span><span class="nm">Current BofA balance</span></div><div class="stmt-amt"></div><div class="stmt-run">${money(s.end)}</div></div>`;
+  const openRow = `<div class="stmt-row open"><div class="stmt-date">${fmtDate(DATA.meta.startDate)}</div><div class="stmt-name"><span class="em">🏦</span><span class="nm">Opening BofA (bank + card)</span></div><div class="stmt-amt"></div><div class="stmt-run">${money(s.openingBofa)}</div></div>`;
+  const rowsNewestFirst = s.ev.slice().reverse().map(rowHtml).join("");
+  document.getElementById("statement-card").innerHTML = colhead + foot + rowsNewestFirst + openRow;
+}
+
 /* ---------- render: ledger ---------- */
 let ledgerFilter = "all";
 function renderLedger() {
