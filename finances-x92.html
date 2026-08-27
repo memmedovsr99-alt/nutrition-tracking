@@ -1194,12 +1194,14 @@ function showPage(name) {
   if (name==="ledger") renderLedger();
   if (name==="buckets") renderBuckets();
   if (name==="balance") renderBalance();
+  if (name==="statement") renderStatement();
 }
 
 function renderAll() {
   CUR.symbol = "$";
   renderOverview();
   renderBalance();
+  renderStatement();
   renderLedger();
   renderBuckets();
 }
