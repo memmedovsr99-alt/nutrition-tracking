@@ -339,6 +339,26 @@
     .wf-row.total span:last-child { color: var(--green); }
     .wf-row .green { color: var(--green); } .wf-row .red { color: var(--red); }
     @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2,1fr); } .budget-head { grid-template-columns: 1fr; gap: 10px; text-align: left; } .bh-pct { text-align: left; } }
+
+    /* ── Statement (running balance) ── */
+    .stmt-row { display: grid; grid-template-columns: 58px 1fr auto 108px; gap: 12px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--border); font-size: 0.83rem; }
+    .stmt-row:last-child { border-bottom: none; }
+    .stmt-date { color: var(--muted); font-size: 0.68rem; font-weight: 700; }
+    .stmt-name { color: var(--text2); font-weight: 600; display: flex; gap: 8px; align-items: center; min-width: 0; }
+    .stmt-name .em { font-size: 0.98rem; flex: none; }
+    .stmt-name .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .stmt-amt { font-weight: 800; white-space: nowrap; text-align: right; }
+    .stmt-amt.pos { color: var(--green); } .stmt-amt.neg { color: var(--text2); }
+    .stmt-run { font-weight: 800; white-space: nowrap; text-align: right; color: var(--text); }
+    .stmt-row.head, .stmt-row.foot { position: sticky; }
+    .stmt-row.foot { border-top: 2px solid var(--border-light); border-bottom: none; margin-top: 2px; }
+    .stmt-row.foot .stmt-name, .stmt-row.foot .stmt-run { font-weight: 900; color: var(--text); font-size: 0.92rem; }
+    .stmt-row.open { border-top: 2px solid var(--border-light); }
+    .stmt-row.open .stmt-name, .stmt-row.open .stmt-run { font-weight: 900; color: var(--text); }
+    .stmt-row.muted-in .stmt-name { color: var(--muted); }
+    .stmt-colhead { display: grid; grid-template-columns: 58px 1fr auto 108px; gap: 12px; padding: 8px 4px 10px; border-bottom: 1px solid var(--border-light); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
+    .stmt-colhead span:nth-child(3), .stmt-colhead span:nth-child(4) { text-align: right; }
+    @media (max-width: 560px) { .stmt-row, .stmt-colhead { grid-template-columns: 46px 1fr auto; } .stmt-amt { display: none; } }
     .reveal-btn {
       display: flex; align-items: center; gap: 8px; width: 100%;
       padding: 9px 12px; margin-bottom: 10px; border-radius: 10px;
