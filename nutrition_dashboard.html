@@ -1869,7 +1869,7 @@ window.logEstimates = async function() {
     document.getElementById('ql-ai-results').innerHTML = '';
 
     await loadData();
-    renderDay(window._currentDayKey || today());
+    renderView(window._currentDayKey || today());
   } catch (e) {
     status.style.color = 'var(--red)';
     status.textContent = `⚠️ ${e.message}`;
@@ -1934,7 +1934,7 @@ window.submitQuickLog = async function() {
 
     // Reload data in background
     await loadData();
-    renderDay(window._currentDayKey || today());
+    renderView(window._currentDayKey || today());
 
   } catch(e) {
     document.getElementById('ql-status').style.color = 'var(--red)';
