@@ -1587,9 +1587,15 @@ function renderWeightLog() {
 <!-- ══ QUICK LOG MODAL ══ -->
 <div id="quick-log-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;backdrop-filter:blur(4px)" onclick="if(event.target===this)window.closeQuickLog()"></div>
 <div id="quick-log-modal" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:501;background:var(--surface);border-radius:20px 20px 0 0;padding:20px 18px calc(20px + var(--safe-bottom));max-height:90dvh;overflow-y:auto">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
     <span style="font-size:1rem;font-weight:800">Quick Log Food</span>
     <button onclick="window.closeQuickLog()" style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:0.85rem">✕</button>
+  </div>
+
+  <!-- Mode switcher -->
+  <div style="display:flex;gap:4px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:16px">
+    <button id="ql-tab-ai" onclick="window.qlMode('ai')" style="flex:1;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:0.8rem;font-weight:700;padding:9px;border-radius:9px;cursor:pointer">✨ Describe</button>
+    <button id="ql-tab-manual" onclick="window.qlMode('manual')" style="flex:1;border:none;background:transparent;color:var(--muted);font-family:inherit;font-size:0.8rem;font-weight:700;padding:9px;border-radius:9px;cursor:pointer">✍️ Manual</button>
   </div>
 
   <!-- Date -->
