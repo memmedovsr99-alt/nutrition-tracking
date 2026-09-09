@@ -1681,9 +1681,13 @@ window.openQuickLog = function() {
   document.getElementById('ql-carbs').value = '';
   document.getElementById('ql-fat').value = '';
   document.getElementById('ql-status').textContent = '';
+  document.getElementById('ql-desc').value = '';
+  document.getElementById('ql-ai-results').innerHTML = '';
+  document.getElementById('ql-ai-status').textContent = '';
+  window.qlMode(AI_WORKER_URL ? 'ai' : 'manual');
   document.getElementById('quick-log-overlay').style.display = 'block';
   document.getElementById('quick-log-modal').style.display = 'block';
-  setTimeout(() => document.getElementById('ql-name').focus(), 100);
+  setTimeout(() => document.getElementById(AI_WORKER_URL ? 'ql-desc' : 'ql-name').focus(), 100);
 };
 
 window.closeQuickLog = function() {
