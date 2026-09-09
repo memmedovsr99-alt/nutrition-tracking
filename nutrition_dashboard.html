@@ -489,22 +489,22 @@ async function loadData() {
 // ── Called by Claude to log food entries ──
 window.logDay = async function(entry) {
   const { foods, ...day } = entry;
-  await sbUpsert('nutrition_log', day, 'date');
+  await sbUpsert('nutrition_log', { ...day, profile: PROFILE }, 'date,profile');
   if (foods && foods.length) {
-    await sbDelete('food_items', `date=eq.${day.date}`);
-    await sbInsert('food_items', foods.map((f, i) => ({ ...f, date: day.date, sort_order: i })));
+    await sbDelete('food_items', `date=eq.${day.date}&profile=eq.${PROFILE}`);
+    await sbInsert('food_items', foods.map((f, i) => ({ ...f, date: day.date, sort_order: i, profile: PROFILE })));
   }
   window.location.reload();
 };
 
 window.logWeight = async function(date, weight) {
-  await sbUpsert('weight_log', { date, weight }, 'date');
+  await sbUpsert('weight_log', { date, weight, profile: PROFILE }, 'date,profile');
   window.location.reload();
 };
 
 window.logCheckin = async function(entry) {
   // entry: { date, hydration, sleep_hours, steps, training, training_type }
-  await sbUpsert('daily_checkin', entry, 'date');
+  await sbUpsert('daily_checkin', { ...entry, profile: PROFILE }, 'date,profile');
   await loadData();
   renderCheckin();
 };
