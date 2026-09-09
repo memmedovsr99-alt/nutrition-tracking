@@ -1223,9 +1223,28 @@ window.submitCheckin = async function() {
   renderCheckin();
 };
 
+function renderProfileUI() {
+  const p = PROFILES[PROFILE];
+  document.documentElement.style.setProperty('--accent', p.accent);
+  document.getElementById('hdr-avatar').textContent = p.letter;
+  document.getElementById('hdr-title').textContent  = `${p.name}'s Nutrition`;
+  document.title = `${p.name}'s Nutrition`;
+
+  document.getElementById('profile-switch').innerHTML =
+    Object.entries(PROFILES).map(([key, v]) => `
+      <button class="profile-btn${key === PROFILE ? ' active' : ''}"
+              style="${key === PROFILE ? `background:${v.accent}` : ''}"
+              onclick="switchProfile('${key}')">${v.name}</button>
+    `).join('');
+
+  const foot = document.querySelector('.sidebar-footer');
+  if (foot) foot.innerHTML = `${p.name} &middot; ${p.goal} goal<br>Tap + to log food`;
+}
+
 window.onload = async function() {
   const overlay = document.getElementById('app-loading');
   overlay.style.display = 'flex';
+  renderProfileUI();
   try {
     await loadData();
   } catch(e) {
