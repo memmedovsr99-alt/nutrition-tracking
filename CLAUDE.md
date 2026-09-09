@@ -40,14 +40,19 @@ Two people share the app. `profile` column on every table separates the data.
 
 ## AI food logging (added Sep 2026)
 Lets either of them log by describing food in plain language, no Claude session needed.
-- `worker.js` — Cloudflare Worker proxying the Anthropic API so the key never ships in the public page.
-  Uses `claude-sonnet-5` with a forced `log_foods` tool for structured output, plus prompt caching on the
-  system prompt. The system prompt carries the estimation conventions calibrated with Samir (raw vs cooked
-  densities, bone deductions, Turkish/Azerbaijani portion sizes, "do not pad estimates").
-- Deploy, set the `ANTHROPIC_API_KEY` secret, then paste the worker URL into `AI_WORKER_URL` in
+- `worker.js` — Cloudflare Worker proxying the **Google Gemini API** (`gemini-2.5-flash`). Gemini was chosen
+  over the Anthropic API purely because its free tier needs no credit card; Samir did not want a paid key
+  for this. Structured output via `generationConfig.responseSchema`.
+- The system prompt carries the estimation conventions calibrated with Samir (raw vs cooked densities, bone
+  deductions, Turkish/Azerbaijani portion sizes, "do not pad estimates"). **Keep it in sync with how you
+  estimate in chat** — if a convention changes, update the worker too.
+- `meal` is deliberately NOT an enum in the schema (Gemini enum support is finicky); the worker normalises it
+  against `MEALS` and falls back to the meal hint.
+- Deploy, set the `GEMINI_API_KEY` secret, then paste the worker URL into `AI_WORKER_URL` in
   `nutrition_dashboard.html`. While that const is empty the Describe tab tells the user it is not set up
   and the modal opens in Manual mode.
 - CORS is locked to the GitHub Pages origin in `ALLOWED_ORIGINS`.
+- Logging via chat (Python + REST) is completely independent of this and keeps working.
 
 ## Supabase Config
 - **URL**: `https://dhwquwnqlxnmbsrokiff.supabase.co`
