@@ -1618,6 +1618,23 @@ function renderWeightLog() {
     </select>
   </div>
 
+  <!-- ══ AI DESCRIBE MODE ══ -->
+  <div id="ql-ai">
+    <div style="margin-bottom:12px">
+      <label style="font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px">What did you eat?</label>
+      <textarea id="ql-desc" rows="4" placeholder="e.g. 250g grilled chicken breast with a bit of olive oil, half a portion of rice and a small salad"
+        style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:12px;font-size:0.9rem;font-family:inherit;resize:vertical;line-height:1.5"></textarea>
+    </div>
+
+    <button id="ql-estimate" onclick="window.estimateFood()" style="width:100%;background:var(--accent);border:none;color:white;border-radius:12px;padding:14px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit">Estimate macros</button>
+
+    <div id="ql-ai-results" style="margin-top:16px"></div>
+    <div id="ql-ai-status" style="text-align:center;margin-top:10px;font-size:0.8rem;color:var(--muted)"></div>
+  </div>
+
+  <!-- ══ MANUAL MODE ══ -->
+  <div id="ql-manual" style="display:none">
+
   <!-- Food name -->
   <div style="margin-bottom:12px">
     <label style="font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px">Food Name</label>
