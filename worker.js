@@ -1,16 +1,22 @@
 /**
  * Cloudflare Worker — AI food estimator for the nutrition dashboard.
  *
- * Keeps the Anthropic API key server-side so it never ships in the public page.
- * Deploy at https://workers.cloudflare.com, then set the secret:
- *     ANTHROPIC_API_KEY = sk-ant-...
- * and paste the worker URL into AI_WORKER_URL in nutrition_dashboard.html.
+ * Uses the Google Gemini API (free tier, no credit card needed).
+ * Keeps the API key server-side so it never ships in the public page.
+ *
+ * Setup:
+ *   1. Get a key at https://aistudio.google.com/apikey
+ *   2. Deploy this worker at https://workers.cloudflare.com
+ *   3. Worker → Settings → Variables → add secret GEMINI_API_KEY
+ *   4. Paste the worker URL into AI_WORKER_URL in nutrition_dashboard.html
  */
+
+const MODEL = 'gemini-2.5-flash';
 
 const ALLOWED_ORIGINS = [
   'https://memmedovsr99-alt.github.io',
-  'http://localhost:8000',
-  'http://127.0.0.1:8000',
+  'http://localhost:8099',
+  'http://127.0.0.1:8099',
 ];
 
 const MEALS = ['Breakfast', 'Lunch', 'Dinner', 'Snacks', 'Late Night', 'Pre-workout', 'Post-workout'];
@@ -31,7 +37,7 @@ Weights
 Portions
 - Restaurant and street food is oilier and larger than home cooking; err upward for it and downward for home-cooked.
 - When a dish is shared, apply the stated fraction to the whole dish, not to a single serving.
-- Turkish/Azerbaijani foods this user eats often, per piece: lahmacun ~220, midye dolma ~28, ceyrek kokorec ~225,
+- Foods these users eat often, per piece: lahmacun ~220, midye dolma ~28, ceyrek kokorec ~225,
   tavuk pilav portion ~400, adana portion ~400, icli kofte ~130, small baklava ~125, regular baklava ~180-220,
   pogaca ~120, gozleme piece ~165, serpme kahvalti spread 700-1000 total, dovga bowl ~160, ayran glass ~70.
 - Alcohol: beer 330ml ~150, beer 500ml ~220, double spirit 50ml ~120.
@@ -42,38 +48,34 @@ Style
 - Sauces and dressings are easy to miss: if mayo or a heavy dressing is mentioned, count it separately (~90 cal/tbsp).
 - Cooking oil counts: 1 tsp olive oil ~40 cal. "Minimal oil" is 1-2 tsp, "oily" is 3-4 tsp, but only if oil is mentioned.
 
-Assign each item the meal the user names. If they do not name one, infer it from context, else use the meal hint provided.
-Keep item names short and specific, including the weight when one was given (e.g. "Chicken breast 252g cooked").`;
+Each item needs a "meal", which must be exactly one of:
+Breakfast, Lunch, Dinner, Snacks, Late Night, Pre-workout, Post-workout.
+Use the meal the user names; if they name none, infer it from context, else use the meal hint provided.
 
-const TOOL = {
-  name: 'log_foods',
-  description: 'Return the itemised food log with estimated macros.',
-  input_schema: {
-    type: 'object',
-    properties: {
+Keep item names short and specific, including the weight when one was given (e.g. "Chicken breast 252g cooked").
+Only fill "note" if an assumption is genuinely worth flagging — one short sentence, otherwise leave it empty.`;
+
+const RESPONSE_SCHEMA = {
+  type: 'object',
+  properties: {
+    items: {
+      type: 'array',
       items: {
-        type: 'array',
-        description: 'One entry per distinct food item.',
-        items: {
-          type: 'object',
-          properties: {
-            name:     { type: 'string',  description: 'Short item name, include weight if given.' },
-            meal:     { type: 'string',  enum: MEALS },
-            calories: { type: 'integer' },
-            protein:  { type: 'integer', description: 'grams' },
-            carbs:    { type: 'integer', description: 'grams' },
-            fat:      { type: 'integer', description: 'grams' },
-          },
-          required: ['name', 'meal', 'calories', 'protein', 'carbs', 'fat'],
+        type: 'object',
+        properties: {
+          name:     { type: 'string' },
+          meal:     { type: 'string' },
+          calories: { type: 'integer' },
+          protein:  { type: 'integer' },
+          carbs:    { type: 'integer' },
+          fat:      { type: 'integer' },
         },
-      },
-      note: {
-        type: 'string',
-        description: 'One short sentence only if an assumption is worth flagging. Omit otherwise.',
+        required: ['name', 'meal', 'calories', 'protein', 'carbs', 'fat'],
       },
     },
-    required: ['items'],
+    note: { type: 'string' },
   },
+  required: ['items'],
 };
 
 function corsHeaders(origin) {
@@ -85,21 +87,26 @@ function corsHeaders(origin) {
   };
 }
 
+function json(obj, status, cors) {
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: { ...cors, 'Content-Type': 'application/json' },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
     const cors = corsHeaders(origin);
 
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors });
+    if (request.method !== 'POST') return json({ error: 'POST only' }, 405, cors);
 
-    if (request.method !== 'POST') {
-      return json({ error: 'POST only' }, 405, cors);
-    }
     if (origin && !ALLOWED_ORIGINS.includes(origin)) {
       return json({ error: 'Origin not allowed' }, 403, cors);
     }
-    if (!env.ANTHROPIC_API_KEY) {
-      return json({ error: 'ANTHROPIC_API_KEY secret is not set on the worker' }, 500, cors);
+    if (!env.GEMINI_API_KEY) {
+      return json({ error: 'GEMINI_API_KEY secret is not set on the worker' }, 500, cors);
     }
 
     let body;
@@ -115,57 +122,67 @@ export default {
     if (!description) return json({ error: 'Describe what you ate first' }, 400, cors);
     if (description.length > 2000) return json({ error: 'Description too long' }, 400, cors);
 
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+
     let res;
     try {
-      res = await fetch('https://api.anthropic.com/v1/messages', {
+      res = await fetch(url, {
         method: 'POST',
         headers: {
-          'x-api-key': env.ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-          'content-type': 'application/json',
+          'x-goog-api-key': env.GEMINI_API_KEY,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-5',
-          max_tokens: 2000,
-          system: [{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
-          tools: [TOOL],
-          tool_choice: { type: 'tool', name: 'log_foods' },
-          messages: [{
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: [{
             role: 'user',
-            content: `Meal hint if none is stated: ${mealHint}\n\nWhat I ate:\n${description}`,
+            parts: [{ text: `Meal hint if none is stated: ${mealHint}\n\nWhat I ate:\n${description}` }],
           }],
+          generationConfig: {
+            responseMimeType: 'application/json',
+            responseSchema: RESPONSE_SCHEMA,
+            temperature: 0.3,
+            maxOutputTokens: 3000,
+          },
         }),
       });
     } catch (e) {
-      return json({ error: `Could not reach Anthropic: ${e.message}` }, 502, cors);
+      return json({ error: `Could not reach Gemini: ${e.message}` }, 502, cors);
     }
 
     if (!res.ok) {
       const detail = await res.text();
-      return json({ error: `Anthropic ${res.status}: ${detail.slice(0, 300)}` }, 502, cors);
+      return json({ error: `Gemini ${res.status}: ${detail.slice(0, 300)}` }, 502, cors);
     }
 
     const data = await res.json();
-    const block = (data.content || []).find(c => c.type === 'tool_use' && c.name === 'log_foods');
 
-    if (!block) return json({ error: 'Model did not return a food list' }, 502, cors);
+    const blocked = data.promptFeedback && data.promptFeedback.blockReason;
+    if (blocked) return json({ error: `Request blocked: ${blocked}` }, 502, cors);
 
-    const items = (block.input.items || []).map(i => ({
+    const text = (((data.candidates || [])[0] || {}).content || {}).parts
+      ?.map(p => p.text || '').join('').trim() || '';
+
+    if (!text) return json({ error: 'Gemini returned an empty response — try rewording it' }, 502, cors);
+
+    let parsed;
+    try {
+      parsed = JSON.parse(text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, ''));
+    } catch {
+      return json({ error: 'Could not parse the estimate — try rewording it' }, 502, cors);
+    }
+
+    const items = (parsed.items || []).map(i => ({
       name:     String(i.name || 'Food').slice(0, 120),
       meal:     MEALS.includes(i.meal) ? i.meal : mealHint,
-      calories: Math.max(0, Math.round(i.calories || 0)),
-      protein:  Math.max(0, Math.round(i.protein  || 0)),
-      carbs:    Math.max(0, Math.round(i.carbs    || 0)),
-      fat:      Math.max(0, Math.round(i.fat      || 0)),
+      calories: Math.max(0, Math.round(Number(i.calories) || 0)),
+      protein:  Math.max(0, Math.round(Number(i.protein)  || 0)),
+      carbs:    Math.max(0, Math.round(Number(i.carbs)    || 0)),
+      fat:      Math.max(0, Math.round(Number(i.fat)      || 0)),
     }));
 
-    return json({ items, note: block.input.note || '' }, 200, cors);
+    if (!items.length) return json({ error: 'No food items recognised' }, 502, cors);
+
+    return json({ items, note: String(parsed.note || '') }, 200, cors);
   },
 };
-
-function json(obj, status, cors) {
-  return new Response(JSON.stringify(obj), {
-    status,
-    headers: { ...cors, 'Content-Type': 'application/json' },
-  });
-}
