@@ -1252,6 +1252,10 @@ window.onload = async function() {
     return;
   }
   overlay.style.display = 'none';
+  document.getElementById('tgt-cal').textContent     = TARGETS.calories.toLocaleString();
+  document.getElementById('tgt-protein').textContent = `${TARGETS.protein}g`;
+  document.getElementById('tgt-carbs').textContent   = `${TARGETS.carbs}g`;
+  document.getElementById('tgt-fat').textContent     = `${TARGETS.fat}g`;
   document.getElementById('filter-buttons').innerHTML = '';
 
   const sortedLog = [...LOG].sort((a,b) => new Date(b.date)-new Date(a.date));
