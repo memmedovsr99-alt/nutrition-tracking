@@ -1691,6 +1691,189 @@ window.closeQuickLog = function() {
   document.getElementById('quick-log-modal').style.display = 'none';
 };
 
+// ══════════════ AI DESCRIBE MODE ══════════════
+window.qlMode = function(mode) {
+  const ai = mode === 'ai';
+  document.getElementById('ql-ai').style.display     = ai ? 'block' : 'none';
+  document.getElementById('ql-manual').style.display = ai ? 'none'  : 'block';
+  const tAi  = document.getElementById('ql-tab-ai');
+  const tMan = document.getElementById('ql-tab-manual');
+  tAi.style.background  = ai ? 'var(--accent)' : 'transparent';
+  tAi.style.color       = ai ? '#fff' : 'var(--muted)';
+  tMan.style.background = ai ? 'transparent' : 'var(--accent)';
+  tMan.style.color      = ai ? 'var(--muted)' : '#fff';
+};
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+window.estimateFood = async function() {
+  const desc   = document.getElementById('ql-desc').value.trim();
+  const status = document.getElementById('ql-ai-status');
+  const btn    = document.getElementById('ql-estimate');
+  const box    = document.getElementById('ql-ai-results');
+
+  if (!AI_WORKER_URL) {
+    status.style.color = 'var(--yellow)';
+    status.textContent = 'AI estimation is not set up yet — use Manual for now.';
+    return;
+  }
+  if (!desc) {
+    status.style.color = 'var(--yellow)';
+    status.textContent = '⚠️ Describe what you ate first';
+    return;
+  }
+
+  btn.textContent = 'Thinking…';
+  btn.disabled = true;
+  status.textContent = '';
+  box.innerHTML = '';
+
+  try {
+    const res = await fetch(AI_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ description: desc, meal: document.getElementById('ql-meal').value })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    renderEstimates(data.items || [], data.note || '');
+  } catch (e) {
+    status.style.color = 'var(--red)';
+    status.textContent = `⚠️ ${e.message}`;
+  }
+
+  btn.textContent = 'Estimate macros';
+  btn.disabled = false;
+};
+
+function renderEstimates(items, note) {
+  const box = document.getElementById('ql-ai-results');
+  if (!items.length) {
+    box.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.8rem;padding:12px">Nothing recognised — try describing it differently.</div>';
+    return;
+  }
+
+  const numInput = (cls, val, color) =>
+    `<input type="number" class="${cls}" value="${val}" min="0"
+       style="width:100%;background:var(--surface);border:1px solid var(--border);color:${color};
+              border-radius:8px;padding:7px 4px;font-size:0.8rem;font-family:inherit;
+              text-align:center;font-weight:700"/>`;
+
+  box.innerHTML = `
+    ${note ? `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 11px;font-size:0.74rem;color:var(--text2);margin-bottom:12px;line-height:1.45">💡 ${esc(note)}</div>` : ''}
+    <div style="font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px">Estimated — edit anything before logging</div>
+    <div id="ql-item-list">
+      ${items.map((it, i) => `
+        <div class="ql-item" data-i="${i}" style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:9px">
+          <div style="display:flex;gap:7px;align-items:center;margin-bottom:8px">
+            <input type="text" class="ql-i-name" value="${esc(it.name)}"
+              style="flex:1;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 10px;font-size:0.83rem;font-family:inherit;font-weight:600"/>
+            <button onclick="this.closest('.ql-item').remove();window.recalcEstimates()"
+              style="background:var(--surface3);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:0.8rem;line-height:1">✕</button>
+          </div>
+          <select class="ql-i-meal" style="width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text2);border-radius:8px;padding:7px 9px;font-size:0.76rem;font-family:inherit;margin-bottom:8px;appearance:none">
+            ${['Breakfast','Lunch','Dinner','Snacks','Late Night','Pre-workout','Post-workout']
+              .map(m => `<option${m === it.meal ? ' selected' : ''}>${m}</option>`).join('')}
+          </select>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px">
+            ${numInput('ql-i-cal',     it.calories, 'var(--cal)')}
+            ${numInput('ql-i-protein', it.protein,  'var(--protein)')}
+            ${numInput('ql-i-carbs',   it.carbs,    'var(--carbs)')}
+            ${numInput('ql-i-fat',     it.fat,      'var(--fat)')}
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:3px;font-size:0.6rem;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:0.5px">
+            <span>Cal</span><span>Pro</span><span>Carb</span><span>Fat</span>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div id="ql-item-total" style="padding:11px 2px;font-size:0.8rem;font-weight:800;border-top:1px solid var(--border)"></div>
+    <button onclick="window.logEstimates()" id="ql-log-all"
+      style="width:100%;background:var(--green);border:none;color:#08131f;border-radius:12px;padding:14px;font-size:0.95rem;font-weight:800;cursor:pointer;font-family:inherit">Log all items</button>
+  `;
+
+  box.querySelectorAll('input[type="number"]').forEach(el => el.oninput = window.recalcEstimates);
+  window.recalcEstimates();
+}
+
+function readEstimateRows() {
+  return [...document.querySelectorAll('#ql-item-list .ql-item')].map(row => ({
+    name:     row.querySelector('.ql-i-name').value.trim() || 'Food',
+    meal:     row.querySelector('.ql-i-meal').value,
+    calories: parseInt(row.querySelector('.ql-i-cal').value)     || 0,
+    protein:  parseInt(row.querySelector('.ql-i-protein').value) || 0,
+    carbs:    parseInt(row.querySelector('.ql-i-carbs').value)   || 0,
+    fat:      parseInt(row.querySelector('.ql-i-fat').value)     || 0,
+  }));
+}
+
+window.recalcEstimates = function() {
+  const rows = readEstimateRows();
+  const sum = k => rows.reduce((s, r) => s + r[k], 0);
+  const el = document.getElementById('ql-item-total');
+  if (!el) return;
+  el.innerHTML = rows.length
+    ? `<div style="display:flex;justify-content:space-between;align-items:center">
+         <span style="color:var(--muted);font-size:0.72rem;text-transform:uppercase;letter-spacing:1px">Total</span>
+         <span><span style="color:var(--cal)">${sum('calories')}</span> cal ·
+               <span style="color:var(--protein)">${sum('protein')}</span>P ·
+               <span style="color:var(--carbs)">${sum('carbs')}</span>C ·
+               <span style="color:var(--fat)">${sum('fat')}</span>F</span>
+       </div>`
+    : '<div style="text-align:center;color:var(--muted);font-weight:600">All items removed</div>';
+};
+
+window.logEstimates = async function() {
+  const date   = document.getElementById('ql-date').value;
+  const rows   = readEstimateRows();
+  const btn    = document.getElementById('ql-log-all');
+  const status = document.getElementById('ql-ai-status');
+
+  if (!date)       { status.style.color = 'var(--yellow)'; status.textContent = '⚠️ Pick a date'; return; }
+  if (!rows.length) { status.style.color = 'var(--yellow)'; status.textContent = '⚠️ Nothing to log'; return; }
+
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+  status.textContent = '';
+
+  try {
+    const existing = await sbFetch('food_items', `date=eq.${date}&profile=eq.${PROFILE}&order=sort_order.desc&limit=1`);
+    let sortOrder = existing.length ? existing[0].sort_order + 1 : 0;
+
+    await sbInsert('food_items', rows.map((r, i) => ({ ...r, date, sort_order: sortOrder + i, profile: PROFILE })));
+
+    const logs = await sbFetch('nutrition_log', `date=eq.${date}&profile=eq.${PROFILE}`);
+    const prev = logs.length ? logs[0] : { calories: 0, protein: 0, carbs: 0, fat: 0, notes: '' };
+    const sum = k => rows.reduce((s, r) => s + r[k], 0);
+
+    await sbUpsert('nutrition_log', {
+      date,
+      profile:  PROFILE,
+      calories: (prev.calories || 0) + sum('calories'),
+      protein:  (prev.protein  || 0) + sum('protein'),
+      carbs:    (prev.carbs    || 0) + sum('carbs'),
+      fat:      (prev.fat      || 0) + sum('fat'),
+      notes:    prev.notes || ''
+    }, 'date,profile');
+
+    status.style.color = 'var(--green)';
+    status.textContent = `✅ Logged ${rows.length} item${rows.length > 1 ? 's' : ''}`;
+    document.getElementById('ql-desc').value = '';
+    document.getElementById('ql-ai-results').innerHTML = '';
+
+    await loadData();
+    renderDay(window._currentDayKey || today());
+  } catch (e) {
+    status.style.color = 'var(--red)';
+    status.textContent = `⚠️ ${e.message}`;
+    btn.textContent = 'Log all items';
+    btn.disabled = false;
+  }
+};
+
 window.submitQuickLog = async function() {
   const date    = document.getElementById('ql-date').value;
   const meal    = document.getElementById('ql-meal').value;
