@@ -1215,9 +1215,10 @@ window.submitCheckin = async function() {
     steps: steps,
     training: !!s.training_type && s.training_type !== 'Rest',
     training_type: s.training_type || null,
-    digestion: s.digestion || null
+    digestion: s.digestion || null,
+    profile: PROFILE
   };
-  await sbUpsert('daily_checkin', entry, 'date');
+  await sbUpsert('daily_checkin', entry, 'date,profile');
   await loadData();
   renderCheckin();
 };
