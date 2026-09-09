@@ -31,6 +31,24 @@
 - `nutrition_dashboard.html` is now just UI code — do NOT look for data arrays in it
 - Dashboard fetches data from Supabase on load via REST API
 
+## Profiles (added Sep 2026) — Samir + Mina
+Two people share the app. `profile` column on every table separates the data.
+- Switcher lives in the dashboard header; choice persists in `localStorage` under `np_profile`.
+- Samir accent `#7c6fff` (purple), Mina accent `#ff6fa5` (pink). Config = `PROFILES` const in the HTML.
+- One-time migration: `profiles_setup.sql`, run in Supabase → SQL Editor.
+- Targets are per profile and render from the DB into the targets bar.
+
+## AI food logging (added Sep 2026)
+Lets either of them log by describing food in plain language, no Claude session needed.
+- `worker.js` — Cloudflare Worker proxying the Anthropic API so the key never ships in the public page.
+  Uses `claude-sonnet-5` with a forced `log_foods` tool for structured output, plus prompt caching on the
+  system prompt. The system prompt carries the estimation conventions calibrated with Samir (raw vs cooked
+  densities, bone deductions, Turkish/Azerbaijani portion sizes, "do not pad estimates").
+- Deploy, set the `ANTHROPIC_API_KEY` secret, then paste the worker URL into `AI_WORKER_URL` in
+  `nutrition_dashboard.html`. While that const is empty the Describe tab tells the user it is not set up
+  and the modal opens in Manual mode.
+- CORS is locked to the GitHub Pages origin in `ALLOWED_ORIGINS`.
+
 ## Supabase Config
 - **URL**: `https://dhwquwnqlxnmbsrokiff.supabase.co`
 - **Key**: `sb_publishable_5Sr1y3JmWCHXNCFMMt10Dg_1TgtLnLu`
@@ -68,34 +86,41 @@ def sb_delete(table, filter_str):
 ```
 
 ### Log a full day with foods
+**Every write must include `profile`.** Samir = `'samir'`, Mina = `'mina'`.
 ```python
 date = "2026-04-17"
-sb_upsert('nutrition_log', {"date": date, "calories": 2100, "protein": 165, "carbs": 190, "fat": 60, "notes": ""}, 'date')
-sb_delete('food_items', f'date=eq.{date}')
+P = 'samir'   # or 'mina'
+sb_upsert('nutrition_log', {"date": date, "profile": P, "calories": 2100, "protein": 165, "carbs": 190, "fat": 60, "notes": ""}, 'date,profile')
+sb_delete('food_items', f'date=eq.{date}&profile=eq.{P}')
 sb_insert('food_items', [
-    {"date": date, "meal": "Breakfast", "name": "Boiled eggs (x3)", "calories": 210, "protein": 18, "carbs": 1, "fat": 15, "sort_order": 0},
-    {"date": date, "meal": "Lunch", "name": "Chicken breast 200g", "calories": 220, "protein": 44, "carbs": 0, "fat": 4, "sort_order": 1},
+    {"date": date, "profile": P, "meal": "Breakfast", "name": "Boiled eggs (x3)", "calories": 210, "protein": 18, "carbs": 1, "fat": 15, "sort_order": 0},
+    {"date": date, "profile": P, "meal": "Lunch", "name": "Chicken breast 200g", "calories": 220, "protein": 44, "carbs": 0, "fat": 4, "sort_order": 1},
     # ... more foods
 ])
 ```
 
 ### Log a weigh-in
 ```python
-sb_upsert('weight_log', {"date": "2026-04-17", "weight": 81.2}, 'date')
+sb_upsert('weight_log', {"date": "2026-04-17", "profile": "samir", "weight": 81.2}, 'date,profile')
 ```
 
 ### Log hydration
 ```python
-sb_upsert('hydration_log', {"date": "2026-04-17", "liters": 2.5}, 'date')
+sb_upsert('hydration_log', {"date": "2026-04-17", "profile": "samir", "liters": 2.5}, 'date,profile')
 ```
 
+### Reading data back
+Always filter by profile, e.g. `f'date=eq.{date}&profile=eq.{P}'`.
+
 ## Data Schema
-- `nutrition_log`: `date` (PK), `calories`, `protein`, `carbs`, `fat`, `notes`
-- `food_items`: `id` (serial PK), `date`, `meal`, `name`, `calories`, `protein`, `carbs`, `fat`, `sort_order`
-- `weight_log`: `date` (PK), `weight`
-- `targets`: `id` (PK=1), `calories`=2200, `protein`=170, `carbs`=205, `fat`=55
-- `inbody_scans`: `date` (PK), `weight`, `smm`, `bfm`, `pbf`, `lbm`, `tbw`, `bmr`, `bmi`
-- `hydration_log`: `date` (PK), `liters`
+Every table has a `profile` text column (`'samir'` / `'mina'`, default `'samir'`).
+- `nutrition_log`: PK (`date`,`profile`), `calories`, `protein`, `carbs`, `fat`, `notes`
+- `food_items`: `id` (serial PK), `profile`, `date`, `meal`, `name`, `calories`, `protein`, `carbs`, `fat`, `sort_order`
+- `weight_log`: PK (`date`,`profile`), `weight`
+- `targets`: `id` PK, `profile` UNIQUE, `calories`, `protein`, `carbs`, `fat` (samir 2200/170/205/55, mina 1600/110/150/50)
+- `inbody_scans`: PK (`date`,`profile`), `weight`, `smm`, `bfm`, `pbf`, `lbm`, `tbw`, `bmr`, `bmi`
+- `hydration_log`: PK (`date`,`profile`), `liters`
+- `daily_checkin`: PK (`date`,`profile`), `hydration`, `sleep_hours`, `steps`, `training`, `training_type`, `digestion`
 
 ## HTML edits — when needed
 Only edit `nutrition_dashboard.html` for **UI/design changes** (never for data).
