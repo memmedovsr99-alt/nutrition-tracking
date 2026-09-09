@@ -1648,25 +1648,26 @@ window.submitQuickLog = async function() {
 
   try {
     // Get current sort_order max for this date
-    const existing = await sbFetch('food_items', `date=eq.${date}&order=sort_order.desc&limit=1`);
+    const existing = await sbFetch('food_items', `date=eq.${date}&profile=eq.${PROFILE}&order=sort_order.desc&limit=1`);
     const sortOrder = existing.length ? (existing[0].sort_order + 1) : 0;
 
     // Insert food item
-    await sbInsert('food_items', [{ date, meal, name, calories: cal, protein, carbs, fat, sort_order: sortOrder }]);
+    await sbInsert('food_items', [{ date, meal, name, calories: cal, protein, carbs, fat, sort_order: sortOrder, profile: PROFILE }]);
 
     // Get current nutrition_log for this date
-    const logs = await sbFetch('nutrition_log', `date=eq.${date}`);
+    const logs = await sbFetch('nutrition_log', `date=eq.${date}&profile=eq.${PROFILE}`);
     const existing_log = logs.length ? logs[0] : { calories: 0, protein: 0, carbs: 0, fat: 0 };
 
     // Upsert updated totals
     await sbUpsert('nutrition_log', {
       date,
+      profile:  PROFILE,
       calories: (existing_log.calories || 0) + cal,
       protein:  (existing_log.protein  || 0) + protein,
       carbs:    (existing_log.carbs    || 0) + carbs,
       fat:      (existing_log.fat      || 0) + fat,
       notes:    existing_log.notes || ''
-    }, 'date');
+    }, 'date,profile');
 
     document.getElementById('ql-status').style.color = 'var(--green)';
     document.getElementById('ql-status').textContent = '✅ Logged!';
