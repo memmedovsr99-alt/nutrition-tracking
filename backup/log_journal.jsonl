@@ -8,3 +8,4 @@
 {"logged_at": "2026-09-21", "profile": "samir", "date": "2026-09-21", "meal": "Dinner", "name": "Avocado oil spray", "calories": 15, "protein": 0, "carbs": 0, "fat": 2}
 {"logged_at": "2026-09-21", "profile": "samir", "date": "2026-09-21", "meal": "Dinner", "name": "Salad: 3 cucumbers, cherry tomatoes, greens, minimal olive oil", "calories": 120, "protein": 3, "carbs": 14, "fat": 5}
 {"logged_at": "2026-09-21", "profile": "samir", "date": "2026-09-21", "meal": "Snacks", "name": "Snacks ~100 cal", "calories": 100, "protein": 2, "carbs": 14, "fat": 4}
+{"ts":"2026-09-21T19:50","app":"finance","action":"update","item":"BofA credit card balance payable","from":344,"to":375.84,"note":"posted 217.44 + pending net 158.40"}
