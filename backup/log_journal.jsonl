@@ -18,3 +18,4 @@
 {"ts":"2026-09-21T20:40","app":"finance","action":"reclass","detail":"card posted $217.44 -> Dining (restaurants per Samir)"}
 {"ts":"2026-09-21T20:55","app":"finance","action":"itemize","detail":"Aug22-27 checking itemized (29 txns $1,461.76) replacing $563.25 residual; gap $898.51 booked as Unidentified income pending Halluminate/Patagonia answers"}
 {"ts":"2026-09-21T21:05","app":"finance","action":"add_income","detail":"Halluminate payroll $800 into savings 2026-08-31 (from savings screenshot); unidentified gap 898.51 -> 98.51. PMCPROPERTY $521 Aug 28 = deposit $500 + app fee $21 (already logged)"}
+{"ts":"2026-09-21T21:10","app":"finance","action":"dedupe","detail":"Patagonia hat = Venmo Connor $30; removed duplicate; gap 68.51"}

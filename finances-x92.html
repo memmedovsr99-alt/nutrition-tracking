@@ -617,7 +617,7 @@ const DATA = {
     { date:"2026-09-11", source:"BofA savings interest", amount:3.78, emoji:"🏦", received:true, note:"Interest earned on savings" },
     { date:"2026-09-21", source:"Slots win (cash)", amount:943, emoji:"🎰", received:true, note:"Lucky slot machine win — cash went from $305 to $1,248 (net +$943)" },
     { date:"2026-08-31", source:"Halluminate — payroll", amount:800, emoji:"💻", received:true, note:"HALLUMINATE DES:PAYROLL +$800 into savings 6731 on 2026-08-31 (after the Aug 22 anchor → real income)" },
-    { date:"2026-09-21", source:"Unidentified — reconciliation difference", amount:98.51, emoji:"❓", received:true, note:"Remaining gap after Halluminate $800 found in savings (Aug 31). Candidates: Patagonia hat $30 = Venmo Connor $30 (double count). Resolve & delete." },
+    { date:"2026-09-21", source:"Unidentified — reconciliation difference", amount:68.51, emoji:"❓", received:true, note:"Remaining gap after Halluminate $800 found in savings (Aug 31). Patagonia double count resolved; $68.51 left — likely in savings Aug 22–31 lines not yet reviewed." },
     { date:"2026-08-26", source:"New building deposit — receivable", amount:500, emoji:"🏢", received:false, note:"$500 deposit paid for the new building — refundable, owed back on move-out" }
   ],
 
@@ -654,7 +654,6 @@ const DATA = {
     { date:"2026-08-10", category:"Transport", name:"Transfer (Tashkent)",              amount:30,     bucket:"china", paid:true, inBalance:false, emoji:"🚐", note:"Transfer in Tashkent — already reflected in balance (part of the ~$697 gap)" },
     { date:"2026-08-15", category:"Subscriptions", name:"Claude membership",            amount:22,     bucket:null,    paid:true, inBalance:false, daily:false, emoji:"🤖", note:"Claude subscription — already reflected in balance (part of the ~$697 gap)" },
     { date:"2026-08-26", category:"Social",   name:"Wharton club membership fees",       amount:725,    bucket:null,    paid:true, daily:false, emoji:"🎓", note:"Wharton club membership — one-off, not from the $1,500 daily allowance" },
-    { date:"2026-08-26", category:"Shopping", name:"Patagonia hat",                      amount:30,     bucket:null,    paid:true, emoji:"🧢", note:"Patagonia hat" },
     { date:"2026-08-26", category:"Loan",     name:"New building deposit (paid)",        amount:500,    bucket:null,    paid:true, daily:false, emoji:"🏢", note:"Refundable deposit paid for new building — cash out now, offset by receivable in income[] (not consumption)" },
     { date:"2026-08-26", category:"Fees",     name:"Building application fee",           amount:21,     bucket:null,    paid:true, daily:false, emoji:"🧾", note:"Application fee for the new building (non-refundable)" },
     { date:"2026-08-26", category:"Travel",   name:"Brazil Carnival trek (Feb)",         amount:6300,   bucket:"brazil", paid:true, daily:false, emoji:"🇧🇷", note:"Full trek paid for Feb 2027 Carnival (incl. the $500 deposit). $3,000 is Mina's share — tracked as a receivable in income[]. Cleared as 'Wharton Carnaval' $4,290+$1,500 on 2026-09-01." },
@@ -684,7 +683,7 @@ const DATA = {
     { date:"2026-08-24", category:"Dining", name:"DoorDash", amount:20.45, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-08-25", category:"Groceries", name:"Trader Joe's", amount:25.49, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-08-25", category:"Transport", name:"SEPTA", amount:2.90, bucket:null, paid:true, note:"Checking 6553" },
-    { date:"2026-08-26", category:"Social", name:"Venmo — Connor", amount:30.00, bucket:null, paid:true, note:"Checking 6553" },
+    { date:"2026-08-26", category:"Shopping", name:"Patagonia hat (Venmo — Connor)", amount:30.00, bucket:null, paid:true, emoji:"🧢", note:"Checking 6553 — the Patagonia hat, paid via Venmo to Connor" },
     { date:"2026-08-25", category:"Gym", name:"US Open tennis (2US Tennis)", amount:39.00, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-08-25", category:"Gym", name:"US Open tennis (2US Tennis ASC)", amount:35.00, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-08-26", category:"Transport", name:"SEPTA", amount:5.80, bucket:null, paid:true, note:"Checking 6553" },
