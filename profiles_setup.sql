@@ -53,8 +53,8 @@ BEGIN
 END $$;
 
 -- 4. Seed Mina's targets (edit the numbers any time from the app).
-INSERT INTO targets (profile, calories, protein, carbs, fat)
-VALUES ('mina', 1600, 110, 150, 50)
+INSERT INTO targets (id, profile, calories, protein, carbs, fat)
+SELECT COALESCE(MAX(id), 0) + 1, 'mina', 1600, 110, 150, 50 FROM targets
 ON CONFLICT (profile) DO NOTHING;
 
 -- 5. Indexes so per-profile queries stay fast.
