@@ -1141,7 +1141,6 @@ function renderWhere() {
   const b = PERIODS[+sel.value || 0] || PERIODS[0];
   if (!b) return;
   const label = periodLabelOf(b);
-  document.getElementById("cat-month").textContent = label;
 
   const inPeriod = DATA.expenses.filter(e => e.paid!==false && !NON_SPEND_CATS.includes(e.category)
       && e.date >= b.start && e.date < b.end);
