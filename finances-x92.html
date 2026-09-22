@@ -1185,7 +1185,7 @@ function renderTxnList(elId, txns, compact=false) {
     return `<div class="txn">
       <div class="txn-ico">${ico}</div>
       <div class="txn-mid"><div class="txn-name">${escapeHtml(t.name||"—")}</div><div class="txn-meta">${meta}</div></div>
-      <div class="txn-amt ${t.type==="in"?"in":"out"}">${t.type==="in"?"+":"–"}${money(t.amount)}</div>
+      <div class="txn-amt ${(t.type==="in")!==(t.amount<0)?"in":"out"}">${(t.type==="in")!==(t.amount<0)?"+":"–"}${money(Math.abs(t.amount))}</div>
     </div>`;
   }).join("");
 }
