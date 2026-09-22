@@ -71,6 +71,19 @@
     .crow-name { flex:1; display:flex; align-items:center; gap:8px; font-weight:600; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .crow-pct { color: var(--muted); font-size:.74rem; font-weight:600; font-variant-numeric: tabular-nums; }
     .crow-amt { font-weight:700; font-variant-numeric: tabular-nums; min-width:78px; text-align:right; }
+    .crow { cursor: pointer; border-radius: 10px; margin: 0 -8px; padding-left: 8px; padding-right: 8px; transition: background .15s; }
+    .crow:hover, .crow:focus-visible { background: rgba(255,255,255,.04); outline: none; }
+    .cat-box { background: var(--surface); border: 1px solid var(--border-light); border-radius: 18px; width: 92%; max-width: 560px;
+               max-height: 82vh; display: flex; flex-direction: column; overflow: hidden; }
+    .cat-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
+    .cat-title { font-size: 1.05rem; font-weight: 800; }
+    .cat-sub { font-size: .74rem; color: var(--muted); font-weight: 600; margin-top: 3px; }
+    .cat-right { display:flex; align-items:center; gap: 12px; }
+    .cat-total { font-size: 1.15rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .cat-x { background: var(--surface2); border: 1px solid var(--border); color: var(--text2); border-radius: 9px; width: 32px; height: 32px; cursor: pointer; font-size: .85rem; }
+    .cat-x:hover { color: var(--text); border-color: var(--accent); }
+    .cat-list { overflow-y: auto; padding: 4px 22px 14px; }
+    .cat-note { font-size: .68rem; color: var(--muted); margin-top: 3px; line-height: 1.35; white-space: normal; }
     .track.slim { height:5px; }
     .crow-total { display:flex; justify-content:space-between; margin-top:10px; padding-top:12px; border-top:1px solid rgba(255,255,255,.1); font-weight:800; font-size:.9rem; }
     .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; align-items: start; }
@@ -569,6 +582,17 @@
   </main>
 </div>
 
+<!-- ══════════ CATEGORY DRILL-DOWN MODAL ══════════ -->
+<div class="reveal-overlay hidden" id="cat-modal" onclick="if(event.target===this)closeCat()">
+  <div class="cat-box">
+    <div class="cat-head">
+      <div><div class="cat-title" id="cat-title"></div><div class="cat-sub" id="cat-sub"></div></div>
+      <div class="cat-right"><div class="cat-total" id="cat-total"></div><button class="cat-x" onclick="closeCat()" aria-label="Close">✕</button></div>
+    </div>
+    <div class="cat-list" id="cat-list"></div>
+  </div>
+</div>
+
 <!-- ══════════ REVEAL PASSCODE MODAL ══════════ -->
 <div class="reveal-overlay hidden" id="reveal-modal">
   <div class="reveal-box">
@@ -1065,9 +1089,10 @@ function renderMonth(c) {
 
   // category breakdown for the current allowance period
   const cats = {};
+  CAT_TXNS = {}; CAT_PERIOD = periodLabel;
   DATA.expenses.filter(e=>e.paid!==false && !e.bucket && e.daily!==false && !NON_SPEND_CATS.includes(e.category)
       && e.date>=c.periodStart && e.date<c.periodEnd)
-    .forEach(e=>{ const k=e.category||"Other"; cats[k]=(cats[k]||0)+(+e.amount||0); });
+    .forEach(e=>{ const k=e.category||"Other"; cats[k]=(cats[k]||0)+(+e.amount||0); (CAT_TXNS[k]=CAT_TXNS[k]||[]).push(e); });
   const keys = Object.keys(cats).sort((a,b)=>cats[b]-cats[a]);
   const total = keys.reduce((s,k)=>s+cats[k],0);
   const budMap = {}; DATA.budget.forEach(b=>budMap[b.category]=+b.planned||0);
@@ -1079,9 +1104,10 @@ function renderMonth(c) {
     const TOP = 7, shown = keys.slice(0,TOP), rest = keys.slice(TOP);
     const restSum = rest.reduce((a,k)=>a+cats[k],0);
     const rows = shown.map((k,i)=>({emoji:emojiFor(k), name:k, v:cats[k], col:PALETTE[i%PALETTE.length]}));
-    if (rest.length) rows.push({emoji:"•", name:`Other (${rest.length})`, v:restSum, col:"var(--muted)", title:rest.join(", ")});
+    rows.forEach(r=>r.cats=[r.name]);
+    if (rest.length) rows.push({emoji:"•", name:`Other (${rest.length})`, v:restSum, col:"var(--muted)", title:rest.join(", "), cats:rest});
     const max = rows.reduce((a,r)=>Math.max(a,r.v),0) || 1;
-    mc.innerHTML = rows.map(r=>`<div class="crow"${r.title?` title="${escapeHtml(r.title)}"`:""}>
+    mc.innerHTML = rows.map(r=>`<div class="crow" role="button" tabindex="0" onclick='openCat(${escapeHtml(JSON.stringify(r.cats))}, ${escapeHtml(JSON.stringify(r.emoji+" "+r.name))})'${r.title?` title="${escapeHtml(r.title)}"`:""}>
         <div class="crow-top"><span class="crow-name"><span class="emoji">${r.emoji}</span>${escapeHtml(r.name)}</span>
           <span class="crow-pct">${total>0?(r.v/total*100).toFixed(0):0}%</span><span class="crow-amt">${money(r.v)}</span></div>
         <div class="track slim"><div class="fill" style="width:${r.v/max*100}%;background:${r.col}"></div></div>
@@ -1272,6 +1298,29 @@ function renderBuckets() {
 }
 
 /* ---------- shared UI bits ---------- */
+/* ---------- category drill-down (Overview → Where it went) ---------- */
+let CAT_TXNS = {}, CAT_PERIOD = "";
+function openCat(cats, title) {
+  const list = cats.flatMap(k => (CAT_TXNS[k]||[]).map(e => ({...e, _cat:k})))
+    .sort((a,b) => b.date.localeCompare(a.date) || (+b.amount) - (+a.amount));
+  const total = list.reduce((a,e)=>a+(+e.amount||0),0);
+  const multi = cats.length > 1;
+  document.getElementById("cat-title").textContent = title;
+  document.getElementById("cat-sub").textContent = `${CAT_PERIOD} · ${list.length} transaction${list.length===1?"":"s"}`;
+  document.getElementById("cat-total").textContent = money(total);
+  document.getElementById("cat-list").innerHTML = list.map(e => {
+    const src = e.inBalance===false && /card/i.test(e.note||"") ? "Credit card" : (/Checking 6553/.test(e.note||"") ? "Checking" : "");
+    const meta = [fmtDate(e.date), multi ? e._cat : "", src].filter(Boolean).join(" · ");
+    const note = e.note && !/^Checking 6553$/.test(e.note) && !/^BofA card #8337 \(pending\)$/.test(e.note) ? `<div class="cat-note">${escapeHtml(e.note)}</div>` : "";
+    const neg = (+e.amount) < 0;
+    return `<div class="txn"><div class="txn-mid"><div class="txn-name">${escapeHtml(e.name)}</div><div class="txn-meta">${meta}</div>${note}</div>
+      <div class="txn-amt ${neg?"in":"out"}">${neg?"+":"–"}${money(Math.abs(+e.amount))}</div></div>`;
+  }).join("") || `<div class="muted" style="padding:14px 4px">No transactions.</div>`;
+  document.getElementById("cat-modal").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+function closeCat() { document.getElementById("cat-modal").classList.add("hidden"); document.body.style.overflow = ""; }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeCat(); });
 function progressRow(emoji, name, spent, total, pct, color, valTxt, footRight) {
   return `<div class="prow">
     <div class="prow-top">
