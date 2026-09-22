@@ -11,3 +11,4 @@
 {"ts":"2026-09-21T19:50","app":"finance","action":"update","item":"BofA credit card balance payable","from":344,"to":375.84,"note":"posted 217.44 + pending net 158.40"}
 {"ts":"2026-09-21T20:05","app":"finance","action":"itemize","detail":"Replaced $4,150.12 Sept lump with 115 checking-6553 txns ($2,580.46) + ISO insurance $1,123 + Aug22-27 residual $563.25; BofA card itemized ($875.84, inBalance:false; payment+payable now Debt); Mina ticket -> Turkish $1,055.43; Babak $100 repaid + $70 Zelle; bofaNow 122348.01; allowance spend Aug22-Sep21 $4,049.55"}
 {"ts":"2026-09-21T20:10","app":"finance","action":"reclass","detail":"Babak $70 Zelle = his share of shared dining -> Dining -70 (was income)"}
+{"ts":"2026-09-21T20:15","app":"finance","action":"add_expense","detail":"Club events - school activity $30, 2026-09-21"}
