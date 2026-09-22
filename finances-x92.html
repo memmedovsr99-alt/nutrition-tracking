@@ -84,6 +84,17 @@
     .wp { font-size:.66rem; color:var(--muted); font-weight:600; margin-top:2px; }
     .crow { cursor: pointer; border-radius: 10px; margin: 0 -8px; padding-left: 8px; padding-right: 8px; transition: background .15s; }
     .crow:hover, .crow:focus-visible { background: rgba(255,255,255,.04); outline: none; }
+    .grp { padding: 11px 0; cursor: pointer; border-bottom: 1px solid var(--border); }
+    .grp:last-child { border-bottom: none; }
+    .grp:hover .grp-name, .grp:focus-visible .grp-name { color: var(--accent); outline: none; }
+    .grp-top { display:flex; align-items:center; gap:10px; margin-bottom:7px; font-size:.87rem; }
+    .grp-name { flex:1; display:flex; align-items:center; gap:8px; font-weight:700; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .grp-n { font-size:.7rem; color:var(--muted); font-weight:700; }
+    .grp-amt { font-weight:800; font-variant-numeric:tabular-nums; }
+    .grp-chev { color: var(--muted); font-size:1rem; }
+    .cat-back { background:var(--surface2); border:1px solid var(--border); color:var(--text2); border-radius:8px;
+                width:26px; height:26px; margin-right:9px; cursor:pointer; font-size:.8rem; vertical-align:middle; }
+    .cat-back:hover { color:var(--text); border-color:var(--accent); }
     .cat-box { background: var(--surface); border: 1px solid var(--border-light); border-radius: 18px; width: 92%; max-width: 560px;
                max-height: 82vh; display: flex; flex-direction: column; overflow: hidden; }
     .cat-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
@@ -1368,27 +1379,60 @@ function renderBuckets() {
 /* ---------- shared UI bits ---------- */
 /* ---------- category drill-down (Overview → Where it went) ---------- */
 let CAT_TXNS = {}, CAT_PERIOD = "";
+/* modal keeps a small stack: merchants view → entries view (← back) */
+let CAT_VIEW = null;
+const merchantOf = e => String(e.name).split(" — ")[0].split(" (")[0].replace(/[,:]\s*$/,"").trim();
+function catRows(cats, mode) {
+  return cats.flatMap(k => (CAT_TXNS[k]||[]).map(e => ({...e, _cat:k})))
+    .filter(e => mode === "daily" ? !isOneOff(e) : (mode === "oneoff" ? isOneOff(e) : true));
+}
+function setCatHead(title, sub, total, back) {
+  document.getElementById("cat-title").innerHTML =
+    (back ? `<button class="cat-back" onclick="backCat()" aria-label="Back">←</button>` : "") + escapeHtml(title);
+  document.getElementById("cat-sub").textContent = sub;
+  document.getElementById("cat-total").textContent = money(total);
+  document.getElementById("cat-modal").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+/* level 1 — grouped by place/merchant */
 function openCat(cats, title, mode) {
-  const list = cats.flatMap(k => (CAT_TXNS[k]||[]).map(e => ({...e, _cat:k})))
-    .filter(e => mode === "daily" ? !isOneOff(e) : (mode === "oneoff" ? isOneOff(e) : true))
+  CAT_VIEW = { cats, title, mode };
+  const list = catRows(cats, mode);
+  const total = list.reduce((a,e)=>a+(+e.amount||0),0);
+  const groups = {};
+  list.forEach(e => { const m = merchantOf(e); (groups[m] = groups[m] || { n:0, v:0, cat:e._cat }).n++; groups[m].v += (+e.amount||0); });
+  const keys = Object.keys(groups).sort((a,b)=>groups[b].v-groups[a].v);
+  const max = keys.length ? groups[keys[0]].v : 1;
+  setCatHead(title, `${CAT_PERIOD} · ${keys.length} place${keys.length===1?"":"s"} · ${list.length} transaction${list.length===1?"":"s"}`, total, false);
+  document.getElementById("cat-list").innerHTML = keys.map(m => {
+    const g = groups[m];
+    return `<div class="grp" role="button" tabindex="0" onclick='openMerchant(${escapeHtml(JSON.stringify(m))})'>
+      <div class="grp-top">
+        <span class="grp-name"><span class="emoji">${emojiFor(g.cat)}</span>${escapeHtml(m)}</span>
+        <span class="grp-n">${g.n}×</span><span class="grp-amt">${money(g.v)}</span><span class="grp-chev">›</span>
+      </div>
+      <div class="track slim"><div class="fill" style="width:${max>0?Math.max(0,g.v/max*100):0}%;background:var(--accent)"></div></div>
+    </div>`;
+  }).join("") || `<div class="muted" style="padding:14px 4px">No transactions.</div>`;
+}
+/* level 2 — every entry for one place */
+function openMerchant(m) {
+  if (!CAT_VIEW) return;
+  const list = catRows(CAT_VIEW.cats, CAT_VIEW.mode).filter(e => merchantOf(e) === m)
     .sort((a,b) => b.date.localeCompare(a.date) || (+b.amount) - (+a.amount));
   const total = list.reduce((a,e)=>a+(+e.amount||0),0);
-  const multi = cats.length > 1;
-  if (mode) title += "";
-  document.getElementById("cat-title").textContent = title;
-  document.getElementById("cat-sub").textContent = `${CAT_PERIOD} · ${list.length} transaction${list.length===1?"":"s"}`;
-  document.getElementById("cat-total").textContent = money(total);
+  setCatHead(m, `${CAT_PERIOD} · ${list.length} transaction${list.length===1?"":"s"} · in ${CAT_VIEW.title.replace(/^\S+\s/,"")}`, total, true);
   document.getElementById("cat-list").innerHTML = list.map(e => {
     const src = e.inBalance===false && /card/i.test(e.note||"") ? "Credit card" : (/Checking 6553/.test(e.note||"") ? "Checking" : "");
-    const meta = [fmtDate(e.date), multi ? e._cat : "", src].filter(Boolean).join(" · ");
+    const meta = [fmtDate(e.date), e._cat, src].filter(Boolean).join(" · ");
     const note = e.note && !/^Checking 6553$/.test(e.note) && !/^BofA card #8337 \(pending\)$/.test(e.note) ? `<div class="cat-note">${escapeHtml(e.note)}</div>` : "";
     const neg = (+e.amount) < 0;
     return `<div class="txn"><div class="txn-mid"><div class="txn-name">${escapeHtml(e.name)}</div><div class="txn-meta">${meta}</div>${note}</div>
       <div class="txn-amt ${neg?"in":"out"}">${neg?"+":"–"}${money(Math.abs(+e.amount))}</div></div>`;
-  }).join("") || `<div class="muted" style="padding:14px 4px">No transactions.</div>`;
-  document.getElementById("cat-modal").classList.remove("hidden");
-  document.body.style.overflow = "hidden";
+  }).join("");
+  document.getElementById("cat-list").scrollTop = 0;
 }
+function backCat() { if (CAT_VIEW) openCat(CAT_VIEW.cats, CAT_VIEW.title, CAT_VIEW.mode); }
 function closeCat() { document.getElementById("cat-modal").classList.add("hidden"); document.body.style.overflow = ""; }
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeCat(); });
 function progressRow(emoji, name, spent, total, pct, color, valTxt, footRight) {
