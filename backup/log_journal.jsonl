@@ -14,3 +14,4 @@
 {"ts":"2026-09-21T20:15","app":"finance","action":"add_expense","detail":"Club events - school activity $30, 2026-09-21"}
 {"ts":"2026-09-21T20:20","app":"finance","action":"update","detail":"Mina flight receivable 1000 -> 1055.43"}
 {"ts":"2026-09-21T20:25","app":"finance","action":"settle","detail":"Halluminate $800 + Airbnb $135 received; +$935 untracked offset (daily:false) keeps BofA tie"}
+{"ts":"2026-09-21T20:35","app":"finance","action":"remove","detail":"Halluminate $800 arrived before Aug 22 anchor (already in startingBalance) + Airbnb $135 charge cancelled -> removed both receivables and the $935 offset; no balance change"}
