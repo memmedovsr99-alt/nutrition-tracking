@@ -781,7 +781,7 @@ function renderView(key) {
           fat:     Math.round(LOG.reduce((s,e)=>s+e.fat,0)/n) }
       : entry;
 
-    if (dEntry) {
+    if (dEntry && [dEntry.protein, dEntry.carbs, dEntry.fat].every(Number.isFinite)) {
       const pCal = dEntry.protein * 4;
       const cCal = dEntry.carbs * 4;
       const fCal = dEntry.fat * 9;
