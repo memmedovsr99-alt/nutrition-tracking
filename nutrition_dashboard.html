@@ -1231,6 +1231,8 @@ function renderProfileUI() {
   document.documentElement.style.setProperty('--accent', p.accent);
   document.getElementById('hdr-avatar').textContent = p.letter;
   document.getElementById('hdr-title').textContent  = `${p.name}'s Nutrition`;
+  const sideTitle = document.getElementById('side-title');
+  if (sideTitle) sideTitle.innerHTML = `${p.name}'s<br>Nutrition`;
   document.title = `${p.name}'s Nutrition`;
 
   document.getElementById('profile-switch').innerHTML =
@@ -1442,7 +1444,7 @@ function renderWeightLog() {
   <div class="sidebar-logo">
     <div class="avatar">S</div>
     <div>
-      <h1>Samir's<br>Nutrition</h1>
+      <h1 id="side-title">Samir's<br>Nutrition</h1>
       <div class="subtitle" id="sidebar-date"></div>
     </div>
   </div>
