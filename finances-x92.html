@@ -793,7 +793,7 @@ const DATA = {
     { date:"2026-09-03", category:"Food", name:"Pret (Penn)", amount:11.34, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-09-03", category:"Books", name:"Penn Bookstore", amount:12.18, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-09-04", category:"Club events", name:"Wharton Grad (PayPal)", amount:115.00, bucket:null, paid:true, note:"Checking 6553" },
-    { date:"2026-09-03", category:"Transport", name:"U-Haul (move)", amount:108.61, bucket:null, paid:true, note:"Checking 6553" },
+    { date:"2026-09-03", category:"Move-in", name:"U-Haul (move)", amount:108.61, bucket:null, paid:true, daily:false, emoji:"📦", note:"Checking 6553 — move-in cost, one-off" },
     { date:"2026-09-03", category:"Shopping", name:"Amazon", amount:27.54, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-09-03", category:"Shopping", name:"Amazon", amount:25.88, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-09-03", category:"Phone", name:"Mint Mobile — annual plan (top-up)", amount:116.34, bucket:null, paid:true, daily:false, emoji:"📱", note:"Checking 6553 — part of the annual Mint plan, not daily spending" },
@@ -908,9 +908,9 @@ const DATA = {
 const CUR = { symbol: "$", code: "USD" };
 const CAT_EMOJI = { Rent:"🏠", Groceries:"🛒", Food:"🍽️", Dining:"🍽️", Transport:"🚇", Travel:"✈️",
   Tuition:"🎓", Insurance:"🩺", Health:"🩺", Phone:"📱", Subscriptions:"🔁", Shopping:"🛍️",
-  Utilities:"💡", Fun:"🎉", Social:"🍻", Gym:"💪", Books:"📚", Fees:"🧾", "Club events":"🎟️", Misc:"•", Other:"•" };
+  Utilities:"💡", Fun:"🎉", Social:"🍻", Gym:"💪", Books:"📚", Fees:"🧾", "Club events":"🎟️", "Move-in":"📦", Misc:"•", Other:"•" };
 const PALETTE = ["#7c6fff","#4dd4ac","#f87171","#fbbf24","#60a5fa","#fb923c","#ff6b8a","#a78bfa","#34d399","#f472b6"];
-const ONEOFF_CATS = ["Club events","Rent","Insurance","Gear","Tuition"];  // not part of the daily allowance — one-off / fixed
+const ONEOFF_CATS = ["Club events","Rent","Insurance","Gear","Tuition","Move-in"];  // not part of the daily allowance — one-off / fixed
 const NON_SPEND_CATS = ["Debt","Tuition","Loan"];   // transfers/repayments — money moves but isn't consumption spending
 
 /* ---------- helpers ---------- */
