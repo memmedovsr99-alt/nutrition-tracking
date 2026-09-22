@@ -33,3 +33,4 @@
 {"ts":"2026-09-22T15:40","app":"finance","action":"reclass","detail":"Everyones Racquet $214.92 -> Gear, daily:false (one-off racquet purchase)"}
 {"ts":"2026-09-22T15:45","app":"finance","action":"reclass","detail":"Claude sub $108 (Aug 26) = fronted for Mina -> category Loan + receivable; Mina owes 4244.33"}
 {"ts":"2026-09-22T15:50","app":"finance","action":"reclass","detail":"Mint Mobile $116.34 -> daily:false (annual plan top-up)"}
+{"ts":"2026-09-22T15:55","app":"finance","action":"reclass","detail":"U-Haul $108.61 -> new Move-in category (in ONEOFF_CATS), daily:false"}
