@@ -610,7 +610,6 @@ const DATA = {
     { date:"2026-08-10", source:"Halluminate — receivable",       amount:4625,  emoji:"💻", received:true, note:"Owed to Samir — reduced by $3,000 on 2026-08-22; received 2026-08-22" },
     { date:"2026-08-22", source:"Halluminate — receivable (new)", amount:800,   emoji:"💻", received:false, note:"Additional amount owed to Samir" },
     { date:"2026-09-08", source:"Babak — loan repayment", amount:100, emoji:"🤝", received:true, note:"REPAID — Zelle from Babak Aghazada into checking 6553 on 2026-09-08" },
-    { date:"2026-09-21", source:"Babak — Zelle", amount:70, emoji:"🤝", received:true, note:"Zelle from Babak Aghazada into checking 6553 (processing 09/21) — reason not confirmed yet" },
     { date:"2026-08-22", source:"Mina — receivable", amount:80.90, emoji:"🤝", received:false, note:"Owed by Mina. She paid Ilkin & Mahinur $277.92 directly on Samir's behalf (610 AZN total − $277.92 = $80.90 still owed). Never touched Samir's BofA." },
     { date:"2026-08-26", source:"Mina — Brazil trek share", amount:3000, emoji:"🇧🇷", received:false, note:"Mina's $3,000 share of the $6,300 Brazil Carnival trek Samir paid upfront — owed back to him" },
     { date:"2026-08-26", source:"Qatar Airways — refund", amount:662, emoji:"✈️", received:true, note:"$662 refund from Qatar Airways received into BofA — 2026-08-26" },
@@ -784,6 +783,7 @@ const DATA = {
     { date:"2026-09-18", category:"Shopping", name:"REI", amount:25.93, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-09-20", category:"Club events", name:"Wharton Grad (PayPal)", amount:12.00, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-09-21", category:"Phone", name:"Mint Mobile (PayPal, pending)", amount:10.50, bucket:null, paid:true, note:"Checking 6553" },
+    { date:"2026-09-21", category:"Dining", name:"Babak — his share of shared dinners (refund)", amount:-70, bucket:null, paid:true, emoji:"🤝", note:"Zelle from Babak into checking 6553 (09/21) — reimbursement of his portion of dining we split; nets down Dining" },
     // ── BofA credit card #8337 purchases (itemized 2026-09-21) — count toward the monthly allowance.
     //    inBalance:false because the money side is carried by the card payment ($500) + card balance payable ($375.84).
     //    Pending charges (exact dates not shown in app) dated 2026-09-20. Lucy $5.16 charge + $5.16 refund cancel out → omitted.
