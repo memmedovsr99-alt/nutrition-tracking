@@ -32,3 +32,4 @@
 {"ts":"2026-09-22T15:30","app":"finance","action":"feature","detail":"Drill-down now 2 levels: Daily/One-off pill -> merchants grouped (name split on em-dash/paren) -> entries, with back button"}
 {"ts":"2026-09-22T15:40","app":"finance","action":"reclass","detail":"Everyones Racquet $214.92 -> Gear, daily:false (one-off racquet purchase)"}
 {"ts":"2026-09-22T15:45","app":"finance","action":"reclass","detail":"Claude sub $108 (Aug 26) = fronted for Mina -> category Loan + receivable; Mina owes 4244.33"}
+{"ts":"2026-09-22T15:50","app":"finance","action":"reclass","detail":"Mint Mobile $116.34 -> daily:false (annual plan top-up)"}
