@@ -13,3 +13,4 @@
 {"ts":"2026-09-21T20:10","app":"finance","action":"reclass","detail":"Babak $70 Zelle = his share of shared dining -> Dining -70 (was income)"}
 {"ts":"2026-09-21T20:15","app":"finance","action":"add_expense","detail":"Club events - school activity $30, 2026-09-21"}
 {"ts":"2026-09-21T20:20","app":"finance","action":"update","detail":"Mina flight receivable 1000 -> 1055.43"}
+{"ts":"2026-09-21T20:25","app":"finance","action":"settle","detail":"Halluminate $800 + Airbnb $135 received; +$935 untracked offset (daily:false) keeps BofA tie"}
