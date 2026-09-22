@@ -615,7 +615,7 @@ const DATA = {
     { date:"2026-08-26", source:"Qatar Airways — refund", amount:662, emoji:"✈️", received:true, note:"$662 refund from Qatar Airways received into BofA — 2026-08-26" },
     { date:"2026-08-22", source:"Airbnb — receivable", amount:135, emoji:"🏠", received:false, note:"⚠️ UNVERIFIED: $135 charged to BofA earlier; Samir can't confirm whether the refund came back (2026-08-26). Kept as a receivable for now — may not be real." },
     { date:"2026-09-08", source:"Building deposit — refund", amount:4128.44, emoji:"🏢", received:true, note:"Old building security deposit returned — mobile deposit into BofA on 2026-09-08" },
-    { date:"2026-09-21", source:"Mina — flight ticket (fronted)", amount:1000, emoji:"🎟️", received:false, note:"Samir fronted Mina's flight ticket ($1,000, transferred 2026-09-21) — owed back by Mina" },
+    { date:"2026-09-21", source:"Mina — flight ticket (fronted)", amount:1055.43, emoji:"🎟️", received:false, note:"Samir fronted Mina's Turkish Airlines ticket ($1,055.43, checking 6553, 2026-09-21) — owed back by Mina in full" },
     { date:"2026-09-11", source:"BofA savings interest", amount:3.78, emoji:"🏦", received:true, note:"Interest earned on savings" },
     { date:"2026-09-21", source:"Slots win (cash)", amount:943, emoji:"🎰", received:true, note:"Lucky slot machine win — cash went from $305 to $1,248 (net +$943)" },
     { date:"2026-08-26", source:"New building deposit — receivable", amount:500, emoji:"🏢", received:false, note:"$500 deposit paid for the new building — refundable, owed back on move-out" }
@@ -661,7 +661,7 @@ const DATA = {
     // ── September 2026 activity (reconciled from BofA savings statement) ──
     { date:"2026-09-17", category:"Tuition",  name:"Tuition — 2nd installment",          amount:7876,   bucket:null,    paid:true, inBalance:false, note:"2nd of 8 installments to Penn ('University of PE' 2026-09-17) — drains tuition-in-bank, not spendable balance" },
     { date:"2026-09-03", category:"Rent",     name:"Rent (PMCPROPERTY)",                 amount:2598.85, bucket:null,   paid:true, daily:false, emoji:"🏠", note:"New building rent — PMCPROPERTY-330, 2026-09-03" },
-    { date:"2026-09-21", category:"Travel",   name:"Mina's flight ticket — Turkish Airlines (fronted)", amount:1055.43,   bucket:null,    paid:true, daily:false, emoji:"🎟️", note:"Turkish Airlines (London) $1,055.43 from checking 6553 on 09/21 (processing, amount may change). Funded by $1,000 savings→checking transfer. Receivable in income[] is $1,000 — confirm whether Mina owes the full $1,055.43." },
+    { date:"2026-09-21", category:"Travel",   name:"Mina's flight ticket — Turkish Airlines (fronted)", amount:1055.43,   bucket:null,    paid:true, daily:false, emoji:"🎟️", note:"Turkish Airlines (London) $1,055.43 from checking 6553 on 09/21 (processing, amount may change). Funded by $1,000 savings→checking transfer. Mina owes the full $1,055.43 (receivable in income[])." },
     { date:"2026-09-20", category:"Debt",     name:"BofA credit card payment",           amount:500,    bucket:null,    paid:true, daily:false, emoji:"💳", note:"$500 paid to BofA card #8337 — debt repayment; the actual purchases are itemized below as 'BofA card' expenses" },
     // ── BofA CHECKING 6553 — itemized from full transaction history (2026-09-21). Running balance chain verified to the cent:
     //    $788.87 (before Aug 31 transfer) + $3,888 savings transfers + $170 Babak + $68.48 TaskRabbit refund − outflows = $87.98 available.
