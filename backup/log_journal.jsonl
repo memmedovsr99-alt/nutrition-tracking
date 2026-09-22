@@ -22,3 +22,4 @@
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-21", "meal": "Late Night", "name": "Lactaid protein milk (180 cal)", "calories": 180, "protein": 17, "carbs": 14, "fat": 6}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-21", "meal": "Late Night", "name": "Whey protein 1.5 scoop", "calories": 180, "protein": 36, "carbs": 4, "fat": 2}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-21", "meal": "Late Night", "name": "Creatine 10g", "calories": 0, "protein": 0, "carbs": 0, "fat": 0}
+{"ts":"2026-09-22T00:05","app":"finance","action":"feature","detail":"Where-It-Went period picker (22nd-21st cycles) + Total/Daily/One-off split with drill-down; ONEOFF_CATS=[Club events,Rent,Insurance,Gear,Tuition] also excluded from allowance; $30 = Storytellers event (checking 57.98 confirms)"}
