@@ -11,7 +11,9 @@
  *   4. Paste the worker URL into AI_WORKER_URL in nutrition_dashboard.html
  */
 
-const MODEL = 'gemini-2.5-flash';
+// Tried in order; first one that isn't a 404 wins. Google retires model names
+// periodically, so keep a couple of fallbacks here.
+const MODELS = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-2.5-flash'];
 
 const ALLOWED_ORIGINS = [
   'https://memmedovsr99-alt.github.io',
@@ -122,38 +124,46 @@ export default {
     if (!description) return json({ error: 'Describe what you ate first' }, 400, cors);
     if (description.length > 2000) return json({ error: 'Description too long' }, 400, cors);
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+    const payload = JSON.stringify({
+      systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+      contents: [{
+        role: 'user',
+        parts: [{ text: `Meal hint if none is stated: ${mealHint}\n\nWhat I ate:\n${description}` }],
+      }],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        responseSchema: RESPONSE_SCHEMA,
+        temperature: 0.3,
+        maxOutputTokens: 3000,
+      },
+    });
 
-    let res;
-    try {
-      res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'x-goog-api-key': env.GEMINI_API_KEY,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: [{
-            role: 'user',
-            parts: [{ text: `Meal hint if none is stated: ${mealHint}\n\nWhat I ate:\n${description}` }],
-          }],
-          generationConfig: {
-            responseMimeType: 'application/json',
-            responseSchema: RESPONSE_SCHEMA,
-            temperature: 0.3,
-            maxOutputTokens: 3000,
+    let res = null;
+    let lastErr = '';
+    for (const model of MODELS) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+      try {
+        res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'x-goog-api-key': env.GEMINI_API_KEY,
+            'Content-Type': 'application/json',
           },
-        }),
-      });
-    } catch (e) {
-      return json({ error: `Could not reach Gemini: ${e.message}` }, 502, cors);
+          body: payload,
+        });
+      } catch (e) {
+        lastErr = `Could not reach Gemini: ${e.message}`;
+        res = null;
+        continue;
+      }
+      if (res.ok) break;
+      lastErr = `Gemini ${res.status} on ${model}: ${(await res.text()).slice(0, 200)}`;
+      res = null;
+      // Only a missing/retired model is worth retrying with the next name.
+      if (!lastErr.includes('404')) break;
     }
 
-    if (!res.ok) {
-      const detail = await res.text();
-      return json({ error: `Gemini ${res.status}: ${detail.slice(0, 300)}` }, 502, cors);
-    }
+    if (!res) return json({ error: lastErr || 'Gemini request failed' }, 502, cors);
 
     const data = await res.json();
 
