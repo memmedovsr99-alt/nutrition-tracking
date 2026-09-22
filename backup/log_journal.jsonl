@@ -38,3 +38,4 @@
 {"ts":"2026-09-22T16:20","app":"finance","action":"update","detail":"Card owed 375.84 -> 414.19 (two new Giant charges 23.48 + 14.87 dated 09-22, first spend of new period)"}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Lunch", "name": "CORRECTION: Pasta ~1/4 pack", "calories": 300, "protein": 10, "carbs": 61, "fat": 2, "note": "was 518 cal, user corrected to ~1/4 of 1200 cal pack"}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Lunch", "name": "CORRECTION: Pasta 145g cooked", "calories": 215, "protein": 8, "carbs": 43, "fat": 1, "note": "145g was cooked weight, not dry"}
+{"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Lunch", "name": "CORRECTION: Beef + tomato mix 190g", "calories": 132, "protein": 20, "carbs": 4, "fat": 4, "note": "label 130cal x4 servings = 520 cal/lb"}
