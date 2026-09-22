@@ -29,3 +29,4 @@
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Lunch", "name": "Pasta 145g dry (Barilla)", "calories": 518, "protein": 18, "carbs": 105, "fat": 2}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Lunch", "name": "Beef + tomato mix 190g (96/4 beef, TJ roasted tomatoes)", "calories": 150, "protein": 21, "carbs": 4, "fat": 5}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Lunch", "name": "TJ nonfat plain European yoghurt 135g", "calories": 80, "protein": 8, "carbs": 11, "fat": 0}
+{"ts":"2026-09-22T15:30","app":"finance","action":"feature","detail":"Drill-down now 2 levels: Daily/One-off pill -> merchants grouped (name split on em-dash/paren) -> entries, with back button"}
