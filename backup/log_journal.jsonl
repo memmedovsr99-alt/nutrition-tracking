@@ -16,3 +16,4 @@
 {"ts":"2026-09-21T20:25","app":"finance","action":"settle","detail":"Halluminate $800 + Airbnb $135 received; +$935 untracked offset (daily:false) keeps BofA tie"}
 {"ts":"2026-09-21T20:35","app":"finance","action":"remove","detail":"Halluminate $800 arrived before Aug 22 anchor (already in startingBalance) + Airbnb $135 charge cancelled -> removed both receivables and the $935 offset; no balance change"}
 {"ts":"2026-09-21T20:40","app":"finance","action":"reclass","detail":"card posted $217.44 -> Dining (restaurants per Samir)"}
+{"ts":"2026-09-21T20:55","app":"finance","action":"itemize","detail":"Aug22-27 checking itemized (29 txns $1,461.76) replacing $563.25 residual; gap $898.51 booked as Unidentified income pending Halluminate/Patagonia answers"}
