@@ -65,6 +65,14 @@
     .main { flex: 1; min-width: 0; padding: 30px 34px 56px; }
 
     /* ── 12-column grid ── */
+    .crow { padding: 9px 0; }
+    .crow + .crow { border-top: 1px solid rgba(255,255,255,.05); }
+    .crow-top { display:flex; align-items:center; gap:10px; margin-bottom:7px; font-size:.86rem; }
+    .crow-name { flex:1; display:flex; align-items:center; gap:8px; font-weight:600; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .crow-pct { color: var(--muted); font-size:.74rem; font-weight:600; font-variant-numeric: tabular-nums; }
+    .crow-amt { font-weight:700; font-variant-numeric: tabular-nums; min-width:78px; text-align:right; }
+    .track.slim { height:5px; }
+    .crow-total { display:flex; justify-content:space-between; margin-top:10px; padding-top:12px; border-top:1px solid rgba(255,255,255,.1); font-weight:800; font-size:.9rem; }
     .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; align-items: start; }
     .cell { min-width: 0; }
     .c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}
@@ -452,9 +460,11 @@
           <div class="month-stats">
             <div><span id="tm-budget">—</span><small>budget</small></div>
             <div><span id="tm-daily">—</span><small>spent / day</small></div>
-            <div><span id="tm-pace">—</span><small>left / day</small></div>
+            <div><span id="tm-pace">—</span><small id="tm-pace-k">left / day</small></div>
           </div>
         </div>
+        <div class="section-title" style="margin-top:22px;"><h2>Recent Activity</h2><span class="link" onclick="showPage('ledger')">All →</span></div>
+        <div class="card" id="recent-card"></div>
       </div>
 
       <!-- Where it went -->
@@ -467,12 +477,6 @@
       <div class="cell c12">
         <div class="section-title"><h2>Monthly Breakdown</h2><span class="muted" style="font-size:.72rem;font-weight:600;">all money out · incl. trips</span></div>
         <div class="card" id="months-card"></div>
-      </div>
-
-      <!-- Recent activity -->
-      <div class="cell c12">
-        <div class="section-title"><h2>Recent Activity</h2><span class="link" onclick="showPage('ledger')">All →</span></div>
-        <div class="card" id="recent-card"></div>
       </div>
 
     </div>
@@ -992,7 +996,7 @@ function renderOverview() {
   document.getElementById("hdr-badge").innerHTML = `<b>${c.count}</b> tracked`;
   renderMonth(c);
   renderMonthlyHistory();
-  renderTxnList("recent-card", allTxns().slice(0,6), true);
+  renderTxnList("recent-card", allTxns().slice(0,8), true);
 }
 
 /* ---------- render: monthly breakdown (previous months) ---------- */
@@ -1041,19 +1045,22 @@ function renderMonth(c) {
   const periodLabel = `${fmtDate(c.periodStart)} – ${endLabel}`;           // e.g. "22 Aug – 21 Sep"
 
   document.getElementById("tm-title").textContent = `Monthly Allowance`;
-  document.getElementById("tm-daysleft").textContent = `${c.daysLeftPeriod} days left`;
+  document.getElementById("tm-daysleft").textContent = c.daysLeftPeriod>1 ? `${c.daysLeftPeriod} days left` : (c.daysLeftPeriod===1 ? "1 day left" : "last day");
   document.getElementById("cat-month").textContent = periodLabel;
   document.getElementById("tm-spent").textContent = money(spent);
   document.getElementById("tm-sub").textContent = budget>0 ? `of ${money(budget)} · ${periodLabel}` : "no allowance set yet";
   const leftEl = document.getElementById("tm-left");
-  leftEl.textContent = left!==null ? money(left) : "—";
+  leftEl.textContent = left!==null ? (over ? money(-left) : money(left)) : "—";
+  leftEl.nextElementSibling.textContent = over ? "over budget" : "left this month";
   leftEl.className = "month-left-v " + (left!==null ? (over?"red":"green") : "");
   const fill = document.getElementById("tm-fill");
   fill.style.width = pct + "%";
   fill.style.background = over ? "var(--red)" : (pct>85 ? "var(--yellow)" : "var(--green)");
   document.getElementById("tm-budget").textContent = budget>0 ? money(budget) : "—";
   document.getElementById("tm-daily").textContent = spent>0 ? money(dailyAvg) : "—";
-  document.getElementById("tm-pace").textContent = perDayLeft!==null ? money(perDayLeft) : "—";
+  const paceEl = document.getElementById("tm-pace");
+  if (over) { paceEl.textContent = `${(spent/budget).toFixed(1)}×`; paceEl.className = "red"; document.getElementById("tm-pace-k").textContent = "of budget"; }
+  else { paceEl.textContent = perDayLeft!==null ? money(perDayLeft) : "—"; paceEl.className = ""; document.getElementById("tm-pace-k").textContent = "left / day"; }
 
   // category breakdown for the current allowance period
   const cats = {};
@@ -1068,19 +1075,16 @@ function renderMonth(c) {
     mc.innerHTML = emptyState("🧾","No daily spending yet this period",
       "Send me your daily expenses and they'll break down here by category against your $1,500 allowance.");
   } else {
-    mc.innerHTML = keys.map((k,i)=>{
-      const bud = budMap[k]||0;
-      const barPct = bud>0 ? Math.min(cats[k]/bud*100,100) : (total>0?cats[k]/total*100:0);
-      const isOver = bud>0 && cats[k]>bud;
-      // budgeted categories = semantic health color; unbudgeted = neutral palette (just showing share)
-      const col = bud>0
-        ? (isOver ? "var(--red)" : (cats[k]/bud>0.85 ? "var(--yellow)" : "var(--green)"))
-        : PALETTE[i%PALETTE.length];
-      const foot = bud>0
-        ? (isOver ? `over by ${money(cats[k]-bud)}` : `${money(bud-cats[k])} left of ${money(bud)}`)
-        : `${total>0?(cats[k]/total*100).toFixed(0):0}% of spend`;
-      return progressRow(emojiFor(k), k, cats[k], bud, barPct, col, money(cats[k]), foot);
-    }).join("");
+    const TOP = 7, shown = keys.slice(0,TOP), rest = keys.slice(TOP);
+    const restSum = rest.reduce((a,k)=>a+cats[k],0);
+    const rows = shown.map((k,i)=>({emoji:emojiFor(k), name:k, v:cats[k], col:PALETTE[i%PALETTE.length]}));
+    if (rest.length) rows.push({emoji:"•", name:`Other (${rest.length})`, v:restSum, col:"var(--muted)", title:rest.join(", ")});
+    const max = rows.reduce((a,r)=>Math.max(a,r.v),0) || 1;
+    mc.innerHTML = rows.map(r=>`<div class="crow"${r.title?` title="${escapeHtml(r.title)}"`:""}>
+        <div class="crow-top"><span class="crow-name"><span class="emoji">${r.emoji}</span>${escapeHtml(r.name)}</span>
+          <span class="crow-pct">${total>0?(r.v/total*100).toFixed(0):0}%</span><span class="crow-amt">${money(r.v)}</span></div>
+        <div class="track slim"><div class="fill" style="width:${r.v/max*100}%;background:${r.col}"></div></div>
+      </div>`).join("") + `<div class="crow-total"><span>Total</span><span>${money(total)}</span></div>`;
   }
 }
 
