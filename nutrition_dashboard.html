@@ -1235,12 +1235,15 @@ function renderProfileUI() {
   if (sideTitle) sideTitle.innerHTML = `${p.name}'s<br>Nutrition`;
   document.title = `${p.name}'s Nutrition`;
 
-  document.getElementById('profile-switch').innerHTML =
-    Object.entries(PROFILES).map(([key, v]) => `
+  const switchMarkup = Object.entries(PROFILES).map(([key, v]) => `
       <button class="profile-btn${key === PROFILE ? ' active' : ''}"
               style="${key === PROFILE ? `background:${v.accent}` : ''}"
               onclick="switchProfile('${key}')">${v.name}</button>
     `).join('');
+  ['profile-switch', 'profile-switch-side'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = switchMarkup;
+  });
 
   const foot = document.querySelector('.sidebar-footer');
   if (foot) foot.innerHTML = `${p.name} &middot; ${p.goal} goal<br>Tap + to log food`;
@@ -1456,6 +1459,7 @@ function renderWeightLog() {
     <div class="sidebar-item" data-page="hydration" onclick="showPage('hydration')"><span class="sidebar-icon">📋</span>Check-in</div>
     <div class="sidebar-item" data-page="lab"       onclick="showPage('lab')">      <span class="sidebar-icon">🧪</span>Lab Results</div>
   </div>
+  <div class="profile-switch" id="profile-switch-side" style="margin:0 12px 12px"></div>
   <div class="sidebar-footer">
     81.5 kg &middot; Cut goal<br>
     Tell Claude what you ate to log
@@ -1512,7 +1516,6 @@ function renderWeightLog() {
       <div id="food-log-content"><div class="no-data">Select a day to view food items.</div></div>
     </div>
     <!-- Quick Log FAB -->
-    <button onclick="window.openQuickLog()" id="quick-log-fab" style="position:fixed;bottom:calc(var(--tab-h) + var(--safe-bottom) + 16px);right:18px;width:52px;height:52px;border-radius:50%;background:var(--accent);border:none;color:white;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 4px 20px rgba(124,111,255,0.5);z-index:200;align-items:center;justify-content:center;display:none">+</button>
   </div>
 
   <!-- ══ PAGE: TRENDS ══ -->
@@ -1587,6 +1590,8 @@ function renderWeightLog() {
 </script>
 
 <!-- ══ QUICK LOG MODAL ══ -->
+<button onclick="window.openQuickLog()" id="quick-log-fab" style="position:fixed;bottom:calc(var(--tab-h) + var(--safe-bottom) + 16px);right:18px;width:52px;height:52px;border-radius:50%;background:var(--accent);border:none;color:white;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 4px 20px rgba(124,111,255,0.5);z-index:200;align-items:center;justify-content:center;display:none">+</button>
+
 <div id="quick-log-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;backdrop-filter:blur(4px)" onclick="if(event.target===this)window.closeQuickLog()"></div>
 <div id="quick-log-modal" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:501;background:var(--surface);border-radius:20px 20px 0 0;padding:20px 18px calc(20px + var(--safe-bottom));max-height:90dvh;overflow-y:auto">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
