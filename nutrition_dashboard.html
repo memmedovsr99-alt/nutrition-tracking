@@ -82,6 +82,24 @@
     }
     .profile-btn.active { color: #fff; }
 
+    /* ── Versus ── */
+    .vs-head { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:10px; }
+    .vs-side { text-align:center; }
+    .vs-name { font-size:0.8rem; font-weight:700; letter-spacing:0.4px; }
+    .vs-score { font-size:2.6rem; font-weight:800; line-height:1.1; }
+    .vs-sub { font-size:0.68rem; color:var(--muted); margin-top:2px; }
+    .vs-mid { font-size:0.75rem; font-weight:800; color:var(--muted); letter-spacing:1px; }
+    .vs-bar { display:flex; height:8px; border-radius:99px; overflow:hidden; background:var(--surface2); margin-top:14px; }
+    .vs-row { display:grid; grid-template-columns:78px 1fr 1fr; gap:8px; align-items:center; padding:7px 0;
+              border-top:1px solid var(--border); font-size:0.78rem; }
+    .vs-row:first-of-type { border-top:none; }
+    .vs-day { color:var(--muted); font-size:0.72rem; font-weight:600; }
+    .vs-dots { display:flex; gap:4px; justify-content:center; }
+    .vs-dot { width:15px; height:15px; border-radius:50%; font-size:0.55rem; display:flex;
+              align-items:center; justify-content:center; font-weight:800; color:#0d0f14; }
+    .vs-legend { display:flex; gap:14px; flex-wrap:wrap; font-size:0.68rem; color:var(--muted); margin-top:12px; }
+    .vs-legend span { display:flex; align-items:center; gap:5px; }
+
     /* ── Day Filter ── */
     .day-filter-bar {
       display: flex; align-items: center; gap: 8px;
@@ -256,11 +274,13 @@
     body[data-page="trends"] .day-filter-bar,
     body[data-page="body"] .day-filter-bar,
     body[data-page="hydration"] .day-filter-bar,
-    body[data-page="lab"] .day-filter-bar { display: none !important; }
+    body[data-page="lab"] .day-filter-bar,
+    body[data-page="versus"] .day-filter-bar { display: none !important; }
     body[data-page="trends"] .targets-bar,
     body[data-page="body"] .targets-bar,
     body[data-page="hydration"] .targets-bar,
-    body[data-page="lab"] .targets-bar { display: none !important; }
+    body[data-page="lab"] .targets-bar,
+    body[data-page="versus"] .targets-bar { display: none !important; }
 
     /* Bottom tab bar — mobile */
     .nav-bottom {
@@ -1461,6 +1481,7 @@ function renderWeightLog() {
     <div class="sidebar-item" data-page="trends" onclick="showPage('trends')"><span class="sidebar-icon">📈</span>Trends</div>
     <div class="sidebar-item" data-page="body"   onclick="showPage('body')">  <span class="sidebar-icon">🫁</span>Body</div>
     <div class="sidebar-item" data-page="hydration" onclick="showPage('hydration')"><span class="sidebar-icon">📋</span>Check-in</div>
+    <div class="sidebar-item" data-page="versus" onclick="showPage('versus')"><span class="sidebar-icon">🏆</span>Versus</div>
     <div class="sidebar-item" data-page="lab"       onclick="showPage('lab')">      <span class="sidebar-icon">🧪</span>Lab Results</div>
   </div>
   <div class="profile-switch" id="profile-switch-side" style="margin:0 12px 12px"></div>
@@ -1557,6 +1578,12 @@ function renderWeightLog() {
     <div class="card"><div id="checkin-content"></div></div>
   </div>
 
+  <div class="page" id="page-versus">
+    <div id="versus-content">
+      <div class="no-data" style="padding:40px 0">Loading…</div>
+    </div>
+  </div>
+
   <div class="page" id="page-lab">
     <div class="card" style="text-align:center;padding:48px 24px">
       <div style="font-size:2.5rem;margin-bottom:16px">🧪</div>
@@ -1574,7 +1601,7 @@ function renderWeightLog() {
   <button class="tab-item" data-page="log"       onclick="showPage('log')">      <span class="tab-icon">🍽️</span>Log</button>
   <button class="tab-item" data-page="trends"    onclick="showPage('trends')">   <span class="tab-icon">📈</span>Trends</button>
   <button class="tab-item" data-page="body"      onclick="showPage('body')">     <span class="tab-icon">⚖️</span>Body</button>
-  <button class="tab-item" data-page="hydration" onclick="showPage('hydration')"><span class="tab-icon">📋</span>Check-in</button>
+  <button class="tab-item" data-page="versus"    onclick="showPage('versus')">   <span class="tab-icon">🏆</span>Versus</button>
 </nav>
 
 <script>
