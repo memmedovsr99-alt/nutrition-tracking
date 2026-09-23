@@ -591,6 +591,205 @@ let donutChart = null;
 let currentKey = null;
 let trendChartInited = false;
 
+// ══════════════════════════════════════════════════════════════════════════
+// VERSUS — head-to-head between the two profiles.
+//
+// Scoring is deliberately per-person-relative: each day is judged against that
+// profile's OWN targets, so a 2,200 and a 1,600 target compete fairly. Eating
+// too little loses the calorie point just like eating too much — the game must
+// not reward under-eating on a cut.
+//   +1 logged the day      (the habit is the hardest part, so it scores)
+//   +1 calories 80–105% of own target
+//   +1 protein >= 85% of own target
+// ══════════════════════════════════════════════════════════════════════════
+let VERSUS_CACHE = null;
+
+function dayScore(entry, tgt) {
+  if (!entry) return { pts: 0, logged: false, cal: false, pro: false };
+  const calPct = tgt.calories ? (entry.calories / tgt.calories) * 100 : 0;
+  const proPct = tgt.protein  ? (entry.protein  / tgt.protein)  * 100 : 0;
+  const cal = calPct >= 80 && calPct <= 105;
+  const pro = proPct >= 85;
+  return { pts: 1 + (cal ? 1 : 0) + (pro ? 1 : 0), logged: true, cal, pro };
+}
+
+function lastNDates(n) {
+  const out = [];
+  const d = new Date();
+  for (let i = 0; i < n; i++) {
+    const x = new Date(d);
+    x.setDate(d.getDate() - i);
+    out.push(`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`);
+  }
+  return out;
+}
+
+async function loadVersus() {
+  if (VERSUS_CACHE) return VERSUS_CACHE;
+  const keys = Object.keys(PROFILES);
+  const [logs, tgts] = await Promise.all([
+    sbFetch('nutrition_log', 'select=date,calories,protein,profile&order=date.desc'),
+    sbFetch('targets', 'select=*'),
+  ]);
+  const byProfile = {};
+  keys.forEach(k => {
+    byProfile[k] = {
+      log: logs.filter(l => l.profile === k),
+      target: tgts.find(t => t.profile === k) || { calories: 2000, protein: 150 },
+    };
+  });
+  VERSUS_CACHE = byProfile;
+  return byProfile;
+}
+
+async function renderVersus() {
+  const el = document.getElementById('versus-content');
+  let data;
+  try {
+    data = await loadVersus();
+  } catch (e) {
+    el.innerHTML = `<div class="no-data">Couldn't load the scoreboard — ${e.message}</div>`;
+    return;
+  }
+
+  const keys = Object.keys(PROFILES);
+  const week = lastNDates(7).reverse();      // oldest → newest
+  const todayStr = today();
+
+  const per = {};
+  keys.forEach(k => {
+    const { log, target } = data[k];
+    const byDate = Object.fromEntries(log.map(e => [e.date, e]));
+    const days = week.map(d => ({ date: d, ...dayScore(byDate[d], target) }));
+    // Today is still in progress — count it, but never let it end a streak.
+    let streak = 0;
+    for (const d of [...days].reverse()) {
+      if (d.date === todayStr && d.pts < 2) continue;
+      if (d.pts >= 2) streak++; else break;
+    }
+    per[k] = {
+      days,
+      total: days.reduce((s, d) => s + d.pts, 0),
+      logged: days.filter(d => d.logged).length,
+      onTarget: days.filter(d => d.cal).length,
+      protein: days.filter(d => d.pro).length,
+      streak,
+      hasData: log.length > 0,
+      target,
+    };
+  });
+
+  const [a, b] = keys;
+  const A = per[a], B = per[b];
+  const pa = PROFILES[a], pb = PROFILES[b];
+  const max = Math.max(A.total, B.total, 1);
+  const leader = A.total === B.total ? null : (A.total > B.total ? a : b);
+
+  const bothGood = week.filter(d =>
+    keys.every(k => per[k].days.find(x => x.date === d).pts >= 2)).length;
+
+  const dot = (d, accent) => {
+    if (!d.logged) return `<div class="vs-dot" style="background:var(--surface2);color:var(--muted)">·</div>`;
+    const bg = d.pts === 3 ? accent : d.pts === 2 ? accent + '99' : 'var(--surface2)';
+    const col = d.pts >= 2 ? '#0d0f14' : 'var(--muted)';
+    return `<div class="vs-dot" style="background:${bg};color:${col}" title="${d.date}">${d.pts}</div>`;
+  };
+
+  const banner = leader
+    ? `${PROFILES[leader].name} leads by ${Math.abs(A.total - B.total)}`
+    : (A.total === 0 && B.total === 0 ? 'No points yet this week' : 'Dead level');
+
+  el.innerHTML = `
+    <div class="card">
+      <div class="card-head"><span class="card-title">This week</span>
+        <span style="font-size:0.7rem;color:var(--muted)">last 7 days</span></div>
+
+      <div class="vs-head">
+        <div class="vs-side">
+          <div class="vs-name" style="color:${pa.accent}">${pa.name}</div>
+          <div class="vs-score" style="color:${pa.accent}">${A.total}</div>
+          <div class="vs-sub">${A.logged}/7 logged</div>
+        </div>
+        <div class="vs-mid">VS</div>
+        <div class="vs-side">
+          <div class="vs-name" style="color:${pb.accent}">${pb.name}</div>
+          <div class="vs-score" style="color:${pb.accent}">${B.total}</div>
+          <div class="vs-sub">${B.logged}/7 logged</div>
+        </div>
+      </div>
+
+      <div class="vs-bar">
+        <div style="width:${(A.total/ (A.total+B.total || 1))*100}%;background:${pa.accent}"></div>
+        <div style="width:${(B.total/ (A.total+B.total || 1))*100}%;background:${pb.accent}"></div>
+      </div>
+      <div style="text-align:center;margin-top:10px;font-size:0.8rem;font-weight:700">${banner}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">Daily scores</span></div>
+      <div class="vs-row" style="font-size:0.68rem;color:var(--muted);font-weight:700">
+        <div></div>
+        <div style="text-align:center;color:${pa.accent}">${pa.name}</div>
+        <div style="text-align:center;color:${pb.accent}">${pb.name}</div>
+      </div>
+      ${week.map(d => `
+        <div class="vs-row">
+          <div class="vs-day">${d === todayStr ? 'Today' : fmtDateShort(d)}</div>
+          <div class="vs-dots">${dot(A.days.find(x=>x.date===d), pa.accent)}</div>
+          <div class="vs-dots">${dot(B.days.find(x=>x.date===d), pb.accent)}</div>
+        </div>`).join('')}
+      <div class="vs-legend">
+        <span><b style="color:var(--text)">3</b> logged + calories + protein</span>
+        <span><b style="color:var(--text)">2</b> logged + one of them</span>
+        <span><b style="color:var(--text)">1</b> logged only</span>
+        <span><b style="color:var(--text)">·</b> nothing logged</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">Breakdown</span></div>
+      <div class="vs-row" style="font-size:0.68rem;color:var(--muted);font-weight:700">
+        <div></div>
+        <div style="text-align:center;color:${pa.accent}">${pa.name}</div>
+        <div style="text-align:center;color:${pb.accent}">${pb.name}</div>
+      </div>
+      ${[
+        ['Days logged',      `${A.logged}/7`,   `${B.logged}/7`],
+        ['Calories on target', `${A.onTarget}`, `${B.onTarget}`],
+        ['Protein hit',      `${A.protein}`,    `${B.protein}`],
+        ['Current streak',   `${A.streak}🔥`,   `${B.streak}🔥`],
+      ].map(([label, va, vb]) => `
+        <div class="vs-row">
+          <div class="vs-day">${label}</div>
+          <div style="text-align:center;font-weight:700">${va}</div>
+          <div style="text-align:center;font-weight:700">${vb}</div>
+        </div>`).join('')}
+    </div>
+
+    <div class="card" style="text-align:center">
+      <div style="font-size:1.6rem;font-weight:800;color:var(--green)">${bothGood}</div>
+      <div style="font-size:0.78rem;font-weight:700;margin-top:2px">Days you both scored 2+</div>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:6px">
+        ${bothGood >= 5 ? 'Strong week for both of you.'
+          : bothGood >= 2 ? 'Beating each other is fine. Beating the week together is better.'
+          : 'Aim for a day where you both land 2+.'}
+      </div>
+    </div>
+
+    ${keys.filter(k => !per[k].hasData).map(k => `
+      <div class="card" style="text-align:center;color:var(--muted);font-size:0.8rem">
+        ${PROFILES[k].name} hasn't logged anything yet — the scoreboard wakes up on the first entry.
+      </div>`).join('')}
+
+    <div style="text-align:center;font-size:0.68rem;color:var(--muted);margin-top:4px;line-height:1.6">
+      Everyone is scored against their own targets
+      (${pa.name} ${A.target.calories} cal / ${A.target.protein}g &middot;
+       ${pb.name} ${B.target.calories} cal / ${B.target.protein}g).<br>
+      Eating too little misses the calorie point too.
+    </div>
+  `;
+}
+
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById('page-' + name);
@@ -600,6 +799,7 @@ function showPage(name) {
   });
   document.body.dataset.page = name;
   if (name === 'trends' && !trendChartInited) { initTrendChart(); trendChartInited = true; }
+  if (name === 'versus') { VERSUS_CACHE = null; renderVersus(); }
   const fab = document.getElementById('quick-log-fab');
   if (fab) fab.style.display = (name === 'log' || name === 'today') ? 'flex' : 'none';
   window.scrollTo(0, 0);
