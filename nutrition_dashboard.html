@@ -69,11 +69,15 @@
     .profile-switch {
       display: flex; gap: 3px; background: var(--surface2);
       border: 1px solid var(--border); border-radius: 12px; padding: 3px;
+      box-sizing: border-box;
     }
     .profile-btn {
+      flex: 1 1 0; min-width: 0;
       border: none; background: transparent; color: var(--muted);
       font-family: inherit; font-size: 0.75rem; font-weight: 700;
-      padding: 6px 12px; border-radius: 9px; cursor: pointer;
+      padding: 6px 10px; border-radius: 9px; cursor: pointer;
+      text-align: center; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
       transition: background 0.15s, color 0.15s;
     }
     .profile-btn.active { color: #fff; }
