@@ -138,32 +138,53 @@ export default {
       },
     });
 
+    // 404 = model retired, 429/503 = busy. All are worth another attempt;
+    // anything else (bad key, bad request) will fail identically next time.
+    const RETRYABLE = [404, 429, 503];
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
     let res = null;
     let lastErr = '';
+
+    outer:
     for (const model of MODELS) {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-      try {
-        res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'x-goog-api-key': env.GEMINI_API_KEY,
-            'Content-Type': 'application/json',
-          },
-          body: payload,
-        });
-      } catch (e) {
-        lastErr = `Could not reach Gemini: ${e.message}`;
+
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          res = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'x-goog-api-key': env.GEMINI_API_KEY,
+              'Content-Type': 'application/json',
+            },
+            body: payload,
+          });
+        } catch (e) {
+          lastErr = `Could not reach Gemini: ${e.message}`;
+          res = null;
+          break;
+        }
+
+        if (res.ok) break outer;
+
+        const status = res.status;
+        lastErr = `Gemini ${status} on ${model}: ${(await res.text()).slice(0, 200)}`;
         res = null;
-        continue;
+
+        if (!RETRYABLE.includes(status)) break outer;
+        // A retired model will never come back; move straight to the next name.
+        if (status === 404) break;
+        if (attempt === 0) await sleep(700);
       }
-      if (res.ok) break;
-      lastErr = `Gemini ${res.status} on ${model}: ${(await res.text()).slice(0, 200)}`;
-      res = null;
-      // Only a missing/retired model is worth retrying with the next name.
-      if (!lastErr.includes('404')) break;
     }
 
-    if (!res) return json({ error: lastErr || 'Gemini request failed' }, 502, cors);
+    if (!res) {
+      const busy = lastErr.includes('503') || lastErr.includes('429');
+      return json({
+        error: busy ? 'Gemini is busy right now — try again in a few seconds' : lastErr,
+      }, 502, cors);
+    }
 
     const data = await res.json();
 
