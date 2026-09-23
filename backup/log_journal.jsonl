@@ -47,3 +47,5 @@
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Dinner", "name": "CORRECTION: Pasta + beef + tomato 472g", "calories": 650, "protein": 52, "carbs": 72, "fat": 16, "note": "was 430; density assumption too low, mix was reduced not watery"}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Dinner", "name": "CORRECTION: Parmesan 10g", "calories": 40, "protein": 4, "carbs": 0, "fat": 3, "note": "was ~17g/70cal"}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "-", "name": "CORRECTION: TJ nonfat European yoghurt to label rate", "calories": 87, "protein": 9, "carbs": 12, "fat": 0, "note": "label 170g=90cal (0.53 cal/g); fixed both the 165g and 135g entries"}
+{"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Late Night", "name": "Lactaid protein milk 400ml", "calories": 300, "protein": 28, "carbs": 23, "fat": 10}
+{"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Late Night", "name": "Whey protein 1.5 scoops", "calories": 180, "protein": 36, "carbs": 4, "fat": 2}
