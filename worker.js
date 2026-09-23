@@ -13,7 +13,7 @@
 
 // Tried in order; first one that isn't a 404 wins. Google retires model names
 // periodically, so keep a couple of fallbacks here.
-const MODELS = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-2.5-flash'];
+const MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.5-flash'];
 
 const ALLOWED_ORIGINS = [
   'https://memmedovsr99-alt.github.io',
