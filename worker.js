@@ -96,6 +96,22 @@ function json(obj, status, cors) {
   });
 }
 
+// Ask Google which models this key can actually use. Model names get retired,
+// so discovery beats hardcoding. Prefers flash (fast + generous free tier).
+async function discoverModels(key) {
+  const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200', {
+    headers: { 'x-goog-api-key': key },
+  });
+  if (!res.ok) return [];
+  const data = await res.json();
+  const usable = (data.models || [])
+    .filter(m => (m.supportedGenerationMethods || []).includes('generateContent'))
+    .map(m => String(m.name || '').replace(/^models\//, ''))
+    .filter(n => n && !n.includes('embedding') && !n.includes('vision') && !n.includes('tts'));
+  const flash = usable.filter(n => n.includes('flash'));
+  return [...flash, ...usable.filter(n => !flash.includes(n))];
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
@@ -116,6 +132,10 @@ export default {
       body = await request.json();
     } catch {
       return json({ error: 'Invalid JSON body' }, 400, cors);
+    }
+
+    if (body.debug === 'models') {
+      return json({ models: await discoverModels(env.GEMINI_API_KEY) }, 200, cors);
     }
 
     const description = String(body.description || '').trim();
@@ -176,6 +196,31 @@ export default {
         // A retired model will never come back; move straight to the next name.
         if (status === 404) break;
         if (attempt === 0) await sleep(700);
+      }
+    }
+
+    // Hardcoded names all failed — ask the API what it actually offers.
+    if (!res) {
+      let discovered = [];
+      try { discovered = await discoverModels(env.GEMINI_API_KEY); } catch (e) { /* keep lastErr */ }
+
+      for (const model of discovered.slice(0, 4)) {
+        if (MODELS.includes(model)) continue;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+        try {
+          const r = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'x-goog-api-key': env.GEMINI_API_KEY,
+              'Content-Type': 'application/json',
+            },
+            body: payload,
+          });
+          if (r.ok) { res = r; break; }
+          lastErr = `Gemini ${r.status} on ${model}: ${(await r.text()).slice(0, 200)}`;
+        } catch (e) {
+          lastErr = `Could not reach Gemini: ${e.message}`;
+        }
       }
     }
 
