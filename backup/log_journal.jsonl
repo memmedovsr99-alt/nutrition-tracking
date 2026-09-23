@@ -45,3 +45,4 @@
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Dinner", "name": "Parmesan ~17g", "calories": 70, "protein": 6, "carbs": 1, "fat": 5}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Snacks", "name": "Dark chocolate 65 cal", "calories": 65, "protein": 1, "carbs": 5, "fat": 5}
 {"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Dinner", "name": "CORRECTION: Pasta + beef + tomato 472g", "calories": 650, "protein": 52, "carbs": 72, "fat": 16, "note": "was 430; density assumption too low, mix was reduced not watery"}
+{"logged_at": "2026-09-22", "profile": "samir", "date": "2026-09-22", "meal": "Dinner", "name": "CORRECTION: Parmesan 10g", "calories": 40, "protein": 4, "carbs": 0, "fat": 3, "note": "was ~17g/70cal"}
