@@ -48,9 +48,19 @@ Lets either of them log by describing food in plain language, no Claude session 
   estimate in chat** — if a convention changes, update the worker too.
 - `meal` is deliberately NOT an enum in the schema (Gemini enum support is finicky); the worker normalises it
   against `MEALS` and falls back to the meal hint.
-- Deploy, set the `GEMINI_API_KEY` secret, then paste the worker URL into `AI_WORKER_URL` in
-  `nutrition_dashboard.html`. While that const is empty the Describe tab tells the user it is not set up
-  and the modal opens in Manual mode.
+- **Live** at `https://nutrition-ai.memmedovsr99.workers.dev`, wired into `AI_WORKER_URL`. Secret
+  `GEMINI_API_KEY` is set on the worker (Samir pasted it; never handle the key yourself).
+- **Editing the worker requires Samir to copy-paste it by hand** — Cloudflare's editor is a cross-origin
+  iframe, so browser automation cannot type or paste into it, and there is no node/npm on this machine for
+  wrangler. Flow: edit `worker.js` → auto-sync pushes → he copies from
+  `https://memmedovsr99-alt.github.io/nutrition-tracking/worker.js?v=N` (cache-bust or he copies a stale
+  file) → pastes into the Cloudflare editor → Deploy. **Batch worker changes; each one costs him a manual
+  paste.**
+- `MODELS` must be real, current names — Google retires them (2.5-flash is already gone for new keys).
+  `{"debug":"models"}` POSTed to the worker lists what the key can reach. Discovery fallback handles the
+  rest automatically.
+- `thinkingConfig.thinkingBudget: 0` is **load-bearing for speed**: with thinking on, flash models took
+  ~15s for "one banana"; off, it is ~3s with identical estimates. Do not remove it.
 - CORS is locked to the GitHub Pages origin in `ALLOWED_ORIGINS`.
 - Logging via chat (Python + REST) is completely independent of this and keeps working.
 
