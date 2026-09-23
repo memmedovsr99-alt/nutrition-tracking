@@ -38,6 +38,17 @@ Two people share the app. `profile` column on every table separates the data.
 - One-time migration: `profiles_setup.sql`, run in Supabase → SQL Editor.
 - Targets are per profile and render from the DB into the targets bar.
 
+## Versus page (added Sep 2026)
+Head-to-head gamification between Samir and Mina. Nav item 🏆 Versus; renders on open (`showPage('versus')`
+clears `VERSUS_CACHE` and calls `renderVersus()`), fetching BOTH profiles' `nutrition_log` + `targets`.
+- **Scoring is relative to each person's own targets** — deliberate: their targets differ (2200 vs 1600),
+  so absolute comparison would be meaningless. Per day, max 3: +1 logged, +1 calories 80-105% of own
+  target, +1 protein >=85% of own target.
+- **Under-eating loses the calorie point too.** Do not "simplify" this to lowest-calories-wins — that would
+  reward starving on a cut.
+- Includes a co-op stat ("days you both scored 2+") and an empty-state card, so the newer logger isn't just
+  shown a scoreboard they're losing.
+
 ## AI food logging (added Sep 2026)
 Lets either of them log by describing food in plain language, no Claude session needed.
 - `worker.js` — Cloudflare Worker proxying the **Google Gemini API** (`gemini-2.5-flash`). Gemini was chosen
