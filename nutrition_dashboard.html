@@ -606,6 +606,9 @@ let trendChartInited = false;
 //   +1 calories 80–105% of own target
 //   +1 protein >= 85% of own target
 // ══════════════════════════════════════════════════════════════════════════
+// Contest starts fresh on this date — days before it never count, so both
+// players begin on zero regardless of who was logging beforehand.
+const VERSUS_START = '2026-09-23';
 let VERSUS_CACHE = null;
 
 function dayScore(entry, tgt) {
@@ -657,8 +660,26 @@ async function renderVersus() {
   }
 
   const keys = Object.keys(PROFILES);
-  const week = lastNDates(7).reverse();      // oldest → newest
   const todayStr = today();
+  const week = lastNDates(7).reverse().filter(d => d >= VERSUS_START);
+
+  if (!week.length) {
+    const starts = new Date(VERSUS_START + 'T00:00:00')
+      .toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+    el.innerHTML = `
+      <div class="card" style="text-align:center;padding:44px 24px">
+        <div style="font-size:2.4rem;margin-bottom:14px">🏆</div>
+        <div style="font-size:1.05rem;font-weight:800;margin-bottom:8px">Kicks off ${starts}</div>
+        <div style="color:var(--muted);font-size:0.84rem;line-height:1.6">
+          Both of you start on zero. Each day is worth up to 3 points:<br>
+          <b style="color:var(--text)">+1</b> for logging,
+          <b style="color:var(--text)">+1</b> for hitting your calorie target,
+          <b style="color:var(--text)">+1</b> for hitting your protein.<br><br>
+          Everyone is scored against their own targets, so the different numbers don't matter.
+        </div>
+      </div>`;
+    return;
+  }
 
   const per = {};
   keys.forEach(k => {
@@ -706,19 +727,19 @@ async function renderVersus() {
   el.innerHTML = `
     <div class="card">
       <div class="card-head"><span class="card-title">This week</span>
-        <span style="font-size:0.7rem;color:var(--muted)">last 7 days</span></div>
+        <span style="font-size:0.7rem;color:var(--muted)">since ${new Date(VERSUS_START+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</span></div>
 
       <div class="vs-head">
         <div class="vs-side">
           <div class="vs-name" style="color:${pa.accent}">${pa.name}</div>
           <div class="vs-score" style="color:${pa.accent}">${A.total}</div>
-          <div class="vs-sub">${A.logged}/7 logged</div>
+          <div class="vs-sub">${A.logged}/${week.length} logged</div>
         </div>
         <div class="vs-mid">VS</div>
         <div class="vs-side">
           <div class="vs-name" style="color:${pb.accent}">${pb.name}</div>
           <div class="vs-score" style="color:${pb.accent}">${B.total}</div>
-          <div class="vs-sub">${B.logged}/7 logged</div>
+          <div class="vs-sub">${B.logged}/${week.length} logged</div>
         </div>
       </div>
 
@@ -758,7 +779,7 @@ async function renderVersus() {
         <div style="text-align:center;color:${pb.accent}">${pb.name}</div>
       </div>
       ${[
-        ['Days logged',      `${A.logged}/7`,   `${B.logged}/7`],
+        ['Days logged',      `${A.logged}/${week.length}`,   `${B.logged}/${week.length}`],
         ['Calories on target', `${A.onTarget}`, `${B.onTarget}`],
         ['Protein hit',      `${A.protein}`,    `${B.protein}`],
         ['Current streak',   `${A.streak}🔥`,   `${B.streak}🔥`],
