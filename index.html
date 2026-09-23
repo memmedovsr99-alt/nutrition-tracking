@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0; url=nutrition_dashboard.html" />
+  <meta charset="utf-8" />
+  <title>Samir's Nutrition</title>
+  <script>
+    // GitHub Pages caches the dashboard for several minutes, which served people
+    // stale builds. Redirect with a changing query so the entry point is always fresh.
+    location.replace('nutrition_dashboard.html?t=' + Date.now());
+  </script>
+  <noscript><meta http-equiv="refresh" content="0; url=nutrition_dashboard.html" /></noscript>
 </head>
 <body></body>
 </html>
