@@ -144,7 +144,7 @@ export default {
     if (!description) return json({ error: 'Describe what you ate first' }, 400, cors);
     if (description.length > 2000) return json({ error: 'Description too long' }, 400, cors);
 
-    const payload = JSON.stringify({
+    const buildPayload = (noThinking) => JSON.stringify({
       systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
       contents: [{
         role: 'user',
@@ -155,8 +155,13 @@ export default {
         responseSchema: RESPONSE_SCHEMA,
         temperature: 0.3,
         maxOutputTokens: 3000,
+        // Food estimation needs recall, not reasoning. Left on, the flash models
+        // spend ~12s thinking about a banana.
+        ...(noThinking ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
       },
     });
+
+    let payload = buildPayload(true);
 
     // 404 = model retired, 429/503 = busy. All are worth another attempt;
     // anything else (bad key, bad request) will fail identically next time.
@@ -189,8 +194,16 @@ export default {
         if (res.ok) break outer;
 
         const status = res.status;
-        lastErr = `Gemini ${status} on ${model}: ${(await res.text()).slice(0, 200)}`;
+        const detail = (await res.text()).slice(0, 300);
+        lastErr = `Gemini ${status} on ${model}: ${detail.slice(0, 200)}`;
         res = null;
+
+        // Older models reject thinkingConfig — drop it and try this model again.
+        if (status === 400 && detail.toLowerCase().includes('thinking') && payload !== buildPayload(false)) {
+          payload = buildPayload(false);
+          attempt--;
+          continue;
+        }
 
         if (!RETRYABLE.includes(status)) break outer;
         // A retired model will never come back; move straight to the next name.
