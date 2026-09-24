@@ -1,4 +1,4 @@
-const CACHE = 'nutrition-v3';
+const CACHE = 'nutrition-v4';
 const ASSETS = [
   '/nutrition-tracking/',
   '/nutrition-tracking/nutrition_dashboard.html',
