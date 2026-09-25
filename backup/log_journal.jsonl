@@ -79,3 +79,8 @@
 {"logged_at": "2026-09-25", "profile": "samir", "type": "weight", "date": "2026-09-24", "weight": 84.6}
 {"logged_at": "2026-09-25", "profile": "samir", "type": "weight", "date": "2026-09-25", "weight": 83.45}
 {"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-25", "meal": "Breakfast", "name": "Protein bar (140 cal, 17g P)", "calories": 140, "protein": 17, "carbs": 14, "fat": 4}
+{"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-24", "meal": "-", "name": "CORRECTION: pot density 0.92 -> 0.969 cal/g (pot finished, true weight 1964g)", "calories": 0, "protein": 0, "carbs": 0, "fat": 0}
+{"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-25", "meal": "Lunch", "name": "Beef + potato + tomato mix 320g", "calories": 310, "protein": 35, "carbs": 31, "fat": 7}
+{"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-25", "meal": "Dinner", "name": "Beef + potato + tomato mix 455g (pot finished)", "calories": 441, "protein": 50, "carbs": 45, "fat": 10}
+{"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-25", "meal": "Dinner", "name": "TJ wheat noodles", "calories": 310, "protein": 11, "carbs": 62, "fat": 2}
+{"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-25", "meal": "Snacks", "name": "Liquid IV", "calories": 50, "protein": 0, "carbs": 13, "fat": 0}
