@@ -76,3 +76,6 @@
 {"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-24", "meal": "Late Night", "name": "Lactaid protein milk 105ml", "calories": 79, "protein": 7, "carbs": 6, "fat": 3}
 {"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-24", "meal": "Late Night", "name": "Whey protein 0.5 scoop", "calories": 60, "protein": 12, "carbs": 1, "fat": 1}
 {"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-24", "meal": "Late Night", "name": "Creatine 10g", "calories": 0, "protein": 0, "carbs": 0, "fat": 0}
+{"logged_at": "2026-09-25", "profile": "samir", "type": "weight", "date": "2026-09-24", "weight": 84.6}
+{"logged_at": "2026-09-25", "profile": "samir", "type": "weight", "date": "2026-09-25", "weight": 83.45}
+{"logged_at": "2026-09-25", "profile": "samir", "date": "2026-09-25", "meal": "Breakfast", "name": "Protein bar (140 cal, 17g P)", "calories": 140, "protein": 17, "carbs": 14, "fat": 4}
