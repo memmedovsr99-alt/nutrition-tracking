@@ -119,3 +119,7 @@
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Lunch", "name": "Chicken lo mein (Dan Dan, full takeout portion)", "calories": 1100, "protein": 45, "carbs": 130, "fat": 40}
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Lunch", "name": "Extra chicken", "calories": 180, "protein": 28, "carbs": 2, "fat": 7}
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Lunch", "name": "CORRECTION: lo mein 1100 -> 620 (user says whole meal ~800 incl. extra chicken)", "calories": 620, "protein": 32, "carbs": 78, "fat": 22}
+{"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Snacks", "name": "Chocolate glazed doughnuts x3 (240 each)", "calories": 720, "protein": 9, "carbs": 90, "fat": 36}
+{"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Snacks", "name": "Glazed doughnuts x3 (180 each)", "calories": 540, "protein": 9, "carbs": 63, "fat": 27}
+{"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Snacks", "name": "Chips (~800 cal)", "calories": 800, "protein": 10, "carbs": 80, "fat": 48}
+{"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Snacks", "name": "Chocolate + spoon of ice cream", "calories": 200, "protein": 2, "carbs": 24, "fat": 11}
