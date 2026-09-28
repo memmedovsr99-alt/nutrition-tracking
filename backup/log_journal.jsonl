@@ -118,3 +118,4 @@
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Breakfast", "name": "Avocado oil spray (light)", "calories": 10, "protein": 0, "carbs": 0, "fat": 1}
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Lunch", "name": "Chicken lo mein (Dan Dan, full takeout portion)", "calories": 1100, "protein": 45, "carbs": 130, "fat": 40}
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Lunch", "name": "Extra chicken", "calories": 180, "protein": 28, "carbs": 2, "fat": 7}
+{"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Lunch", "name": "CORRECTION: lo mein 1100 -> 620 (user says whole meal ~800 incl. extra chicken)", "calories": 620, "protein": 32, "carbs": 78, "fat": 22}
