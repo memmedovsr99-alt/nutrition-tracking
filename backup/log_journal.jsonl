@@ -140,3 +140,6 @@
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Dinner", "name": "CORRECTION: chicken 276g -> ~160g (user says 1/4 of batch max)", "calories": 273, "protein": 50, "carbs": 0, "fat": 3}
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Dinner", "name": "Rice mix 210g cooked (2nd plate)", "calories": 269, "protein": 6, "carbs": 55, "fat": 3}
 {"logged_at": "2026-09-28", "profile": "samir", "date": "2026-09-28", "meal": "Dinner", "name": "Chicken breast 83g cooked (2nd plate)", "calories": 142, "protein": 26, "carbs": 0, "fat": 2}
+{"logged_at": "2026-09-29", "profile": "samir", "date": "2026-09-29", "meal": "Breakfast", "name": "Protein bar (140 cal, 17g P)", "calories": 140, "protein": 17, "carbs": 14, "fat": 4}
+{"logged_at": "2026-09-29", "profile": "samir", "date": "2026-09-29", "meal": "Lunch", "name": "Rice mix 258g cooked", "calories": 330, "protein": 8, "carbs": 68, "fat": 4}
+{"logged_at": "2026-09-29", "profile": "samir", "date": "2026-09-29", "meal": "Lunch", "name": "Chicken breast 100g cooked", "calories": 171, "protein": 31, "carbs": 0, "fat": 2}
