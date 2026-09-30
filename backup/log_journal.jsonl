@@ -149,3 +149,6 @@
 {"logged_at": "2026-09-29", "profile": "samir", "date": "2026-09-29", "meal": "Snacks", "name": "Chocolate dessert (170 cal, 2g P)", "calories": 170, "protein": 2, "carbs": 22, "fat": 8}
 {"logged_at": "2026-09-29", "profile": "samir", "date": "2026-09-29", "meal": "Snacks", "name": "Chicken broth (half glass)", "calories": 15, "protein": 2, "carbs": 0, "fat": 1}
 {"logged_at": "2026-09-29", "profile": "samir", "date": "2026-09-29", "meal": "Snacks", "name": "Chicken broth (large cup)", "calories": 35, "protein": 4, "carbs": 0, "fat": 2}
+{"logged_at": "2026-09-29", "date": "2026-09-29", "profile": "samir", "meal": "Dinner", "name": "Rice mix 350g cooked", "calories": 448, "protein": 11, "carbs": 92, "fat": 5}
+{"logged_at": "2026-09-29", "date": "2026-09-29", "profile": "samir", "meal": "Dinner", "name": "Chicken breast 155g cooked", "calories": 265, "protein": 48, "carbs": 0, "fat": 3}
+{"logged_at": "2026-09-29", "type": "daily_total", "date": "2026-09-29", "profile": "samir", "calories": 2091, "protein": 158, "carbs": 276, "fat": 34, "notes": ""}
