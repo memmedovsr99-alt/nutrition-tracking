@@ -176,3 +176,13 @@
 {"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-30", "meal": "Lunch", "name": "Rice mix 310g cooked", "calories": 425, "protein": 10, "carbs": 78, "fat": 7}
 {"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-30", "meal": "Lunch", "name": "Rice mix cracker (40 cal)", "calories": 55, "protein": 1, "carbs": 10, "fat": 1}
 {"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 1155, "protein": 68, "carbs": 149, "fat": 26}
+{"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-28", "meal": "Dinner", "name": "Rice mix ~250g cooked (1/8 of batch)", "calories": 376, "protein": 9, "carbs": 69, "fat": 6}
+{"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-28", "meal": "Dinner", "name": "Rice mix 210g cooked (2nd plate)", "calories": 315, "protein": 7, "carbs": 58, "fat": 5}
+{"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-28", "calories": 2227, "protein": 143, "carbs": 260, "fat": 61}
+{"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-29", "meal": "Lunch", "name": "Rice mix 258g cooked", "calories": 388, "protein": 9, "carbs": 71, "fat": 7}
+{"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-29", "meal": "Dinner", "name": "Rice mix 208g cooked", "calories": 312, "protein": 7, "carbs": 57, "fat": 5}
+{"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-29", "meal": "Dinner", "name": "Rice mix 350g cooked", "calories": 526, "protein": 12, "carbs": 97, "fat": 9}
+{"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-29", "calories": 2453, "protein": 185, "carbs": 302, "fat": 45}
+{"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-30", "meal": "Lunch", "name": "Rice mix 310g cooked", "calories": 466, "protein": 11, "carbs": 86, "fat": 8}
+{"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-30", "meal": "Lunch", "name": "Rice cracker (40 cal)", "calories": 40, "protein": 1, "carbs": 8, "fat": 0}
+{"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 1181, "protein": 69, "carbs": 155, "fat": 26}
