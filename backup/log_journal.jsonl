@@ -152,3 +152,5 @@
 {"logged_at": "2026-09-29", "date": "2026-09-29", "profile": "samir", "meal": "Dinner", "name": "Rice mix 350g cooked", "calories": 448, "protein": 11, "carbs": 92, "fat": 5}
 {"logged_at": "2026-09-29", "date": "2026-09-29", "profile": "samir", "meal": "Dinner", "name": "Chicken breast 155g cooked", "calories": 265, "protein": 48, "carbs": 0, "fat": 3}
 {"logged_at": "2026-09-29", "type": "daily_total", "date": "2026-09-29", "profile": "samir", "calories": 2091, "protein": 158, "carbs": 276, "fat": 34, "notes": ""}
+{"logged_at": "2026-09-29", "date": "2026-09-29", "profile": "samir", "meal": "Dinner", "name": "Heinz light ketchup ~90g (on all 3 rice servings)", "calories": 60, "protein": 0, "carbs": 12, "fat": 0}
+{"logged_at": "2026-09-29", "type": "daily_total", "date": "2026-09-29", "profile": "samir", "calories": 2151, "protein": 158, "carbs": 288, "fat": 34, "notes": ""}
