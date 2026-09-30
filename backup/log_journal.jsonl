@@ -158,3 +158,6 @@
 {"logged_at": "2026-09-29", "type": "daily_total", "date": "2026-09-29", "profile": "samir", "calories": 2151, "protein": 158, "carbs": 289, "fat": 34, "notes": ""}
 {"logged_at": "2026-09-30", "date": "2026-09-29", "profile": "samir", "meal": "Snacks", "name": "Whey protein 1 scoop + creatine, water (post-workout)", "calories": 120, "protein": 24, "carbs": 3, "fat": 2}
 {"logged_at": "2026-09-30", "type": "daily_total", "date": "2026-09-29", "profile": "samir", "calories": 2271, "protein": 182, "carbs": 292, "fat": 36, "notes": ""}
+{"logged_at": "2026-09-30", "date": "2026-09-30", "profile": "samir", "meal": "Breakfast", "name": "Plain bagel (~110g)", "calories": 290, "protein": 11, "carbs": 57, "fat": 2}
+{"logged_at": "2026-09-30", "date": "2026-09-30", "profile": "samir", "meal": "Breakfast", "name": "Scallion cream cheese (~40g)", "calories": 130, "protein": 2, "carbs": 2, "fat": 13}
+{"logged_at": "2026-09-30", "type": "daily_total", "date": "2026-09-30", "profile": "samir", "calories": 420, "protein": 13, "carbs": 59, "fat": 15, "notes": ""}
