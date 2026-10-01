@@ -203,3 +203,8 @@
 {"logged_at": "2026-10-01", "date": "2026-09-30", "profile": "samir", "meal": "Snacks", "name": "Lactaid protein whole milk 144ml (late night)", "calories": 108, "protein": 8, "carbs": 7, "fat": 5}
 {"logged_at": "2026-10-01", "date": "2026-09-30", "profile": "samir", "meal": "Snacks", "name": "Whey protein 1 scoop (late night)", "calories": 120, "protein": 24, "carbs": 3, "fat": 2}
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 2316, "protein": 165, "carbs": 277, "fat": 46}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Eggs x4 (large)", "calories": 288, "protein": 25, "carbs": 2, "fat": 20}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Pork sausage 56g", "calories": 182, "protein": 10, "carbs": 1, "fat": 15}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil spray (light)", "calories": 10, "protein": 0, "carbs": 0, "fat": 1}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Parmesan, grated sprinkle (~8g)", "calories": 32, "protein": 3, "carbs": 0, "fat": 2}
+{"logged_at": "2026-10-01", "type": "daily_total", "date": "2026-10-01", "profile": "samir", "calories": 512, "protein": 38, "carbs": 3, "fat": 38, "notes": ""}
