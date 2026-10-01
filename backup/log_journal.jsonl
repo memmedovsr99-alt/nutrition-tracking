@@ -213,3 +213,5 @@
 {"logged_at": "2026-10-01", "type": "correction", "profile": "samir", "date": "2026-10-01", "meal": "Breakfast", "name": "Eggs x4 (70 cal each)", "calories": 280, "protein": 24, "carbs": 2, "fat": 20}
 {"logged_at": "2026-10-01", "type": "correction", "profile": "samir", "date": "2026-10-01", "meal": "Breakfast", "name": "Sausage 56g (180 cal)", "calories": 180}
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 582, "protein": 39, "carbs": 19, "fat": 38}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Rice cakes x2 more (40 cal each)", "calories": 80, "protein": 2, "carbs": 16, "fat": 0}
+{"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 662, "protein": 41, "carbs": 35, "fat": 38}
