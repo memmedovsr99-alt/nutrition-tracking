@@ -197,3 +197,6 @@
 {"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 1863, "protein": 130, "carbs": 231, "fat": 39}
 {"logged_at": "2026-09-30", "date": "2026-09-30", "profile": "samir", "meal": "Snacks", "name": "Miller Lite beer (12oz)", "calories": 96, "protein": 1, "carbs": 3, "fat": 0}
 {"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 1959, "protein": 131, "carbs": 234, "fat": 39}
+{"logged_at": "2026-10-01", "date": "2026-09-30", "profile": "samir", "meal": "Snacks", "name": "Pineapple 148g", "calories": 74, "protein": 1, "carbs": 19, "fat": 0}
+{"logged_at": "2026-10-01", "date": "2026-09-30", "profile": "samir", "meal": "Snacks", "name": "Grapes 80g", "calories": 55, "protein": 1, "carbs": 14, "fat": 0}
+{"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 2088, "protein": 133, "carbs": 267, "fat": 39}
