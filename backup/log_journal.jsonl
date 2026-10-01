@@ -186,3 +186,8 @@
 {"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-30", "meal": "Lunch", "name": "Rice mix 310g cooked", "calories": 466, "protein": 11, "carbs": 86, "fat": 8}
 {"logged_at": "2026-09-30", "type": "correction", "profile": "samir", "date": "2026-09-30", "meal": "Lunch", "name": "Rice cracker (40 cal)", "calories": 40, "protein": 1, "carbs": 8, "fat": 0}
 {"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 1181, "protein": 69, "carbs": 155, "fat": 26}
+{"logged_at": "2026-09-30", "date": "2026-09-30", "profile": "samir", "meal": "Dinner", "name": "Lactaid protein milk 144ml (post-boxing)", "calories": 78, "protein": 8, "carbs": 4, "fat": 3}
+{"logged_at": "2026-09-30", "date": "2026-09-30", "profile": "samir", "meal": "Dinner", "name": "Whey protein 1 scoop + 5g creatine", "calories": 120, "protein": 24, "carbs": 3, "fat": 2}
+{"logged_at": "2026-09-30", "date": "2026-09-30", "profile": "samir", "meal": "Dinner", "name": "Rice mix 157g cooked", "calories": 236, "protein": 5, "carbs": 43, "fat": 4}
+{"logged_at": "2026-09-30", "date": "2026-09-30", "profile": "samir", "meal": "Dinner", "name": "Chicken breast 75g cooked", "calories": 128, "protein": 23, "carbs": 0, "fat": 2}
+{"logged_at": "2026-09-30", "type": "daily_total", "profile": "samir", "date": "2026-09-30", "calories": 1743, "protein": 129, "carbs": 205, "fat": 37, "notes": "Boxing 2h (Garmin ~1000 cal)"}
