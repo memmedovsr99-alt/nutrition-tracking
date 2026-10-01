@@ -208,3 +208,5 @@
 {"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil spray (light)", "calories": 10, "protein": 0, "carbs": 0, "fat": 1}
 {"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Parmesan, grated sprinkle (~8g)", "calories": 32, "protein": 3, "carbs": 0, "fat": 2}
 {"logged_at": "2026-10-01", "type": "daily_total", "date": "2026-10-01", "profile": "samir", "calories": 512, "protein": 38, "carbs": 3, "fat": 38, "notes": ""}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Rice cakes x2 (40 cal each)", "calories": 80, "protein": 2, "carbs": 16, "fat": 0}
+{"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 592, "protein": 40, "carbs": 19, "fat": 38}
