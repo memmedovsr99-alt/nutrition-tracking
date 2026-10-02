@@ -227,3 +227,6 @@
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 2026, "protein": 119, "carbs": 68, "fat": 121}
 {"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Lunch", "name": "Mustard (30 cal)", "calories": 30, "protein": 1, "carbs": 3, "fat": 2}
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 2056, "protein": 120, "carbs": 71, "fat": 123}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Dinner", "name": "Rice mix 262g cooked (batch finished)", "calories": 430, "protein": 10, "carbs": 79, "fat": 7}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Dinner", "name": "Chicken breast 140g cooked", "calories": 239, "protein": 43, "carbs": 0, "fat": 3}
+{"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 2725, "protein": 173, "carbs": 150, "fat": 133}
