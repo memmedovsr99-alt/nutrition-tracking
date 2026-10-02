@@ -215,3 +215,5 @@
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 582, "protein": 39, "carbs": 19, "fat": 38}
 {"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Breakfast", "name": "Rice cakes x2 more (40 cal each)", "calories": 80, "protein": 2, "carbs": 16, "fat": 0}
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 662, "protein": 41, "carbs": 35, "fat": 38}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Snacks", "name": "Vodka seltzers x2 (100 cal each)", "calories": 200, "protein": 0, "carbs": 4, "fat": 0}
+{"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 862, "protein": 41, "carbs": 39, "fat": 38}
