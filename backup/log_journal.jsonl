@@ -230,3 +230,9 @@
 {"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Dinner", "name": "Rice mix 262g cooked (batch finished)", "calories": 430, "protein": 10, "carbs": 79, "fat": 7}
 {"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Dinner", "name": "Chicken breast 140g cooked", "calories": 239, "protein": 43, "carbs": 0, "fat": 3}
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 2725, "protein": 173, "carbs": 150, "fat": 133}
+{"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Lunch", "name": "Dig Inn charred chicken (double)", "calories": 460, "protein": 64, "carbs": 2, "fat": 20}
+{"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Lunch", "name": "Dig Inn brown rice", "calories": 220, "protein": 5, "carbs": 45, "fat": 2}
+{"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Lunch", "name": "Dig Inn chickpeas", "calories": 150, "protein": 7, "carbs": 22, "fat": 4}
+{"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Lunch", "name": "Cheese side (Dig Inn)", "calories": 100, "protein": 6, "carbs": 1, "fat": 8}
+{"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Lunch", "name": "Dig Inn apple side (est.)", "calories": 100, "protein": 0, "carbs": 18, "fat": 3}
+{"logged_at": "2026-10-02", "type": "daily_total", "date": "2026-10-02", "profile": "samir", "calories": 1030, "protein": 82, "carbs": 88, "fat": 37, "notes": ""}
