@@ -236,3 +236,6 @@
 {"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Lunch", "name": "Cheese side (Dig Inn)", "calories": 100, "protein": 6, "carbs": 1, "fat": 8}
 {"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Lunch", "name": "Dig Inn apple side (est.)", "calories": 100, "protein": 0, "carbs": 18, "fat": 3}
 {"logged_at": "2026-10-02", "type": "daily_total", "date": "2026-10-02", "profile": "samir", "calories": 1030, "protein": 82, "carbs": 88, "fat": 37, "notes": ""}
+{"logged_at": "2026-10-02", "type": "correction", "profile": "samir", "date": "2026-10-02", "meal": "Lunch", "name": "Dig Inn apple side (adj. so bowl = 940 cal per Dig)", "calories": 10, "protein": 0, "carbs": 2, "fat": 1}
+{"logged_at": "2026-10-02", "type": "correction", "profile": "samir", "date": "2026-10-02", "meal": "Lunch", "name": "Dig Inn charred chicken (double)", "protein": 63}
+{"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 940, "protein": 81, "carbs": 72, "fat": 35}
