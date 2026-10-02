@@ -243,3 +243,4 @@
 {"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 980, "protein": 82, "carbs": 80, "fat": 35}
 {"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Dinner", "name": "Pad thai + extra chicken (Cily Chicken Rice, Philly)", "calories": 1350, "protein": 65, "carbs": 145, "fat": 55}
 {"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 2330, "protein": 147, "carbs": 225, "fat": 90}
+{"logged_at": "2026-10-02", "type": "activity", "profile": "samir", "date": "2026-10-02", "notes": "Football 1h (Garmin 479 cal)"}
