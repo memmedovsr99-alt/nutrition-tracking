@@ -225,3 +225,5 @@
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 1986, "protein": 119, "carbs": 68, "fat": 116}
 {"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Lunch", "name": "Olive oil 1 tsp (salad)", "calories": 40, "protein": 0, "carbs": 0, "fat": 5}
 {"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 2026, "protein": 119, "carbs": 68, "fat": 121}
+{"logged_at": "2026-10-01", "date": "2026-10-01", "profile": "samir", "meal": "Lunch", "name": "Mustard (30 cal)", "calories": 30, "protein": 1, "carbs": 3, "fat": 2}
+{"logged_at": "2026-10-01", "type": "daily_total", "profile": "samir", "date": "2026-10-01", "calories": 2056, "protein": 120, "carbs": 71, "fat": 123}
