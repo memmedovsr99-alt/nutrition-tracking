@@ -252,3 +252,5 @@
 {"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 3165, "protein": 156, "carbs": 339, "fat": 130}
 {"logged_at": "2026-10-02", "type": "correction", "profile": "samir", "date": "2026-10-02", "meal": "Snacks", "name": "Pineapple 250g", "calories": 125, "protein": 1, "carbs": 32, "fat": 0}
 {"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 3140, "protein": 156, "carbs": 332, "fat": 130}
+{"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Snacks", "name": "Rice cake (40 cal)", "calories": 40, "protein": 1, "carbs": 8, "fat": 0}
+{"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 3180, "protein": 157, "carbs": 340, "fat": 130}
