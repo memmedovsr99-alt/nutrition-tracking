@@ -254,3 +254,6 @@
 {"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 3140, "protein": 156, "carbs": 332, "fat": 130}
 {"logged_at": "2026-10-02", "date": "2026-10-02", "profile": "samir", "meal": "Snacks", "name": "Rice cake (40 cal)", "calories": 40, "protein": 1, "carbs": 8, "fat": 0}
 {"logged_at": "2026-10-02", "type": "daily_total", "profile": "samir", "date": "2026-10-02", "calories": 3180, "protein": 157, "carbs": 340, "fat": 130}
+{"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Snacks", "name": "Dark chocolate (195 cal)", "calories": 195, "protein": 3, "carbs": 14, "fat": 14}
+{"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Snacks", "name": "Banana (medium)", "calories": 105, "protein": 1, "carbs": 27, "fat": 0}
+{"logged_at": "2026-10-04", "type": "daily_total", "date": "2026-10-04", "profile": "samir", "calories": 300, "protein": 4, "carbs": 41, "fat": 14, "notes": ""}
