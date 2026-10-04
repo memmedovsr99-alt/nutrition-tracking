@@ -270,3 +270,5 @@
 {"logged_at": "2026-10-04", "type": "activity", "profile": "samir", "date": "2026-10-03", "notes": "Boxing 1h (morning)"}
 {"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Snacks", "name": "Whey protein 2 scoops + 5g creatine, water (before bed)", "calories": 240, "protein": 48, "carbs": 6, "fat": 4}
 {"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 1949, "protein": 163, "carbs": 241, "fat": 42}
+{"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Snacks", "name": "Grapes ~8 (~40g)", "calories": 28, "protein": 0, "carbs": 7, "fat": 0}
+{"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 1977, "protein": 163, "carbs": 248, "fat": 42}
