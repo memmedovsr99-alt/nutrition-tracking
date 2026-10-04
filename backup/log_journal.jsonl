@@ -267,3 +267,4 @@
 {"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Dinner", "name": "TJ European style nonfat yogurt 125g", "calories": 66, "protein": 7, "carbs": 9, "fat": 0}
 {"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Dinner", "name": "TJ frozen edamame (220 cal)", "calories": 220, "protein": 19, "carbs": 15, "fat": 9}
 {"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 1709, "protein": 115, "carbs": 235, "fat": 38}
+{"logged_at": "2026-10-04", "type": "activity", "profile": "samir", "date": "2026-10-03", "notes": "Boxing 1h (morning)"}
