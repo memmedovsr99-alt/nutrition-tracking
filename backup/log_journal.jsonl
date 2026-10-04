@@ -272,3 +272,9 @@
 {"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 1949, "protein": 163, "carbs": 241, "fat": 42}
 {"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Snacks", "name": "Grapes ~8 (~40g)", "calories": 28, "protein": 0, "carbs": 7, "fat": 0}
 {"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 1977, "protein": 163, "carbs": 248, "fat": 42}
+{"logged_at": "2026-10-04", "type": "batch_recipe", "profile": "samir", "name": "Chicken-potato soup pot", "recipe": "1.4lb raw chicken breast, 1 onion, 3-4 garlic cloves, 1 large yellow potato, 1 tbsp olive oil, 9g butter, saved chicken broth", "calories": 1329, "protein": 160, "carbs": 66, "fat": 41}
+{"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Breakfast", "name": "Eggs x4 (70 cal each)", "calories": 280, "protein": 24, "carbs": 2, "fat": 20}
+{"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil spray (light)", "calories": 10, "protein": 0, "carbs": 0, "fat": 1}
+{"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Breakfast", "name": "Grapes ~8 (~40g)", "calories": 28, "protein": 0, "carbs": 7, "fat": 0}
+{"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Lunch", "name": "Chicken-potato soup, 1 bowl (~1/6 of 1,330-cal pot, est.)", "calories": 222, "protein": 27, "carbs": 11, "fat": 7}
+{"logged_at": "2026-10-04", "type": "daily_total", "date": "2026-10-04", "profile": "samir", "calories": 540, "protein": 51, "carbs": 20, "fat": 28, "notes": ""}
