@@ -278,3 +278,5 @@
 {"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Breakfast", "name": "Grapes ~8 (~40g)", "calories": 28, "protein": 0, "carbs": 7, "fat": 0}
 {"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Lunch", "name": "Chicken-potato soup, 1 bowl (~1/6 of 1,330-cal pot, est.)", "calories": 222, "protein": 27, "carbs": 11, "fat": 7}
 {"logged_at": "2026-10-04", "type": "daily_total", "date": "2026-10-04", "profile": "samir", "calories": 540, "protein": 51, "carbs": 20, "fat": 28, "notes": ""}
+{"logged_at": "2026-10-04", "type": "correction", "profile": "samir", "date": "2026-10-04", "meal": "Lunch", "name": "Chicken-potato soup, 1 large bowl (1/4 of 1,330-cal pot)", "calories": 332, "protein": 40, "carbs": 17, "fat": 10}
+{"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-04", "calories": 650, "protein": 64, "carbs": 26, "fat": 31}
