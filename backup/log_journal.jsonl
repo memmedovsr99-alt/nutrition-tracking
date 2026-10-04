@@ -260,3 +260,10 @@
 {"logged_at": "2026-10-04", "type": "correction", "profile": "samir", "note": "Dark chocolate 195 + banana 105 moved from 2026-10-04 to 2026-10-03", "date": "2026-10-03", "calories": 300, "protein": 4, "carbs": 41, "fat": 14}
 {"logged_at": "2026-10-04", "type": "correction", "profile": "samir", "date": "2026-10-03", "meal": "Snacks", "name": "Banana, small (~100g)", "calories": 90, "protein": 1, "carbs": 23, "fat": 0}
 {"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 285, "protein": 4, "carbs": 37, "fat": 14}
+{"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Lunch", "name": "Barilla fettuccine 228g cooked (batch, 1.53/g est.)", "calories": 349, "protein": 12, "carbs": 73, "fat": 2}
+{"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Lunch", "name": "Beef-tomato sauce 200g (96/4 beef batch, 0.97/g est.)", "calories": 194, "protein": 31, "carbs": 5, "fat": 7}
+{"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Lunch", "name": "TJ European style nonfat yogurt 157g", "calories": 83, "protein": 8, "carbs": 12, "fat": 0}
+{"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Dinner", "name": "Pasta-beef mix 384g (batch, 1.33/g est.)", "calories": 512, "protein": 34, "carbs": 84, "fat": 6}
+{"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Dinner", "name": "TJ European style nonfat yogurt 125g", "calories": 66, "protein": 7, "carbs": 9, "fat": 0}
+{"logged_at": "2026-10-04", "date": "2026-10-03", "profile": "samir", "meal": "Dinner", "name": "TJ frozen edamame (220 cal)", "calories": 220, "protein": 19, "carbs": 15, "fat": 9}
+{"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 1709, "protein": 115, "carbs": 235, "fat": 38}
