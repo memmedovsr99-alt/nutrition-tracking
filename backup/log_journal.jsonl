@@ -258,3 +258,5 @@
 {"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Snacks", "name": "Banana (medium)", "calories": 105, "protein": 1, "carbs": 27, "fat": 0}
 {"logged_at": "2026-10-04", "type": "daily_total", "date": "2026-10-04", "profile": "samir", "calories": 300, "protein": 4, "carbs": 41, "fat": 14, "notes": ""}
 {"logged_at": "2026-10-04", "type": "correction", "profile": "samir", "note": "Dark chocolate 195 + banana 105 moved from 2026-10-04 to 2026-10-03", "date": "2026-10-03", "calories": 300, "protein": 4, "carbs": 41, "fat": 14}
+{"logged_at": "2026-10-04", "type": "correction", "profile": "samir", "date": "2026-10-03", "meal": "Snacks", "name": "Banana, small (~100g)", "calories": 90, "protein": 1, "carbs": 23, "fat": 0}
+{"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-03", "calories": 285, "protein": 4, "carbs": 37, "fat": 14}
