@@ -292,3 +292,13 @@
 {"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-04", "calories": 1941, "protein": 138, "carbs": 206, "fat": 66}
 {"logged_at": "2026-10-04", "date": "2026-10-04", "profile": "samir", "meal": "Snacks", "name": "Orange (medium)", "calories": 62, "protein": 1, "carbs": 15, "fat": 0}
 {"logged_at": "2026-10-04", "type": "daily_total", "profile": "samir", "date": "2026-10-04", "calories": 2003, "protein": 139, "carbs": 221, "fat": 66}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Breakfast", "name": "Protein bar (140 cal, 17g P)", "calories": 140, "protein": 17, "carbs": 14, "fat": 4}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Lunch", "name": "Chipotle chicken (light scoop, all eaten)", "calories": 135, "protein": 24, "carbs": 0, "fat": 5}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Lunch", "name": "Chipotle white rice, corn, tomato salsa, lettuce (~40% eaten)", "calories": 128, "protein": 3, "carbs": 24, "fat": 2}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Lunch", "name": "Pret tuna baguette", "calories": 520, "protein": 28, "carbs": 58, "fat": 19}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Lunch", "name": "Pret lentil soup (small)", "calories": 180, "protein": 9, "carbs": 27, "fat": 4}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Dinner", "name": "Chicken-potato soup, 1 large bowl (1/4 of 1,330-cal pot)", "calories": 332, "protein": 40, "carbs": 17, "fat": 10}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Dinner", "name": "Beef doner wrap, thin bread, lettuce/tomato, minimal sauce, lots of meat (est.)", "calories": 780, "protein": 44, "carbs": 52, "fat": 42}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Snacks", "name": "Chocolate (65 cal)", "calories": 65, "protein": 1, "carbs": 6, "fat": 4}
+{"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Snacks", "name": "Grapes ~10 (~50g)", "calories": 35, "protein": 0, "carbs": 9, "fat": 0}
+{"logged_at": "2026-10-05", "type": "daily_total", "date": "2026-10-05", "profile": "samir", "calories": 2315, "protein": 166, "carbs": 207, "fat": 90, "notes": "Sick day"}
