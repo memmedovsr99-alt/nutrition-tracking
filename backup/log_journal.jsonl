@@ -313,3 +313,5 @@
 {"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Lunch", "name": "Panera Homestyle Chicken Noodle Soup (bowl)", "calories": 180, "protein": 13, "carbs": 22, "fat": 4}
 {"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Lunch", "name": "Panera French baguette (side)", "calories": 190, "protein": 6, "carbs": 38, "fat": 1}
 {"logged_at": "2026-10-06", "type": "daily_total", "date": "2026-10-06", "profile": "samir", "calories": 990, "protein": 50, "carbs": 109, "fat": 40, "notes": "Sick day"}
+{"logged_at": "2026-10-06", "type": "removed", "profile": "samir", "date": "2026-10-06", "name": "Panera chips (side)", "calories": 150}
+{"logged_at": "2026-10-06", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 840, "protein": 48, "carbs": 94, "fat": 31}
