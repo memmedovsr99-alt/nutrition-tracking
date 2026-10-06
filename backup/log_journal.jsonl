@@ -306,3 +306,5 @@
 {"logged_at": "2026-10-05", "type": "correction", "profile": "samir", "date": "2026-10-05", "meal": "Lunch", "name": "Pret Moroccan Lentil Soup (small)", "calories": 260, "protein": 11, "carbs": 30, "fat": 11}
 {"logged_at": "2026-10-05", "type": "daily_total", "profile": "samir", "date": "2026-10-05", "calories": 2535, "protein": 172, "carbs": 219, "fat": 107}
 {"logged_at": "2026-10-05", "type": "weight", "date": "2026-10-05", "profile": "samir", "weight": 83.5}
+{"logged_at": "2026-10-06", "date": "2026-10-05", "profile": "samir", "meal": "Breakfast", "name": "P\u00e3o de queijo, mid-sized (~40g)", "calories": 130, "protein": 3, "carbs": 16, "fat": 6}
+{"logged_at": "2026-10-06", "type": "daily_total", "profile": "samir", "date": "2026-10-05", "calories": 2665, "protein": 175, "carbs": 235, "fat": 113}
