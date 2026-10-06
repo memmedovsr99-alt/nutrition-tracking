@@ -308,3 +308,8 @@
 {"logged_at": "2026-10-05", "type": "weight", "date": "2026-10-05", "profile": "samir", "weight": 83.5}
 {"logged_at": "2026-10-06", "date": "2026-10-05", "profile": "samir", "meal": "Breakfast", "name": "P\u00e3o de queijo, mid-sized (~40g)", "calories": 130, "protein": 3, "carbs": 16, "fat": 6}
 {"logged_at": "2026-10-06", "type": "daily_total", "profile": "samir", "date": "2026-10-05", "calories": 2665, "protein": 175, "carbs": 235, "fat": 113}
+{"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Lunch", "name": "Panera Grilled Chicken & Avo BLT (half)", "calories": 470, "protein": 29, "carbs": 34, "fat": 26}
+{"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Lunch", "name": "Panera chips (side)", "calories": 150, "protein": 2, "carbs": 15, "fat": 9}
+{"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Lunch", "name": "Panera Homestyle Chicken Noodle Soup (bowl)", "calories": 180, "protein": 13, "carbs": 22, "fat": 4}
+{"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Lunch", "name": "Panera French baguette (side)", "calories": 190, "protein": 6, "carbs": 38, "fat": 1}
+{"logged_at": "2026-10-06", "type": "daily_total", "date": "2026-10-06", "profile": "samir", "calories": 990, "protein": 50, "carbs": 109, "fat": 40, "notes": "Sick day"}
