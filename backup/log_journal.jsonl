@@ -302,3 +302,6 @@
 {"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Snacks", "name": "Chocolate (65 cal)", "calories": 65, "protein": 1, "carbs": 6, "fat": 4}
 {"logged_at": "2026-10-05", "date": "2026-10-05", "profile": "samir", "meal": "Snacks", "name": "Grapes ~10 (~50g)", "calories": 35, "protein": 0, "carbs": 9, "fat": 0}
 {"logged_at": "2026-10-05", "type": "daily_total", "date": "2026-10-05", "profile": "samir", "calories": 2315, "protein": 166, "carbs": 207, "fat": 90, "notes": "Sick day"}
+{"logged_at": "2026-10-05", "type": "correction", "profile": "samir", "date": "2026-10-05", "meal": "Lunch", "name": "Pret Tuna & Cucumber Baguette", "calories": 660, "protein": 32, "carbs": 67, "fat": 29}
+{"logged_at": "2026-10-05", "type": "correction", "profile": "samir", "date": "2026-10-05", "meal": "Lunch", "name": "Pret Moroccan Lentil Soup (small)", "calories": 260, "protein": 11, "carbs": 30, "fat": 11}
+{"logged_at": "2026-10-05", "type": "daily_total", "profile": "samir", "date": "2026-10-05", "calories": 2535, "protein": 172, "carbs": 219, "fat": 107}
