@@ -320,3 +320,8 @@
 {"logged_at": "2026-10-06", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 1251, "protein": 76, "carbs": 160, "fat": 35}
 {"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Snacks", "name": "Chocolate (65 cal)", "calories": 65, "protein": 1, "carbs": 6, "fat": 4}
 {"logged_at": "2026-10-06", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 1316, "protein": 77, "carbs": 166, "fat": 39}
+{"logged_at": "2026-10-06", "type": "batch_recipe", "profile": "samir", "name": "Rice+chickpea mix batch 2", "recipe": "580g dry jasmine rice, 1 tbsp olive oil, 13g TJ salted butter, 1 can TJ chickpeas (420 cal), chicken broth", "calories": 2772, "est_cooked_g": 1733, "kcal_per_g": 1.6}
+{"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Dinner", "name": "Rice+chickpea mix 355g (batch 2, 1.60/g est.)", "calories": 568, "protein": 14, "carbs": 108, "fat": 8}
+{"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Dinner", "name": "Chicken breast 104g cooked", "calories": 178, "protein": 32, "carbs": 0, "fat": 2}
+{"logged_at": "2026-10-06", "date": "2026-10-06", "profile": "samir", "meal": "Dinner", "name": "Ayran (125g TJ nonfat yogurt + water)", "calories": 66, "protein": 7, "carbs": 9, "fat": 0}
+{"logged_at": "2026-10-06", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 2128, "protein": 130, "carbs": 283, "fat": 49}
