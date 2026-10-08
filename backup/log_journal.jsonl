@@ -329,3 +329,11 @@
 {"logged_at": "2026-10-07", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 2218, "protein": 131, "carbs": 306, "fat": 49}
 {"logged_at": "2026-10-07", "date": "2026-10-06", "profile": "samir", "meal": "Snacks", "name": "Watermelon (~150 cal, ~500g)", "calories": 150, "protein": 3, "carbs": 38, "fat": 1}
 {"logged_at": "2026-10-07", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 2368, "protein": 134, "carbs": 344, "fat": 50}
+{"logged_at": "2026-10-07", "type": "batch_recipe", "profile": "samir", "name": "Cheesesteak filling batch", "recipe": "1lb shaved ribeye (640), 1 onion, 1 portion mushrooms, 16g butter, 2 tbsp olive oil, avocado spray, 240 cal provolone", "calories": 1309, "protein": 108, "carbs": 14, "fat": 91}
+{"logged_at": "2026-10-07", "date": "2026-10-07", "profile": "samir", "meal": "Breakfast", "name": "Eggs x4 (70 cal each)", "calories": 280, "protein": 24, "carbs": 2, "fat": 20}
+{"logged_at": "2026-10-07", "date": "2026-10-07", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil spray (light)", "calories": 10, "protein": 0, "carbs": 0, "fat": 1}
+{"logged_at": "2026-10-07", "date": "2026-10-07", "profile": "samir", "meal": "Lunch", "name": "Rice+chickpea mix 260g (batch 2, 1.60/g est.)", "calories": 416, "protein": 10, "carbs": 79, "fat": 6}
+{"logged_at": "2026-10-07", "date": "2026-10-07", "profile": "samir", "meal": "Lunch", "name": "Chicken breast 145g cooked", "calories": 248, "protein": 45, "carbs": 0, "fat": 3}
+{"logged_at": "2026-10-07", "date": "2026-10-07", "profile": "samir", "meal": "Dinner", "name": "Bread roll (170 cal), inside mostly removed (~110 kept)", "calories": 110, "protein": 4, "carbs": 21, "fat": 1}
+{"logged_at": "2026-10-07", "date": "2026-10-07", "profile": "samir", "meal": "Dinner", "name": "Cheesesteak filling, 1/3 of batch (1,309-cal batch: 1lb shaved ribeye, onion, mushrooms, 16g butter, 2 tbsp olive oil, 240 cal provolone)", "calories": 436, "protein": 36, "carbs": 5, "fat": 30}
+{"logged_at": "2026-10-07", "type": "daily_total", "date": "2026-10-07", "profile": "samir", "calories": 1500, "protein": 119, "carbs": 107, "fat": 61, "notes": ""}
