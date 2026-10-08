@@ -339,3 +339,5 @@
 {"logged_at": "2026-10-07", "type": "daily_total", "date": "2026-10-07", "profile": "samir", "calories": 1500, "protein": 119, "carbs": 107, "fat": 61, "notes": ""}
 {"logged_at": "2026-10-07", "date": "2026-10-07", "profile": "samir", "meal": "Snacks", "name": "Chocolate (65 cal)", "calories": 65, "protein": 1, "carbs": 6, "fat": 4}
 {"logged_at": "2026-10-07", "type": "daily_total", "profile": "samir", "date": "2026-10-07", "calories": 1565, "protein": 120, "carbs": 113, "fat": 65}
+{"logged_at": "2026-10-08", "date": "2026-10-07", "profile": "samir", "meal": "Snacks", "name": "Chocolate (65 cal) #2", "calories": 65, "protein": 1, "carbs": 6, "fat": 4}
+{"logged_at": "2026-10-08", "type": "daily_total", "profile": "samir", "date": "2026-10-07", "calories": 1630, "protein": 121, "carbs": 119, "fat": 69}
