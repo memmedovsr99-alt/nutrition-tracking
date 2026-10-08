@@ -341,3 +341,7 @@
 {"logged_at": "2026-10-07", "type": "daily_total", "profile": "samir", "date": "2026-10-07", "calories": 1565, "protein": 120, "carbs": 113, "fat": 65}
 {"logged_at": "2026-10-08", "date": "2026-10-07", "profile": "samir", "meal": "Snacks", "name": "Chocolate (65 cal) #2", "calories": 65, "protein": 1, "carbs": 6, "fat": 4}
 {"logged_at": "2026-10-08", "type": "daily_total", "profile": "samir", "date": "2026-10-07", "calories": 1630, "protein": 121, "carbs": 119, "fat": 69}
+{"logged_at": "2026-10-08", "date": "2026-10-08", "profile": "samir", "meal": "Lunch", "name": "Kimchi ramen with chicken (restaurant, est.)", "calories": 800, "protein": 40, "carbs": 95, "fat": 28}
+{"logged_at": "2026-10-08", "date": "2026-10-08", "profile": "samir", "meal": "Lunch", "name": "Spicy salmon roll, 1 portion (8 pc, est.)", "calories": 380, "protein": 18, "carbs": 50, "fat": 12}
+{"logged_at": "2026-10-08", "date": "2026-10-08", "profile": "samir", "meal": "Snacks", "name": "Cookie + small cake pieces (~250 cal)", "calories": 250, "protein": 3, "carbs": 34, "fat": 12}
+{"logged_at": "2026-10-08", "type": "daily_total", "date": "2026-10-08", "profile": "samir", "calories": 1430, "protein": 61, "carbs": 179, "fat": 52, "notes": ""}
