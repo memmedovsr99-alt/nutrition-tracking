@@ -327,3 +327,5 @@
 {"logged_at": "2026-10-06", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 2128, "protein": 130, "carbs": 283, "fat": 49}
 {"logged_at": "2026-10-07", "date": "2026-10-06", "profile": "samir", "meal": "Snacks", "name": "Banana, small (~100g)", "calories": 90, "protein": 1, "carbs": 23, "fat": 0}
 {"logged_at": "2026-10-07", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 2218, "protein": 131, "carbs": 306, "fat": 49}
+{"logged_at": "2026-10-07", "date": "2026-10-06", "profile": "samir", "meal": "Snacks", "name": "Watermelon (~150 cal, ~500g)", "calories": 150, "protein": 3, "carbs": 38, "fat": 1}
+{"logged_at": "2026-10-07", "type": "daily_total", "profile": "samir", "date": "2026-10-06", "calories": 2368, "protein": 134, "carbs": 344, "fat": 50}
