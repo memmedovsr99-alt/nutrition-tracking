@@ -352,3 +352,4 @@
 {"logged_at": "2026-10-09", "type": "daily_total", "profile": "samir", "date": "2026-10-08", "calories": 2962, "protein": 161, "carbs": 288, "fat": 130}
 {"logged_at": "2026-10-09", "type": "correction", "profile": "samir", "date": "2026-10-08", "meal": "Dinner", "name": "Cheesesteak filling, remaining portion (adj. for pan fat + smaller leftover)", "calories": 650, "protein": 54, "carbs": 7, "fat": 45}
 {"logged_at": "2026-10-09", "type": "daily_total", "profile": "samir", "date": "2026-10-08", "calories": 2739, "protein": 143, "carbs": 286, "fat": 114}
+{"logged_at": "2026-10-09", "type": "activity", "profile": "samir", "date": "2026-10-08", "notes": "Tennis"}
