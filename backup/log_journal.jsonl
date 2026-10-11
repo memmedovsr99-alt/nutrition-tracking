@@ -379,3 +379,7 @@
 {"logged_at": "2026-10-10", "type": "daily_total", "date": "2026-10-10", "profile": "samir", "calories": 2047, "protein": 138, "carbs": 156, "fat": 89, "notes": ""}
 {"logged_at": "2026-10-10", "type": "correction", "profile": "samir", "date": "2026-10-10", "meal": "Snacks", "name": "Cinnamon swirl (laminated), La Colombe (~90g est.)", "calories": 380, "protein": 6, "carbs": 48, "fat": 18}
 {"logged_at": "2026-10-10", "type": "daily_total", "profile": "samir", "date": "2026-10-10", "calories": 1977, "protein": 137, "carbs": 142, "fat": 88}
+{"logged_at": "2026-10-11", "date": "2026-10-10", "profile": "samir", "meal": "Snacks", "name": "TJ organic 2% milk 200ml", "calories": 100, "protein": 7, "carbs": 10, "fat": 4}
+{"logged_at": "2026-10-11", "date": "2026-10-10", "profile": "samir", "meal": "Snacks", "name": "Whey protein 1 scoop", "calories": 120, "protein": 24, "carbs": 3, "fat": 2}
+{"logged_at": "2026-10-11", "date": "2026-10-10", "profile": "samir", "meal": "Snacks", "name": "Chicken tikka masala ready meal (375 cal, 25g P)", "calories": 375, "protein": 25, "carbs": 35, "fat": 15}
+{"logged_at": "2026-10-11", "type": "daily_total", "profile": "samir", "date": "2026-10-10", "calories": 2572, "protein": 193, "carbs": 190, "fat": 109}
