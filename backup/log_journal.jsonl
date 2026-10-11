@@ -377,3 +377,5 @@
 {"logged_at": "2026-10-10", "date": "2026-10-10", "profile": "samir", "meal": "Dinner", "name": "Arugula (handful)", "calories": 10, "protein": 1, "carbs": 1, "fat": 0}
 {"logged_at": "2026-10-10", "date": "2026-10-10", "profile": "samir", "meal": "Dinner", "name": "Avocado 3/7 (medium)", "calories": 103, "protein": 1, "carbs": 5, "fat": 9}
 {"logged_at": "2026-10-10", "type": "daily_total", "date": "2026-10-10", "profile": "samir", "calories": 2047, "protein": 138, "carbs": 156, "fat": 89, "notes": ""}
+{"logged_at": "2026-10-10", "type": "correction", "profile": "samir", "date": "2026-10-10", "meal": "Snacks", "name": "Cinnamon swirl (laminated), La Colombe (~90g est.)", "calories": 380, "protein": 6, "carbs": 48, "fat": 18}
+{"logged_at": "2026-10-10", "type": "daily_total", "profile": "samir", "date": "2026-10-10", "calories": 1977, "protein": 137, "carbs": 142, "fat": 88}
