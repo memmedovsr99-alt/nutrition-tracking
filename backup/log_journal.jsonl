@@ -390,3 +390,7 @@
 {"logged_at": "2026-10-18", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 1070, "protein": 63.5, "carbs": 141, "fat": 30.8, "note": "partial day, Supabase paused"}
 {"logged_at": "2026-10-18", "type": "correction", "date": "2026-10-18", "profile": "samir", "name": "Sweet potato 550g raw (baked)", "calories": 473, "protein": 9, "carbs": 111, "fat": 0, "replaces": "Baked sweet potato 550g 495"}
 {"logged_at": "2026-10-18", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 1048, "protein": 62, "carbs": 138, "fat": 30, "note": "partial day"}
+{"logged_at": "2026-10-18", "date": "2026-10-18", "profile": "samir", "meal": "Dinner", "name": "Sweet potato 550g raw (baked)", "calories": 473, "protein": 9, "carbs": 111, "fat": 0}
+{"logged_at": "2026-10-18", "date": "2026-10-18", "profile": "samir", "meal": "Dinner", "name": "Avocado oil spray (~2g)", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
+{"logged_at": "2026-10-18", "date": "2026-10-18", "profile": "samir", "meal": "Dinner", "name": "TJ garlic-lemon marinated chicken, half pack (920 total)", "calories": 460, "protein": 52, "carbs": 2, "fat": 27}
+{"logged_at": "2026-10-18", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 2001, "protein": 123, "carbs": 251, "fat": 58}
