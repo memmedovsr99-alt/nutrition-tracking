@@ -401,3 +401,4 @@
 {"logged_at": "2026-10-18", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 2091, "protein": 124, "carbs": 264, "fat": 62}
 {"logged_at": "2026-10-18", "date": "2026-10-18", "profile": "samir", "meal": "Snacks", "name": "Small chocolate", "calories": 65, "protein": 1, "carbs": 7, "fat": 4}
 {"logged_at": "2026-10-18", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 2156, "protein": 125, "carbs": 271, "fat": 66}
+{"logged_at": "2026-10-18", "type": "weight", "date": "2026-10-18", "profile": "samir", "weight": 83.5, "note": "first weigh-in after vacation"}
