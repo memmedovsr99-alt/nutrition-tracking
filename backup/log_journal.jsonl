@@ -404,3 +404,5 @@
 {"logged_at": "2026-10-18", "type": "weight", "date": "2026-10-18", "profile": "samir", "weight": 83.5, "note": "first weigh-in after vacation"}
 {"logged_at": "2026-10-19", "date": "2026-10-18", "profile": "samir", "meal": "Snacks", "name": "Baby bok choy w/ soy sauce + garlic (oil)", "calories": 150, "protein": 4, "carbs": 7, "fat": 11}
 {"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 2306, "protein": 129, "carbs": 278, "fat": 77}
+{"logged_at": "2026-10-19", "date": "2026-10-18", "profile": "samir", "meal": "Snacks", "name": "Banana (medium)", "calories": 105, "protein": 1, "carbs": 27, "fat": 0}
+{"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 2411, "protein": 130, "carbs": 305, "fat": 77}
