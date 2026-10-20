@@ -417,3 +417,5 @@
 {"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Lunch", "name": "Dig lentil & chickpea salad w/ feta 5.2oz (official)", "calories": 220, "protein": 9, "carbs": 29, "fat": 11}
 {"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Lunch", "name": "Dig crunchy roasted red beets 5oz (official)", "calories": 160, "protein": 4, "carbs": 27, "fat": 6}
 {"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-19", "calories": 910, "protein": 61, "carbs": 90, "fat": 39}
+{"logged_at": "2026-10-19", "type": "correction", "date": "2026-10-19", "profile": "samir", "name": "Dig brown rice base 5oz (official)", "calories": 90, "protein": 1, "carbs": 15, "fat": 3, "replaces": "160 estimate"}
+{"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-19", "calories": 840, "protein": 58, "carbs": 72, "fat": 39}
