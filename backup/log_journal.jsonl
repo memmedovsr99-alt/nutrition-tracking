@@ -406,3 +406,8 @@
 {"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 2306, "protein": 129, "carbs": 278, "fat": 77}
 {"logged_at": "2026-10-19", "date": "2026-10-18", "profile": "samir", "meal": "Snacks", "name": "Banana (medium)", "calories": 105, "protein": 1, "carbs": 27, "fat": 0}
 {"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-18", "calories": 2411, "protein": 130, "carbs": 305, "fat": 77}
+{"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Lunch", "name": "Dig bowl: brown rice base", "calories": 210, "protein": 4, "carbs": 41, "fat": 3}
+{"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Lunch", "name": "Dig bowl: charred chicken", "calories": 230, "protein": 28, "carbs": 2, "fat": 12}
+{"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Lunch", "name": "Dig side: lentils", "calories": 160, "protein": 5, "carbs": 17, "fat": 8}
+{"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Lunch", "name": "Dig side: beets", "calories": 150, "protein": 3, "carbs": 12, "fat": 10}
+{"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-19", "calories": 750, "protein": 40, "carbs": 72, "fat": 33}
