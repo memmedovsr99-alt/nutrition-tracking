@@ -430,3 +430,5 @@
 {"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Snacks", "name": "Whey protein 1 scoop", "calories": 120, "protein": 24, "carbs": 3, "fat": 2}
 {"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-19", "calories": 2082, "protein": 155, "carbs": 200, "fat": 76}
 {"logged_at": "2026-10-19", "type": "checkin", "date": "2026-10-19", "profile": "samir", "training": true, "training_type": "StairMaster 3km + 1h gym"}
+{"logged_at": "2026-10-19", "date": "2026-10-19", "profile": "samir", "meal": "Snacks", "name": "Apple (medium)", "calories": 95, "protein": 1, "carbs": 25, "fat": 0}
+{"logged_at": "2026-10-19", "type": "daily_total", "profile": "samir", "date": "2026-10-19", "calories": 2177, "protein": 156, "carbs": 225, "fat": 76}
