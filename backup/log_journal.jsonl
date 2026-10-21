@@ -453,3 +453,5 @@
 {"logged_at": "2026-10-20", "type": "daily_total", "profile": "samir", "date": "2026-10-20", "calories": 3134, "protein": 210, "carbs": 256, "fat": 141}
 {"logged_at": "2026-10-20", "type": "correction", "date": "2026-10-20", "profile": "samir", "name": "Homemade lahmacun x3 (lavash base, ~55% of 96/4 beef pack, veg+paste, oil)", "calories": 780, "protein": 61, "carbs": 81, "fat": 23, "replaces": "lahmacun x3 whole pack 1014"}
 {"logged_at": "2026-10-20", "type": "daily_total", "profile": "samir", "date": "2026-10-20", "calories": 2900, "protein": 172, "carbs": 256, "fat": 131}
+{"logged_at": "2026-10-20", "type": "correction", "date": "2026-10-20", "profile": "samir", "name": "Homemade lahmacun x3 (~55% of 96/4 beef pack)", "calories": 700, "protein": 61, "carbs": 70, "fat": 20, "replaces": "lahmacun x3 780"}
+{"logged_at": "2026-10-20", "type": "daily_total", "profile": "samir", "date": "2026-10-20", "calories": 2820, "protein": 172, "carbs": 245, "fat": 128}
