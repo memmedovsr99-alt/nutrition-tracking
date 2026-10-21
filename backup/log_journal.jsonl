@@ -464,3 +464,5 @@
 {"logged_at": "2026-10-21", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 961, "protein": 65, "carbs": 71, "fat": 46}
 {"logged_at": "2026-10-21", "type": "correction", "date": "2026-10-21", "profile": "samir", "name": "Lahmacun beef topping, leftover ~45% of batch (batch ~790: 1lb 96/4 + 200 olive oil + veg)", "calories": 355, "protein": 39, "carbs": 7, "fat": 19, "replaces": "lahmacun beef 130"}
 {"logged_at": "2026-10-21", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 1186, "protein": 84, "carbs": 75, "fat": 61}
+{"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Snacks", "name": "Green apple (medium)", "calories": 95, "protein": 1, "carbs": 25, "fat": 0}
+{"logged_at": "2026-10-21", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 1281, "protein": 85, "carbs": 100, "fat": 61}
