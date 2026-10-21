@@ -462,3 +462,5 @@
 {"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Dinner", "name": "TJ wheat noodles (310 cal)", "calories": 310, "protein": 10, "carbs": 62, "fat": 2}
 {"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Dinner", "name": "Lahmacun beef topping, half of leftover (96/4 + veg)", "calories": 130, "protein": 20, "carbs": 3, "fat": 4}
 {"logged_at": "2026-10-21", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 961, "protein": 65, "carbs": 71, "fat": 46}
+{"logged_at": "2026-10-21", "type": "correction", "date": "2026-10-21", "profile": "samir", "name": "Lahmacun beef topping, leftover ~45% of batch (batch ~790: 1lb 96/4 + 200 olive oil + veg)", "calories": 355, "protein": 39, "carbs": 7, "fat": 19, "replaces": "lahmacun beef 130"}
+{"logged_at": "2026-10-21", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 1186, "protein": 84, "carbs": 75, "fat": 61}
