@@ -455,3 +455,10 @@
 {"logged_at": "2026-10-20", "type": "daily_total", "profile": "samir", "date": "2026-10-20", "calories": 2900, "protein": 172, "carbs": 256, "fat": 131}
 {"logged_at": "2026-10-20", "type": "correction", "date": "2026-10-20", "profile": "samir", "name": "Homemade lahmacun x3 (~55% of 96/4 beef pack)", "calories": 700, "protein": 61, "carbs": 70, "fat": 20, "replaces": "lahmacun x3 780"}
 {"logged_at": "2026-10-20", "type": "daily_total", "profile": "samir", "date": "2026-10-20", "calories": 2820, "protein": 172, "carbs": 245, "fat": 128}
+{"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Breakfast", "name": "Eggs x4", "calories": 288, "protein": 25, "carbs": 2, "fat": 20}
+{"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Breakfast", "name": "Kolbasa (Italian) 57g", "calories": 171, "protein": 7, "carbs": 1, "fat": 15}
+{"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil (~1 tsp)", "calories": 40, "protein": 0, "carbs": 0, "fat": 5}
+{"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Breakfast", "name": "Mushrooms (~100g)", "calories": 22, "protein": 3, "carbs": 3, "fat": 0}
+{"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Dinner", "name": "TJ wheat noodles (310 cal)", "calories": 310, "protein": 10, "carbs": 62, "fat": 2}
+{"logged_at": "2026-10-21", "date": "2026-10-21", "profile": "samir", "meal": "Dinner", "name": "Lahmacun beef topping, half of leftover (96/4 + veg)", "calories": 130, "protein": 20, "carbs": 3, "fat": 4}
+{"logged_at": "2026-10-21", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 961, "protein": 65, "carbs": 71, "fat": 46}
