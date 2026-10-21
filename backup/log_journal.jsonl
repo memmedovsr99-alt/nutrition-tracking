@@ -449,3 +449,5 @@
 {"logged_at": "2026-10-20", "date": "2026-10-20", "profile": "samir", "meal": "Lunch", "name": "Pita rice bowl: tomato-onion salad", "calories": 40, "protein": 1, "carbs": 4, "fat": 2}
 {"logged_at": "2026-10-20", "date": "2026-10-20", "profile": "samir", "meal": "Lunch", "name": "Pita rice bowl: garlic sauce (~50g scoop)", "calories": 250, "protein": 0, "carbs": 2, "fat": 27}
 {"logged_at": "2026-10-20", "type": "daily_total", "profile": "samir", "date": "2026-10-20", "calories": 2120, "protein": 111, "carbs": 175, "fat": 108}
+{"logged_at": "2026-10-20", "date": "2026-10-20", "profile": "samir", "meal": "Snacks", "name": "Homemade lahmacun x3 (lavash base, whole 96/4 beef pack 520cal/84P, veg+paste, oil)", "calories": 1014, "protein": 99, "carbs": 81, "fat": 33, "note": "assumed lavash base + whole beef pack; pending confirmation"}
+{"logged_at": "2026-10-20", "type": "daily_total", "profile": "samir", "date": "2026-10-20", "calories": 3134, "protein": 210, "carbs": 256, "fat": 141}
