@@ -472,3 +472,5 @@
 {"logged_at": "2026-10-22", "date": "2026-10-21", "profile": "samir", "meal": "Snacks", "name": "TJ peanut butter protein granola 82g (280/11P per 60g)", "calories": 383, "protein": 15, "carbs": 41, "fat": 18}
 {"logged_at": "2026-10-22", "date": "2026-10-21", "profile": "samir", "meal": "Snacks", "name": "TJ nonfat milk 295ml", "calories": 111, "protein": 11, "carbs": 15, "fat": 0}
 {"logged_at": "2026-10-22", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 2073, "protein": 164, "carbs": 170, "fat": 83}
+{"logged_at": "2026-10-22", "date": "2026-10-22", "profile": "samir", "meal": "Breakfast", "name": "Pret egg white & cheese (label 200 cal)", "calories": 200, "protein": 16, "carbs": 15, "fat": 8}
+{"logged_at": "2026-10-22", "type": "daily_total", "profile": "samir", "date": "2026-10-22", "calories": 200, "protein": 16, "carbs": 15, "fat": 8}
