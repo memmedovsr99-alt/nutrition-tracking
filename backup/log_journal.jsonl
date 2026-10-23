@@ -474,3 +474,5 @@
 {"logged_at": "2026-10-22", "type": "daily_total", "profile": "samir", "date": "2026-10-21", "calories": 2073, "protein": 164, "carbs": 170, "fat": 83}
 {"logged_at": "2026-10-22", "date": "2026-10-22", "profile": "samir", "meal": "Breakfast", "name": "Pret egg white & cheese (label 200 cal)", "calories": 200, "protein": 16, "carbs": 15, "fat": 8}
 {"logged_at": "2026-10-22", "type": "daily_total", "profile": "samir", "date": "2026-10-22", "calories": 200, "protein": 16, "carbs": 15, "fat": 8}
+{"logged_at": "2026-10-22", "date": "2026-10-22", "profile": "samir", "meal": "Dinner", "name": "Rest of day (estimated summary)", "calories": 2000, "protein": 134, "carbs": 205, "fat": 72}
+{"logged_at": "2026-10-22", "type": "daily_total", "profile": "samir", "date": "2026-10-22", "calories": 2200, "protein": 150, "carbs": 220, "fat": 80, "note": "estimated summary day"}
