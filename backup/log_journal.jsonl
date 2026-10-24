@@ -493,3 +493,5 @@
 {"logged_at": "2026-10-23", "date": "2026-10-23", "profile": "samir", "meal": "Dinner", "name": "Yellow potatoes x2 (~340g)", "calories": 262, "protein": 7, "carbs": 58, "fat": 0}
 {"logged_at": "2026-10-23", "date": "2026-10-23", "profile": "samir", "meal": "Dinner", "name": "Onion, tomatoes x4, green pepper, jalapeno, garlic", "calories": 167, "protein": 8, "carbs": 37, "fat": 1}
 {"logged_at": "2026-10-23", "type": "daily_total", "profile": "samir", "date": "2026-10-23", "calories": 2320, "protein": 105, "carbs": 239, "fat": 111}
+{"logged_at": "2026-10-23", "type": "correction", "date": "2026-10-23", "profile": "samir", "name": "Baguette 100g (label 250)", "calories": 250, "protein": 9, "carbs": 51, "fat": 2, "replaces": "270"}
+{"logged_at": "2026-10-23", "type": "daily_total", "profile": "samir", "date": "2026-10-23", "calories": 2300, "protein": 105, "carbs": 235, "fat": 110}
