@@ -1,0 +1,1331 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>UFC GYM Azerbaijan - Portfolio Model</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f7f8fa;color:#1a1f28;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}
+.wrap{max-width:1500px;margin:0 auto;padding:22px 26px 60px}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:8px;flex-wrap:wrap}
+.hd h1{font-size:20px;font-weight:700;letter-spacing:.2px;color:#0d1117}
+.hd h1 span{color:#d20a0a}
+.hd .sub{color:#6b7684;font-size:11.5px;margin-top:4px}
+.badge{background:#eef6ef;border:1px solid #cfe5d4;color:#1f7a3d;font-size:10.5px;padding:5px 10px;border-radius:5px;letter-spacing:.3px;font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;position:sticky;top:0;z-index:30;background:#f7f8fa;margin:0 -26px 10px;padding:12px 26px;box-shadow:0 8px 12px -10px rgba(16,24,40,.22)}
+.kpi{background:#fff;border:1px solid #e2e6ec;border-radius:9px;padding:13px 14px 13px 16px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#d20a0a}
+.kpi .lb{color:#6b7684;font-size:10px;text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;font-weight:600}
+.kpi .vl{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.3px;color:#0d1117}
+.kpi .dl{font-size:10.5px;margin-top:4px;font-variant-numeric:tabular-nums;font-weight:600}
+.up{color:#16a34a}.dn{color:#dc2626}.flat{color:#98a2b3}
+.grid{display:grid;grid-template-columns:316px minmax(0,1fr);gap:20px;align-items:start}
+.grid>div{min-width:0}
+.panel{min-width:0;background:#fff;border:1px solid #e2e6ec;border-radius:10px;padding:16px 17px;margin-bottom:17px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.panel h3{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#505a68;margin-bottom:14px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.ctl{margin-bottom:15px}
+.ctl .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:8px}
+.ctl .nm{font-size:12px;color:#39414d}
+.ctl .vv{font-size:12.5px;font-weight:700;color:#0d1117;font-variant-numeric:tabular-nums;background:#f0f2f5;border:1px solid #dfe3e9;padding:2px 7px;border-radius:4px;width:82px;text-align:right;white-space:nowrap;font-family:inherit;outline:none;cursor:text;transition:border-color .12s,background .12s}
+.ctl .vv:hover{border-color:#bfc7d1;background:#fff}
+.ctl .vv:focus{border-color:#d20a0a;background:#fff;box-shadow:0 0 0 2px rgba(210,10,10,.12)}
+.ctl .vv.bad{border-color:#dc2626;background:#fdecec}
+.ctl .hint{font-size:10px;color:#8a94a3;margin-top:4px}
+.fmthd{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#d20a0a;margin:4px 0 9px;padding-bottom:5px;border-bottom:1px solid #eef0f3}
+.fmthd:not(:first-child){margin-top:16px}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:#dfe3e9;border-radius:3px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#d20a0a;cursor:pointer;border:2.5px solid #fff;box-shadow:0 0 0 1px #d20a0a,0 1px 3px rgba(0,0,0,.2)}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:#d20a0a;cursor:pointer;border:2.5px solid #fff}
+.btn{width:100%;background:#fff;border:1px solid #d7dce3;color:#39414d;font-size:11.5px;padding:8px;border-radius:6px;cursor:pointer;font-family:inherit;margin-top:5px}
+.btn:hover{background:#f0f2f5;color:#0d1117}
+.btn.red{background:#d20a0a;border-color:#d20a0a;color:#fff;font-weight:600}
+.btn.red:hover{background:#b00808;color:#fff}
+.scn{display:flex;gap:5px;margin-bottom:11px}
+.sbtn{flex:1;background:#fff;border:1px solid #d7dce3;color:#505a68;font-size:11.5px;font-weight:600;padding:7px 0;border-radius:6px;cursor:pointer;font-family:inherit}
+.sbtn:hover{background:#f0f2f5}
+.sbtn.on{background:#d20a0a;border-color:#d20a0a;color:#fff}
+.scndesc{font-size:10.5px;color:#8a94a3;line-height:1.5;margin-bottom:11px;min-height:46px}
+.sens td.c{text-align:center;border-radius:3px;padding:5px 3px;line-height:1.25}
+.sens td.c b{font-size:11.5px;font-weight:700;display:block}
+.sens td.c i{font-size:9px;font-style:normal;opacity:.62;display:block;margin-top:1px}
+.sens td:first-child{color:#39414d;font-size:11px;padding-right:9px}
+.tabs{display:flex;gap:3px;margin-bottom:15px;border-bottom:1px solid #e2e6ec}
+.tab{background:none;border:none;border-bottom:2px solid transparent;color:#6b7684;font:600 12.5px inherit;padding:8px 15px;cursor:pointer;margin-bottom:-1px}
+.tab:hover{color:#1a1f28}
+.tab.on{color:#d20a0a;border-bottom-color:#d20a0a}
+.scroll{overflow-x:auto;max-width:100%}
+.yrsel{display:flex;gap:3px}
+.yrsel button{background:#fff;border:1px solid #d7dce3;color:#6b7684;font:600 10px inherit;padding:3px 9px;border-radius:4px;cursor:pointer}
+.yrsel button.on{background:#1a1f28;border-color:#1a1f28;color:#fff}
+table.sum{width:100%;border-collapse:collapse;font-size:11.5px}
+table.sum th{text-align:right;color:#6b7684;font-size:10px;text-transform:uppercase;letter-spacing:.6px;padding:0 10px 8px;border-bottom:1.5px solid #dfe3e9;font-weight:700}
+table.sum th:first-child,table.sum td:first-child{text-align:left}
+table.sum td{padding:6px 10px;border-bottom:1px solid #eef0f3;text-align:right;font-variant-numeric:tabular-nums;color:#2b3340}
+table.sum tr.b td{font-weight:700;background:#f5f7fa}
+.scroll::-webkit-scrollbar{height:9px}
+.scroll::-webkit-scrollbar-thumb{background:#cfd5de;border-radius:5px}
+.scroll::-webkit-scrollbar-track{background:#f2f4f7;border-radius:5px}
+table.fin{font-size:10.5px;white-space:nowrap}
+table.fin th{padding:0 5px 7px;font-size:9.5px}
+table.fin td{padding:3.5px 5px}
+table.fin th:first-child,table.fin td:first-child{position:sticky;left:0;background:#fff;min-width:160px;z-index:1;box-shadow:1px 0 0 #eef0f3}
+table.fin tr.sub td{font-weight:700;background:#f5f7fa}
+table.fin tr.sub td:first-child{background:#f5f7fa}
+table.fin tr.pct td{color:#8a94a3;font-size:9.5px}
+table.fin tr.pct td:first-child{color:#8a94a3}
+table.fin td.neg{color:#b4453f}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{text-align:right;color:#6b7684;font-size:10px;text-transform:uppercase;letter-spacing:.6px;padding:0 8px 8px;border-bottom:1.5px solid #dfe3e9;font-weight:700}
+th:first-child,td:first-child{text-align:left}
+td{padding:6px 8px;border-bottom:1px solid #eef0f3;text-align:right;font-variant-numeric:tabular-nums;color:#2b3340}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;font-size:9.5px;padding:1.5px 6px;border-radius:3px;letter-spacing:.3px;font-weight:700}
+.t-sig{background:#fdecec;color:#c01818}.t-core{background:#e8f6ee;color:#15803d}.t-bjj{background:#e8f1fd;color:#1d4ed8}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.note{font-size:10.5px;color:#8a94a3;line-height:1.55;margin-top:11px}
+.lg{display:flex;gap:14px;font-size:10.5px;color:#505a68;margin-bottom:9px;flex-wrap:wrap}
+.lg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tor{display:grid;grid-template-columns:142px 1fr 66px;gap:7px;align-items:center;margin-bottom:7px;font-size:11.5px}
+.tor .bar{height:16px;position:relative;background:#f0f2f5;border-radius:3px}
+.tor .bar div{position:absolute;top:0;bottom:0;border-radius:3px}
+.tor .dd{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.gridtbl{font-size:11px}
+.gridtbl td.c{text-align:center;font-weight:700;border-radius:3px;padding:5px 4px}
+.gridtbl td.here{outline:2px solid #1a1f28;outline-offset:-2px}
+.gridtbl th{padding:0 4px 6px;font-size:9.5px}
+.gridtbl td:first-child{color:#6b7684;font-size:10px}
+svg text{font-family:inherit}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.tglrow{display:flex;gap:5px;margin-bottom:7px}
+.tgl{flex:1;background:#fff;border:1px solid #d7dce3;color:#6b7684;font:600 11px inherit;padding:7px 4px;border-radius:6px;cursor:pointer}
+.tgl:hover{background:#f0f2f5}
+.tgl.on{background:#eef6ef;border-color:#9ccfa9;color:#1f7a3d}
+input.bcell{font:700 11.5px inherit;color:#0d1117;font-variant-numeric:tabular-nums;background:#f0f2f5;border:1px solid #dfe3e9;padding:3px 7px;border-radius:4px;width:94px;text-align:right;outline:none;transition:border-color .12s,background .12s}
+input.bcell:hover{border-color:#bfc7d1;background:#fff}
+input.bcell:focus{border-color:#d20a0a;background:#fff;box-shadow:0 0 0 2px rgba(210,10,10,.12)}
+input.bcell.bad{border-color:#dc2626;background:#fdecec}
+td.bad{color:#b91c1c;font-weight:700}
+td.warn{color:#8a6d1a;font-weight:700}
+td.good{color:#15803d;font-weight:700}
+.bklead{font-size:12px;color:#505a68;margin:-2px 0 14px}
+.mcard{padding:15px 16px 13px}
+.mc-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.mc-cap{font-size:10px;color:#8a94a3;letter-spacing:.4px}
+.mc-in{display:flex;align-items:baseline;gap:7px;margin-bottom:8px}
+.mc-in input{font:700 20px inherit;color:#0d1117;font-variant-numeric:tabular-nums;background:#f0f2f5;border:1px solid #dfe3e9;padding:4px 9px;border-radius:5px;width:112px;text-align:right;outline:none;transition:border-color .12s,background .12s}
+.mc-in input:hover{border-color:#bfc7d1;background:#fff}
+.mc-in input:focus{border-color:#d20a0a;background:#fff;box-shadow:0 0 0 2px rgba(210,10,10,.12)}
+.mc-in input.bad{border-color:#dc2626;background:#fdecec}
+.mc-lab{font-size:11px;color:#8a94a3}
+.bebtn{margin-left:auto;background:#fff;border:1px solid #d7dce3;color:#505a68;font:600 10px inherit;padding:5px 9px;border-radius:5px;cursor:pointer;white-space:nowrap}
+.bebtn:hover:not(:disabled){background:#1a1f28;border-color:#1a1f28;color:#fff}
+.bebtn:disabled{opacity:.4;cursor:not-allowed}
+.mcsl{margin-bottom:13px}
+.mc-big{font-size:25px;font-weight:700;letter-spacing:-.4px;font-variant-numeric:tabular-nums;line-height:1.15}
+.mc-big.pos{color:#15803d}.mc-big.neg2{color:#c01818}
+.mc-sub{font-size:10px;color:#8a94a3;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:11px}
+table.mctbl{font-size:11.5px}
+table.mctbl td{padding:4.5px 0;border-bottom:1px solid #f2f4f7}
+table.mctbl td:first-child{color:#6b7684}
+table.mctbl td:last-child{text-align:right;font-weight:600}
+table.mctbl tr:last-child td{border-bottom:none}
+.mcsp{margin-top:9px}
+.ptiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}
+.ptile{min-width:0;background:#f7f8fa;border:1px solid #eef0f3;border-radius:7px;padding:10px 12px}
+.ptile .l{font-size:9.5px;color:#6b7684;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:5px}
+.ptile .v{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;color:#0d1117;letter-spacing:-.2px}
+.ptile .v.pos{color:#15803d}.ptile .v.neg2{color:#c01818}
+details.dts{padding:0}
+details.dts>summary{list-style:none;cursor:pointer;padding:14px 17px;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#505a68;font-weight:700;display:flex;align-items:center;gap:8px}
+details.dts>summary::-webkit-details-marker{display:none}
+details.dts>summary:before{content:"▸";font-size:12px;color:#8a94a3;transition:transform .15s;display:inline-block}
+details.dts[open]>summary:before{transform:rotate(90deg)}
+details.dts>summary:hover{color:#0d1117;background:#fafbfc}
+details.dts>*:not(summary){margin:0 17px 15px}
+.bkflag{margin-top:11px;padding:9px 11px;border-radius:6px;font-size:11px;line-height:1.55}
+.bkflag.red{background:#fdecec;border:1px solid #f3c9c9;color:#8e1515}
+.bkflag.grn{background:#eef6ef;border:1px solid #cfe5d4;color:#1a6334}
+.bkflag.amb{background:#fdf6e3;border:1px solid #ecdcae;color:#7a5c12}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr}}
+@media(max-width:900px){.ptiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.wrap{padding:16px 16px 48px}.kpis{grid-template-columns:repeat(2,1fr);margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+  .ptiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  details.dts>*:not(summary){margin:0 14px 14px}
+  details.dts>summary{padding:13px 14px}}
+@media(max-width:900px){.kpis{position:static;box-shadow:none}}
+</style>
+<div class="wrap">
+<div class="hd">
+  <div><h1>UFC GYM <span>AZERBAIJAN</span> &nbsp;/&nbsp; Portfolio Model</h1>
+    <div class="sub">Model v79 &middot; nothing you change here is saved or shared &mdash; move anything you like, then press reset</div></div>
+  <span class="badge">engine matches Portfolio Model v79</span>
+</div>
+<div class="kpis" id="kpis"></div>
+<div class="grid">
+  <div>
+    <div class="panel"><h3>Portfolio shape <span style="color:#8a94a3;font-weight:500;text-transform:none;letter-spacing:0" id="nsite"></span></h3><div id="shape"></div></div>
+    <div class="panel"><h3>Commercial levers</h3><div id="lev1"></div></div>
+    <div class="panel"><h3>Cost levers</h3><div id="lev2"></div></div>
+    <div class="panel"><h3>Scenario</h3>
+      <div class="scn">
+        <button class="sbtn on" id="s_base" onclick="PRESET('base')">Base</button>
+        <button class="sbtn" id="s_down" onclick="PRESET('down')">Downside</button>
+        <button class="sbtn" id="s_up"   onclick="PRESET('up')">Upside</button>
+      </div>
+      <div class="scndesc" id="scndesc"></div>
+      <button class="btn red" onclick="RESETALL()">Reset everything to base case</button>
+    </div>
+  </div>
+  <div>
+    <div class="tabs">
+      <button class="tab on" data-t="ov" onclick="TAB('ov')">Overview</button>
+      <button class="tab" data-t="ec" onclick="TAB('ec')">Economics</button>
+      <button class="tab" data-t="sn" onclick="TAB('sn')">Sensitivity</button>
+      <button class="tab" data-t="bk" onclick="TAB('bk')">Breakeven</button>
+    </div>
+    <div id="t_ov">
+    <div class="panel"><h3>Revenue &amp; EBITDA by year</h3>
+      <div class="lg"><span><i style="background:#2563eb"></i>Net revenue</span><span><i style="background:#d20a0a"></i>Portfolio EBITDA</span><span><i style="background:#16a34a"></i>EBITDA margin</span></div>
+      <div id="ch1"></div></div>
+    <div class="two">
+      <div class="panel"><h3>Members by format</h3>
+        <div class="lg"><span><i style="background:#c01818"></i>Signature</span><span><i style="background:#15803d"></i>Core</span><span><i style="background:#1d4ed8"></i>BJJ</span></div>
+        <div id="ch2"></div></div>
+      <div class="panel"><h3>Cumulative free cash flow</h3><div id="ch3"></div></div>
+    </div>
+    <div class="panel"><h3>Sites</h3><div class="scroll" id="tbl"></div>
+      <div class="note" id="mktnote"></div></div>
+    </div>
+    <div id="t_ec" hidden>
+      <div class="panel"><h3>Where the margin goes
+        <span class="yrsel" id="yrsel"></span></h3>
+        <div id="bridge"></div>
+        <div class="note">Net revenue at 100%, each cost stepping down to EBITDA. Percentages are of net revenue in the selected year.</div></div>
+      <div class="panel"><h3>Summary</h3><div id="sum"></div></div>
+    </div>
+    <div id="t_sn" hidden>
+      <div class="panel"><h3>IRR by driver</h3><div class="scroll" id="sens"></div>
+        <div class="note">Each cell re-runs the whole engine with one driver moved, everything else held at the current setting. Shaded against the 13.1% discount rate.</div></div>
+      <div class="two">
+        <div class="panel"><h3>IRR &nbsp;/&nbsp; price &times; utilisation</h3><div class="scroll" id="g1"></div>
+          <div class="note">The two drivers that matter most. Green above the 13.1% hurdle.</div></div>
+        <div class="panel"><h3>NPV &nbsp;/&nbsp; price &times; utilisation</h3><div class="scroll" id="g2"></div>
+          <div class="note">Same grid by value rather than rate. IRR and NPV do not always agree on the same decision.</div></div>
+      </div>
+      <div class="two">
+        <div class="panel"><h3>IRR &nbsp;/&nbsp; churn &times; price</h3><div class="scroll" id="g5"></div>
+          <div class="note">Monthly churn against price. Rows are the club churn rate the slider sets; BJJ sits one point below each row. Price moves all three formats together here.</div></div>
+        <div class="panel"><h3>2041 EBITDA margin &nbsp;/&nbsp; rent &times; payroll</h3><div class="scroll" id="g3"></div>
+          <div class="note">What the margin becomes if rent and payroll normalise toward industry levels. This is the answer to the 20&ndash;35% benchmark question.</div></div>
+      </div>
+      <div class="panel"><h3>IRR &nbsp;/&nbsp; Core count &times; BJJ count</h3><div class="scroll" id="g4"></div>
+        <div class="note">Build-mix test, holding the Signature at one. Current counts are outlined.</div></div>
+    </div>
+    <div id="t_bk" hidden>
+      <div class="bklead">Move the members on each format and watch the money move with it. Everything else on this tab is set-up, folded away below.</div>
+      <div class="three" id="bcards"></div>
+      <div class="panel" id="bport"></div>
+      <details class="panel dts" id="d_pl" open><summary>Where the money goes at these member counts</summary>
+        <div class="scroll" id="btbl" style="margin-bottom:16px"></div>
+        <div class="scroll" id="bwalk"></div>
+        <div class="note">AZN per month, one club per column. The portfolio column multiplies each format by its count in the left rail, so the head office allocated across the clubs adds back to the full head office line.</div></details>
+      <details class="panel dts" id="d_cv" ontoggle="if(this.open)draw()"><summary>Profit across the whole member range</summary>
+        <div class="three" id="bchart"></div>
+        <div class="note">One club of each format at the basis year. The dashed vertical is the capacity cap and the dot is the breakeven crossing. A line still below zero at the cap cannot break even on these costs at any membership. The slope flattens after the crossing because profit tax starts to bite.</div></details>
+      <details class="panel dts" id="d_bs"><summary>Basis and the other inputs</summary>
+        <div class="two"><div id="bbasis"></div>
+          <div><div class="scroll" id="binputs"></div>
+            <div class="note">Every figure here is typed, not a multiplier, and this tab reads the base assumptions rather than the scenario levers on the left. Club payroll is the net monthly roster total from Assumptions 4b; the 35% employment on-cost is added on top. The only thing taken from the left rail is how many clubs are open, which sets the head office there is to spread.</div></div></div></details>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// UFC GYM Azerbaijan - portfolio engine, ported from Portfolio Model v78.
+// Checked against the v79 workbook at the Oct-2026 base case (1 Signature, 5 Core, 3 BJJ):
+// NPV 4,441,195, IRR 23.068%, payback 6.774 yrs, equity 8,658,300, minimum cash -284,480.
+// v79 = v78 engine extended from eight club blocks to nine, minimum royalty guarantee switched off.
+// v78 (from v62): the model runs Jan-2027 to Dec-2041; every club opens in
+// September (Signature Sep-2027, fit-out from May); clubs hold 85% of the hard
+// cap at maturity; BJJ churns 4% against the 2% its marketing was sized for;
+// the Signature price list is five tiers with a 20% trainer share on Combat and
+// Recreational; Signature payroll 30,400 (head coach 3,400, two arm-bar staff,
+// technician 800); equipment 745,000, AV 65,000, pre-opening 135,000; 12 L of
+// non-shower water and 17.5 kW of misc load at the Signature; the MTA fee, HoldCo
+// equity and MTA amortisation start at the first fit-out, not Sep-2026; NPV now
+// discounts the first year too (=NPV over 2027-2041).
+// v62: price list cut across Signature and Core; Core and BJJ now carry their
+// own monthly / annual shares; BJJ capacity 150 -> 200; Signature coaching
+// bench 4 -> 8 (payroll 23,900 -> 27,900); pre-opening 150,000 -> 136,000.  The version history below records what
+// each change did; the figures above are the current state, not v14's.
+// v13: Signature pre-opening rebuilt bottom-up to 200,000 (was 251,000).
+// v14: utilities rebuilt activity-based from deck slide 4.4 - water and gas
+// per session, electricity from connected load x opening hours.
+// v15: the blended fee is derived from the eight-tier price list again
+// (restored from the vF model), not typed in.
+// v16: Core and BJJ get their own price tables too - Core on the Signature's
+// gym-only tiers, BJJ on its own two, both at the same monthly/annual split.
+// v17: cleaning cut to 500 AZN everywhere; BJJ front desk to 600 and its
+// coaching bench to two people at 1,000 each, with no step-up.
+// v18: security removed from every format; Core loses its general manager
+// and head coach and its coaches come down to 1,000 AZN.
+// v19: a club manager goes back into Core at 1,500 AZN. Price is now three
+// levers, one per format, on top of the global one the scenarios still use.
+//
+// v12 marketing: ONE pooled budget for the whole portfolio - 7% of consolidated
+// net revenue for the first 12 months of operation, 5% for months 13-36, then 3%,
+// dropping to 2% once every club has reached capacity. That date is calculated,
+// not typed: each club tops out at its opening month plus its ramp, and the
+// latest one sets the step-down, so it follows whatever mix is set below.
+// ─────────────────────────────────────────────────────────────────────────────
+const A={fx:1.7,infl:.04,salg:.04,price_g:.04,rent_step:.10,rent_yrs:5,tax:.2,soc:.35,vat:.18,vat_lag:6,
+ min_cash:1e5,wacc:.0676+.0285+.035,mta:2e5,loc_fee:2e4,roy:.04,mkt_fund:0,mta_life:18,
+ life_fit:10,life_eq:5,repl_yr:6,repl_pct:.7,opco_base:18900+500,opco_site:0,opco_lead:2,hold_eq:2e5*1.7+1e5,
+ mkt1:.07,mkt2:.05,mkt3:.03,                     // 7/5/3 bands from the first opening (Assumptions 46-48)
+ mkt_min:.02,                                    // UFC Long Form Agreement floor (Assumptions 26)
+ util_mat:.85,                                   // v78: clubs hold 85% of the hard cap at maturity (Assumptions 32)
+ // v14 utilities, activity based (Assumptions section 14)
+ shw_min:7,shw_lpm:7.5,wc_l:12,wat_t:2.0,        // v78: toilet, sink, laundry and cafe 12 L (was 7)
+ t_rise:25,kwh_m3c:1.163,gas_kwh:9.5,gas_t:.30,
+ hvac_ld:.24,cardio_k:.6,sauna_ld:.45,el_t:.125};
+// Minimum royalty guarantee - UFC GYM Azerbaijan Term Sheet, Schedule 1 (USD per
+// contract year).  Steps with the club count, not with time: 17,280 for the first
+// club, +4,320 a year for each club added, +3% in a year with no opening.  The
+// term sheet tabulates to 2036; 2037-2041 carry the same +3% (Assumptions 2b).
+// Oct-2026: switched off for now - royalties clear the guarantee from 2028 on, and the only
+// top-up was 21.6k AZN in 2027. The term-sheet schedule is kept below for when it comes back.
+const MRG_TERM_SHEET={2026:0,2027:17280,2028:17798,2029:24278,2030:28598,2031:32918,2032:37238,
+ 2033:41558,2034:45878,2035:50198,2036:51704,2037:53255,2038:54853,2039:56498,2040:58193,2041:59939};
+const MRG={};
+A.shw_l=A.shw_min*A.shw_lpm;                      // water per shower, L
+A.wat_l=A.shw_l+A.wc_l;                           // water per session, L
+A.wat_az=A.wat_l/1000*A.wat_t;                    // water and sewage per session, AZN
+A.gas_az=A.shw_l/1000*A.t_rise*A.kwh_m3c/A.gas_kwh*A.gas_t;   // gas to heat it, AZN
+A.util_var=A.wat_az+A.gas_az;                     // 0.1672 AZN per session
+// v15: the Signature fee is a weighted average of the price list, restored from the vF
+// model (Assumptions section 15). Four monthly tiers and the same four on annual plans;
+// an annual plan counts at price/12. Change a price or a share and the blended fee moves.
+// v78: the Signature list is five tiers (Assumptions 15a), each with a monthly price,
+// an optional annual price and the share of its members on the annual plan. Members are
+// typed as heads; the mix is heads / total. Combat and Recreational pay 20% of their
+// membership revenue to the trainers who deliver the classes.
+const SIG_TIERS=[
+ {tier:"Limited GYM",  access:"12 times a month",                         members:1000,mo:130,ann:1200,sa:.65,tr:0},
+ {tier:"Limitless GYM",access:"Unlimited, includes Global access",        members:200, mo:150,ann:1500,sa:.65,tr:0},
+ {tier:"Combat",       access:"Combat class + 8 times a month GYM access",members:250, mo:120,ann:null,sa:0,  tr:.20},
+ {tier:"Recreational", access:"12 times a month class access",            members:300, mo:120,ann:null,sa:0,  tr:.20},
+ {tier:"Kids",         access:"12 times a month class access",            members:250, mo:90, ann:null,sa:0,  tr:0}];
+const sigEff=t=>(1-t.sa)*t.mo+(t.ann!=null?t.sa*t.ann/12:0);
+const SIG_HEADS=SIG_TIERS.reduce((a,t)=>a+t.members,0);
+const TIERS={Signature:SIG_TIERS.map(t=>({tier:t.tier,eff:sigEff(t),mix:t.members/SIG_HEADS,
+  trAZN:(1-t.sa)*t.mo*t.tr+(t.ann!=null?t.sa*t.ann/12*t.tr:0)}))};
+const effMo=t=>t.eff!=null?t.eff:(t.type==="Annual"?t.price/12:t.price);
+// Core and BJJ carry their own monthly / annual shares (Assumptions 15b and 15c).
+TIERS.Core=[  // Limited GYM tier prices from the Signature table above
+ {tier:"Limited GYM",type:"Monthly",access:"12 times a month",price:SIG_TIERS[0].mo, mix:.35},
+ {tier:"Limited GYM",type:"Annual", access:"12 times a month",price:SIG_TIERS[0].ann,mix:.65}];
+TIERS.BJJ=[   // single discipline, its own price points
+ {tier:"Mat access",type:"Monthly",access:"All classes and open mat",price:120, mix:.80},
+ {tier:"Mat access",type:"Annual", access:"All classes and open mat",price:1080,mix:.20}];
+const SHARE_LOW=TIERS.Signature.filter(t=>effMo(t)<=140).reduce((a,t)=>a+t.mix,0);
+const blended=fmt=>{const t=TIERS[fmt]; return t?t.reduce((a,x)=>a+effMo(x)*x.mix,0):null;};
+// trainer share as a % of membership revenue (Assumptions 186): Signature only
+const trainerShare=fmt=>{const t=TIERS[fmt], b=blended(fmt);
+  return t&&b?t.reduce((a,x)=>a+(x.trAZN||0)*x.mix,0)/b:0;};
+const F={ // per format: Signature, Core, BJJ  (Assumptions cols D / E / F)
+ Signature:{sqm:2000,cap:2000,rent:15,fit:4,presale:350,ramp:24,churn:.03,churn_base:.03,fee:null,join:20,
+  pt:.05,pt_cost:.70,retail:.055,cogs:.3,cc:.015,cc_share:.8,
+  pay_open:30400,pay_mat:30400,acct:0,legal:0,light_w:6,vent_w:6.25,hvac_w:43,cardio_n:30,av_kw:3,misc_kw:17.5,sauna_n:2,sauna_kw:12,open_h:510,sauna_h:300,visits:9.3,ins:500,maint:1500,it:500,misc:500,
+  fitout_sqm:650,equip:745000,av:65000,preopen:135000,wc:0},
+ Core:{sqm:950,cap:800,rent:15,fit:2,presale:150,ramp:18,churn:.03,churn_base:.03,join:20,
+  pt:.05,pt_cost:.70,retail:.05,cogs:.3,cc:.015,cc_share:.8,
+  pay_open:9900,pay_mat:9900,acct:0,legal:0,fee:null,light_w:6,vent_w:6.25,hvac_w:43,cardio_n:12,av_kw:2,misc_kw:2,sauna_n:1,sauna_kw:12,open_h:510,sauna_h:300,visits:9.3,ins:300,maint:800,it:0,misc:300,
+  fitout_sqm:500,equip:400000,av:30000,preopen:10000,wc:0},
+ BJJ:{sqm:220,cap:200,rent:18,fit:2,presale:30,ramp:8,churn:.04,churn_base:.02,join:20,   // v68: real churn 4%, marketing sized for 2%
+  pt:.03,pt_cost:.70,retail:.03,cogs:.3,cc:.015,cc_share:.8,
+  pay_open:5100,pay_mat:5100,acct:0,legal:0,fee:null,light_w:6,vent_w:6.25,hvac_w:43,cardio_n:0,av_kw:1,misc_kw:0.8,sauna_n:0,sauna_kw:12,open_h:390,sauna_h:0,visits:9.3,ins:100,maint:300,it:0,misc:150,
+  fitout_sqm:400,equip:80000,av:15000,preopen:10000,wc:0}};
+Object.keys(F).forEach(k=>{const f=F[k];
+  const b=blended(k); if(b!==null) f.fee=b;   // fee is an output of the mix, not a typed number
+  f.trainer=trainerShare(k);                  // v78: % of membership revenue, charged in cost of revenue
+  f.util=A.util_mat;                          // v78: share of the hard cap held at maturity
+  f.el_wm2=f.light_w+f.vent_w+f.hvac_w*A.hvac_ld;        // follows floor area
+  f.el_kw=f.cardio_n*A.cardio_k+f.av_kw+f.misc_kw;        // does not
+  f.sauna_k=f.sauna_n*f.sauna_kw*A.sauna_ld*f.sauna_h;    // own hours
+  // at the format's own floor area; each site recomputes from its own m² in sitePass
+  f.capex=f.sqm*f.fitout_sqm+f.equip+f.av;                      // Assumptions row 83
+  f.need=f.capex*(1+A.vat)+f.preopen+A.loc_fee*A.fx+f.wc;});    // Assumptions row 84
+
+const M0={y:2027,m:1}, NM=180;                       // v78: Jan-2027 .. Dec-2041
+const ym=i=>{const t=(M0.y*12+M0.m-1)+i;return{y:Math.floor(t/12),m:t%12+1};};
+const idx=(y,m)=>(y*12+m-1)-(M0.y*12+M0.m-1);
+// Each format carries its own price multiplier. lev.price moves all three at once
+// (scenarios and the sensitivity grids use it); the three sliders move one each.
+const PKEY={Signature:"pSig",Core:"pCore",BJJ:"pBjj"};
+const pmul=(lev,fmt)=>lev.price*(lev[PKEY[fmt]]!==undefined?lev[PKEY[fmt]]:1);
+const MN=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const mlabel=i=>{const{y,m}=ym(i);return MN[m]+"-"+y;};
+
+// v12: the pooled marketing schedule. Portfolio starts when the first club opens;
+// it is full when the last club reaches capacity (opening + ramp).
+function schedule(sites){
+  if(!sites.length) return {pStart:0,pFull:0,rate:new Array(NM).fill(Math.max(A.mkt3,A.mkt_min))};
+  const pStart=Math.min(...sites.map(s=>idx(s.open.y,s.open.m)));
+  const pFull =Math.max(...sites.map(s=>idx(s.open.y,s.open.m)+F[s.format].ramp-1));
+  const rate=[];
+  for(let i=0;i<NM;i++){                          // v78: bands only, no maturity switch (Gym Engine row 8)
+    const om=i-pStart; rate[i]=om<12?A.mkt1:om<36?A.mkt2:A.mkt3;
+  }
+  for(let i=0;i<NM;i++) rate[i]=Math.max(rate[i],A.mkt_min);   // never below the UFC minimum
+  return {pStart,pFull,rate};
+}
+
+// one monthly pass over every site. cpa = cost to replace a churned member,
+// in months of fee, per format (v12 Assumptions row 118). Empty on the first pass.
+function sitePass(sites,lev,cpa,rate){
+ const costI=[],salI=[];
+ for(let i=0;i<NM;i++){const{y}=ym(i);const e=Math.max(0,y-2027);
+   costI[i]=Math.pow(1+A.infl,e); salI[i]=Math.pow(1+A.salg,e);}
+ return sites.map(s=>{
+  const f=F[s.format], o=idx(s.open.y,s.open.m), fit=f.fit, fs=o-fit;
+  const sqm=s.sqm||f.sqm, rent=s.rent||f.rent;
+  // Floor area drives rent, utilities and the fit-out (capex and its depreciation) - nothing else.
+  // Member capacity is a HARD CAP per format, set by what the Baku market will bear, not by m².
+  // Staff, equipment, AV, pre-opening, presale and the working-capital buffer all follow the
+  // member cap, so they are format constants. A bigger building therefore costs more and
+  // earns the same, which is what oversizing really does.
+  const cap=f.cap*lev.util*(s.capMult||1);            // v78: hard cap x utilisation at maturity (85% base)
+  const equip=f.equip, av=f.av, preopen=f.preopen;
+  // electricity is fixed once the doors open: lighting, ventilation and cooling follow
+  // the floor area, cardio / screens / reception / saunas do not. Water and gas are
+  // charged per visit, so utilities ramp with membership instead of starting at full cost.
+  const elec=((f.el_wm2/1000*sqm+f.el_kw)*f.open_h+f.sauna_k)*A.el_t;
+  const fitout=sqm*f.fitout_sqm;                      // the only part that follows m²
+  const capex=fitout+equip+av;
+  const need=capex*(1+A.vat)+preopen+A.loc_fee*A.fx+f.wc;
+  const cm=cpa[s.format]||0;
+  const r={op:[],mem:[],rev:[],ebitda:[],capex:[],preop:[],vat:[],repl:[],cf:[],da:[],fund:[],royalty:[],ga:[],cor:[],rent:[],staff:[],roy2:[],mkt:[],util:[],oth:[],card:[]};
+  let prev=0;
+  for(let i=0;i<NM;i++){
+   const{y}=ym(i);
+   const fitF=(i>=fs&&i<o)?1:0, opF=(i>=o)?1:0;
+   const om=opF?(i-o+1):0;
+   const open=prev, churn=f.churn+lev.churn, ch=open*churn;
+   // v11 ramp: net adds spread over (ramp - 1) months so capacity lands exactly on month `ramp`
+   const na=om===1?f.presale:(opF?(cap-f.presale)/((f.ramp-1)/(s.rampMult||1)):0);
+   const ga=opF?Math.max(0,Math.min(cap,open+na)-open+ch):0;
+   const close=open-ch+ga; prev=close;
+   const pI=opF?Math.pow(1+A.price_g,Math.max(0,y-2027))*(s.priceMult||1)*pmul(lev,s.format):0;
+   const mrev=close*f.fee/(1+A.vat)*pI, jf=ga*f.join/(1+A.vat);
+   const pt=mrev*f.pt, rt=mrev*f.retail, rev=mrev+jf+pt+rt;
+   const cor=pt*f.pt_cost+rt*f.cogs+mrev*f.trainer;   // v78: + trainer share
+   // v55: rent is flat then steps, as the vF model had it - not an annual uplift
+   const rentC=opF*sqm*rent*Math.pow(1+A.rent_step,Math.floor(Math.max(0,y-2027)/A.rent_yrs))*lev.rentM;
+   const staff=opF*f.pay_mat*salI[i]*(1+lev.soc)*lev.staffM;   // v24: one roster, no ramp
+   const royB=rev*(A.roy+A.mkt_fund), roy=rev*A.roy;
+   // v12 marketing: the pooled portfolio rate covers churn_base. Only the gap from
+   // plan is priced, at the cost of replacing a member, on the NET fee. Below plan
+   // is credited back. (v11 priced this on the VAT-inclusive fee, 18% too high.)
+   const mkt=rev*rate[i]
+            +open*(churn-f.churn_base)*cm*f.fee/(1+A.vat)*pI;
+   const util=opF*(elec+close*f.visits*A.util_var)*costI[i];
+   const oth=opF*(f.ins+f.maint+f.it+f.misc+f.acct+f.legal)*costI[i];
+   const card=rev*f.cc*f.cc_share;
+   const opex=(rentC+staff+mkt+util+oth)*lev.cost+royB+card;
+   const eb=rev-cor-opex;
+   const cx=fitF*(capex+A.loc_fee*A.fx)/fit, po=fitF*preopen/fit;   // v40: location fee capitalised
+   const vt=-fitF*capex*A.vat/fit+((om===A.vat_lag+1)?capex*A.vat:0);
+   const rp=(om===(A.repl_yr-1)*12+1)?equip*A.repl_pct*Math.pow(1+A.infl,A.repl_yr-1):0;
+   const da=((om>=1&&om<=A.life_fit*12)?(sqm*f.fitout_sqm+A.loc_fee*A.fx)/(A.life_fit*12):0)
+           +((om>=1&&om<=A.life_eq*12)?(equip+av)/(A.life_eq*12):0)
+           +((om>=(A.repl_yr-1)*12+1&&om<=(A.repl_yr-1)*12+A.life_eq*12)?equip*A.repl_pct*Math.pow(1+A.infl,A.repl_yr-1)/(A.life_eq*12):0);
+   r.op[i]=opF; r.mem[i]=close; r.rev[i]=rev; r.ebitda[i]=eb; r.capex[i]=cx; r.preop[i]=po;
+   r.vat[i]=vt; r.repl[i]=rp; r.cf[i]=eb-cx-po+vt-rp; r.da[i]=da;
+   r.fund[i]=fitF*need/fit; r.royalty[i]=roy; r.ga[i]=ga;
+   r.cor[i]=cor; r.rent[i]=rentC*lev.cost; r.staff[i]=staff*lev.cost; r.roy2[i]=royB;
+   r.mkt[i]=mkt*lev.cost; r.util[i]=util*lev.cost; r.oth[i]=oth*lev.cost; r.card[i]=card;
+  }
+  return Object.assign({},s,{res:r,cap:cap,sqm:sqm,capexTot:capex,needTot:need});
+ });
+}
+
+function run(cfg){
+ const lev=Object.assign({price:1,pSig:1,pCore:1,pBjj:1,util:A.util_mat,churnAbs:.03,cost:1,
+   soc:A.soc,rentM:1,staffM:1},cfg.lev||{});
+ lev.churn=lev.churnAbs-0.03;   // slider is the absolute club rate; all formats shift by the same pp
+ const {pStart,pFull,rate}=schedule(cfg.sites);
+ const REF=Math.min(NM-1,pFull+1);   // first month after the portfolio is full = true maturity
+ // pass 1 gives mature revenue, which the cost-to-acquire is derived from.
+ // Revenue does not depend on marketing, so this mirrors the Excel dependency chain exactly.
+ const p1=sitePass(cfg.sites,lev,{},rate);
+ // v43: acquisition is priced off the blended rate across the schedule, not the terminal rate
+ let _bn=0,_bd=0;
+ for(let i=0;i<NM;i++){const rv=p1.reduce((a,s)=>a+s.res.rev[i],0); _bn+=rate[i]*rv; _bd+=rv;}
+ const blendRate=_bd?_bn/_bd:A.mkt3;
+ const cpa={};
+ ["Signature","Core","BJJ"].forEach(fmt=>{
+   const s=p1.find(x=>x.format===fmt); if(!s){cpa[fmt]=0;return;}
+   const f=F[fmt];
+   const joins=(REF>0?s.res.mem[REF-1]:0)*f.churn_base;       // members to replace per month at plan
+   const cpj=joins>0?s.res.rev[REF]*blendRate/joins:0;        // blended marketing spend / joins
+   const pidx=Math.pow(1+A.price_g,Math.max(0,ym(REF).y-2027))*(s.priceMult||1)*pmul(lev,fmt);
+   const den=f.fee/(1+A.vat)*pidx;
+   cpa[fmt]=den>0?cpj/den:0;                                   // in months of fee
+ });
+ const sites=sitePass(cfg.sites,lev,cpa,rate);
+ // HoldCo
+ const H={cost:[],cash:[],mta:[],amort:[]};
+ const salI=[]; for(let i=0;i<NM;i++)salI[i]=Math.pow(1+A.salg,Math.max(0,ym(i).y-2027));
+ // v78: the MTA fee, HoldCo equity and MTA amortisation start at the first opening less
+ // the Signature fit-out window (Assumptions 120), not at a typed Sep-2026.
+ const mtaI=Math.max(0,pStart-F.Signature.fit);
+ for(let i=0;i<NM;i++){
+  const{y,m}=ym(i);
+  const n=sites.reduce((a,s)=>a+s.res.op[i],0);
+  const fee=(i>=pStart-A.opco_lead)?(A.opco_base+A.opco_site*Math.max(0,n-1))*salI[i]:0;
+  const mta=(i===mtaI)?A.mta*A.fx:0;
+  const am=(i>=mtaI&&i<mtaI+A.mta_life*12)?A.mta*A.fx/(A.mta_life*12):0;
+  const royp=sites.reduce((a,s)=>a+s.res.royalty[i],0);
+  const mrg=(y>=2027)?Math.max(0,(MRG[y]||0)*A.fx/12-royp):0;
+  H.cost[i]=fee+mrg; H.cash[i]=fee+mrg+mta; H.mta[i]=mta; H.amort[i]=am;
+ }
+ // annual consolidation
+ const Y=[]; for(let y=2027;y<=2041;y++)Y.push(y);
+ const ann=k=>Y.map(y=>{let t=0;for(let i=0;i<NM;i++)if(ym(i).y===y)t+=k(i);return t;});
+ const rev=ann(i=>sites.reduce((a,s)=>a+s.res.rev[i],0));
+ const sEb=ann(i=>sites.reduce((a,s)=>a+s.res.ebitda[i],0));
+ const hC =ann(i=>H.cost[i]);
+ const eb =sEb.map((x,j)=>x-hC[j]);
+ const da =ann(i=>sites.reduce((a,s)=>a+s.res.da[i],0)+H.amort[i]);
+ const po =ann(i=>sites.reduce((a,s)=>a+s.res.preop[i],0));
+ const cx =ann(i=>sites.reduce((a,s)=>a+s.res.capex[i],0));
+ const vt =ann(i=>sites.reduce((a,s)=>a+s.res.vat[i],0));
+ const rp =ann(i=>sites.reduce((a,s)=>a+s.res.repl[i],0));
+ const mta=ann(i=>H.mta[i]);
+ const mem=Y.map(y=>{const i=idx(y,12);return i<NM?sites.reduce((a,s)=>a+s.res.mem[i],0):0;});
+ const memF={Signature:[],Core:[],BJJ:[]};
+ Y.forEach((y,k)=>{const i=idx(y,12);
+   ["Signature","Core","BJJ"].forEach(f=>{
+     memF[f][k]= i<NM ? sites.filter(s=>s.format===f).reduce((a,s)=>a+s.res.mem[i],0) : 0;});});
+ const L_=k=>ann(i=>sites.reduce((a,s)=>a+s.res[k][i],0));
+ const cor=L_("cor"),rent=L_("rent"),staff=L_("staff"),royl=L_("roy2"),
+       mkt=L_("mkt"),util=L_("util"),oth=L_("oth"),card=L_("card"),hold=hC;
+ const pbt=eb.map((x,j)=>x-da[j]-po[j]);
+ let lcf=0; const chg=[];
+ pbt.forEach(p=>{const tx=Math.max(0,p-lcf); lcf=Math.max(0,lcf-p); chg.push(tx*A.tax);});
+ const paid=chg.map((_,j)=>j>0?chg[j-1]:0);
+ const fcf=eb.map((x,j)=>x-paid[j]-cx[j]-po[j]+vt[j]-rp[j]-mta[j]);
+ // returns
+ // v78: Excel =NPV over 2027-2041, so the first year is discounted too
+ let npv=0; for(let j=0;j<fcf.length;j++)npv+=fcf[j]/Math.pow(1+A.wacc,j+1);
+ const f=r=>{let v=0;for(let j=0;j<fcf.length;j++)v+=fcf[j]/Math.pow(1+r,j);return v;};
+ let lo=-.9,hi=3,irr=null;
+ if(f(lo)*f(hi)<0){for(let k=0;k<200;k++){const mid=(lo+hi)/2; if(f(mid)>0){lo=mid;}else{hi=mid;}} irr=(lo+hi)/2;}
+ const cum=[]; fcf.reduce((a,x,j)=>cum[j]=a+x,0);
+ // years from Jan-2027: whole negative years plus the fraction of the crossing year
+ let pb=null; for(let j=0;j<cum.length;j++)if(cum[j]>=0){pb=j?j+(-cum[j-1]/fcf[j]):0;break;}
+ // equity & cash
+ const eqM=[],cashM=[]; let cash=0;
+ for(let i=0;i<NM;i++){
+  const{y,m}=ym(i);
+  const eq=sites.reduce((a,s)=>a+(s.funding==="Equity"?s.res.fund[i]:0),0)+((i===mtaI)?A.hold_eq:0);
+  const taxM=(()=>{const j=Y.indexOf(y);return j>0?chg[j-1]/12:0;})();
+  const ucf=sites.reduce((a,s)=>a+s.res.cf[i],0)-H.cash[i]-taxM;
+  cash+=ucf+eq; eqM[i]=eq; cashM[i]=cash;
+ }
+ return {Y,rev,eb,fcf,mem,memF,da,po,cx,chg,paid,cum,npv,irr,pb,cpa,pStart,pFull,rate,
+  cor,rent,staff,royl,mkt,util,oth,card,hold,vt,rp,mta,sEb,pbt,
+  equity:eqM.reduce((a,x)=>a+x,0),minCash:Math.min(...cashM),cashY:Y.map(y=>{const i=idx(y,12);return i<NM?cashM[i]:0;}),
+  sites:sites.map(s=>({name:s.name,format:s.format,open:s.open,funding:s.funding,cap:s.cap,sqm:s.sqm,
+    capex:s.capexTot,need:s.needTot,
+    rev2040:(()=>{let t=0;for(let i=0;i<NM;i++)if(ym(i).y===2041)t+=s.res.rev[i];return t;})(),
+    eb2040:(()=>{let t=0;for(let i=0;i<NM;i++)if(ym(i).y===2041)t+=s.res.ebitda[i];return t;})()}))};
+}
+
+// ─────────── UI state ───────────
+// Base case (Oct 2026): 1 Signature, 5 Core opening two a year from Sep-2028, 3 BJJ one a year from Sep-2029
+const BASE_S={sig:1,core:5,bjj:3,
+  sigFirst:2027,coreFirst:2028,bjjFirst:2029,
+  sigGap:2,coreGap:0.5,bjjGap:1,
+  sigSqm:2000,coreSqm:950,bjjSqm:220};
+const BASE_L={price:1,pSig:1,pCore:1,pBjj:1,util:A.util_mat,churnAbs:0.03,cost:1,soc:0.35};
+let S={...BASE_S}, L={...BASE_L}, BASEOUT=null, BYEAR=2041;
+
+function buildSites(s){
+  const out=[];
+  // The first club of each format opens in September of its first year; the gap can be a
+  // part-year (0.5 = 6 months), so each later opening is that many months after the last.
+  const at=(y0,gap,i)=>{const t=y0*12+8+Math.round(i*gap*12);return{y:Math.floor(t/12),m:t%12+1};};
+  for(let i=0;i<s.sig;i++) out.push({name:`Signature #${i+1}`,format:"Signature",open:at(s.sigFirst,s.sigGap,i),funding:"Equity",sqm:s.sigSqm});
+  for(let i=0;i<s.core;i++)out.push({name:`Core #${i+1}`,format:"Core",open:at(s.coreFirst,s.coreGap,i),funding:"Equity",sqm:s.coreSqm});
+  for(let i=0;i<s.bjj;i++) out.push({name:`BJJ #${i+1}`,format:"BJJ",open:at(s.bjjFirst,s.bjjGap,i),funding:"Cash",sqm:s.bjjSqm});
+  return out;
+}
+const calc=(s=S,l=L)=>run({sites:buildSites(s),lev:l});
+const nf=n=>n==null||isNaN(n)?"&ndash;":(Math.abs(n)>=1e6?(n/1e6).toFixed(2)+"m":Math.abs(n)>=1e3?(n/1e3).toFixed(0)+"k":n.toFixed(0));
+const pf=n=>n==null||isNaN(n)?"&ndash;":(n*100).toFixed(1)+"%";
+const cf=n=>n==null?"&ndash;":n.toLocaleString("en-US",{maximumFractionDigits:0});
+
+// ─────────── controls ───────────
+const FMT={},PARSE={},RNG={};
+const num=s=>{const m=String(s).replace(/[^0-9.\-]/g,""); const v=parseFloat(m); return isNaN(v)?null:v;};
+function slider(id,label,min,max,step,val,fmt,hint,parse){
+  FMT[id]=fmt; PARSE[id]=parse||num; RNG[id]=[min,max,step];
+  return `<div class="ctl"><div class="row"><span class="nm">${label}</span>
+  <input class="vv" id="v_${id}" value="${fmt(val)}" spellcheck="false"></div>
+  <input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}">
+  ${hint?`<div class="hint">${hint}</div>`:""}</div>`;
+}
+function renderControls(){
+  const yr=v=>String(v);
+  // gaps in years, shown in months below one year; "6 mo" or "6m" can be typed as well as "0.5"
+  const gp=v=>v<1?Math.round(v*12)+" mo":(+v.toFixed(2))+(v===1?" yr":" yrs");
+  const gpParse=t=>{const x=num(t); if(x===null) return null; return /m/i.test(t)?x/12:x;};
+  const GAPHINT="Steps of 3 months. Type 0.5 or 6 mo for one opening every six months";
+  document.getElementById("shape").innerHTML=
+    `<div class="fmthd">Signature</div>`
+   +slider("sig","Count",0,4,1,S.sig,v=>v)
+   +slider("sigFirst","First opens (Sep)",2027,2034,1,S.sigFirst,yr)
+   +slider("sigGap","Once in every",0.25,5,0.25,S.sigGap,gp,GAPHINT,gpParse)
+   +slider("sigSqm","Size",1200,4500,50,S.sigSqm,v=>v+" m²","Drives rent, utilities and fit-out. Capacity is a hard cap, not m² × a ratio")
+   +`<div class="fmthd">Core</div>`
+   +slider("core","Count",0,6,1,S.core,v=>v)
+   +slider("coreFirst","First opens (Sep)",2027,2036,1,S.coreFirst,yr)
+   +slider("coreGap","Once in every",0.25,5,0.25,S.coreGap,gp,GAPHINT,gpParse)
+   +slider("coreSqm","Size",600,1600,50,S.coreSqm,v=>v+" m²")
+   +`<div class="fmthd">BJJ</div>`
+   +slider("bjj","Count",0,10,1,S.bjj,v=>v)
+   +slider("bjjFirst","First opens (Sep)",2027,2037,1,S.bjjFirst,yr)
+   +slider("bjjGap","Once in every",0.25,4,0.25,S.bjjGap,gp,GAPHINT,gpParse)
+   +slider("bjjSqm","Size",120,400,10,S.bjjSqm,v=>v+" m²");
+  document.getElementById("lev1").innerHTML=
+    `<div class="fmthd">Blended price by format</div>`
+   +slider("pSig","Signature",0.5,1.3,0.01,L.pSig,v=>(F.Signature.fee*v).toFixed(0)+" ₼",
+      `Weighted average of five tiers: Limited and Limitless gym, Combat, Recreational, Kids. ${(SHARE_LOW*100).toFixed(0)}% of members pay 140 ₼ a month or less, effective. Combat and Recreational pass 20% to trainers`,
+      s=>{const x=num(s);return x===null?null:x/F.Signature.fee;})
+   +slider("pCore","Core",0.5,1.3,0.01,L.pCore,v=>(F.Core.fee*v).toFixed(0)+" ₼",
+      "Limited GYM tier prices from the Signature list (130 ₼ monthly, 1,200 ₼ annual), 35% monthly, 65% annual",
+      s=>{const x=num(s);return x===null?null:x/F.Core.fee;})
+   +slider("pBjj","BJJ",0.5,1.3,0.01,L.pBjj,v=>(F.BJJ.fee*v).toFixed(0)+" ₼",
+      "120 ₼ monthly, 1,080 ₼ annual, 80 / 20 monthly to annual",
+      s=>{const x=num(s);return x===null?null:x/F.BJJ.fee;})
+   +`<div class="fmthd">Volume and retention</div>`
+   +slider("util","Capacity utilisation at maturity",0.5,1,0.0025,L.util,v=>pf(v),
+      `Share of the hard cap each club holds once full. Base ${(A.util_mat*100).toFixed(0)}%: ${cf(Math.round(F.Signature.cap*A.util_mat))} at the Signature, ${cf(Math.round(F.Core.cap*A.util_mat))} at a Core club, ${cf(Math.round(F.BJJ.cap*A.util_mat))} at a BJJ studio. 100% is the hard cap`,
+      s=>{const x=num(s);return x===null?null:x/100;})
+   +slider("churnAbs","Monthly churn",0.01,0.10,0.0025,L.churnAbs,v=>(v*100).toFixed(2)+"%",
+      "Club rate. Base 3%; BJJ sits one point higher at 4%. Marketing was sized for 3% at the clubs and 2% at BJJ, so only churn above that is costed, at the cost to sign a member.",
+      s=>{const x=num(s);return x===null?null:x/100;});
+  document.getElementById("lev2").innerHTML=
+    slider("cost","Opex multiplier",0.85,1.3,0.01,L.cost,v=>pf(v),"Rent, staff, marketing, utilities, other fixed",s=>{const x=num(s);return x===null?null:x/100;})
+   +slider("soc","Employer social contributions",0.15,0.40,0.005,L.soc,v=>pf(v),"Model carries 35%; statutory ≈24.5% on this mix",s=>{const x=num(s);return x===null?null:x/100;});
+  ["sig","sigFirst","sigGap","sigSqm","core","coreFirst","coreGap","coreSqm",
+   "bjj","bjjFirst","bjjGap","bjjSqm"].forEach(k=>bind(k,S));
+  ["pSig","pCore","pBjj","util","churnAbs","cost","soc"].forEach(k=>bind(k,L));
+}
+function bind(k,obj){
+  const el=document.getElementById(k), chip=document.getElementById("v_"+k);
+  if(!el)return;
+  const [mn,mx,st]=RNG[k];
+  const sync=()=>{
+    const v=parseFloat(el.value); obj[k]=v;
+    if(chip&&document.activeElement!==chip) chip.value=FMT[k](v);
+  };
+  el.addEventListener("input",()=>{sync(); draw();});
+  if(chip){
+    const commit=()=>{
+      let v=PARSE[k](chip.value);
+      if(v===null||isNaN(v)){chip.classList.add("bad"); setTimeout(()=>{chip.classList.remove("bad"); chip.value=FMT[k](parseFloat(el.value));},700); return;}
+      v=Math.min(mx,Math.max(mn,Math.round(v/st)*st));
+      el.value=v; obj[k]=v; chip.value=FMT[k](v); draw();
+    };
+    chip.addEventListener("change",commit);
+    chip.addEventListener("keydown",e=>{
+      if(e.key==="Enter"){e.preventDefault(); chip.blur();}
+      if(e.key==="Escape"){chip.value=FMT[k](parseFloat(el.value)); chip.blur();}
+    });
+    chip.addEventListener("focus",()=>chip.select());
+  }
+  sync();
+}
+const SCN={
+ base:{lev:{price:1,util:0.85,churnAbs:0.03,cost:1},
+   desc:"v78 assumptions as they stand: 113 ₼ blended at the Signature, clubs fill to 85% of the hard cap (1,700 at the Signature) in 24 months, 3% monthly churn at the clubs and 4% at BJJ, with 1 Signature, 5 Core (two a year from Sep-2028) and 3 BJJ studios (one a year from Sep-2029)."},
+ down:{lev:{price:0.90,util:0.7225,churnAbs:0.04,cost:1.08},
+   desc:"Price held 10% below plan, clubs hold 72.3% of the hard cap at maturity instead of 85% (1,445 at the Signature), churn a full point worse at 4%, operating costs 8% over budget."},
+ up:{lev:{price:1.05,util:0.935,churnAbs:0.025,cost:0.95},
+   desc:"Price 5% ahead, clubs hold 93.5% of the hard cap at maturity (1,870 at the Signature), churn half a point better at 2.5%, operating costs 5% under budget."}};
+let SCNID="base";
+function RESETALL(){S={...BASE_S};L={...BASE_L};B={...BASE_B};SCNID="base";BYEAR=2041;renderControls();draw();}
+function PRESET(p){
+  SCNID=p; L={...BASE_L,...SCN[p].lev};
+  renderControls();draw();
+}
+
+// ─────────── SVG charts ───────────
+function bars(el,Y,rev,eb,marg){
+  // every bar carries its value, and the margin for each year sits in a row under the axis
+  const W=760,H=272,pl=52,pr=46,pt=12,pb=44;
+  const iw=W-pl-pr, ih=H-pt-pb, n=Y.length, bw=iw/n;
+  const mx=Math.max(...rev,1)*1.13, mn=Math.min(0,...eb);   // headroom for the labels on the tallest bar
+  const sc=v=>pt+ih-(v-mn)/(mx-mn)*ih;
+  const vl=v=>Math.abs(v)>=1e6?(v/1e6).toFixed(2)+"m":Math.abs(v)>=1e3?Math.round(v/1e3)+"k":Math.round(v);
+  // horizontal value label centred on its bar; the white halo keeps it legible over the margin line
+  const lab=(x,y,v,col)=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${col}" font-size="7.6" font-weight="700" text-anchor="middle" `
+    +`letter-spacing="-.15" stroke="#fff" stroke-width="2.4" paint-order="stroke">${vl(v)}</text>`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  for(let g=0;g<=4;g++){const v=mn+(mx-mn)*g/4,y=sc(v);
+    s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#e8ecf1"/>`;
+    s+=`<text x="${pl-7}" y="${y+3.5}" fill="#8a94a3" font-size="9" text-anchor="end">${nf(v)}</text>`;}
+  const L=[];   // value labels go on last, above the margin line
+  Y.forEach((y,j)=>{
+    const x=pl+j*bw, z=sc(0);
+    const hr=Math.abs(sc(rev[j])-z), he=Math.abs(sc(eb[j])-z);
+    s+=`<rect x="${x+bw*.16}" y="${Math.min(sc(rev[j]),z)}" width="${bw*.34}" height="${hr}" fill="#2563eb" rx="1.5"/>`;
+    s+=`<rect x="${x+bw*.52}" y="${Math.min(sc(eb[j]),z)}" width="${bw*.34}" height="${he}" fill="${eb[j]<0?"#f4a6a6":"#d20a0a"}" rx="1.5"/>`;
+    // a loss is labelled under its bar; a profit sits on top of it
+    const yE=eb[j]<0?sc(eb[j])+9:sc(eb[j])-3.5;
+    let yR=Math.min(sc(rev[j]),z)-3.5;
+    // the two labels are wider than their bars, so when they sit at about the same height
+    // the revenue one steps up clear of the EBITDA one
+    if(eb[j]>=0&&yE-yR<10) yR=yE-10;
+    if(Math.abs(rev[j])>=500) L.push(lab(x+bw*.33,yR,rev[j],"#1d4ed8"));
+    if(Math.abs(eb[j])>=500) L.push(lab(x+bw*.69,yE,eb[j],eb[j]<0?"#b91c1c":"#a10808"));
+    s+=`<text x="${x+bw/2}" y="${H-24}" fill="#8a94a3" font-size="9" text-anchor="middle">${String(y).slice(2)}</text>`;
+    s+=`<text x="${x+bw/2}" y="${H-8}" fill="${marg[j]<0?"#b91c1c":"#15803d"}" font-size="8.5" font-weight="700" text-anchor="middle">${rev[j]>0?(marg[j]*100).toFixed(0)+"%":"–"}</text>`;
+  });
+  s+=`<text x="${pl-7}" y="${H-8}" fill="#15803d" font-size="8.5" text-anchor="end">margin</text>`;
+  // margin line: its own min-max scale, years with no revenue skipped entirely
+  const mp=[]; marg.forEach((m,j)=>{ if(rev[j]>0) mp.push([j,m]); });
+  if(mp.length){
+    const lo=Math.min(...mp.map(p=>p[1])), hi=Math.max(...mp.map(p=>p[1])), span=(hi-lo)||0.01;
+    const my=m=>pt+ih*0.95-((m-lo)/span)*ih*0.86;
+    let d=""; mp.forEach(([j,m],k)=>{d+=(k?"L":"M")+(pl+j*bw+bw/2)+","+my(m);});
+    s+=`<path d="${d}" fill="none" stroke="#16a34a" stroke-width="1.8" opacity=".75"/>`;
+    mp.forEach(([j,m])=>{s+=`<circle cx="${pl+j*bw+bw/2}" cy="${my(m)}" r="2.2" fill="#16a34a"/>`;});
+    s+=`<text x="${W-pr+6}" y="${my(hi)+3.5}" fill="#16a34a" font-size="8.5">${(hi*100).toFixed(0)}%</text>`;
+    if(Math.abs(hi-lo)>0.02)
+      s+=`<text x="${W-pr+6}" y="${my(lo)+3.5}" fill="#16a34a" font-size="8.5">${(lo*100).toFixed(0)}%</text>`;
+  }
+  s+=L.join("")+`</svg>`;
+  el.innerHTML=s;
+}
+// shared value-label style: small bold text with a white halo so it reads over lines and fills
+const vlab=(x,y,txt,col,anchor)=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${col}" font-size="7.6" font-weight="700" `
+  +`text-anchor="${anchor||"middle"}" stroke="#fff" stroke-width="2.4" paint-order="stroke">${txt}</text>`;
+const memLab=v=>v>=1e4?(v/1e3).toFixed(1)+"k":Math.round(v).toLocaleString("en-US");
+function stacked(el,Y,series,cols){
+  const W=360,H=168,pl=44,pr=14,pt=14,pb=24;
+  const iw=W-pl-pr,ih=H-pt-pb,n=Y.length;
+  const tot=Y.map((_,j)=>series.reduce((a,s)=>a+(s[j]||0),0));
+  const mx=Math.max(...tot,1)*1.1;                     // headroom for the totals on top
+  const X=j=>pl+(n>1?j/(n-1):0)*iw, Yc=v=>pt+ih-(v/mx)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  for(let g=0;g<=3;g++){const val=mx*g/3,y=Yc(val);
+    s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#eef0f3"/>`;
+    s+=`<text x="${pl-6}" y="${y+3.5}" fill="#a8b0bb" font-size="8.5" text-anchor="end">${nf(val)}</text>`;}
+  const cum=Y.map(()=>0);
+  series.forEach((ser,k)=>{
+    let up="",dn="";
+    Y.forEach((_,j)=>{up+=(j?"L":"M")+X(j)+","+Yc(cum[j]+(ser[j]||0));});
+    for(let j=n-1;j>=0;j--) dn+="L"+X(j)+","+Yc(cum[j]);
+    s+=`<path d="${up+dn}Z" fill="${cols[k]}" opacity=".82"/>`;
+    s+=`<path d="${up}" fill="none" stroke="${cols[k]}" stroke-width="1.2"/>`;
+    // each format's own count, written inside its band at the last year when the band is tall enough
+    const j=n-1, v=ser[j]||0, h=Yc(cum[j])-Yc(cum[j]+v);
+    if(v>0&&h>=9) s+=`<text x="${(X(j)-4).toFixed(1)}" y="${(Yc(cum[j]+v/2)+2.8).toFixed(1)}" fill="#fff" font-size="7.6" font-weight="700" text-anchor="end">${memLab(v)}</text>`;
+    Y.forEach((_,j)=>cum[j]+=(ser[j]||0));
+  });
+  // total members every other year, on top of the stack
+  Y.forEach((y,j)=>{if(j%2===0){
+    if(tot[j]>0) s+=vlab(X(j),Yc(tot[j])-4,memLab(tot[j]),"#1a1f28",j===0?"start":j===n-1?"end":"middle");
+    s+=`<text x="${X(j)}" y="${H-8}" fill="#8a94a3" font-size="8.5" text-anchor="middle">${String(y).slice(2)}</text>`;}});
+  el.innerHTML=s+`</svg>`;
+}
+function area(el,Y,v,col){
+  const W=360,H=168,pl=44,pr=14,pt=14,pb=24;
+  const iw=W-pl-pr,ih=H-pt-pb,n=Y.length;
+  const top=Math.max(...v,1), bot=Math.min(0,...v), pad=(top-bot)*0.1;
+  const mx=top+pad, mn=bot-(bot<0?pad*0.6:0);       // room for labels above the line and below the trough
+  const X=j=>pl+j/(n-1)*iw, Yc=x=>pt+ih-(x-mn)/(mx-mn)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  for(let g=0;g<=3;g++){const val=mn+(mx-mn)*g/3,y=Yc(val);
+    s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#e8ecf1"/>`;
+    s+=`<text x="${pl-6}" y="${y+3.5}" fill="#8a94a3" font-size="8.5" text-anchor="end">${nf(val)}</text>`;}
+  if(mn<0) s+=`<line x1="${pl}" x2="${W-pr}" y1="${Yc(0)}" y2="${Yc(0)}" stroke="#8a94a3" stroke-dasharray="3 3"/>`;
+  let d="",a="";
+  v.forEach((x,j)=>{d+=(j?"L":"M")+X(j)+","+Yc(x);});
+  a=d+`L${X(n-1)},${Yc(mn)}L${X(0)},${Yc(mn)}Z`;
+  s+=`<path d="${a}" fill="${col}" opacity=".16"/><path d="${d}" fill="none" stroke="${col}" stroke-width="1.9"/>`;
+  // value every other year, plus the lowest point (the peak funding gap) wherever it falls
+  const lo=v.indexOf(Math.min(...v));
+  Y.forEach((y,j)=>{
+    const show=j%2===0||(j===lo&&v[j]<0);
+    if(show){const neg=v[j]<0, isLo=(j===lo&&neg);
+      s+=`<circle cx="${X(j)}" cy="${Yc(v[j])}" r="2" fill="${neg?"#b91c1c":col}"/>`;
+      // the trough is labelled underneath so it reads as the bottom of the curve
+      s+=vlab(X(j),isLo?Yc(v[j])+10:Yc(v[j])-5,nf(v[j]),neg?"#b91c1c":"#15803d",j===0?"start":j===n-1?"end":"middle");}
+    if(j%2===0) s+=`<text x="${X(j)}" y="${H-8}" fill="#8a94a3" font-size="8.5" text-anchor="middle">${String(y).slice(2)}</text>`;
+  });
+  s+=`</svg>`; el.innerHTML=s;
+}
+// ─────────── breakeven basis ───────────────────────────────────────────────
+// This tab is deliberately ABSOLUTE and self-contained: member count, price,
+// rent, floor area and club payroll are typed in as numbers, and it reads the
+// base assumptions rather than the scenario levers on the left. The only thing
+// it takes from the left rail is how many clubs are open, which sets how much
+// head office cost there is to spread.
+const BASE_B={byear:2027,bmkt:0.05,balloc:"signature",useHO:true,useDep:false,useTax:true,btarget:0,
+  mSig:1700,mCore:680,mBjj:170,           // v78: 85% of the hard cap
+  feeSig:112.875,feeCore:110.5,feeBjj:114,
+  rentSig:15,rentCore:15,rentBjj:18,
+  aSig:2000,aCore:950,aBjj:220,
+  paySig:30400,payCore:9900,payBjj:5100};
+const BK={Signature:{m:"mSig",fee:"feeSig",rent:"rentSig",a:"aSig",pay:"paySig"},
+          Core:{m:"mCore",fee:"feeCore",rent:"rentCore",a:"aCore",pay:"payCore"},
+          BJJ:{m:"mBjj",fee:"feeBjj",rent:"rentBjj",a:"aBjj",pay:"payBjj"}};
+const FMTS=["Signature","Core","BJJ"];
+const ALOC={signature:"entirely onto the Signature",equal:"equally across every club",
+            capacity:"by capacity",revenue:"by revenue"};
+let B={...BASE_B};
+
+const bIx=y=>{const e=Math.max(0,y-2027);return{p:Math.pow(1+A.price_g,e),c:Math.pow(1+A.infl,e),
+  s:Math.pow(1+A.salg,e),r:Math.pow(1+A.rent_step,Math.floor(e/A.rent_yrs))};};
+const bElec=(fmt,sqm)=>{const f=F[fmt];return((f.el_wm2/1000*sqm+f.el_kw)*f.open_h+f.sauna_k)*A.el_t;};
+const bCount=fmt=>({Signature:S.sig,Core:S.core,BJJ:S.bjj})[fmt];
+
+// Revenue less every cost that moves with one member, per member per month.
+function bContrib(fmt){
+  const f=F[fmt], x=bIx(B.byear);
+  const nfee=B[BK[fmt].fee]/(1+A.vat)*x.p;            // net of VAT, indexed to the basis year
+  const rev=nfee*(1+f.pt+f.retail)+f.churn*f.join/(1+A.vat);
+  const cor=nfee*(f.pt*f.pt_cost+f.retail*f.cogs+f.trainer);
+  const roy=rev*(A.roy+A.mkt_fund), card=rev*f.cc*f.cc_share;
+  const mkt=rev*B.bmkt, util=f.visits*A.util_var*x.c;
+  return {nfee,rev,cor,roy,card,mkt,util,total:rev-cor-roy-card-mkt-util};
+}
+// Club costs that do not move with members, per month.
+function bFixed(fmt){
+  const f=F[fmt], x=bIx(B.byear), k=BK[fmt], sqm=B[k.a];
+  return {rent:sqm*B[k.rent]*x.r, staff:B[k.pay]*x.s*(1+A.soc),
+          elec:bElec(fmt,sqm)*x.c, oth:(f.ins+f.maint+f.it+f.misc)*x.c};
+}
+// Fit-out and the UFC location fee over 10 years, equipment and AV over 5.
+function bDep(fmt){const f=F[fmt], sqm=B[BK[fmt].a];
+  return (sqm*f.fitout_sqm+A.loc_fee*A.fx)/(A.life_fit*12)+(f.equip+f.av)/(A.life_eq*12);}
+// The whole HoldCo line except the minimum royalty guarantee: OpCo payroll with
+// its on-cost, the outsourced accountant, and shared services per extra site.
+function bHoTotal(){const n=S.sig+S.core+S.bjj;
+  return (A.opco_base+A.opco_site*Math.max(0,n-1))*bIx(B.byear).s;}
+function bHoShare(fmt){
+  if(!B.useHO) return 0;
+  const n=S.sig+S.core+S.bjj; if(!n) return 0;
+  const T=bHoTotal();
+  // The co-founder / GM runs the flagship, which is why the Signature carries no club
+  // manager of its own in Assumptions 4b, so the whole head office can sit on it.
+  // With no Signature open there is nothing to carry it and it falls back to equal.
+  if(B.balloc==="signature"&&S.sig>0) return fmt==="Signature"?T/S.sig:0;
+  if(B.balloc==="equal"||B.balloc==="signature") return T/n;
+  if(B.balloc==="capacity"){let t=0;FMTS.forEach(k=>t+=F[k].cap*bCount(k));
+    return t?T*F[fmt].cap/t:0;}
+  let t=0;FMTS.forEach(k=>t+=bContrib(k).rev*F[k].cap*bCount(k));   // by revenue at capacity
+  return t?T*bContrib(fmt).rev*F[fmt].cap/t:0;
+}
+function bBreak(fmt){
+  const c=bContrib(fmt).total, fx=bFixed(fmt);
+  const fxT=fx.rent+fx.staff+fx.elec+fx.oth;
+  const d=B.useDep?bDep(fmt):0, h=bHoShare(fmt);
+  // a target is stated after tax, so it is grossed up before it is covered
+  const t=B.btarget?(B.useTax?(B.btarget/12)/(1-A.tax):(B.btarget/12)):0;
+  const need=fxT+d+h+t, m=c>0?need/c:null, cap=F[fmt].cap;
+  return {c,fx,fxT,d,h,t,need,m,cap,pct:m==null?null:m/cap,ok:(m!=null&&m<=cap)};
+}
+// Month after opening when the ramp first crosses this many members.
+// v78: the ramp tops out at 85% of the hard cap, so counts above that are never reached.
+function bMonth(fmt,m){const f=F[fmt], top=f.cap*f.util;
+  if(m==null||m>top) return null;
+  if(m<=f.presale) return 1;
+  return 1+Math.ceil((m-f.presale)/((top-f.presale)/(f.ramp-1)));}
+// Full P&L for one club at a fixed member count, AZN per month.
+function bWalk(fmt,members){
+  const c=bContrib(fmt), fx=bFixed(fmt);
+  const rows=[["Net revenue",c.rev*members],
+    ["Cost of sales",-c.cor*members],["Rent",-fx.rent],["Staff",-fx.staff],
+    ["Royalty",-c.roy*members],["Marketing",-c.mkt*members],
+    ["Utilities",-(fx.elec+c.util*members)],["Other fixed",-fx.oth],
+    ["Card fees",-c.card*members]];
+  const ebitda0=rows.reduce((a,x)=>a+x[1],0);   // club EBITDA, before head office
+  let ebitda=ebitda0;
+  const out=rows.concat([["EBITDA",ebitda,1]]);
+  if(B.useHO){const h=bHoShare(fmt); ebitda-=h;
+    out.push(["Head office",-h],["EBITDA after head office",ebitda,1]);}
+  let ebit=ebitda;
+  if(B.useDep){const d=bDep(fmt); ebit=ebitda-d; out.push(["Depreciation",-d],["EBIT",ebit,1]);}
+  let net=ebit;
+  if(B.useTax){const tx=-Math.max(0,ebit)*A.tax; net=ebit+tx;
+    out.push(["Profit tax",tx],["Net profit",net,1]);}
+  else out.push(["Net profit",net,1]);
+  return {rows:out,ebitda0,ebitda,ebit,net,rev:rows[0][1]};
+}
+function BTOG(k){B[k]=!B[k];bRenderBasis();draw();}
+function BALLOC(v){B.balloc=v;bRenderBasis();draw();}
+function BRESET(){B={...BASE_B};bRenderBasis();bRenderCards();draw();}
+// net profit against member count, one small chart per format
+function bCurve(fmt){
+  const b=bBreak(fmt), cap=F[fmt].cap;
+  const xmax=Math.max(cap*1.3,(b.m||0)*1.12,1);
+  const N=56, pts=[];
+  for(let i=0;i<=N;i++){const m=xmax*i/N; pts.push([m,bWalk(fmt,m).net]);}
+  const W=300,H=200,pl=46,pr=12,pt=16,pb=32, iw=W-pl-pr, ih=H-pt-pb;
+  const vals=pts.map(p=>p[1]);
+  let mn=Math.min(...vals,0), mx=Math.max(...vals,0);
+  if(mx-mn<1) mx=mn+1;
+  const X=m=>pl+m/xmax*iw, Yv=v=>pt+ih-(v-mn)/(mx-mn)*ih, z=Yv(0);
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  for(let g=0;g<=3;g++){const v=mn+(mx-mn)*g/3,y=Yv(v);
+    s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#eef0f3"/>`
+      +`<text x="${pl-5}" y="${y+3.5}" fill="#a8b0bb" font-size="8" text-anchor="end">${nf(v)}</text>`;}
+  s+=`<line x1="${pl}" x2="${W-pr}" y1="${z}" y2="${z}" stroke="#8a94a3"/>`;
+  const xc=X(cap);
+  s+=`<line x1="${xc}" x2="${xc}" y1="${pt}" y2="${pt+ih}" stroke="#1d4ed8" stroke-dasharray="3 3"/>`
+    +`<text x="${xc}" y="${pt-5}" fill="#1d4ed8" font-size="8" text-anchor="middle">cap ${cf(cap)}</text>`;
+  let d=""; pts.forEach(([m,v],i)=>{d+=(i?"L":"M")+X(m).toFixed(1)+","+Yv(v).toFixed(1);});
+  s+=`<path d="${d}" fill="none" stroke="${b.ok?"#16a34a":"#d20a0a"}" stroke-width="1.9"/>`;
+  if(b.m!=null&&b.m<=xmax)
+    s+=`<circle cx="${X(b.m)}" cy="${z}" r="3.2" fill="${b.ok?"#16a34a":"#d20a0a"}"/>`
+      +`<text x="${X(b.m)}" y="${z-8}" fill="${b.ok?"#15803d":"#b91c1c"}" font-size="8.5" font-weight="700" text-anchor="middle">${cf(Math.round(b.m))}</text>`;
+  [0,0.5,1].forEach(t=>{const m=xmax*t;
+    s+=`<text x="${X(m)}" y="${H-13}" fill="#8a94a3" font-size="8" text-anchor="middle">${cf(Math.round(m))}</text>`;});
+  s+=`<text x="${pl+iw/2}" y="${H-2}" fill="#6b7684" font-size="8.5" text-anchor="middle">members</text></svg>`;
+  return `<div style="min-width:0"><div style="font-size:10.5px;font-weight:700;color:#505a68;margin-bottom:3px">${fmt}</div>${s}</div>`;
+}
+const BIN=[["Members","m",v=>cf(Math.round(v))],
+  ["Blended fee &#8380;, incl VAT","fee",v=>v.toFixed(2)],
+  ["Rent &#8380; / m&sup2; / month","rent",v=>v.toFixed(2)],
+  ["Floor area m&sup2;","a",v=>cf(Math.round(v))],
+  ["Club payroll &#8380; / month, net","pay",v=>cf(Math.round(v))]];
+// ─────── the member cards: the point of the tab ───────
+// The card shells, including their sliders, are built once per visit. Only the
+// numbers are rewritten on each draw, so a slider is never destroyed mid-drag.
+const TC={Signature:"t-sig",Core:"t-core",BJJ:"t-bjj"};
+function bSpark(fmt,cur){
+  const cap=F[fmt].cap, b=bBreak(fmt);
+  const xmax=Math.max(cap*1.3,cur*1.05,1), N=40, pts=[];
+  for(let i=0;i<=N;i++){const m=xmax*i/N; pts.push([m,bWalk(fmt,m).net]);}
+  const W=250,H=54,pd=4,iw=W-pd*2,ih=H-pd*2;
+  const vs=pts.map(p=>p[1]); let mn=Math.min(...vs,0), mx=Math.max(...vs,0);
+  if(mx-mn<1) mx=mn+1;
+  const X=m=>pd+m/xmax*iw, Yv=v=>pd+ih-(v-mn)/(mx-mn)*ih, z=Yv(0);
+  let d=""; pts.forEach(([m,v],i)=>{d+=(i?"L":"M")+X(m).toFixed(1)+","+Yv(v).toFixed(1);});
+  const cv=bWalk(fmt,cur).net;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%">`
+    +`<line x1="${pd}" x2="${W-pd}" y1="${z}" y2="${z}" stroke="#cfd5de"/>`
+    +`<line x1="${X(cap)}" x2="${X(cap)}" y1="${pd}" y2="${pd+ih}" stroke="#b9c6e6" stroke-dasharray="2 2"/>`
+    +`<path d="${d}" fill="none" stroke="${b.ok?"#16a34a":"#d20a0a"}" stroke-width="1.6"/>`
+    +`<circle cx="${X(cur)}" cy="${Yv(cv)}" r="3.4" fill="#0d1117"/></svg>`;
+}
+function bRenderCards(){
+  document.getElementById("bcards").innerHTML=FMTS.map(f=>{
+    const cap=F[f].cap, k=BK[f].m;
+    return `<div class="panel mcard">
+      <div class="mc-hd"><span class="tag ${TC[f]}">${f}</span><span class="mc-cap">CAP ${cf(cap)}</span></div>
+      <div class="mc-in"><input class="mcnum" data-k="${k}" value="${cf(Math.round(B[k]))}" spellcheck="false"><span class="mc-lab">members</span>
+        <button class="bebtn" data-f="${f}" data-k="${k}">Set to breakeven</button></div>
+      <input type="range" class="mcsl" data-k="${k}" min="0" max="${Math.round(cap*1.3)}" step="1" value="${Math.min(Math.round(cap*1.3),B[k])}">
+      <div class="mc-big" id="np_${f}"></div><div class="mc-sub">net profit per month</div>
+      <table class="mctbl">
+        <tr><td>Net revenue</td><td id="rv_${f}"></td></tr>
+        <tr><td>Club EBITDA</td><td id="eb_${f}"></td></tr>
+        <tr><td>Net profit per year</td><td id="ny_${f}"></td></tr>
+        <tr><td>Breaks even at</td><td id="bx_${f}"></td></tr></table>
+      <div class="mcsp" id="sp_${f}"></div></div>`;}).join("");
+  document.querySelectorAll("#bcards .mcsl").forEach(el=>{
+    el.addEventListener("input",()=>{const k=el.dataset.k; B[k]=parseFloat(el.value);
+      const t=document.querySelector(`#bcards .mcnum[data-k="${k}"]`);
+      if(t) t.value=cf(Math.round(B[k]));
+      draw();});});
+  document.querySelectorAll("#bcards .mcnum").forEach(el=>{
+    const k=el.dataset.k;
+    el.addEventListener("change",()=>{const v=num(el.value);
+      if(v===null||isNaN(v)||v<0){el.classList.add("bad");
+        setTimeout(()=>{el.classList.remove("bad");el.value=cf(Math.round(B[k]));},700);return;}
+      B[k]=v;
+      const s=document.querySelector(`#bcards .mcsl[data-k="${k}"]`);
+      if(s) s.value=Math.min(parseFloat(s.max),v);
+      el.value=cf(Math.round(v)); draw();});
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();el.blur();}
+      if(e.key==="Escape"){el.value=cf(Math.round(B[k]));el.blur();}});
+    el.addEventListener("focus",()=>el.select());});
+  // drop the members straight onto the breakeven point
+  document.querySelectorAll("#bcards .bebtn").forEach(el=>{
+    el.addEventListener("click",()=>{
+      const b=bBreak(el.dataset.f); if(b.m==null) return;
+      const k=el.dataset.k; B[k]=Math.round(b.m);
+      const s=document.querySelector(`#bcards .mcsl[data-k="${k}"]`);
+      if(s){s.max=Math.max(parseFloat(s.max),B[k]); s.value=B[k];}
+      const t=document.querySelector(`#bcards .mcnum[data-k="${k}"]`);
+      if(t) t.value=cf(B[k]);
+      draw();});});
+}
+// Red when a format cannot get there at all, amber when it only gets there by being
+// nearly full. "Breaks even at 94% of capacity" is not good news and must not read as
+// a pass, least of all on a basis that has depreciation switched off.
+function bFlag(over){
+  if(over.length) return `<div class="bkflag red"><b>${over.map(f=>f+" needs "+cf(Math.round(bBreak(f).m))
+    +" members against a cap of "+cf(F[f].cap)).join("; ")}.</b> On these costs that format cannot break even at
+    any membership. The fix has to come from price, from the cost base, or from the capacity assumption.</div>`;
+  const tight=FMTS.filter(f=>bCount(f)>0&&bBreak(f).ok&&bBreak(f).pct>0.85);
+  if(tight.length) return `<div class="bkflag amb"><b>${tight.map(f=>{const b=bBreak(f);
+    return f+" only breaks even at "+cf(Math.round(b.m))+" of its "+cf(b.cap)+" members, "+(b.pct*100).toFixed(0)+"% of capacity";})
+    .join("; ")}.</b> That leaves almost no room for error — it has to run close to full just to cover its costs.
+    ${B.useDep?"":" Depreciation is switched off on this basis, so it is not covering the cost of its own build either."}</div>`;
+  return `<div class="bkflag grn"><b>Every format breaks even with room to spare on these costs.</b></div>`;
+}
+function bUpdateCards(){
+  const n=S.sig+S.core+S.bjj;
+  let tMem=0,tRev=0,tEb=0,tEbit=0; const over=[];
+  FMTS.forEach(f=>{
+    const m=B[BK[f].m], w=bWalk(f,m), b=bBreak(f), c=bCount(f);
+    // keep the slider able to reach a breakeven that sits beyond the cap, and
+    // never touch its range while it is the element being dragged
+    const sl=document.querySelector(`#bcards .mcsl[data-k="${BK[f].m}"]`);
+    if(sl&&document.activeElement!==sl){
+      const want=Math.max(Math.round(F[f].cap*1.3),b.m!=null?Math.ceil(b.m*1.05):0);
+      if(parseFloat(sl.max)!==want) sl.max=want;
+      const shown=Math.min(want,m); if(parseFloat(sl.value)!==shown) sl.value=shown;}
+    const bt=document.querySelector(`#bcards .bebtn[data-f="${f}"]`);
+    if(bt){bt.disabled=(b.m==null);
+      bt.title=b.m==null?"No positive contribution per member at these settings"
+        :(b.ok?`Set to ${cf(Math.round(b.m))} members, ${(b.pct*100).toFixed(0)}% of capacity`
+              :`${cf(Math.round(b.m))} members, above the ${cf(F[f].cap)} cap`);}
+    const np=document.getElementById("np_"+f);
+    if(np){np.textContent=Math.round(w.net).toLocaleString("en-US")+" ₼";
+      np.className="mc-big "+(w.net>=0?"pos":"neg2");}
+    const set=(p,v)=>{const e=document.getElementById(p+"_"+f); if(e) e.innerHTML=v;};
+    set("rv",Math.round(w.rev).toLocaleString("en-US"));
+    set("eb",wkk(w.ebitda0));
+    set("ny",wkk(w.net*12));
+    set("bx",b.m==null?`<span style="color:#b91c1c">never</span>`
+      :(b.ok?`${cf(Math.round(b.m))} <span style="color:#8a94a3;font-weight:500">· ${(b.pct*100).toFixed(0)}% of cap</span>`
+            :`<span style="color:#b91c1c">${cf(Math.round(b.m))} · ${(b.pct*100).toFixed(0)}% of cap</span>`));
+    const sp=document.getElementById("sp_"+f); if(sp) sp.innerHTML=bSpark(f,m);
+    if(c>0&&!b.ok) over.push(f);
+    tMem+=m*c; tRev+=w.rev*c; tEb+=w.ebitda0*c; tEbit+=w.ebit*c;
+  });
+  // Tax is consolidated, not summed from the columns. The clubs sit in one company, so
+  // a loss-making studio shelters profit made elsewhere. Summing per-club tax would let
+  // the head office allocation move the portfolio bottom line, which it must not.
+  const tNet=tEbit+(B.useTax?-Math.max(0,tEbit)*A.tax:0);
+  const tile=(l,v,cls)=>`<div class="ptile"><div class="l">${l}</div><div class="v ${cls||""}">${v}</div></div>`;
+  document.getElementById("bport").innerHTML=
+    `<h3>All ${n} club${n===1?"":"s"} together <span style="color:#8a94a3;font-weight:500;text-transform:none;letter-spacing:0">at the member counts above</span></h3>`
+   +`<div class="ptiles">`
+   +tile("Members",cf(Math.round(tMem)))
+   +tile("Net revenue / mo",cf(Math.round(tRev)))
+   +tile("Club EBITDA / mo",wkk(tEb))
+   +tile("Net profit / mo",wkk(tNet),tNet>=0?"pos":"neg2")
+   +tile("Net profit / yr",wkk(tNet*12),tNet>=0?"pos":"neg2")
+   +`</div>`
+   +bFlag(over);
+}
+// Controls are built once per visit, not on every draw, so a slider survives a drag.
+function bRenderBasis(){
+  const tgl=(k,lab)=>`<button class="tgl ${B[k]?"on":""}" onclick="BTOG('${k}')">${B[k]?"&#10003;":"&#10007;"} ${lab}</button>`;
+  const alo=(v,lab)=>`<button class="sbtn ${B.balloc===v?"on":""}" onclick="BALLOC('${v}')">${lab}</button>`;
+  document.getElementById("bbasis").innerHTML=
+     slider("byear","Basis year",2027,2041,1,B.byear,v=>String(v),
+       "Prices, salaries, rent and other costs are all indexed to this year")
+    +slider("bmkt","Marketing rate",0.02,0.07,0.0025,B.bmkt,v=>(v*100).toFixed(2)+"%",
+       "Pooled schedule: 7% for the first 12 months of trading, 5% to month 36, then 3% for the rest of the forecast",
+       s=>{const x=num(s);return x===null?null:x/100;})
+    +slider("btarget","Target net profit",0,3000000,25000,B.btarget,
+       v=>Math.round(v).toLocaleString("en-US"),
+       "Members needed to clear this much net profit a year, grossed up at the 20% profit tax. Zero gives the plain breakeven",s=>num(s))
+    +`<div class="fmthd">What breakeven has to cover</div>`
+    +`<div class="tglrow">${tgl("useHO","Head office")}${tgl("useDep","Depreciation")}${tgl("useTax","Profit tax")}</div>`
+    +`<div class="hint">Club rent, payroll, utilities and other fixed costs are always in. The minimum royalty guarantee is out: it is a floor rather than an extra cost, and the Signature on its own clears it at capacity.</div>`
+    +`<div class="fmthd">How head office is split</div>`
+    +`<div class="scn">${alo("signature","All on Signature")}${alo("equal","Equal")}${alo("capacity","By capacity")}${alo("revenue","By revenue")}</div>`
+    +`<div class="hint">All on Signature puts the whole head office on the flagship, which is where the co-founder / GM actually works — the Signature carries no club manager of its own for exactly that reason. Equal divides it by the number of clubs, which is hardest on the smallest format. By capacity and by revenue scale it to the size of the club.</div>`
+    +`<button class="btn" onclick="BRESET()">Reset this tab to the base basis</button>`;
+  ["byear","bmkt","btarget"].forEach(k=>bind(k,B));
+  // club inputs
+  let ih=`<table><tr><th>Input</th>`+FMTS.map(f=>`<th>${f}</th>`).join("")+`</tr>`;
+  BIN.forEach(([lab,sub,ff],i)=>{
+    ih+=`<tr><td>${lab}</td>`+FMTS.map(f=>{const key=BK[f][sub];
+      return `<td><input class="bcell" data-k="${key}" data-i="${i}" value="${ff(B[key])}" spellcheck="false"></td>`;}).join("")+`</tr>`;});
+  document.getElementById("binputs").innerHTML=ih+`</table>`;
+  document.querySelectorAll("#binputs .bcell").forEach(el=>{
+    const i=+el.dataset.i, k=el.dataset.k;
+    const revert=()=>{el.classList.add("bad");
+      setTimeout(()=>{el.classList.remove("bad");el.value=BIN[i][2](B[k]);},700);};
+    el.addEventListener("change",()=>{const v=num(el.value);
+      if(v===null||isNaN(v)||v<0){revert();return;} B[k]=v; draw();});
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();el.blur();}
+      if(e.key==="Escape"){el.value=BIN[i][2](B[k]);el.blur();}});
+    el.addEventListener("focus",()=>el.select());});
+}
+function bRenderOut(){
+  const n=S.sig+S.core+S.bjj;
+  // breakeven table
+  const bb={}; FMTS.forEach(f=>bb[f]=bBreak(f));
+  let th=`<table><tr><th>Format</th><th>Contribution / member</th><th>Club fixed</th>`
+   +(B.useDep?`<th>Depreciation</th>`:``)+(B.useHO?`<th>Head office</th>`:``)
+   +(B.btarget?`<th>Target, grossed up</th>`:``)
+   +`<th>Total to cover</th><th>Breakeven members</th><th>Capacity</th><th>% of capacity</th><th>Month reached</th></tr>`;
+  FMTS.forEach(f=>{const b=bb[f], mr=bMonth(f,b.m==null?null:Math.round(b.m));
+    const cls=b.pct==null?"":(b.pct>1?"bad":(b.pct>0.85?"warn":"good"));
+    th+=`<tr><td><span class="tag ${{Signature:"t-sig",Core:"t-core",BJJ:"t-bjj"}[f]}">${f}</span></td>`
+      +`<td>${b.c.toFixed(2)}</td><td>${cf(Math.round(b.fxT))}</td>`
+      +(B.useDep?`<td>${cf(Math.round(b.d))}</td>`:``)
+      +(B.useHO?`<td>${cf(Math.round(b.h))}</td>`:``)
+      +(B.btarget?`<td>${cf(Math.round(b.t))}</td>`:``)
+      +`<td>${cf(Math.round(b.need))}</td>`
+      +`<td class="${cls}">${b.m==null?"never":cf(Math.round(b.m))}</td>`
+      +`<td>${cf(b.cap)}</td><td class="${cls}">${b.pct==null?"&ndash;":(b.pct*100).toFixed(0)+"%"}</td>`
+      +`<td class="${cls}">${mr?("month "+mr):"not reachable"}</td></tr>`;});
+  th+=`</table><div class="note">Contribution is the net fee plus PT, retail and the joining fee, less cost of sales, royalty, card fees, marketing and the per-visit water and gas. Club fixed is rent, payroll with its 35% on-cost, the fixed part of electricity, insurance, maintenance, IT and misc. Month reached assumes the ramp in Assumptions section 3.`
+   +(B.useHO?` Head office is <b>${cf(Math.round(bHoTotal()))} &#8380; a month</b> — OpCo payroll with its on-cost and the outsourced accountant${A.opco_site?`, plus ${cf(A.opco_site)} &#8380; of shared services for every club after the first`:`. v47 removed the per-site shared-services charge, so this no longer grows with the number of clubs`} — loaded ${(B.balloc==="signature"&&S.sig<1)?"equally across every club, because no Signature is open to carry it":ALOC[B.balloc]}.`:"")
+   +`</div>`;
+  document.getElementById("btbl").innerHTML=th;
+  // curves - only drawn while that section is open
+  const cv=document.getElementById("d_cv");
+  document.getElementById("bchart").innerHTML=(cv&&cv.open)?FMTS.map(bCurve).join(""):"";
+  // P&L walk
+  const W3={}; FMTS.forEach(f=>W3[f]=bWalk(f,B[BK[f].m]));
+  const labs=W3.Signature.rows.map(r=>r[0]);
+  let wh=`<table class="sum"><tr><th>&#8380; / month</th>`
+   +FMTS.map(f=>`<th>${f}<br><span style="font-weight:500;text-transform:none;letter-spacing:0">${cf(Math.round(B[BK[f].m]))} members</span></th>`).join("")
+   +`<th>Portfolio<br><span style="font-weight:500;text-transform:none;letter-spacing:0">${n} club${n===1?"":"s"}</span></th></tr>`;
+  // the portfolio pays tax as one company, so its tax and net profit are consolidated
+  // rather than summed from the columns - see the note below the table
+  const pEbit=FMTS.reduce((a,f)=>a+W3[f].ebit*bCount(f),0);
+  const pTax=B.useTax?-Math.max(0,pEbit)*A.tax:0, pNet=pEbit+pTax;
+  labs.forEach((lab,i)=>{
+    const vals=FMTS.map(f=>W3[f].rows[i][1]);
+    const port=lab==="Profit tax"?pTax:lab==="Net profit"?pNet
+      :vals.reduce((a,v,j)=>a+v*bCount(FMTS[j]),0);
+    wh+=`<tr class="${W3.Signature.rows[i][2]?"b":""}"><td>${lab}</td>`
+      +vals.map(v=>`<td${v<0?' class="neg"':''}>${wkk(v)}</td>`).join("")
+      +`<td${port<0?' class="neg"':''}>${wkk(port)}</td></tr>`;});
+  const yv=FMTS.map(f=>W3[f].net*12);
+  wh+=`<tr class="b"><td>Net profit, &#8380; per year</td>`+yv.map(v=>`<td${v<0?' class="neg"':''}>${wkk(v)}</td>`).join("")
+    +`<td${pNet<0?' class="neg"':''}>${wkk(pNet*12)}</td></tr>`;
+  document.getElementById("bwalk").innerHTML=wh+`</table>`
+   +`<div class="note">Each club column pays its own tax, which is the right view of a club standing alone. The portfolio column does not add those up: the clubs sit in one company, so a loss-making studio shelters profit made elsewhere, and tax is charged once on the consolidated EBIT. That also keeps the portfolio bottom line steady whichever way head office is split, which is the only honest answer — moving a cost between clubs cannot change what the business earns.</div>`;
+}
+const wkk=v=>Math.abs(v)<0.5?"&ndash;":(v<0?"("+Math.round(-v).toLocaleString("en-US")+")":Math.round(v).toLocaleString("en-US"));
+
+// ─────────── main render ───────────
+let CURTAB="ov";
+function draw(){
+  const r=calc();
+  if(!BASEOUT)BASEOUT=run({sites:buildSites(BASE_S),lev:BASE_L});
+  const nst=S.sig+S.core+S.bjj;
+  document.getElementById("nsite").textContent=
+    nst+" site"+(nst===1?"":"s")+(nst?" · full "+mlabel(r.pFull):"");
+  const mnote=document.getElementById("mktnote");
+  if(mnote) mnote.innerHTML=nst
+    ? `<b>Member capacity is a hard cap per format</b> &mdash; ${F.Signature.cap.toLocaleString("en-US")} at the Signature,
+       ${F.Core.cap} at a Core club, ${F.BJJ.cap} at a BJJ studio &mdash; set by what the Baku market will bear, not by floor area.
+       Clubs are assumed to hold <b>${(A.util_mat*100).toFixed(0)}%</b> of that cap at maturity, which is the Capacity column.
+       Size drives rent, utilities and fit-out only, so a bigger building costs more and earns the same.
+       The m²/member column turns <span style="color:#b91c1c;font-weight:600">red</span> when a site is packed tighter than its format assumes
+       and <span style="color:#8a6d1a;font-weight:600">amber</span> when the space is going spare.
+       <br><br>Marketing is one pooled budget for the portfolio: <b>${(A.mkt1*100).toFixed(0)}%</b> of consolidated net revenue for the first 12 months of operation,
+       <b>${(A.mkt2*100).toFixed(0)}%</b> for months 13&ndash;36, then <b>${(A.mkt3*100).toFixed(0)}%</b> for the rest of the forecast,
+       with no step-down once the clubs are full. The UFC Long Form Agreement floor of 2% of Net Sales sits underneath and does not bind.`
+    : "No sites in this mix.";
+  const man=["price","util","churnAbs","cost"].some(k=>Math.abs(L[k]-SCN[SCNID].lev[k])>1e-9)
+    ||["pSig","pCore","pBjj"].some(k=>Math.abs(L[k]-1)>1e-9);
+  ["base","down","up"].forEach(k=>{const b=document.getElementById("s_"+k); if(b)b.classList.toggle("on",k===SCNID&&!man);});
+  document.getElementById("scndesc").innerHTML=man
+    ? "<b style=\"color:#505a68\">Custom</b> &mdash; levers moved by hand from the "+SCNID+" case. Pick a scenario above to snap back."
+    : SCN[SCNID].desc;
+  const marg=r.eb.map((x,j)=>r.rev[j]>0?x/r.rev[j]:0);
+  const m40=r.rev[14]>0?r.eb[14]/r.rev[14]:0;
+  const d=(a,b)=>b===0||b==null?null:(a-b)/Math.abs(b);
+  const K=[["Portfolio NPV",nf(r.npv)+" ₼",d(r.npv,BASEOUT.npv)],
+    ["IRR unlevered",pf(r.irr),r.irr==null||BASEOUT.irr==null?null:r.irr-BASEOUT.irr],
+    ["Equity needed",nf(r.equity)+" ₼",d(r.equity,BASEOUT.equity)],
+    ["Payback",(r.pb==null?"&ndash;":r.pb.toFixed(1)+" yrs"),r.pb&&BASEOUT.pb?-(r.pb-BASEOUT.pb)/BASEOUT.pb:null],
+    ["Members 2041",cf(Math.round(r.mem[14])),d(r.mem[14],BASEOUT.mem[14])],
+    ["EBITDA margin 2041",pf(m40),null]];
+  document.getElementById("kpis").innerHTML=K.map(([l,v,dl],i)=>{
+    let ds="";
+    if(dl!=null&&Math.abs(dl)>0.0005){
+      const pp=(i===1);
+      ds=`<div class="dl ${dl>0?"up":"dn"}">${dl>0?"▲":"▼"} ${pp?(Math.abs(dl)*100).toFixed(2)+"pp":(Math.abs(dl)*100).toFixed(1)+"%"} vs base</div>`;
+    } else if(dl!=null) ds=`<div class="dl flat">— at base case</div>`;
+    return `<div class="kpi"><div class="lb">${l}</div><div class="vl">${v}</div>${ds}</div>`;}).join("");
+  bars(document.getElementById("ch1"),r.Y,r.rev,r.eb,marg);
+  stacked(document.getElementById("ch2"),r.Y,
+    [r.memF.Signature,r.memF.Core,r.memF.BJJ],["#c01818","#15803d","#1d4ed8"]);
+  area(document.getElementById("ch3"),r.Y,r.cum,"#16a34a");
+  // sites table
+  const tc={Signature:"t-sig",Core:"t-core",BJJ:"t-bjj"};
+  const dens=s=>{                      // m² per member, against the format's own assumption
+    if(!s.cap) return ["&ndash;","#8a94a3"];
+    const d=s.sqm/s.cap, base=F[s.format].sqm/(F[s.format].cap*F[s.format].util);
+    return [d.toFixed(2), d<base*0.9?"#b91c1c":d>base*1.35?"#8a6d1a":"#2b3340"];
+  };
+  document.getElementById("tbl").innerHTML=`<table><tr><th>Site</th><th>Format</th><th>Opens</th><th>Size m²</th><th>Capacity</th><th>m² / member</th><th>Capex</th><th>Funding need</th><th>Funding</th><th>2041 revenue</th><th>2041 EBITDA</th></tr>`
+   +r.sites.map(s=>{const[d,dc]=dens(s);return `<tr><td>${s.name}</td><td><span class="tag ${tc[s.format]}">${s.format}</span></td>
+     <td>${MN[s.open.m]}-${s.open.y}</td><td>${cf(Math.round(s.sqm))}</td>
+     <td>${cf(Math.round(s.cap))}</td><td style="color:${dc};font-weight:600">${d}</td>
+     <td>${nf(s.capex)}</td><td>${nf(s.need)}</td><td>${s.funding}</td>
+     <td>${nf(s.rev2040)}</td><td>${nf(s.eb2040)}</td></tr>`}).join("")
+   +`<tr style="border-top:1px solid #2a3647"><td style="font-weight:650">Total</td><td colspan="5"></td>
+     <td style="font-weight:650">${nf(r.sites.reduce((a,s)=>a+s.capex,0))}</td>
+     <td style="font-weight:650">${nf(r.sites.reduce((a,s)=>a+s.need,0))}</td><td></td>
+     <td style="font-weight:650">${nf(r.sites.reduce((a,s)=>a+s.rev2040,0))}</td>
+     <td style="font-weight:650">${nf(r.sites.reduce((a,s)=>a+s.eb2040,0))}</td></tr></table>`;
+  // one-way sensitivity: each driver moved on its own, engine re-run per cell.
+  // every row runs weaker on the left to stronger on the right.
+  // Only computed while its own tab is showing - each cell is a full engine run.
+  if(CURTAB==="sn"){
+  const HUR=0.1311;
+  const shade=v=>{
+    if(v==null||isNaN(v)) return ["#f0f2f5","#8a94a3"];
+    if(v>=HUR+0.12) return ["rgba(22,163,74,.26)","#15803d"];
+    if(v>=HUR+0.05) return ["rgba(22,163,74,.15)","#15803d"];
+    if(v>=HUR)      return ["rgba(22,163,74,.08)","#15803d"];
+    if(v>=0)        return ["rgba(220,38,38,.12)","#b91c1c"];
+    return ["rgba(220,38,38,.26)","#b91c1c"];
+  };
+  const drivers=[
+    ["All prices",        [0.80,0.90,1.00,1.10,1.20], v=>({...L,price:v}), v=>(v*100).toFixed(0)+"%"],
+    ["Utilisation",       [0.65,0.75,0.85,0.95,1.00], v=>({...L,util:v}),  v=>(v*100).toFixed(0)+"%"],
+    ["Monthly churn",     [0.07,0.05,0.04,0.03,0.02], v=>({...L,churnAbs:v}),v=>(v*100).toFixed(2)+"%"],
+    ["Operating costs",   [1.10,1.05,1.00,0.95,0.90], v=>({...L,cost:v}),  v=>(v*100).toFixed(0)+"%"],
+    ["Social contributions",[0.40,0.35,0.30,0.245,0.18],v=>({...L,soc:v}), v=>(v*100).toFixed(1)+"%"]];
+  let sh=`<table class="sens"><tr><th style="text-align:left">Driver</th>`
+    +`<th colspan="5" style="text-align:center;font-weight:600">weaker &nbsp;&larr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rarr;&nbsp; stronger</th></tr>`;
+  drivers.forEach(([nm,vals,mk,lab])=>{
+    sh+=`<tr><td>${nm}</td>`;
+    vals.forEach(v=>{
+      const x=run({sites:buildSites(S),lev:mk(v)});
+      const irr=x.irr, [bg,fg]=shade(irr);
+      sh+=`<td class="c" style="background:${bg};color:${fg}"><b>${irr==null||isNaN(irr)?"n/a":(irr*100).toFixed(1)+"%"}</b><i>${lab(v)}</i></td>`;
+    });
+    sh+=`</tr>`;
+  });
+  document.getElementById("sens").innerHTML=sh+`</table>`;
+  // ── two-way sensitivity grids ──
+  const HUR2=0.1311;
+  function grid(el,rowVals,colVals,rowLab,colLab,mk,metric,fmt,shadeFn,hereR,hereC){
+    let g=`<table class="gridtbl"><tr><th style="text-align:left">${rowLab} &darr; / ${colLab} &rarr;</th>`
+      +colVals.map(c=>`<th style="text-align:center">${fmtHdr(c,colLab)}</th>`).join("")+`</tr>`;
+    rowVals.forEach(rv=>{
+      g+=`<tr><td>${fmtHdr(rv,rowLab)}</td>`;
+      colVals.forEach(cv=>{
+        const x=run({sites:buildSites(mk.sites?mk.sites(rv,cv):S),lev:mk.lev?mk.lev(rv,cv):L});
+        const v=metric(x); const [bg,fg]=shadeFn(v);
+        const here=(hereR!=null&&Math.abs(rv-hereR)<1e-9&&Math.abs(cv-hereC)<1e-9)?" here":"";
+        g+=`<td class="c${here}" style="background:${bg};color:${fg}">${fmt(v)}</td>`;
+      });
+      g+=`</tr>`;
+    });
+    el.innerHTML=g+`</table>`;
+  }
+  function fmtHdr(v,lab){
+    if(lab==="price") return (v*100).toFixed(0)+"%";
+    if(lab==="churn") return (v*100).toFixed(2)+"%";
+    if(lab==="Core"||lab==="BJJ") return String(v);
+    return (v*100).toFixed(0)+"%";
+  }
+  const shadeIRR=v=>{
+    if(v==null||isNaN(v)) return ["#f0f2f5","#8a94a3"];
+    if(v>=HUR2+0.12) return ["rgba(22,163,74,.26)","#15803d"];
+    if(v>=HUR2+0.05) return ["rgba(22,163,74,.15)","#15803d"];
+    if(v>=HUR2)      return ["rgba(22,163,74,.08)","#15803d"];
+    if(v>=0)         return ["rgba(220,38,38,.12)","#b91c1c"];
+    return ["rgba(220,38,38,.26)","#b91c1c"];
+  };
+  const shadeNPV=v=>v==null?["#f0f2f5","#8a94a3"]
+    :v>=1e7?["rgba(22,163,74,.26)","#15803d"]:v>=5e6?["rgba(22,163,74,.15)","#15803d"]
+    :v>=0?["rgba(22,163,74,.08)","#15803d"]:["rgba(220,38,38,.22)","#b91c1c"];
+  const shadeMar=v=>v==null?["#f0f2f5","#8a94a3"]
+    :v>=0.35?["rgba(22,163,74,.24)","#15803d"]:v>=0.25?["rgba(22,163,74,.12)","#15803d"]
+    :v>=0.20?["rgba(234,179,8,.20)","#8a6d1a"]:["rgba(220,38,38,.18)","#b91c1c"];
+  const ps=[0.8,0.9,1.0,1.1], ms=[0.65,0.75,0.85,0.95];   // ms: utilisation of the hard cap
+  const chs=[0.02,0.03,0.05,0.07];
+  const irrF=v=>v==null||isNaN(v)?"n/a":(v*100).toFixed(1)+"%";
+  const npvF=v=>v==null?"n/a":(v/1e6).toFixed(1)+"m";
+  const marF=v=>v==null||isNaN(v)?"n/a":(v*100).toFixed(0)+"%";
+  grid(document.getElementById("g1"),ps,ms,"price","utilisation",
+    {lev:(p,m)=>({...L,price:p,util:m})},x=>x.irr,irrF,shadeIRR,L.price,L.util);
+  grid(document.getElementById("g2"),ps,ms,"price","utilisation",
+    {lev:(p,m)=>({...L,price:p,util:m})},x=>x.npv,npvF,shadeNPV,L.price,L.util);
+  grid(document.getElementById("g5"),chs,ps,"churn","price",
+    {lev:(c,p)=>({...L,churnAbs:c,price:p})},x=>x.irr,irrF,shadeIRR,L.churnAbs,L.price);
+  grid(document.getElementById("g3"),[1,1.25,1.5,1.75],[1,1.25,1.5,1.75],"rent","payroll",
+    {lev:(a,b)=>({...L,rentM:a,staffM:b})},x=>x.rev[14]>0?x.eb[14]/x.rev[14]:null,marF,shadeMar,1,1);
+  grid(document.getElementById("g4"),[0,1,2,3],[0,2,4,6],"Core","BJJ",
+    {sites:(a,b)=>({...S,core:a,bjj:b})},x=>x.irr,irrF,shadeIRR,S.core,S.bjj);
+  }
+  // ── margin bridge + compact summary ──
+  if(CURTAB==="ec"){
+  const BY_I=r.Y.indexOf(BYEAR)<0?14:r.Y.indexOf(BYEAR);
+  document.getElementById("yrsel").innerHTML=[2030,2035,2041]
+    .map(y=>`<button class="${y===BYEAR?"on":""}" onclick="SETYR(${y})">${y}</button>`).join("");
+  bridge(document.getElementById("bridge"),r,BY_I);
+  const pick=[0,3,8,14];                                  // 2027 / 2030 / 2035 / 2041
+  const k=v=>v==null?"":(Math.abs(v)<500?"–":(v<0?"("+Math.round(-v/1000).toLocaleString("en-US")+")":Math.round(v/1000).toLocaleString("en-US")));
+  const SUM=[["Members at year end",pick.map(j=>Math.round(r.mem[j]).toLocaleString("en-US")),1],
+    ["Net revenue",pick.map(j=>k(r.rev[j])),1],
+    ["EBITDA",pick.map(j=>k(r.eb[j])),1],
+    ["EBITDA margin",pick.map(j=>r.rev[j]>0?(r.eb[j]/r.rev[j]*100).toFixed(1)+"%":"–"),0],
+    ["Net income",pick.map(j=>k(r.pbt[j]-r.chg[j])),0],
+    ["Free cash flow",pick.map(j=>k(r.fcf[j])),0],
+    ["Cumulative cash flow",pick.map(j=>k(r.cum[j])),1]];
+  document.getElementById("sum").innerHTML=`<table class="sum"><tr><th>AZN ’000</th>`
+    +pick.map(j=>`<th>${r.Y[j]}</th>`).join("")+`</tr>`
+    +SUM.map(([n,v,b])=>`<tr class="${b?"b":""}"><td>${n}</td>`+v.map(x=>`<td>${x}</td>`).join("")+`</tr>`).join("")
+    +`</table>`;
+  }
+  if(CURTAB==="bk"){bUpdateCards(); bRenderOut();}
+}
+function SETYR(y){BYEAR=y;draw();}
+function bridge(el,r,j){
+  const rev=r.rev[j]; if(!rev){el.innerHTML='<div class="note">No revenue in this year.</div>';return;}
+  const steps=[["Cost of sales",r.cor[j]],["Staff",r.staff[j]],["Rent",r.rent[j]],["Royalty",r.royl[j]],
+    ["Marketing",r.mkt[j]],["Utilities",r.util[j]],["Other",r.oth[j]],["Cards",r.card[j]],["Head office",r.hold[j]]];
+  const bars=[{l:"Net revenue",f:0,t:rev,k:"t"}];
+  let run_=rev;
+  steps.forEach(([l,v])=>{bars.push({l,f:run_-v,t:run_,k:"c",v});run_-=v;});
+  bars.push({l:"EBITDA",f:0,t:run_,k:"e"});
+  const W=780,H=300,pl=46,pr=12,pt=26,pb=48,n=bars.length;
+  const iw=W-pl-pr,ih=H-pt-pb,bw=iw/n;
+  const mx=rev*1.02, Y=v=>pt+ih-(v/mx)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  for(let g=0;g<=4;g++){const v=mx*g/4,y=Y(v);
+    s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#eef0f3"/>`;
+    s+=`<text x="${pl-6}" y="${y+3.5}" fill="#a8b0bb" font-size="8.5" text-anchor="end">${(v/1e6).toFixed(1)}m</text>`;}
+  bars.forEach((b,i)=>{
+    const x=pl+i*bw+bw*0.17, w=bw*0.66;
+    const y0=Y(Math.max(b.f,b.t)), hh=Math.max(1.5,Math.abs(Y(b.f)-Y(b.t)));
+    const col=b.k==="t"?"#2563eb":b.k==="e"?(b.t>=0?"#16a34a":"#dc2626"):"#e07a74";
+    s+=`<rect x="${x}" y="${y0}" width="${w}" height="${hh}" fill="${col}" rx="1.5"/>`;
+    if(i<n-1&&b.k!=="e"){const yl=Y(b.k==="t"?b.t:b.f);
+      s+=`<line x1="${x}" x2="${x+bw}" y1="${yl}" y2="${yl}" stroke="#c8cfd8" stroke-dasharray="2 2"/>`;}
+    const lab=b.k==="c"?(b.v<0?"+":"-")+(Math.abs(b.v)/rev*100).toFixed(1)+"%":(b.t/1e6).toFixed(2)+"m";
+    s+=`<text x="${x+w/2}" y="${y0-5}" fill="${b.k==="c"?"#b4453f":"#2b3340"}" font-size="9" font-weight="600" text-anchor="middle">${lab}</text>`;
+    s+=`<text x="${x+w/2}" y="${H-30}" fill="#6b7684" font-size="8.5" text-anchor="middle">${b.l}</text>`;
+    if(b.k==="e")s+=`<text x="${x+w/2}" y="${H-17}" fill="#15803d" font-size="9" font-weight="700" text-anchor="middle">${(b.t/rev*100).toFixed(1)}%</text>`;
+    if(b.k==="t")s+=`<text x="${x+w/2}" y="${H-17}" fill="#2563eb" font-size="9" font-weight="700" text-anchor="middle">100%</text>`;
+  });
+  el.innerHTML=s+`</svg>`;
+}
+function TAB(k){
+  CURTAB=k;
+  ["ov","ec","sn","bk"].forEach(x=>{
+    document.getElementById("t_"+x).hidden=(x!==k);
+    document.querySelector(`.tab[data-t="${x}"]`).classList.toggle("on",x===k);
+  });
+  if(k==="bk"){bRenderBasis(); bRenderCards();}
+  draw();            // the hidden tabs are not computed, so fill this one now
+}
+renderControls(); draw();
+</script>
+
+</body></html>
