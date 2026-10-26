@@ -222,10 +222,6 @@ details.dts>*:not(summary){margin:0 17px 15px}
       <div class="bklead">Move the members on each format and watch the money move with it. Everything else on this tab is set-up, folded away below.</div>
       <div class="three" id="bcards"></div>
       <div class="panel" id="bport"></div>
-      <details class="panel dts" id="d_pl" open><summary>Where the money goes at these member counts</summary>
-        <div class="scroll" id="btbl" style="margin-bottom:16px"></div>
-        <div class="scroll" id="bwalk"></div>
-        <div class="note">AZN per month, one club per column. The portfolio column multiplies each format by its count in the left rail, so the head office allocated across the clubs adds back to the full head office line.</div></details>
       <details class="panel dts" id="d_cv" ontoggle="if(this.open)draw()"><summary>Profit across the whole member range</summary>
         <div class="three" id="bchart"></div>
         <div class="note">One club of each format at the basis year. The dashed vertical is the capacity cap and the dot is the breakeven crossing. A line still below zero at the cap cannot break even on these costs at any membership. The slope flattens after the crossing because profit tax starts to bite.</div></details>
@@ -1085,7 +1081,7 @@ function bRenderOut(){
   th+=`</table><div class="note">Contribution is the net fee plus PT, retail and the joining fee, less cost of sales, royalty, card fees, marketing and the per-visit water and gas. Club fixed is rent, payroll with its 35% on-cost, the fixed part of electricity, insurance, maintenance, IT and misc. Month reached assumes the ramp in Assumptions section 3.`
    +(B.useHO?` Head office is <b>${cf(Math.round(bHoTotal()))} &#8380; a month</b> — OpCo payroll with its on-cost and the outsourced accountant${A.opco_site?`, plus ${cf(A.opco_site)} &#8380; of shared services for every club after the first`:`. v47 removed the per-site shared-services charge, so this no longer grows with the number of clubs`} — loaded ${(B.balloc==="signature"&&S.sig<1)?"equally across every club, because no Signature is open to carry it":ALOC[B.balloc]}.`:"")
    +`</div>`;
-  document.getElementById("btbl").innerHTML=th;
+  const _bt=document.getElementById("btbl"); if(_bt) _bt.innerHTML=th;   // P&L section removed from the page; kept optional
   // curves - only drawn while that section is open
   const cv=document.getElementById("d_cv");
   document.getElementById("bchart").innerHTML=(cv&&cv.open)?FMTS.map(bCurve).join(""):"";
@@ -1109,7 +1105,7 @@ function bRenderOut(){
   const yv=FMTS.map(f=>W3[f].net*12);
   wh+=`<tr class="b"><td>Net profit, &#8380; per year</td>`+yv.map(v=>`<td${v<0?' class="neg"':''}>${wkk(v)}</td>`).join("")
     +`<td${pNet<0?' class="neg"':''}>${wkk(pNet*12)}</td></tr>`;
-  document.getElementById("bwalk").innerHTML=wh+`</table>`
+  const _bw=document.getElementById("bwalk"); if(_bw) _bw.innerHTML=wh+`</table>`
    +`<div class="note">Each club column pays its own tax, which is the right view of a club standing alone. The portfolio column does not add those up: the clubs sit in one company, so a loss-making studio shelters profit made elsewhere, and tax is charged once on the consolidated EBIT. That also keeps the portfolio bottom line steady whichever way head office is split, which is the only honest answer — moving a cost between clubs cannot change what the business earns.</div>`;
 }
 const wkk=v=>Math.abs(v)<0.5?"&ndash;":(v<0?"("+Math.round(-v).toLocaleString("en-US")+")":Math.round(v).toLocaleString("en-US"));
