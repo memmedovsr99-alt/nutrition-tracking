@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>UFC GYM Azerbaijan - Portfolio Model</title>
+<meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>UFC GYM Azerbaijan · Portfolio Dashboard</title>
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -155,8 +155,7 @@ details.dts>*:not(summary){margin:0 17px 15px}
 <div class="wrap">
 <div class="hd">
   <div><h1>UFC GYM <span>AZERBAIJAN</span> &nbsp;/&nbsp; Portfolio Model</h1>
-    <div class="sub">Model v79 &middot; nothing you change here is saved or shared &mdash; move anything you like, then press reset</div></div>
-  <span class="badge">engine matches Portfolio Model v79</span>
+</div>
 </div>
 <div class="kpis" id="kpis"></div>
 <div class="grid">
@@ -649,11 +648,11 @@ function bind(k,obj){
 }
 const SCN={
  base:{lev:{price:1,util:0.85,churnAbs:0.03,cost:1},
-   desc:"v78 assumptions as they stand: 113 ₼ blended at the Signature, clubs fill to 85% of the hard cap (1,700 at the Signature) in 24 months, 3% monthly churn at the clubs and 4% at BJJ, with 1 Signature, 5 Core (two a year from Sep-2028) and 3 BJJ studios (one a year from Sep-2029)."},
- down:{lev:{price:0.90,util:0.7225,churnAbs:0.04,cost:1.08},
-   desc:"Price held 10% below plan, clubs hold 72.3% of the hard cap at maturity instead of 85% (1,445 at the Signature), churn a full point worse at 4%, operating costs 8% over budget."},
- up:{lev:{price:1.05,util:0.935,churnAbs:0.025,cost:0.95},
-   desc:"Price 5% ahead, clubs hold 93.5% of the hard cap at maturity (1,870 at the Signature), churn half a point better at 2.5%, operating costs 5% under budget."}};
+   desc:"Base case: 113 ₼ blended at the Signature, clubs fill to 85% of the hard cap (1,700 at the Signature) in 24 months, 3% monthly churn at the clubs and 4% at BJJ, with 1 Signature, 5 Core (two a year from Sep-2028) and 3 BJJ studios (one a year from Sep-2029)."},
+ down:{lev:{price:0.95,util:0.80,churnAbs:0.035,cost:1.05},
+   desc:"Price 5% below plan, clubs hold 80% of the hard cap at maturity instead of 85% (1,600 at the Signature), churn half a point worse at 3.5%, operating costs 5% over budget."},
+ up:{lev:{price:1.05,util:0.90,churnAbs:0.025,cost:0.97},
+   desc:"Price 5% ahead, clubs hold 90% of the hard cap at maturity (1,800 at the Signature), churn half a point better at 2.5%, operating costs 3% under budget."}};
 let SCNID="base";
 function RESETALL(){S={...BASE_S};L={...BASE_L};B={...BASE_B};SCNID="base";BYEAR=2041;renderControls();draw();}
 function PRESET(p){
