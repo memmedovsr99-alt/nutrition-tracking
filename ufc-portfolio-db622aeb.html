@@ -216,7 +216,7 @@ details.dts>*:not(summary){margin:0 17px 15px}
           <div class="note">What the margin becomes if rent and payroll normalise toward industry levels. This is the answer to the 20&ndash;35% benchmark question.</div></div>
       </div>
       <div class="panel"><h3>IRR &nbsp;/&nbsp; Core count &times; BJJ count</h3><div class="scroll" id="g4"></div>
-        <div class="note">Build-mix test, holding the Signature at one. Current counts are outlined.</div></div>
+        <div class="note">Build-mix test, holding the Signature at one; the current mix is outlined. Each Core club earns well above the 13.1% discount rate, so more Cores lift IRR. Each BJJ studio earns close to it (about +0.01m of NPV per studio), so more studios add revenue and members but pull the blended IRR down toward ~14%.</div></div>
     </div>
     <div id="t_bk" hidden>
       <div class="bklead">Move the members on each format and watch the money move with it. Everything else on this tab is set-up, folded away below.</div>
@@ -612,7 +612,7 @@ function renderControls(){
       `Share of the hard cap each club holds once full. Base ${(A.util_mat*100).toFixed(0)}%: ${cf(Math.round(F.Signature.cap*A.util_mat))} at the Signature, ${cf(Math.round(F.Core.cap*A.util_mat))} at a Core club, ${cf(Math.round(F.BJJ.cap*A.util_mat))} at a BJJ studio. 100% is the hard cap`,
       s=>{const x=num(s);return x===null?null:x/100;})
    +slider("churnAbs","Monthly churn",0.01,0.10,0.0025,L.churnAbs,v=>(v*100).toFixed(2)+"%",
-      "Club rate. Base 3%; BJJ sits one point higher at 4%. Marketing was sized for 3% at the clubs and 2% at BJJ, so only churn above that is costed, at the cost to sign a member.",
+      "Signature and Core churn at this rate; BJJ always churns one point higher (3% here means 4% at BJJ, 4% means 5%). Lost members are replaced, so membership holds; the cost is extra marketing for any churn above 3% at the clubs and 2% at BJJ, at ~1.2 months of fee per member signed.",
       s=>{const x=num(s);return x===null?null:x/100;});
   document.getElementById("lev2").innerHTML=
     slider("cost","Opex multiplier",0.85,1.3,0.01,L.cost,v=>pf(v),"Rent, staff, marketing, utilities, other fixed",s=>{const x=num(s);return x===null?null:x/100;})
@@ -1259,7 +1259,7 @@ function draw(){
     {lev:(c,p)=>({...L,churnAbs:c,price:p})},x=>x.irr,irrF,shadeIRR,L.churnAbs,L.price);
   grid(document.getElementById("g3"),[1,1.25,1.5,1.75],[1,1.25,1.5,1.75],"rent","payroll",
     {lev:(a,b)=>({...L,rentM:a,staffM:b})},x=>x.rev[14]>0?x.eb[14]/x.rev[14]:null,marF,shadeMar,1,1);
-  grid(document.getElementById("g4"),[0,1,2,3],[0,2,4,6],"Core","BJJ",
+  grid(document.getElementById("g4"),[1,3,5,6],[0,3,6,9],"Core","BJJ",
     {sites:(a,b)=>({...S,core:a,bjj:b})},x=>x.irr,irrF,shadeIRR,S.core,S.bjj);
   }
   // ── margin bridge + compact summary ──
