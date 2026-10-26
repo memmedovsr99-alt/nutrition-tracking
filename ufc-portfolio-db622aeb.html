@@ -1137,20 +1137,24 @@ function draw(){
     ? "<b style=\"color:#505a68\">Custom</b> &mdash; levers moved by hand from the "+SCNID+" case. Pick a scenario above to snap back."
     : SCN[SCNID].desc;
   const marg=r.eb.map((x,j)=>r.rev[j]>0?x/r.rev[j]:0);
-  const m40=r.rev[14]>0?r.eb[14]/r.rev[14]:0;
+  // maturity = the calendar year in which the last club reaches its member target
+  const matJ=x=>{const y=Math.min(2041,ym(x.pFull).y);return x.Y.indexOf(y);};
+  const mj=matJ(r), bj=matJ(BASEOUT), myr=r.Y[mj];
+  const mMat=r.rev[mj]>0?r.eb[mj]/r.rev[mj]:0;
   const d=(a,b)=>b===0||b==null?null:(a-b)/Math.abs(b);
   const K=[["Portfolio NPV",nf(r.npv)+" ₼",d(r.npv,BASEOUT.npv)],
     ["IRR unlevered",pf(r.irr),r.irr==null||BASEOUT.irr==null?null:r.irr-BASEOUT.irr],
     ["Equity needed",nf(r.equity)+" ₼",d(r.equity,BASEOUT.equity)],
     ["Payback",(r.pb==null?"&ndash;":r.pb.toFixed(1)+" yrs"),r.pb&&BASEOUT.pb?-(r.pb-BASEOUT.pb)/BASEOUT.pb:null],
-    ["Members 2041",cf(Math.round(r.mem[14])),d(r.mem[14],BASEOUT.mem[14])],
-    ["EBITDA margin 2041",pf(m40),null]];
-  document.getElementById("kpis").innerHTML=K.map(([l,v,dl],i)=>{
+    ["Members at maturity",cf(Math.round(r.mem[mj])),d(r.mem[mj],BASEOUT.mem[bj])],
+    [`EBITDA margin ${myr}`,pf(mMat),null,"first full year at capacity"]];
+  document.getElementById("kpis").innerHTML=K.map(([l,v,dl,sub],i)=>{
     let ds="";
     if(dl!=null&&Math.abs(dl)>0.0005){
       const pp=(i===1);
       ds=`<div class="dl ${dl>0?"up":"dn"}">${dl>0?"▲":"▼"} ${pp?(Math.abs(dl)*100).toFixed(2)+"pp":(Math.abs(dl)*100).toFixed(1)+"%"} vs base</div>`;
     } else if(dl!=null) ds=`<div class="dl flat">— at base case</div>`;
+    else if(sub) ds=`<div class="dl flat">${sub}</div>`;
     return `<div class="kpi"><div class="lb">${l}</div><div class="vl">${v}</div>${ds}</div>`;}).join("");
   bars(document.getElementById("ch1"),r.Y,r.rev,r.eb,marg);
   stacked(document.getElementById("ch2"),r.Y,
