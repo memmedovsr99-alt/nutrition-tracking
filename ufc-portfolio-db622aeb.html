@@ -346,6 +346,7 @@ Object.keys(F).forEach(k=>{const f=F[k];
   const b=blended(k); if(b!==null) f.fee=b;   // fee is an output of the mix, not a typed number
   f.trainer=trainerShare(k);                  // v78: % of membership revenue, charged in cost of revenue
   f.util=A.util_mat;                          // v78: share of the hard cap held at maturity
+  f.repl={Signature:.70,Core:.70,BJJ:.30}[k];  // year-6 equipment replacement, % of original cost (Assumptions 96): BJJ is mats and bags only
   f.el_wm2=f.light_w+f.vent_w+f.hvac_w*A.hvac_ld;        // follows floor area
   f.el_kw=f.cardio_n*A.cardio_k+f.av_kw+f.misc_kw;        // does not
   f.sauna_k=f.sauna_n*f.sauna_kw*A.sauna_ld*f.sauna_h;    // own hours
@@ -432,10 +433,10 @@ function sitePass(sites,lev,cpa,rate){
    const eb=rev-cor-opex;
    const cx=fitF*(capex+A.loc_fee*A.fx)/fit, po=fitF*preopen/fit;   // v40: location fee capitalised
    const vt=-fitF*capex*A.vat/fit+((om===A.vat_lag+1)?capex*A.vat:0);
-   const rp=(om===(A.repl_yr-1)*12+1)?equip*A.repl_pct*Math.pow(1+A.infl,A.repl_yr-1):0;
+   const rp=(om===(A.repl_yr-1)*12+1)?equip*f.repl*Math.pow(1+A.infl,A.repl_yr-1):0;
    const da=((om>=1&&om<=A.life_fit*12)?(sqm*f.fitout_sqm+A.loc_fee*A.fx)/(A.life_fit*12):0)
            +((om>=1&&om<=A.life_eq*12)?(equip+av)/(A.life_eq*12):0)
-           +((om>=(A.repl_yr-1)*12+1&&om<=(A.repl_yr-1)*12+A.life_eq*12)?equip*A.repl_pct*Math.pow(1+A.infl,A.repl_yr-1)/(A.life_eq*12):0);
+           +((om>=(A.repl_yr-1)*12+1&&om<=(A.repl_yr-1)*12+A.life_eq*12)?equip*f.repl*Math.pow(1+A.infl,A.repl_yr-1)/(A.life_eq*12):0);
    r.op[i]=opF; r.mem[i]=close; r.rev[i]=rev; r.ebitda[i]=eb; r.capex[i]=cx; r.preop[i]=po;
    r.vat[i]=vt; r.repl[i]=rp; r.cf[i]=eb-cx-po+vt-rp; r.da[i]=da;
    r.fund[i]=fitF*need/fit; r.royalty[i]=roy; r.ga[i]=ga;
