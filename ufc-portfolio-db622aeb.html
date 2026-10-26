@@ -205,7 +205,7 @@ details.dts>*:not(summary){margin:0 17px 15px}
     </div>
     <div id="t_sn" hidden>
       <div class="panel"><h3>IRR by driver</h3><div class="scroll" id="sens"></div>
-        <div class="note">Each cell re-runs the whole engine with one driver moved, everything else held at the current setting. Shaded against the 13.1% discount rate.</div></div>
+        <div class="note">Each cell recalculates the whole model with one driver moved, everything else held at the current setting. Shaded against the 13.1% discount rate.</div></div>
       <div class="two">
         <div class="panel"><h3>IRR &nbsp;/&nbsp; price &times; utilisation</h3><div class="scroll" id="g1"></div>
           <div class="note">The two drivers that matter most. Green above the 13.1% hurdle.</div></div>
@@ -214,9 +214,9 @@ details.dts>*:not(summary){margin:0 17px 15px}
       </div>
       <div class="two">
         <div class="panel"><h3>IRR &nbsp;/&nbsp; churn &times; price</h3><div class="scroll" id="g5"></div>
-          <div class="note">Monthly churn against price. Rows are the club churn rate the slider sets; BJJ sits one point below each row. Price moves all three formats together here.</div></div>
+          <div class="note">Monthly churn against price. Rows are the club churn rate the slider sets; BJJ sits one point above each row. Price moves all three formats together here.</div></div>
         <div class="panel"><h3>2041 EBITDA margin &nbsp;/&nbsp; rent &times; payroll</h3><div class="scroll" id="g3"></div>
-          <div class="note">What the margin becomes if rent and payroll normalise toward industry levels. This is the answer to the 20&ndash;35% benchmark question.</div></div>
+          <div class="note">What the margin becomes if rent and payroll normalise toward industry levels. Compare with the 20&ndash;35% margin typical for gym operators.</div></div>
       </div>
       <div class="panel"><h3>IRR &nbsp;/&nbsp; Core count &times; BJJ count</h3><div class="scroll" id="g4"></div>
         <div class="note">Build-mix test, holding the Signature at one; the current mix is outlined. Each Core club earns well above the 13.1% discount rate, so more Cores lift IRR. Each BJJ studio earns close to it (about +0.01m of NPV per studio), so more studios add revenue and members but pull the blended IRR down toward ~14%.</div></div>
@@ -231,7 +231,7 @@ details.dts>*:not(summary){margin:0 17px 15px}
       <details class="panel dts" id="d_bs"><summary>Basis and the other inputs</summary>
         <div class="two"><div id="bbasis"></div>
           <div><div class="scroll" id="binputs"></div>
-            <div class="note">Every figure here is typed, not a multiplier, and this tab reads the base assumptions rather than the scenario levers on the left. Club payroll is the net monthly roster total from Assumptions 4b; the 35% employment on-cost is added on top. The only thing taken from the left rail is how many clubs are open, which sets the head office there is to spread.</div></div></div></details>
+            <div class="note">Every figure here is typed, not a multiplier, and this tab reads the base assumptions rather than the scenario levers on the left. Club payroll is the net monthly total of the club staffing roster; the 35% employment on-cost is added on top. The only thing taken from the left rail is how many clubs are open, which sets the head office there is to spread.</div></div></div></details>
     </div>
   </div>
 </div>
@@ -1049,7 +1049,7 @@ function bRenderBasis(){
        "Members needed to clear this much net profit a year, grossed up at the 20% profit tax. Zero gives the plain breakeven",s=>num(s))
     +`<div class="fmthd">What breakeven has to cover</div>`
     +`<div class="tglrow">${tgl("useHO","Head office")}${tgl("useDep","Depreciation")}${tgl("useTax","Profit tax")}</div>`
-    +`<div class="hint">Club rent, payroll, utilities and other fixed costs are always in. The minimum royalty guarantee is out: it is a floor rather than an extra cost, and the Signature on its own clears it at capacity.</div>`
+    +`<div class="hint">Club rent, payroll, utilities and other fixed costs are always in. The minimum royalty guarantee is left out: royalties clear it from 2028 on.</div>`
     +`<div class="fmthd">How head office is split</div>`
     +`<div class="scn">${alo("signature","All on Signature")}${alo("equal","Equal")}${alo("capacity","By capacity")}${alo("revenue","By revenue")}</div>`
     +`<div class="hint">All on Signature puts the whole head office on the flagship, which is where the co-founder / GM actually works — the Signature carries no club manager of its own for exactly that reason. Equal divides it by the number of clubs, which is hardest on the smallest format. By capacity and by revenue scale it to the size of the club.</div>`
