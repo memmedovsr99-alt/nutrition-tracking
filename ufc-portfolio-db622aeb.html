@@ -13,6 +13,8 @@ body{background:#f7f8fa;color:#1a1f28;font:14px/1.5 -apple-system,BlinkMacSystem
 .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;position:sticky;top:0;z-index:30;background:#f7f8fa;margin:0 -26px 10px;padding:12px 26px;box-shadow:0 8px 12px -10px rgba(16,24,40,.22)}
 .kpi{background:#fff;border:1px solid #e2e6ec;border-radius:9px;padding:13px 14px 13px 16px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.04)}
 .kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#d20a0a}
+.kdet{float:right;text-transform:none;letter-spacing:0;font-weight:600;color:#d20a0a;cursor:pointer;font-size:10.5px}
+.kdet:hover{text-decoration:underline}
 .kpi .lb{color:#6b7684;font-size:10px;text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;font-weight:600}
 .kpi .vl{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.3px;color:#0d1117}
 .kpi .dl{font-size:10.5px;margin-top:4px;font-variant-numeric:tabular-nums;font-weight:600}
@@ -181,7 +183,7 @@ details.dts>*:not(summary){margin:0 17px 15px}
       <button class="tab" data-t="bk" onclick="TAB('bk')">Breakeven</button>
     </div>
     <div id="t_ov">
-    <div class="panel" style="border-left:3px solid #d20a0a"><h3>Payback: the portfolio vs one club</h3><div class="ptiles" id="pbk" style="grid-template-columns:repeat(4,minmax(0,1fr))"></div><div class="note" id="pbnote" style="margin-top:9px"></div></div>
+    <div class="panel" id="pbpanel" hidden style="border-left:3px solid #d20a0a"><h3>Payback: the portfolio vs one club <a class="kdet" onclick="PBTOG()">close &times;</a></h3><div class="ptiles" id="pbk" style="grid-template-columns:repeat(4,minmax(0,1fr))"></div><div class="note" id="pbnote" style="margin-top:9px"></div></div>
     <div class="panel"><h3>Revenue &amp; EBITDA by year</h3>
       <div class="lg"><span><i style="background:#2563eb"></i>Net revenue</span><span><i style="background:#d20a0a"></i>Portfolio EBITDA</span><span><i style="background:#16a34a"></i>EBITDA margin</span></div>
       <div id="ch1"></div></div>
@@ -1120,7 +1122,12 @@ function bRenderOut(){
 const wkk=v=>Math.abs(v)<0.5?"&ndash;":(v<0?"("+Math.round(-v).toLocaleString("en-US")+")":Math.round(v).toLocaleString("en-US"));
 
 // ─────────── main render ───────────
-let CURTAB="ov";
+let CURTAB="ov", PBOPEN=false;
+// payback explanation panel: closed by default, opened from the Payback tile
+function PBTOG(){PBOPEN=!PBOPEN; const el=document.getElementById("pbpanel");
+  if(PBOPEN&&CURTAB!=="ov") TAB("ov");
+  el.hidden=!PBOPEN; draw();
+  if(PBOPEN) el.scrollIntoView({behavior:"smooth",block:"center"});}
 function draw(){
   const r=calc();
   if(!BASEOUT)BASEOUT=run({sites:buildSites(BASE_S),lev:BASE_L});
@@ -1154,7 +1161,7 @@ function draw(){
   const K=[["Portfolio NPV",nf(r.npv)+" ₼",d(r.npv,BASEOUT.npv)],
     ["IRR unlevered",pf(r.irr),r.irr==null||BASEOUT.irr==null?null:r.irr-BASEOUT.irr],
     ["Equity needed",nf(r.equity)+" ₼",d(r.equity,BASEOUT.equity)],
-    ["Payback",(r.pb==null?"&ndash;":r.pb.toFixed(1)+" yrs"),r.pb&&BASEOUT.pb?-(r.pb-BASEOUT.pb)/BASEOUT.pb:null],
+    [`Payback <a class="kdet" onclick="PBTOG()">${PBOPEN?"hide ▴":"details ▾"}</a>`,(r.pb==null?"&ndash;":r.pb.toFixed(1)+" yrs"),r.pb&&BASEOUT.pb?-(r.pb-BASEOUT.pb)/BASEOUT.pb:null],
     ["Members at maturity",cf(Math.round(r.mem[mj])),d(r.mem[mj],BASEOUT.mem[bj])],
     [`EBITDA margin ${myr}`,pf(mMat),null,"first full year at capacity"]];
   document.getElementById("kpis").innerHTML=K.map(([l,v,dl,sub],i)=>{
