@@ -527,8 +527,10 @@ function run(cfg){
  let lo=-.9,hi=3,irr=null;
  if(f(lo)*f(hi)<0){for(let k=0;k<200;k++){const mid=(lo+hi)/2; if(f(mid)>0){lo=mid;}else{hi=mid;}} irr=(lo+hi)/2;}
  const cum=[]; fcf.reduce((a,x,j)=>cum[j]=a+x,0);
- // years from Jan-2027: whole negative years plus the fraction of the crossing year
- let pb=null; for(let j=0;j<cum.length;j++)if(cum[j]>=0){pb=j?j+(-cum[j-1]/fcf[j]):0;break;}
+ // years from Jan-2027 to the point where cumulative cash turns positive AFTER it has gone
+ // negative (years before any investment sit at zero and must not count as "paid back")
+ let pb=null; const neg0=cum.findIndex(x=>x<0);
+ if(neg0>=0) for(let j=neg0+1;j<cum.length;j++) if(cum[j]>=0){pb=j+(-cum[j-1]/fcf[j]);break;}
  if(pb!=null) pb=Math.max(0,pb-pStart/12);   // counted from the first club opening, not from Jan-2027
  // equity & cash
  const eqM=[],cashM=[]; let cash=0;
@@ -1187,8 +1189,9 @@ function draw(){
      +(S.sig?t("Signature club",yrs(r.pbFmt.Signature),"one club, from its opening day"):"")
      +(S.core?t("Core club",yrs(r.pbFmt.Core),"one club, from its opening day"):"")
      +(S.bjj?t("BJJ studio",yrs(r.pbFmt.BJJ),"one club, from its opening day"):"");
-    const tro=r.Y[r.cum.indexOf(Math.min(...r.cum))], pos=r.Y[r.cum.findIndex(x=>x>=0)], firstOpen=Math.min(...buildSites(S).map(x=>x.open.y));
-    document.getElementById("pbnote").innerHTML=`Each club pays back on its own in a few years. The portfolio takes longer because the cash hole keeps growing until <b>${tro}</b>: ${nClubs} clubs open over ${spanY<=1?"about a year":spanY+" years"}, and each new one takes cash before it earns, so cumulative cash falls until the last clubs are built, even though the earlier clubs are already profitable. It turns positive in ${pos==null?"&ndash;":pos} (chart below). All investment is counted as cash out, whether funded by equity or by the clubs&rsquo; own cash, and before any debt; club paybacks are before head office.`;
+    const neg0=r.cum.findIndex(x=>x<0), posI=neg0<0?-1:r.cum.findIndex((x,j)=>j>neg0&&x>=0);
+    const tro=r.Y[r.cum.indexOf(Math.min(...r.cum))], pos=posI<0?null:r.Y[posI], firstOpen=Math.min(...buildSites(S).map(x=>x.open.y));
+    document.getElementById("pbnote").innerHTML=`Each club pays back on its own in a few years. The portfolio takes longer because the cash hole keeps growing until <b>${tro}</b>: ${nClubs} clubs open over ${spanY<=1?"about a year":spanY+" years"}, and each new one takes cash before it earns, so cumulative cash falls until the last clubs are built, even though the earlier clubs are already profitable. ${pos==null?"It does not turn positive within the forecast":"It turns positive in "+pos} (chart below). All investment is counted as cash out, whether funded by equity or by the clubs&rsquo; own cash, and before any debt; club paybacks are before head office.`;
   }
   // sites table
   const tc={Signature:"t-sig",Core:"t-core",BJJ:"t-bjj"};
