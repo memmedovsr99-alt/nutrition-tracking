@@ -503,3 +503,14 @@
 {"logged_at": "2026-10-28", "type": "daily_total", "profile": "samir", "date": "2026-10-26", "calories": 2200, "protein": 150, "carbs": 220, "fat": 80, "note": "estimated summary day"}
 {"logged_at": "2026-10-28", "date": "2026-10-27", "profile": "samir", "meal": "Dinner", "name": "Day summary (estimated)", "calories": 2200, "protein": 150, "carbs": 220, "fat": 80}
 {"logged_at": "2026-10-28", "type": "daily_total", "profile": "samir", "date": "2026-10-27", "calories": 2200, "protein": 150, "carbs": 220, "fat": 80, "note": "estimated summary day"}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Lunch", "name": "Chipotle: double chicken", "calories": 360, "protein": 64, "carbs": 0, "fat": 14}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Lunch", "name": "Chipotle: white rice", "calories": 210, "protein": 4, "carbs": 40, "fat": 4}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Lunch", "name": "Chipotle: pinto beans", "calories": 130, "protein": 8, "carbs": 21, "fat": 2}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Lunch", "name": "Chipotle: fajita veggies", "calories": 20, "protein": 1, "carbs": 5, "fat": 0}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Lunch", "name": "Chipotle: corn salsa", "calories": 80, "protein": 3, "carbs": 16, "fat": 2}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Lunch", "name": "Chipotle: tomato salsa + lettuce", "calories": 30, "protein": 1, "carbs": 5, "fat": 0}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Dinner", "name": "Steak + sausage, a few pieces (his est. ~500 max)", "calories": 500, "protein": 35, "carbs": 2, "fat": 39}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "Mango (regular)", "calories": 150, "protein": 1, "carbs": 37, "fat": 1}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "Banana (medium)", "calories": 105, "protein": 1, "carbs": 27, "fat": 0}
+{"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "Peach (medium)", "calories": 60, "protein": 1, "carbs": 15, "fat": 0}
+{"logged_at": "2026-10-28", "type": "daily_total", "profile": "samir", "date": "2026-10-28", "calories": 1645, "protein": 119, "carbs": 168, "fat": 62}
