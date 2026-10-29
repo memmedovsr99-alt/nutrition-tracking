@@ -514,3 +514,6 @@
 {"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "Banana (medium)", "calories": 105, "protein": 1, "carbs": 27, "fat": 0}
 {"logged_at": "2026-10-28", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "Peach (medium)", "calories": 60, "protein": 1, "carbs": 15, "fat": 0}
 {"logged_at": "2026-10-28", "type": "daily_total", "profile": "samir", "date": "2026-10-28", "calories": 1645, "protein": 119, "carbs": 168, "fat": 62}
+{"logged_at": "2026-10-29", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "96/4 beef w/ onion + garlic, 216g cooked (~1.46 kcal/g, no oil)", "calories": 315, "protein": 48, "carbs": 5, "fat": 11}
+{"logged_at": "2026-10-29", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "TJ nonfat yogurt 140g (label 90 cal/10P per 170g)", "calories": 74, "protein": 8, "carbs": 10, "fat": 0}
+{"logged_at": "2026-10-29", "type": "daily_total", "profile": "samir", "date": "2026-10-28", "calories": 2034, "protein": 175, "carbs": 183, "fat": 73}
