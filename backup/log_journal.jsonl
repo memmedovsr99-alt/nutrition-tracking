@@ -552,3 +552,5 @@
 {"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Dinner", "name": "Potato 400g raw, deep-fried in EVOO (308 + ~30g oil absorbed 265)", "calories": 573, "protein": 8, "carbs": 70, "fat": 30}
 {"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Dinner", "name": "T-bone 1.5lb w/ bone, side fat trimmed (~450g raw meat @1.8/g)", "calories": 810, "protein": 94, "carbs": 0, "fat": 46}
 {"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 1966, "protein": 139, "carbs": 80, "fat": 118}
+{"type": "correction", "date": "2026-10-31", "profile": "samir", "item": "T-bone", "from": {"calories": 810, "protein": 94, "fat": 46}, "to": {"calories": 540, "protein": 63, "carbs": 0, "fat": 32}, "reason": "Samir: meat was 300g max, not ~450g"}
+{"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 1696, "protein": 108, "carbs": 80, "fat": 104}
