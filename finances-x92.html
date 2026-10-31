@@ -654,7 +654,7 @@ const DATA = {
     endDate:   "2027-05-15",     // horizon = end of academic year (approx graduation)
     // Money IN HAND today = bank + card + cash (all liquid accounts combined)
     startingBalance: 42980.77,   // 42,570.18 bank + 105.59 card + 305 cash (bank incl. +$395.18 reconciliation so computed BofA ties to actual statement as of 2026-08-22: savings $146,766.78 + checking $1,500 = $148,266.78; absorbs AZN/CNY rounding + minor deltas)
-    accounts: { bank: 42570.18, card: 105.59, cash: 1021, venmo: 292 },   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
+    accounts: { bank: 42570.18, card: 105.59, cash: 1021, venmo: 292, rewards: 302.62, azn: 133.31 },   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
     // Scholarship context (tuition portion is NOT spendable — excluded from Balance Left)
     scholarshipTotal:   111008,
     scholarshipTuition: 63008,   // paid direct to Penn, not counted
@@ -688,6 +688,8 @@ const DATA = {
     { date:"2026-10-30", source:"Building referral bonus (Venmo)", amount:250, emoji:"🏢", received:true, note:"Referral bonus from the building — sitting in Venmo" },
     { date:"2026-10-30", source:"Friend — share of a payment (Venmo)", amount:30, emoji:"🤝", received:true, note:"Friend's share of a payment Samir made — received in Venmo" },
     { date:"2026-10-30", source:"Tennis lesson resold (Venmo)", amount:12, emoji:"🎾", received:true, note:"CampusGroups tennis lesson bought then sold to a friend — received in Venmo" },
+    { date:"2026-10-30", source:"BofA card cashback (unredeemed)", amount:302.62, emoji:"🎁", received:true, note:"Total available rewards on card #8337 — includes the $200 new-account spend bonus (Sep 28). Earned on spending, never counted before." },
+    { date:"2026-10-30", source:"Azerbaijani debit card balance", amount:133.31, emoji:"🇦🇿", received:true, note:"226.62 AZN @ 1.70 — includes Zarifa's repayment of the $150 transfer. Not part of BofA." },
     { date:"2026-08-26", source:"New building deposit — receivable", amount:500, emoji:"🏢", received:false, note:"$500 deposit paid for the new building — refundable, owed back on move-out" }
   ],
 
@@ -889,7 +891,7 @@ const DATA = {
     // ── SAVINGS 6731 · Sep 22 → Oct 29 (chain verified: $120,818.01 → $107,006.49, no gaps) ──
     //    Transfers savings→checking are internal and NOT logged here. Card payments = Debt (money side only).
     { date:"2026-09-24", category:"Fees",    name:"USCIS — work authorization (EAD) filing fee", amount:2250,    bucket:null, paid:true, daily:false, emoji:"🧾", note:"Savings 6731 — immigration filing fee, one-off" },
-    { date:"2026-10-06", category:"Misc",    name:"Zelle — Yazmin Perez (Zarifa transfer)", amount:150, bucket:null, paid:true, daily:false, emoji:"🤝", note:"Savings 6731 — ⚠️ purpose to confirm with Samir" },
+    { date:"2026-10-06", category:"Loan",    name:"Zelle — Yazmin Perez (Zarifa transfer)", amount:150, bucket:null, paid:true, daily:false, emoji:"🤝", note:"Savings 6731 — transfer on Zarifa's behalf; she repaid Samir into his Azerbaijani debit card (that balance is counted as an account)." },
     { date:"2026-10-06", category:"Rent",    name:"Rent — October (PMCPROPERTY)",    amount:2538.85, bucket:null, paid:true, daily:false, emoji:"🏠", note:"Savings 6731 — PMCPROPERTY-330, 2026-10-06" },
     { date:"2026-10-13", category:"Debt",    name:"BofA card payment",               amount:116.95,  bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337" },
     { date:"2026-10-13", category:"Debt",    name:"BofA card payment (scheduled)",   amount:217.44,  bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337, scheduled statement payment" },
@@ -1244,7 +1246,9 @@ function compute() {
   const totalWithTuition = liquidNow + tuitionInBank;         // all liquid (BofA + cash) incl. tuition
   const cash   = (m.accounts && +m.accounts.cash) || 0;        // physical cash, not in BofA
   const venmo  = (m.accounts && +m.accounts.venmo) || 0;       // Venmo balance, not in BofA
-  const bofaNow = totalWithTuition - cash - venmo;                     // savings + checking only — should match BofA app
+  const rewards= (m.accounts && +m.accounts.rewards) || 0;     // unredeemed card cashback
+  const azn    = (m.accounts && +m.accounts.azn) || 0;         // Azerbaijani debit card, USD equivalent
+  const bofaNow = totalWithTuition - cash - venmo - rewards - azn;                     // savings + checking only — should match BofA app
 
   // Year self-budget: what Samir started the year with to spend on himself, vs actual spend so far.
   // "Spent on yourself" = every expense since journey start EXCEPT debt principal, tuition, and
@@ -1281,7 +1285,7 @@ function compute() {
   const daysLeftPeriod = Math.max(0, daysInPeriod - dayInPeriod);
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
-           tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, venmo, bofaNow,
+           tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, venmo, rewards, azn, bofaNow,
            yearBudget, selfSpent, yearLeft, yearDrawdown, yearOther, yearPct,
            allowAmt, allowSpent, allowLeft, periodStart, periodEnd, daysInPeriod, dayInPeriod, daysLeftPeriod,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
@@ -1473,6 +1477,8 @@ function renderBalance(c) {
   document.getElementById("bal-stats").innerHTML = [
     ["💵","Cash on hand", c.cash, ""],
     ["📲","Venmo", c.venmo, ""],
+    ["🎁","Card cashback", c.rewards, ""],
+    ["🇦🇿","AZ debit card", c.azn, ""],
     ["💰","Receivables", c.expIn, "green"],
     ["💳","Payables", c.owedOut, "red"],
     ["🎓","Tuition held", c.tuitionInBank, ""]
@@ -1514,6 +1520,8 @@ function renderBalance(c) {
     <div class="wf-row"><span>🏦 Your money in BofA</span><span>${money(yourMoney)}</span></div>
     <div class="wf-row"><span>💵 Cash on hand</span><span class="green">+${money(c.cash)}</span></div>
     <div class="wf-row"><span>📲 Venmo</span><span class="green">+${money(c.venmo)}</span></div>
+    <div class="wf-row"><span>🎁 Card cashback</span><span class="green">+${money(c.rewards)}</span></div>
+    <div class="wf-row"><span>🇦🇿 AZ debit card</span><span class="green">+${money(c.azn)}</span></div>
     <div class="wf-row"><span>💰 Receivables (owed to you)</span><span class="green">+${money(c.expIn)}</span></div>
     <div class="wf-row"><span>💳 Payables (you owe)</span><span class="red">−${money(c.owedOut)}</span></div>
     <div class="wf-row total"><span>🎯 Truly yours to spend</span><span class="money-big">${money(c.balance)}</span></div>`;
