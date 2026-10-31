@@ -536,3 +536,4 @@
 {"logged_at": "2026-10-30", "type": "daily_total", "profile": "samir", "date": "2026-10-30", "calories": 843, "protein": 60, "carbs": 84, "fat": 44, "note": "chicken pending"}
 {"logged_at": "2026-10-30", "date": "2026-10-30", "profile": "samir", "meal": "Dinner", "name": "Chicken thighs x4 (1.5lb bone-in skin-on -> ~442g raw meat)", "calories": 535, "protein": 87, "carbs": 0, "fat": 18}
 {"logged_at": "2026-10-30", "type": "daily_total", "profile": "samir", "date": "2026-10-30", "calories": 1378, "protein": 147, "carbs": 84, "fat": 62}
+{"ts":"2026-10-30T23:30","app":"finance","action":"update","detail":"Brazil CANCELLED (refunds 6290, Mina 3000 receivable deleted, net cost $10); Vietnam bucket created (Emirates 2118.49 Samir + 2237.49 Mina + Akif 1000 hotels = 5355.98, all on Samir); USCIS relabeled work authorization; Venmo account added (292 = 250 referral + 30 friend + 12 tennis) with venmo excluded from bofaNow; bucket cards now show Trip-vs-Shopping split"}
