@@ -645,7 +645,7 @@ const DATA = {
     endDate:   "2027-05-15",     // horizon = end of academic year (approx graduation)
     // Money IN HAND today = bank + card + cash (all liquid accounts combined)
     startingBalance: 42980.77,   // 42,570.18 bank + 105.59 card + 305 cash (bank incl. +$395.18 reconciliation so computed BofA ties to actual statement as of 2026-08-22: savings $146,766.78 + checking $1,500 = $148,266.78; absorbs AZN/CNY rounding + minor deltas)
-    accounts: { bank: 42570.18, card: 105.59, cash: 1021 },   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
+    accounts: { bank: 42570.18, card: 105.59, cash: 1021, venmo: 292 },   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
     // Scholarship context (tuition portion is NOT spendable — excluded from Balance Left)
     scholarshipTotal:   111008,
     scholarshipTuition: 63008,   // paid direct to Penn, not counted
@@ -663,7 +663,6 @@ const DATA = {
     { date:"2026-08-10", source:"Halluminate — receivable",       amount:4625,  emoji:"💻", received:true, note:"Owed to Samir — reduced by $3,000 on 2026-08-22; received 2026-08-22" },
     { date:"2026-09-08", source:"Babak — loan repayment", amount:100, emoji:"🤝", received:true, note:"REPAID — Zelle from Babak Aghazada into checking 6553 on 2026-09-08" },
     { date:"2026-08-22", source:"Mina — receivable", amount:80.90, emoji:"🤝", received:false, note:"Owed by Mina. She paid Ilkin & Mahinur $277.92 directly on Samir's behalf (610 AZN total − $277.92 = $80.90 still owed). Never touched Samir's BofA." },
-    { date:"2026-08-26", source:"Mina — Brazil trek share", amount:3000, emoji:"🇧🇷", received:false, note:"Mina's $3,000 share of the $6,300 Brazil Carnival trek Samir paid upfront — owed back to him" },
     { date:"2026-08-26", source:"Qatar Airways — refund", amount:662, emoji:"✈️", received:true, note:"$662 refund from Qatar Airways received into BofA — 2026-08-26" },
     { date:"2026-09-08", source:"Building deposit — refund", amount:4128.44, emoji:"🏢", received:true, note:"Old building security deposit returned — mobile deposit into BofA on 2026-09-08" },
     { date:"2026-09-21", source:"Mina — flight ticket (fronted)", amount:1055.43, emoji:"🎟️", received:false, note:"Samir fronted Mina's Turkish Airlines ticket ($1,055.43, checking 6553, 2026-09-21) — owed back by Mina in full" },
@@ -673,10 +672,13 @@ const DATA = {
     { date:"2026-09-21", source:"Unidentified — reconciliation difference", amount:68.51, emoji:"❓", received:true, note:"Remaining gap after Halluminate $800 found in savings (Aug 31). Patagonia double count resolved; $68.51 left — likely in savings Aug 22–31 lines not yet reviewed." },
     { date:"2026-08-26", source:"Mina — Claude subscription (fronted)", amount:108, emoji:"🤖", received:false, note:"Samir paid Mina's $108 Claude subscription from checking on 2026-08-26 — owed back" },
     { date:"2026-10-13", source:"BofA savings interest", amount:4.21, emoji:"🏦", received:true, note:"Interest earned on savings, 2026-10-13" },
-    { date:"2026-10-22", source:"Wharton Carnaval — transfer in", amount:4290, emoji:"🇧🇷", received:true, note:"Savings 6731 +$4,290 'Wharton Carnaval TRANSFER' — ⚠️ likely Brazil trek refund/rebate; confirm, may change Mina's $3,000 share" },
-    { date:"2026-10-22", source:"Wharton Carnaval — transfer in (2)", amount:1500, emoji:"🇧🇷", received:true, note:"Savings 6731 +$1,500 'Wharton Carnaval TRANSFER' — ⚠️ same, confirm with Samir" },
-    { date:"2026-10-29", source:"Parrot Trips Operadora — wire in", amount:500, emoji:"✈️", received:true, note:"Savings 6731 +$500 incoming wire from Parrot Trips Operadora de Viagens — ⚠️ confirm (trek operator refund?)" },
+    { date:"2026-10-22", source:"Brazil trek — refund (Wharton Carnaval)", amount:4290, emoji:"↩️", received:true, note:"Trip cancelled, tickets given back. Refund into savings 2026-10-22" },
+    { date:"2026-10-22", source:"Brazil trek — refund (Wharton Carnaval) #2", amount:1500, emoji:"↩️", received:true, note:"Trip cancelled — second refund instalment, savings 2026-10-22" },
+    { date:"2026-10-29", source:"Brazil trek — refund (Parrot Trips)", amount:500, emoji:"↩️", received:true, note:"Operator refund of the $500 deposit, wire into savings 2026-10-29. Total refunded $6,290 of the $6,300 paid — $10 net cost." },
     { date:"2026-10-15", source:"Friend — cash fronted (receivable)", amount:60, emoji:"🤝", received:false, note:"$60 cash Samir paid on a friend's behalf on the road trip — to be repaid" },
+    { date:"2026-10-30", source:"Building referral bonus (Venmo)", amount:250, emoji:"🏢", received:true, note:"Referral bonus from the building — sitting in Venmo" },
+    { date:"2026-10-30", source:"Friend — share of a payment (Venmo)", amount:30, emoji:"🤝", received:true, note:"Friend's share of a payment Samir made — received in Venmo" },
+    { date:"2026-10-30", source:"Tennis lesson resold (Venmo)", amount:12, emoji:"🎾", received:true, note:"CampusGroups tennis lesson bought then sold to a friend — received in Venmo" },
     { date:"2026-08-26", source:"New building deposit — receivable", amount:500, emoji:"🏢", received:false, note:"$500 deposit paid for the new building — refundable, owed back on move-out" }
   ],
 
@@ -716,7 +718,7 @@ const DATA = {
     { date:"2026-08-26", category:"Social",   name:"Wharton club membership fees",       amount:725,    bucket:null,    paid:true, daily:false, emoji:"🎓", note:"Wharton club membership — one-off, not from the $1,500 daily allowance" },
     { date:"2026-08-26", category:"Loan",     name:"New building deposit (paid)",        amount:500,    bucket:null,    paid:true, daily:false, emoji:"🏢", note:"Refundable deposit paid for new building — cash out now, offset by receivable in income[] (not consumption)" },
     { date:"2026-08-26", category:"Fees",     name:"Building application fee",           amount:21,     bucket:null,    paid:true, daily:false, emoji:"🧾", note:"Application fee for the new building (non-refundable)" },
-    { date:"2026-08-26", category:"Travel",   name:"Brazil Carnival trek (Feb)",         amount:6300,   bucket:"brazil", paid:true, daily:false, emoji:"🇧🇷", note:"Full trek paid for Feb 2027 Carnival (incl. the $500 deposit). $3,000 is Mina's share — tracked as a receivable in income[]. Cleared as 'Wharton Carnaval' $4,290+$1,500 on 2026-09-01." },
+    { date:"2026-08-26", category:"Travel",   name:"Brazil Carnival trek (Feb)",         amount:6300,   bucket:"brazil", paid:true, daily:false, emoji:"🇧🇷", note:"CANCELLED Oct 2026 — tickets returned, $6,290 refunded (see income). Net cost $10. Originally: full trek for Feb 2027 Carnival (incl. the $500 deposit). $3,000 was Mina's share — tracked as a receivable in income[]. Cleared as 'Wharton Carnaval' $4,290+$1,500 on 2026-09-01." },
     // ── September 2026 activity (reconciled from BofA savings statement) ──
     { date:"2026-09-17", category:"Tuition",  name:"Tuition — 2nd installment",          amount:7876,   bucket:null,    paid:true, inBalance:false, note:"2nd of 8 installments to Penn ('University of PE' 2026-09-17) — drains tuition-in-bank, not spendable balance" },
     { date:"2026-09-03", category:"Rent",     name:"Rent (PMCPROPERTY)",                 amount:2598.85, bucket:null,   paid:true, daily:false, emoji:"🏠", note:"New building rent — PMCPROPERTY-330, 2026-09-03" },
@@ -877,13 +879,13 @@ const DATA = {
     { date:"2026-09-22", category:"Groceries", name:"Giant Food", amount:14.87, bucket:null, paid:true, inBalance:false, note:"BofA card #8337 (new pending charge, 2026-09-22)" },
     // ── SAVINGS 6731 · Sep 22 → Oct 29 (chain verified: $120,818.01 → $107,006.49, no gaps) ──
     //    Transfers savings→checking are internal and NOT logged here. Card payments = Debt (money side only).
-    { date:"2026-09-24", category:"Fees",    name:"USCIS filing fee",                amount:2250,    bucket:null, paid:true, daily:false, emoji:"🧾", note:"Savings 6731 — immigration filing fee, one-off" },
+    { date:"2026-09-24", category:"Fees",    name:"USCIS — work authorization (EAD) filing fee", amount:2250,    bucket:null, paid:true, daily:false, emoji:"🧾", note:"Savings 6731 — immigration filing fee, one-off" },
     { date:"2026-10-06", category:"Misc",    name:"Zelle — Yazmin Perez (Zarifa transfer)", amount:150, bucket:null, paid:true, daily:false, emoji:"🤝", note:"Savings 6731 — ⚠️ purpose to confirm with Samir" },
     { date:"2026-10-06", category:"Rent",    name:"Rent — October (PMCPROPERTY)",    amount:2538.85, bucket:null, paid:true, daily:false, emoji:"🏠", note:"Savings 6731 — PMCPROPERTY-330, 2026-10-06" },
     { date:"2026-10-13", category:"Debt",    name:"BofA card payment",               amount:116.95,  bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337" },
     { date:"2026-10-13", category:"Debt",    name:"BofA card payment (scheduled)",   amount:217.44,  bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337, scheduled statement payment" },
     { date:"2026-10-15", category:"Debt",    name:"BofA card payment",               amount:300,     bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337" },
-    { date:"2026-10-13", category:"Misc",    name:"Zelle — Akif Karimov (exchange market)", amount:1000, bucket:null, paid:true, daily:false, emoji:"💱", note:"Savings 6731 — ⚠️ purpose to confirm: money exchange / sent home? spend or receivable?" },
+    { date:"2026-10-13", category:"Travel",  name:"Vietnam hotels (Zelle — Akif Karimov)", amount:1000, bucket:"vietnam", paid:true, daily:false, emoji:"🏨", note:"Savings 6731 — hotels for the Vietnam trip, sent via Akif Karimov" },
     { date:"2026-10-19", category:"Tuition", name:"Tuition — 3rd installment",       amount:7876,    bucket:null, paid:true, inBalance:false, note:"3rd of 8 to Penn ('UNIVERSITY OF PE' 2026-10-19) — drains tuition-in-bank, not spendable balance" },
     // ── CHECKING 6553 · Sep 22 → Oct 30 (chain verified: $2,611.36 → $30.79; savings→checking transfers are internal, not logged) ──
     { date:"2026-09-21", category:"Fees", name:"International transaction fee (Turkish Airlines)", amount:31.66, bucket:null, paid:true, daily:false, note:"Checking 6553" },
@@ -907,8 +909,8 @@ const DATA = {
     { date:"2026-10-05", category:"Dining", name:"DoorDash — Peraturki", amount:6.27, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-10-07", category:"Transport", name:"Uber", amount:16.54, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-10-07", category:"Shopping", name:"SoccerPost", amount:49.98, bucket:null, paid:true, note:"Checking 6553" },
-    { date:"2026-10-08", category:"Travel", name:"Emirates — flight ticket", amount:2118.49, bucket:null, paid:true, daily:false, note:"Checking 6553 — ⚠️ confirm: whose ticket / which trip? (funded by matching savings transfers on Oct 8)" },
-    { date:"2026-10-08", category:"Travel", name:"Emirates — flight ticket", amount:2237.49, bucket:null, paid:true, daily:false, note:"Checking 6553 — ⚠️ confirm: whose ticket / which trip? (funded by matching savings transfers on Oct 8)" },
+    { date:"2026-10-08", category:"Travel", name:"Emirates — Vietnam flight (Samir)", amount:2118.49, bucket:"vietnam", paid:true, daily:false, note:"Checking 6553 — ⚠️ confirm: whose ticket / which trip? (funded by matching savings transfers on Oct 8)" },
+    { date:"2026-10-08", category:"Travel", name:"Emirates — Vietnam flight (Mina)", amount:2237.49, bucket:"vietnam", paid:true, daily:false, note:"Checking 6553 — ⚠️ confirm: whose ticket / which trip? (funded by matching savings transfers on Oct 8)" },
     { date:"2026-10-13", category:"Debt", name:"BofA card payment", amount:564.68, bucket:null, paid:true, daily:false, note:"Checking 6553" },
     { date:"2026-10-13", category:"Debt", name:"BofA card payment", amount:23.47, bucket:null, paid:true, daily:false, note:"Checking 6553" },
     { date:"2026-10-10", category:"Food", name:"La Colombe", amount:8.91, bucket:null, paid:true, note:"Checking 6553" },
@@ -1131,6 +1133,7 @@ const DATA = {
   buckets: [
     { id:"china", name:"China Trip", emoji:"🇨🇳", color:"#f87171" },
     { id:"k2", name:"K2 Base Camp Trek", emoji:"🏔️", color:"#60a5fa", note:"Already-spent trip — tracked, not deducted from Balance Left" },
+    { id:"vietnam", name:"Vietnam Trip", emoji:"🇻🇳", color:"#4dd4ac", note:"Replaces the cancelled Brazil trek — flights + hotels for Samir and Mina, both on Samir" },
     { id:"roadtrip", name:"New England Road Trip", emoji:"🍁", color:"#fb923c", note:"Oct 14–18 2026 · Acadia/Bar Harbor ME, Freeport ME, North Conway NH, Sturbridge MA — dates/name to confirm" },
     { id:"brazil", name:"Brazil Carnival Trek", emoji:"🇧🇷", color:"#34d399", note:"Feb 2027 · $6,300 paid upfront, $3,000 owed back by Mina" }
   ]
@@ -1231,7 +1234,8 @@ function compute() {
   const tuitionInBank = Math.max(0, tuition - tuitionPaid);   // tuition money not yet sent to Penn
   const totalWithTuition = liquidNow + tuitionInBank;         // all liquid (BofA + cash) incl. tuition
   const cash   = (m.accounts && +m.accounts.cash) || 0;        // physical cash, not in BofA
-  const bofaNow = totalWithTuition - cash;                     // savings + checking only — should match BofA app
+  const venmo  = (m.accounts && +m.accounts.venmo) || 0;       // Venmo balance, not in BofA
+  const bofaNow = totalWithTuition - cash - venmo;                     // savings + checking only — should match BofA app
 
   // Year self-budget: what Samir started the year with to spend on himself, vs actual spend so far.
   // "Spent on yourself" = every expense since journey start EXCEPT debt principal, tuition, and
@@ -1268,7 +1272,7 @@ function compute() {
   const daysLeftPeriod = Math.max(0, daysInPeriod - dayInPeriod);
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
-           tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, bofaNow,
+           tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, venmo, bofaNow,
            yearBudget, selfSpent, yearLeft, yearDrawdown, yearOther, yearPct,
            allowAmt, allowSpent, allowLeft, periodStart, periodEnd, daysInPeriod, dayInPeriod, daysLeftPeriod,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
@@ -1459,6 +1463,7 @@ function renderBalance(c) {
   /* 3 — KPI tiles */
   document.getElementById("bal-stats").innerHTML = [
     ["💵","Cash on hand", c.cash, ""],
+    ["📲","Venmo", c.venmo, ""],
     ["💰","Receivables", c.expIn, "green"],
     ["💳","Payables", c.owedOut, "red"],
     ["🎓","Tuition held", c.tuitionInBank, ""]
@@ -1499,6 +1504,7 @@ function renderBalance(c) {
   document.getElementById("bal-waterfall").innerHTML = `
     <div class="wf-row"><span>🏦 Your money in BofA</span><span>${money(yourMoney)}</span></div>
     <div class="wf-row"><span>💵 Cash on hand</span><span class="green">+${money(c.cash)}</span></div>
+    <div class="wf-row"><span>📲 Venmo</span><span class="green">+${money(c.venmo)}</span></div>
     <div class="wf-row"><span>💰 Receivables (owed to you)</span><span class="green">+${money(c.expIn)}</span></div>
     <div class="wf-row"><span>💳 Payables (you owe)</span><span class="red">−${money(c.owedOut)}</span></div>
     <div class="wf-row total"><span>🎯 Truly yours to spend</span><span class="money-big">${money(c.balance)}</span></div>`;
