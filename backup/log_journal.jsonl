@@ -534,3 +534,5 @@
 {"logged_at": "2026-10-30", "date": "2026-10-30", "profile": "samir", "meal": "Dinner", "name": "Shawarma: pickle, tomato, red onion", "calories": 30, "protein": 1, "carbs": 7, "fat": 0}
 {"logged_at": "2026-10-30", "date": "2026-10-30", "profile": "samir", "meal": "Dinner", "name": "Avocado oil spray for chicken", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
 {"logged_at": "2026-10-30", "type": "daily_total", "profile": "samir", "date": "2026-10-30", "calories": 843, "protein": 60, "carbs": 84, "fat": 44, "note": "chicken pending"}
+{"logged_at": "2026-10-30", "date": "2026-10-30", "profile": "samir", "meal": "Dinner", "name": "Chicken thighs x4 (1.5lb bone-in skin-on -> ~442g raw meat)", "calories": 535, "protein": 87, "carbs": 0, "fat": 18}
+{"logged_at": "2026-10-30", "type": "daily_total", "profile": "samir", "date": "2026-10-30", "calories": 1378, "protein": 147, "carbs": 84, "fat": 62}
