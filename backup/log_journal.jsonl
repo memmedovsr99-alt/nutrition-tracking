@@ -543,3 +543,9 @@
 {"type": "correction", "date": "2026-10-30", "profile": "samir", "item": "Chicken thighs x4 (1.5lb bone-in skin-on -> ~442g raw meat)", "from": {"calories": 535, "protein": 87, "fat": 18}, "to": {"calories": 640, "protein": 84, "carbs": 0, "fat": 33}, "reason": "442g raw hand-skinned thigh at retail ~1.45 kcal/g, not USDA lab-trimmed 1.21"}
 {"type": "daily_total", "date": "2026-10-30", "profile": "samir", "calories": 1483, "protein": 144, "carbs": 84, "fat": 77}
 {"ts":"2026-10-31T10:00","app":"finance","action":"remove","detail":"Brazil bucket deleted: 6300 expense + 3 refund incomes (6290) replaced by a single $10 unrefunded-remainder expense. bofaNow unchanged 106940.22"}
+{"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Breakfast", "name": "Eggs x4 (70 each)", "calories": 280, "protein": 24, "carbs": 2, "fat": 20}
+{"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Breakfast", "name": "TJ bacon x6 slices (30 each, label 180)", "calories": 180, "protein": 12, "carbs": 1, "fat": 12}
+{"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Breakfast", "name": "Butter 10g", "calories": 72, "protein": 0, "carbs": 0, "fat": 8}
+{"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
+{"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Breakfast", "name": "Red onion (handful ~50g) + half tomato (~60g)", "calories": 31, "protein": 1, "carbs": 7, "fat": 0}
+{"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 583, "protein": 37, "carbs": 10, "fat": 42}
