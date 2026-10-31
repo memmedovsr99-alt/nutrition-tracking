@@ -684,6 +684,7 @@ const DATA = {
   //   bucket + ledger, but NOT deducted again from Balance Left (avoids double-counting).
   expenses: [
     { date:"2026-08-10", category:"Debt", name:"ABB credit card balance", amount:2060, bucket:null, emoji:"💳", paid:true, note:"FULLY SETTLED 2026-08-31 (the 'UChicago Booth' savings line was this final ABB payment). ABB card now $0." },
+    { date:"2026-10-30", category:"Debt", name:"Azerbaijani card balance", amount:688.78, bucket:null, emoji:"💳", paid:false, note:"Road-trip rental car $658.78 + restaurant $30 charged to the Azerbaijani card — owed. Remove this row if it is already paid off from AZ funds." },
     { date:"2026-09-21", category:"Debt", name:"BofA credit card balance", amount:691.68, bucket:null, emoji:"💳", paid:false, note:"BofA card #8337 balance as of 2026-10-30: $700 limit − $8.32 available = $691.68. Card was paid to $0 on Oct 10; everything since is the road trip + October spend." },
     { date:"2026-08-26", category:"Debt", name:"ABB credit card — payment", amount:2250, bucket:null, emoji:"💳", paid:true, note:"Loan payment toward ABB card balance" },
     { date:"2026-08-10", category:"Loan", name:"Loan to Babak", amount:100, bucket:null, emoji:"🤝", paid:true, note:"Cash out now — offset by receivable in income[]" },
@@ -996,6 +997,9 @@ const DATA = {
     { date:"2026-10-30", category:"Transport", name:"SEPTA", amount:5.80, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-10-30", category:"Groceries", name:"Giant Food", amount:61.05, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-10-02", category:"Club events", name:"Wharton MLP Ventures — refund", amount:-700, bucket:null, paid:true, emoji:"↩️", note:"Checking 6553 — the $700 MLP Ventures charge (Aug 26) came back as a refund on 2026-10-02; nets out Club events" },
+    // ── Azerbaijani card (road trip) — not a BofA account; balance carried as a payable below ──
+    { date:"2026-10-12", category:"Transport", name:"Rental car (road trip)", amount:658.78, bucket:"roadtrip", paid:true, inBalance:false, emoji:"🚗", note:"Paid with Samir's Azerbaijani credit card — not from BofA" },
+    { date:"2026-10-14", category:"Dining",    name:"Restaurant (road trip)", amount:30.00,  bucket:"roadtrip", paid:true, inBalance:false, emoji:"🍽️", note:"Paid with Samir's Azerbaijani credit card — not from BofA" },
     // ── CARD #8337 · Sep 22 → Oct 26 (chain verified: $221.57 → $564.68 → paid to $0 on Oct 10 → $691.68 now).
     //    inBalance:false — the cash side is carried by the card payments (Debt) + the payable row.
     { date:"2026-09-23", category:"Groceries", name:"Giant Food", amount:17.69, bucket:null, paid:true, inBalance:false, note:"BofA card #8337" },
