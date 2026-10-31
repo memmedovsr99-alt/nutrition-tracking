@@ -645,7 +645,7 @@ const DATA = {
     endDate:   "2027-05-15",     // horizon = end of academic year (approx graduation)
     // Money IN HAND today = bank + card + cash (all liquid accounts combined)
     startingBalance: 42980.77,   // 42,570.18 bank + 105.59 card + 305 cash (bank incl. +$395.18 reconciliation so computed BofA ties to actual statement as of 2026-08-22: savings $146,766.78 + checking $1,500 = $148,266.78; absorbs AZN/CNY rounding + minor deltas)
-    accounts: { bank: 42570.18, card: 105.59, cash: 1248 },   // cash now $1,248 = $305 + $943 slots win (2026-09-21)
+    accounts: { bank: 42570.18, card: 105.59, cash: 1021 },   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
     // Scholarship context (tuition portion is NOT spendable — excluded from Balance Left)
     scholarshipTotal:   111008,
     scholarshipTuition: 63008,   // paid direct to Penn, not counted
@@ -997,6 +997,7 @@ const DATA = {
     { date:"2026-10-30", category:"Transport", name:"SEPTA", amount:5.80, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-10-30", category:"Groceries", name:"Giant Food", amount:61.05, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-10-02", category:"Club events", name:"Wharton MLP Ventures — refund", amount:-700, bucket:null, paid:true, emoji:"↩️", note:"Checking 6553 — the $700 MLP Ventures charge (Aug 26) came back as a refund on 2026-10-02; nets out Club events" },
+    { date:"2026-10-15", category:"Misc", name:"Cash spending (not itemized)", amount:227, bucket:null, paid:true, emoji:"💵", note:"Cash went $1,248 → $1,021 between 2026-09-21 and 2026-10-30; this plug keeps the cash position tied. Itemize if Samir recalls what it went on." },
     // ── Azerbaijani card (road trip) — not a BofA account; balance carried as a payable below ──
     { date:"2026-10-12", category:"Transport", name:"Rental car (road trip)", amount:658.78, bucket:"roadtrip", paid:true, inBalance:false, emoji:"🚗", note:"Paid with Samir's Azerbaijani credit card — not from BofA" },
     { date:"2026-10-14", category:"Dining",    name:"Restaurant (road trip)", amount:30.00,  bucket:"roadtrip", paid:true, inBalance:false, emoji:"🍽️", note:"Paid with Samir's Azerbaijani credit card — not from BofA" },
