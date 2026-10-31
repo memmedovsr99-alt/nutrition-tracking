@@ -549,3 +549,6 @@
 {"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
 {"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Breakfast", "name": "Red onion (handful ~50g) + half tomato (~60g)", "calories": 31, "protein": 1, "carbs": 7, "fat": 0}
 {"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 583, "protein": 37, "carbs": 10, "fat": 42}
+{"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Dinner", "name": "Potato 400g raw, deep-fried in EVOO (308 + ~30g oil absorbed 265)", "calories": 573, "protein": 8, "carbs": 70, "fat": 30}
+{"logged_at": "2026-10-31", "date": "2026-10-31", "profile": "samir", "meal": "Dinner", "name": "T-bone 1.5lb w/ bone, side fat trimmed (~450g raw meat @1.8/g)", "calories": 810, "protein": 94, "carbs": 0, "fat": 46}
+{"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 1966, "protein": 139, "carbs": 80, "fat": 118}
