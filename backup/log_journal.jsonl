@@ -520,3 +520,5 @@
 {"logged_at": "2026-10-29", "type": "checkin", "date": "2026-10-28", "profile": "samir", "training": true, "training_type": "Football 90 min (Garmin total ~3,100)"}
 {"logged_at": "2026-10-29", "date": "2026-10-28", "profile": "samir", "meal": "Snacks", "name": "Small chocolate", "calories": 65, "protein": 1, "carbs": 7, "fat": 4}
 {"logged_at": "2026-10-29", "type": "daily_total", "profile": "samir", "date": "2026-10-28", "calories": 2099, "protein": 176, "carbs": 190, "fat": 77}
+{"logged_at": "2026-10-30", "date": "2026-10-29", "profile": "samir", "meal": "Dinner", "name": "Day summary (estimated)", "calories": 2800, "protein": 150, "carbs": 290, "fat": 115}
+{"logged_at": "2026-10-30", "type": "daily_total", "profile": "samir", "date": "2026-10-29", "calories": 2800, "protein": 150, "carbs": 290, "fat": 115, "note": "estimated summary day"}
