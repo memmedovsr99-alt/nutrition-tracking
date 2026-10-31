@@ -681,9 +681,6 @@ const DATA = {
     { date:"2026-09-21", source:"Unidentified — reconciliation difference", amount:68.51, emoji:"❓", received:true, note:"Remaining gap after Halluminate $800 found in savings (Aug 31). Patagonia double count resolved; $68.51 left — likely in savings Aug 22–31 lines not yet reviewed." },
     { date:"2026-08-26", source:"Mina — Claude subscription (fronted)", amount:108, emoji:"🤖", received:false, note:"Samir paid Mina's $108 Claude subscription from checking on 2026-08-26 — owed back" },
     { date:"2026-10-13", source:"BofA savings interest", amount:4.21, emoji:"🏦", received:true, note:"Interest earned on savings, 2026-10-13" },
-    { date:"2026-10-22", source:"Brazil trek — refund (Wharton Carnaval)", amount:4290, emoji:"↩️", received:true, note:"Trip cancelled, tickets given back. Refund into savings 2026-10-22" },
-    { date:"2026-10-22", source:"Brazil trek — refund (Wharton Carnaval) #2", amount:1500, emoji:"↩️", received:true, note:"Trip cancelled — second refund instalment, savings 2026-10-22" },
-    { date:"2026-10-29", source:"Brazil trek — refund (Parrot Trips)", amount:500, emoji:"↩️", received:true, note:"Operator refund of the $500 deposit, wire into savings 2026-10-29. Total refunded $6,290 of the $6,300 paid — $10 net cost." },
     { date:"2026-10-15", source:"Friend — cash fronted (receivable)", amount:60, emoji:"🤝", received:false, note:"$60 cash Samir paid on a friend's behalf on the road trip — to be repaid" },
     { date:"2026-10-30", source:"Building referral bonus (Venmo)", amount:250, emoji:"🏢", received:true, note:"Referral bonus from the building — sitting in Venmo" },
     { date:"2026-10-30", source:"Friend — share of a payment (Venmo)", amount:30, emoji:"🤝", received:true, note:"Friend's share of a payment Samir made — received in Venmo" },
@@ -728,7 +725,6 @@ const DATA = {
     { date:"2026-08-26", category:"Social",   name:"Wharton club membership fees",       amount:725,    bucket:null,    paid:true, daily:false, emoji:"🎓", note:"Wharton club membership — one-off, not from the $1,500 daily allowance" },
     { date:"2026-08-26", category:"Loan",     name:"New building deposit (paid)",        amount:500,    bucket:null,    paid:true, daily:false, emoji:"🏢", note:"Refundable deposit paid for new building — cash out now, offset by receivable in income[] (not consumption)" },
     { date:"2026-08-26", category:"Fees",     name:"Building application fee",           amount:21,     bucket:null,    paid:true, daily:false, emoji:"🧾", note:"Application fee for the new building (non-refundable)" },
-    { date:"2026-08-26", category:"Travel",   name:"Brazil Carnival trek (Feb)",         amount:6300,   bucket:"brazil", paid:true, daily:false, emoji:"🇧🇷", note:"CANCELLED Oct 2026 — tickets returned, $6,290 refunded (see income). Net cost $10. Originally: full trek for Feb 2027 Carnival (incl. the $500 deposit). $3,000 was Mina's share — tracked as a receivable in income[]. Cleared as 'Wharton Carnaval' $4,290+$1,500 on 2026-09-01." },
     // ── September 2026 activity (reconciled from BofA savings statement) ──
     { date:"2026-09-17", category:"Tuition",  name:"Tuition — 2nd installment",          amount:7876,   bucket:null,    paid:true, inBalance:false, note:"2nd of 8 installments to Penn ('University of PE' 2026-09-17) — drains tuition-in-bank, not spendable balance" },
     { date:"2026-09-03", category:"Rent",     name:"Rent (PMCPROPERTY)",                 amount:2598.85, bucket:null,   paid:true, daily:false, emoji:"🏠", note:"New building rent — PMCPROPERTY-330, 2026-09-03" },
@@ -1014,6 +1010,7 @@ const DATA = {
     { date:"2026-10-14", category:"Transport", name:"Tolls (cash)",            amount:20,  bucket:"roadtrip", paid:true, emoji:"🛣️", note:"Cash tolls on the road trip" },
     { date:"2026-10-15", category:"Misc",      name:"Trip spending (cash)",   amount:107, bucket:"roadtrip", paid:true, emoji:"💵", note:"Cash spent during the road trip — not itemized further" },
     { date:"2026-10-15", category:"Misc",      name:"Personal spending (cash)", amount:40, bucket:null,     paid:true, emoji:"💵", note:"Everyday cash spending" },
+    { date:"2026-10-29", category:"Travel", name:"Brazil Carnival trek — cancelled (unrefunded remainder)", amount:10, bucket:null, paid:true, daily:false, emoji:"🇧🇷", note:"Trek cancelled Oct 2026: $6,300 paid in Aug, $6,290 refunded ($4,290 + $1,500 Wharton Carnaval, $500 Parrot Trips). Only the $10 difference actually cost anything — the trip, the refunds and Mina's $3,000 share are all removed." },
     { date:"2026-10-31", category:"Debt", name:"BofA card — paid in full", amount:691.68, bucket:null, paid:true, daily:false, emoji:"💳", note:"Card #8337 cleared to $0 from savings on 2026-10-31 — the purchases themselves are already itemized above" },
     // ── Azerbaijani card (road trip) — not a BofA account; balance carried as a payable below ──
     { date:"2026-10-12", category:"Transport", name:"Rental car (road trip)", amount:658.78, bucket:"roadtrip", paid:true, inBalance:false, emoji:"🚗", note:"Paid with Samir's Azerbaijani credit card — not from BofA" },
@@ -1148,7 +1145,6 @@ const DATA = {
     { id:"k2", name:"K2 Base Camp Trek", emoji:"🏔️", color:"#60a5fa", note:"Already-spent trip — tracked, not deducted from Balance Left" },
     { id:"vietnam", name:"Vietnam Trip", emoji:"🇻🇳", color:"#4dd4ac", note:"Replaces the cancelled Brazil trek — flights + hotels for Samir and Mina, both on Samir" },
     { id:"roadtrip", name:"New England Road Trip", emoji:"🍁", color:"#fb923c", note:"Oct 12–19 2026 · NY → Vermont (Burlington, Montpelier, Woodstock) → New Hampshire (North Conway) → Maine (Bar Harbor, Camden, Freeport, Wells)" },
-    { id:"brazil", name:"Brazil Carnival Trek", emoji:"🇧🇷", color:"#34d399", note:"CANCELLED Oct 2026 — tickets returned, $6,290 refunded. Net cost $10. Replaced by the Vietnam trip." }
   ]
 };
 </script>
