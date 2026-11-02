@@ -654,7 +654,7 @@ const DATA = {
     endDate:   "2027-05-15",     // horizon = end of academic year (approx graduation)
     // Money IN HAND today = bank + card + cash (all liquid accounts combined)
     startingBalance: 42980.77,   // 42,570.18 bank + 105.59 card + 305 cash (bank incl. +$395.18 reconciliation so computed BofA ties to actual statement as of 2026-08-22: savings $146,766.78 + checking $1,500 = $148,266.78; absorbs AZN/CNY rounding + minor deltas)
-    accounts: { bank: 42570.18, card: 105.59, cash: 1021, venmo: 0, rewards: 0, azn: 31.93 },   // 2026-11-02: 172.35 AZN paid off an Azerbaijani credit card → 54.27 AZN left @ 1.70   // 2026-10-31: $302.62 cashback redeemed and $292 Venmo both moved into savings   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
+    accounts: { bank: 42570.18, card: 105.59, cash: 1021, venmo: 60, rewards: 0, azn: 31.93 },   // 2026-11-02: friend repaid $60 into Venmo   // 2026-11-02: 172.35 AZN paid off an Azerbaijani credit card → 54.27 AZN left @ 1.70   // 2026-10-31: $302.62 cashback redeemed and $292 Venmo both moved into savings   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
     // Scholarship context (tuition portion is NOT spendable — excluded from Balance Left)
     scholarshipTotal:   111008,
     scholarshipTuition: 63008,   // paid direct to Penn, not counted
@@ -681,7 +681,7 @@ const DATA = {
     { date:"2026-09-21", source:"Unidentified — reconciliation difference", amount:68.51, emoji:"❓", received:true, note:"Remaining gap after Halluminate $800 found in savings (Aug 31). Patagonia double count resolved; $68.51 left — likely in savings Aug 22–31 lines not yet reviewed." },
     { date:"2026-08-26", source:"Mina — Claude subscription (fronted)", amount:108, emoji:"🤖", received:false, note:"Samir paid Mina's $108 Claude subscription from checking on 2026-08-26 — owed back" },
     { date:"2026-10-13", source:"BofA savings interest", amount:4.21, emoji:"🏦", received:true, note:"Interest earned on savings, 2026-10-13" },
-    { date:"2026-10-15", source:"Friend — cash fronted (receivable)", amount:60, emoji:"🤝", received:false, note:"$60 cash Samir paid on a friend's behalf on the road trip — to be repaid" },
+    { date:"2026-10-15", source:"Friend — cash fronted (receivable)", amount:60, emoji:"🤝", received:true, account:"venmo", note:"REPAID 2026-11-02 via Venmo. $60 cash Samir paid on a friend's behalf on the road trip — to be repaid" },
     { date:"2026-10-30", source:"Building referral bonus (Venmo)", amount:250, emoji:"🏢", received:true, note:"Referral bonus from the building — sitting in Venmo" },
     { date:"2026-10-30", source:"Friend — share of a payment (Venmo)", amount:30, emoji:"🤝", received:true, note:"Friend's share of a payment Samir made — received in Venmo" },
     { date:"2026-10-30", source:"Tennis lesson resold (Venmo)", amount:12, emoji:"🎾", received:true, note:"CampusGroups tennis lesson bought then sold to a friend — received in Venmo" },
@@ -695,7 +695,8 @@ const DATA = {
   //   bucket + ledger, but NOT deducted again from Balance Left (avoids double-counting).
   expenses: [
     { date:"2026-08-10", category:"Debt", name:"ABB credit card balance", amount:2060, bucket:null, emoji:"💳", paid:true, note:"FULLY SETTLED 2026-08-31 (the 'UChicago Booth' savings line was this final ABB payment). ABB card now $0." },
-    { date:"2026-10-30", category:"Debt", name:"Azerbaijani card balance", amount:688.78, bucket:null, emoji:"💳", paid:false, note:"Road-trip rental car $658.78 + restaurant $30 charged to the Azerbaijani card — owed. Remove this row if it is already paid off from AZ funds." },
+    { date:"2026-11-02", category:"Debt", name:"Azerbaijani card — paid in full", amount:688.78, bucket:null, emoji:"💳", paid:true, daily:false, note:"Road-trip rental car $658.78 + restaurant $30 — cleared from savings 6731 on 2026-11-02 ($700 total incl. FX, see next row). Samir is now credit-card free." },
+    { date:"2026-11-02", category:"Fees", name:"Azerbaijani card payoff — FX / conversion", amount:11.22, bucket:null, emoji:"🧾", paid:true, daily:false, note:"$700 left savings to clear the $688.78 balance; the $11.22 difference is exchange-rate cost." },
     { date:"2026-08-26", category:"Debt", name:"ABB credit card — payment", amount:2250, bucket:null, emoji:"💳", paid:true, note:"Loan payment toward ABB card balance" },
     { date:"2026-08-10", category:"Loan", name:"Loan to Babak", amount:100, bucket:null, emoji:"🤝", paid:true, note:"Cash out now — offset by receivable in income[]" },
     { date:"2026-08-22", category:"Fees", name:"MKC transfer commission", amount:15, bucket:null, emoji:"🧾", paid:true, daily:false, note:"Fee on receiving the $111,008 scholarship — not part of the daily allowance" },
@@ -1560,7 +1561,7 @@ function buildStatement() {
   const openingBofa = (m.startingBalance || 0) - cash;   // bank + card at the start (cash held separately)
   const ev = [];
   // money IN that actually landed in BofA (received income)
-  DATA.income.filter(x => x.received !== false && x.account !== "azn")
+  DATA.income.filter(x => x.received !== false && !x.account)
     .forEach(x => ev.push({ date: x.date, name: x.source, emoji: x.emoji || "💵", amt: +x.amount || 0, dir: +1 }));
   // scholarship tuition: full amount landed in BofA (drains to Penn via installments below)
   const tuition = +m.scholarshipTuition || 0;
@@ -1568,7 +1569,7 @@ function buildStatement() {
   // money OUT of BofA: paid AND (hits balance OR is a tuition installment to Penn)
   DATA.expenses.forEach(x => {
     const paid = x.paid !== false;
-    const movesCash = paid && x.account !== "azn" && (x.inBalance !== false || x.category === "Tuition");
+    const movesCash = paid && !x.account && (x.inBalance !== false || x.category === "Tuition");
     if (movesCash) ev.push({ date: x.date, name: x.name, emoji: x.emoji || emojiFor(x.category), amt: +x.amount || 0, dir: -1 });
   });
   // chronological → running balance
