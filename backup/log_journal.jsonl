@@ -555,3 +555,5 @@
 {"type": "correction", "date": "2026-10-31", "profile": "samir", "item": "T-bone", "from": {"calories": 810, "protein": 94, "fat": 46}, "to": {"calories": 540, "protein": 63, "carbs": 0, "fat": 32}, "reason": "Samir: meat was 300g max, not ~450g"}
 {"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 1696, "protein": 108, "carbs": 80, "fat": 104}
 {"type": "finance_expense", "logged": "2026-11-02", "date": "2026-11-02", "name": "Azerbaijani credit card — old balance paid off (172.35 AZN)", "amount_usd": 101.38, "paid_from": "AZ debit card", "azn_left": 54.27}
+{"type": "finance_income", "logged": "2026-11-02", "date": "2026-11-02", "name": "Friend repaid $60 cash fronted", "amount_usd": 60, "into": "Venmo"}
+{"type": "finance_expense", "logged": "2026-11-02", "date": "2026-11-02", "name": "Azerbaijani card paid in full (688.78 + 11.22 FX)", "amount_usd": 700, "paid_from": "Savings 6731"}
