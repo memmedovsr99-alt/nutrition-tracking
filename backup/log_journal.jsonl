@@ -557,3 +557,16 @@
 {"type": "finance_expense", "logged": "2026-11-02", "date": "2026-11-02", "name": "Azerbaijani credit card — old balance paid off (172.35 AZN)", "amount_usd": 101.38, "paid_from": "AZ debit card", "azn_left": 54.27}
 {"type": "finance_income", "logged": "2026-11-02", "date": "2026-11-02", "name": "Friend repaid $60 cash fronted", "amount_usd": 60, "into": "Venmo"}
 {"type": "finance_expense", "logged": "2026-11-02", "date": "2026-11-02", "name": "Azerbaijani card paid in full (688.78 + 11.22 FX)", "amount_usd": 700, "paid_from": "Savings 6731"}
+{"type": "daily_total", "date": "2026-11-01", "profile": "samir", "calories": 3000, "protein": 0, "carbs": 0, "fat": 0, "notes": "NYC travel day, his estimate ~3000+; macros unknown"}
+{"type": "daily_total", "date": "2026-11-02", "profile": "samir", "calories": 3000, "protein": 0, "carbs": 0, "fat": 0, "notes": "NYC travel day, his estimate ~3000+; macros unknown"}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Breakfast", "name": "Eggs x2 (70 each)", "calories": 140, "protein": 12, "carbs": 1, "fat": 10}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Breakfast", "name": "Avocado oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Breakfast", "name": "Canned coffee with milk (label 130)", "calories": 130, "protein": 6, "carbs": 18, "fat": 4}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Snacks", "name": "Rice cake (label 120)", "calories": 120, "protein": 2, "carbs": 26, "fat": 1}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Snacks", "name": "Protein bar (label 140 / 17P)", "calories": 140, "protein": 17, "carbs": 10, "fat": 4}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Dinner", "name": "Flour tortillas x3 (70 / 6P each)", "calories": 210, "protein": 18, "carbs": 21, "fat": 6}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Dinner", "name": "Skinless boneless thighs, 60% of 782g raw = 469g @1.45/g", "calories": 680, "protein": 89, "carbs": 0, "fat": 35}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Dinner", "name": "Nonfat yogurt marinade + yogurt-lemon sauce", "calories": 80, "protein": 10, "carbs": 6, "fat": 0}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Dinner", "name": "Avocado oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Dinner", "name": "Tomato x3 slices, red onion, pickles", "calories": 25, "protein": 1, "carbs": 5, "fat": 0}
+{"type": "daily_total", "date": "2026-11-03", "profile": "samir", "calories": 1565, "protein": 155, "carbs": 87, "fat": 64}
