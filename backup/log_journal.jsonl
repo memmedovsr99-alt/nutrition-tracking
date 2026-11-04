@@ -570,3 +570,7 @@
 {"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Dinner", "name": "Avocado oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
 {"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Dinner", "name": "Tomato x3 slices, red onion, pickles", "calories": 25, "protein": 1, "carbs": 5, "fat": 0}
 {"type": "daily_total", "date": "2026-11-03", "profile": "samir", "calories": 1565, "protein": 155, "carbs": 87, "fat": 64}
+{"logged_at": "2026-11-03", "date": "2026-10-31", "profile": "samir", "meal": "Snacks", "name": "Late night: pizza x4 slices (NY cheese ~285 each)", "calories": 1140, "protein": 48, "carbs": 144, "fat": 40}
+{"logged_at": "2026-11-03", "date": "2026-10-31", "profile": "samir", "meal": "Snacks", "name": "Late night: Five Guys hamburger (regular, 2 patties)", "calories": 840, "protein": 39, "carbs": 39, "fat": 43}
+{"logged_at": "2026-11-03", "date": "2026-10-31", "profile": "samir", "meal": "Snacks", "name": "Late night: Five Guys Cajun fries (regular)", "calories": 953, "protein": 13, "carbs": 131, "fat": 41}
+{"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 4629, "protein": 208, "carbs": 394, "fat": 228}
