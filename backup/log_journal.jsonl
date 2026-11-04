@@ -574,3 +574,5 @@
 {"logged_at": "2026-11-03", "date": "2026-10-31", "profile": "samir", "meal": "Snacks", "name": "Late night: Five Guys hamburger (regular, 2 patties)", "calories": 840, "protein": 39, "carbs": 39, "fat": 43}
 {"logged_at": "2026-11-03", "date": "2026-10-31", "profile": "samir", "meal": "Snacks", "name": "Late night: Five Guys Cajun fries (regular)", "calories": 953, "protein": 13, "carbs": 131, "fat": 41}
 {"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 4629, "protein": 208, "carbs": 394, "fat": 228}
+{"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Snacks", "name": "Persimmon x1 (medium ~168g, 0.70/g)", "calories": 118, "protein": 1, "carbs": 31, "fat": 0}
+{"type": "daily_total", "date": "2026-11-03", "profile": "samir", "calories": 1683, "protein": 156, "carbs": 118, "fat": 64}
