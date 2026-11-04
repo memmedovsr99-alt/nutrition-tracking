@@ -576,3 +576,5 @@
 {"type": "daily_total", "date": "2026-10-31", "profile": "samir", "calories": 4629, "protein": 208, "carbs": 394, "fat": 228}
 {"logged_at": "2026-11-03", "date": "2026-11-03", "profile": "samir", "meal": "Snacks", "name": "Persimmon x1 (medium ~168g, 0.70/g)", "calories": 118, "protein": 1, "carbs": 31, "fat": 0}
 {"type": "daily_total", "date": "2026-11-03", "profile": "samir", "calories": 1683, "protein": 156, "carbs": 118, "fat": 64}
+{"type": "correction", "date": "2026-11-03", "profile": "samir", "item": "Persimmon", "from": {"calories": 118, "carbs": 31}, "to": {"name": "Persimmon x1 (small TJ ~110g, 0.70/g)", "calories": 77, "protein": 1, "carbs": 20, "fat": 0}, "reason": "small TJ persimmon"}
+{"type": "daily_total", "date": "2026-11-03", "profile": "samir", "calories": 1642, "protein": 156, "carbs": 107, "fat": 64}
