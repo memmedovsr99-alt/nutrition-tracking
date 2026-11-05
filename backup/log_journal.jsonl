@@ -590,3 +590,5 @@
 {"logged_at": "2026-11-04", "date": "2026-11-04", "profile": "samir", "meal": "Dinner", "name": "Leftover yogurt marinade share", "calories": 25, "protein": 3, "carbs": 2, "fat": 0}
 {"logged_at": "2026-11-04", "date": "2026-11-04", "profile": "samir", "meal": "Dinner", "name": "Flour tortillas x2 (70 / 6P each)", "calories": 140, "protein": 12, "carbs": 14, "fat": 4}
 {"type": "daily_total", "date": "2026-11-04", "profile": "samir", "calories": 1833, "protein": 145, "carbs": 174, "fat": 62}
+{"logged_at": "2026-11-05", "date": "2026-11-04", "profile": "samir", "meal": "Snacks", "name": "Nonfat Greek yogurt ~4.5 tbsp (~75g @0.59/g)", "calories": 45, "protein": 8, "carbs": 3, "fat": 0}
+{"type": "daily_total", "date": "2026-11-04", "profile": "samir", "calories": 1878, "protein": 153, "carbs": 177, "fat": 62}
