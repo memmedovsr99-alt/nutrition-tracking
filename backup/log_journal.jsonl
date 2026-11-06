@@ -605,3 +605,5 @@
 {"type": "daily_total", "date": "2026-11-05", "profile": "samir", "calories": 2006, "protein": 152, "carbs": 181, "fat": 76}
 {"type": "correction", "date": "2026-11-05", "profile": "samir", "item": "TJ seasoned potatoes", "from": {"calories": 313, "carbs": 52}, "to": {"name": "TJ seasoned small potatoes, whole bag (label 320)", "calories": 320, "protein": 6, "carbs": 53, "fat": 9}, "reason": "use label 320"}
 {"type": "daily_total", "date": "2026-11-05", "profile": "samir", "calories": 2013, "protein": 152, "carbs": 182, "fat": 76}
+{"logged_at": "2026-11-05", "date": "2026-11-05", "profile": "samir", "meal": "Snacks", "name": "Potato chips (label 150)", "calories": 150, "protein": 2, "carbs": 15, "fat": 10}
+{"type": "daily_total", "date": "2026-11-05", "profile": "samir", "calories": 2163, "protein": 154, "carbs": 197, "fat": 86}
