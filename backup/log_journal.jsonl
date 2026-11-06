@@ -607,3 +607,6 @@
 {"type": "daily_total", "date": "2026-11-05", "profile": "samir", "calories": 2013, "protein": 152, "carbs": 182, "fat": 76}
 {"logged_at": "2026-11-05", "date": "2026-11-05", "profile": "samir", "meal": "Snacks", "name": "Potato chips (label 150)", "calories": 150, "protein": 2, "carbs": 15, "fat": 10}
 {"type": "daily_total", "date": "2026-11-05", "profile": "samir", "calories": 2163, "protein": 154, "carbs": 197, "fat": 86}
+{"logged_at": "2026-11-06", "date": "2026-11-05", "profile": "samir", "meal": "Snacks", "name": "TJ nonfat European yogurt 1.5 portions (~215g @0.53/g)", "calories": 114, "protein": 13, "carbs": 15, "fat": 0}
+{"logged_at": "2026-11-06", "date": "2026-11-05", "profile": "samir", "meal": "Snacks", "name": "Rice cakes (200 cal)", "calories": 200, "protein": 3, "carbs": 43, "fat": 2}
+{"type": "daily_total", "date": "2026-11-05", "profile": "samir", "calories": 2477, "protein": 170, "carbs": 255, "fat": 88}
