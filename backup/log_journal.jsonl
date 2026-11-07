@@ -621,3 +621,6 @@
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 240, "protein": 8, "carbs": 33, "fat": 8}
 {"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Lunch", "name": "Salmon sushi (label 600)", "calories": 600, "protein": 25, "carbs": 90, "fat": 15}
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 840, "protein": 33, "carbs": 123, "fat": 23}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie breast w/ skin, ~30% of total breast (~125g cooked @1.9/g)", "calories": 240, "protein": 36, "carbs": 0, "fat": 10}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie thigh x1 w/ skin (~90g meat+skin @2.3/g)", "calories": 205, "protein": 21, "carbs": 0, "fat": 13}
+{"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 1285, "protein": 90, "carbs": 123, "fat": 46}
