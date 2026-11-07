@@ -619,3 +619,5 @@
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 180, "protein": 7, "carbs": 20, "fat": 8}
 {"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Snacks", "name": "Rice cake (60 cal)", "calories": 60, "protein": 1, "carbs": 13, "fat": 0}
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 240, "protein": 8, "carbs": 33, "fat": 8}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Lunch", "name": "Salmon sushi (label 600)", "calories": 600, "protein": 25, "carbs": 90, "fat": 15}
+{"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 840, "protein": 33, "carbs": 123, "fat": 23}
