@@ -610,3 +610,8 @@
 {"logged_at": "2026-11-06", "date": "2026-11-05", "profile": "samir", "meal": "Snacks", "name": "TJ nonfat European yogurt 1.5 portions (~215g @0.53/g)", "calories": 114, "protein": 13, "carbs": 15, "fat": 0}
 {"logged_at": "2026-11-06", "date": "2026-11-05", "profile": "samir", "meal": "Snacks", "name": "Rice cakes (200 cal)", "calories": 200, "protein": 3, "carbs": 43, "fat": 2}
 {"type": "daily_total", "date": "2026-11-05", "profile": "samir", "calories": 2477, "protein": 170, "carbs": 255, "fat": 88}
+{"type": "daily_total", "date": "2026-11-06", "profile": "samir", "calories": 4000, "protein": 0, "carbs": 0, "fat": 0, "notes": "His estimate ~4000; no breakdown, macros unknown"}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Breakfast", "name": "Salami 15g (90 per 28g)", "calories": 48, "protein": 3, "carbs": 0, "fat": 4}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Breakfast", "name": "Bread (label 110)", "calories": 110, "protein": 4, "carbs": 20, "fat": 2}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Breakfast", "name": "Large green olives x2", "calories": 15, "protein": 0, "carbs": 0, "fat": 2}
+{"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 173, "protein": 7, "carbs": 20, "fat": 8}
