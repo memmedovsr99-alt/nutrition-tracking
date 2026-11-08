@@ -636,3 +636,7 @@
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 2115, "protein": 170, "carbs": 202, "fat": 65}
 {"type": "correction", "date": "2026-11-07", "profile": "samir", "item": "Banana", "from": {"calories": 105}, "to": {"name": "Banana x1 (small ~100g)", "calories": 90, "protein": 1, "carbs": 23, "fat": 0}, "reason": "small banana"}
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 2100, "protein": 170, "carbs": 198, "fat": 65}
+{"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Jasmine rice 79g dry (@3.6/g)", "calories": 284, "protein": 6, "carbs": 62, "fat": 0}
+{"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Bok choy (~300g) + jalapeno + 4-5 garlic cloves", "calories": 64, "protein": 5, "carbs": 11, "fat": 0}
+{"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Olive oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
+{"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 2468, "protein": 181, "carbs": 271, "fat": 67}
