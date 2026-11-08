@@ -632,3 +632,5 @@
 {"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie wing x1, no skin (~30g)", "calories": 55, "protein": 9, "carbs": 0, "fat": 2}
 {"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie leftover small pieces (~40g)", "calories": 75, "protein": 10, "carbs": 0, "fat": 4}
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 2010, "protein": 169, "carbs": 175, "fat": 65}
+{"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Snacks", "name": "Banana x1 (medium)", "calories": 105, "protein": 1, "carbs": 27, "fat": 0}
+{"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 2115, "protein": 170, "carbs": 202, "fat": 65}
