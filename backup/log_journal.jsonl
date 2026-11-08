@@ -624,3 +624,7 @@
 {"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie breast w/ skin, ~30% of total breast (~125g cooked @1.9/g)", "calories": 240, "protein": 36, "carbs": 0, "fat": 10}
 {"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie thigh x1 w/ skin (~90g meat+skin @2.3/g)", "calories": 205, "protein": 21, "carbs": 0, "fat": 13}
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 1285, "protein": 90, "carbs": 123, "fat": 46}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "TJ lentil soup (label 250)", "calories": 250, "protein": 14, "carbs": 38, "fat": 4}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Dolma in vine/olive leaf (label 90)", "calories": 90, "protein": 1, "carbs": 12, "fat": 4}
+{"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Pickled mushrooms x6 (brined)", "calories": 15, "protein": 1, "carbs": 2, "fat": 0}
+{"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 1640, "protein": 106, "carbs": 175, "fat": 54}
