@@ -655,3 +655,4 @@
 {"type": "daily_total", "date": "2026-11-08", "profile": "samir", "calories": 1628, "protein": 101, "carbs": 81, "fat": 99}
 {"logged_at": "2026-11-08", "date": "2026-11-08", "profile": "samir", "meal": "Snacks", "name": "Protein bar (label 140 / 17P)", "calories": 140, "protein": 17, "carbs": 10, "fat": 4}
 {"type": "daily_total", "date": "2026-11-08", "profile": "samir", "calories": 1768, "protein": 118, "carbs": 91, "fat": 103}
+{"type": "weight", "date": "2026-11-08", "profile": "samir", "weight": 83.0}
