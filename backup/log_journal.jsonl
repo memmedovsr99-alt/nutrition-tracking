@@ -628,3 +628,7 @@
 {"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Dolma in vine/olive leaf (label 90)", "calories": 90, "protein": 1, "carbs": 12, "fat": 4}
 {"logged_at": "2026-11-07", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Pickled mushrooms x6 (brined)", "calories": 15, "protein": 1, "carbs": 2, "fat": 0}
 {"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 1640, "protein": 106, "carbs": 175, "fat": 54}
+{"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie breast, no skin, remaining 40% (~145g @1.65/g)", "calories": 240, "protein": 44, "carbs": 0, "fat": 5}
+{"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie wing x1, no skin (~30g)", "calories": 55, "protein": 9, "carbs": 0, "fat": 2}
+{"logged_at": "2026-11-08", "date": "2026-11-07", "profile": "samir", "meal": "Dinner", "name": "Rotisserie leftover small pieces (~40g)", "calories": 75, "protein": 10, "carbs": 0, "fat": 4}
+{"type": "daily_total", "date": "2026-11-07", "profile": "samir", "calories": 2010, "protein": 169, "carbs": 175, "fat": 65}
