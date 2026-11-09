@@ -656,3 +656,6 @@
 {"logged_at": "2026-11-08", "date": "2026-11-08", "profile": "samir", "meal": "Snacks", "name": "Protein bar (label 140 / 17P)", "calories": 140, "protein": 17, "carbs": 10, "fat": 4}
 {"type": "daily_total", "date": "2026-11-08", "profile": "samir", "calories": 1768, "protein": 118, "carbs": 91, "fat": 103}
 {"type": "weight", "date": "2026-11-08", "profile": "samir", "weight": 83.0}
+{"logged_at": "2026-11-08", "date": "2026-11-08", "profile": "samir", "meal": "Dinner", "name": "Roasted butternut squash, whole (425g w/ skin+seeds -> ~350g edible @0.45/g), cinnamon", "calories": 155, "protein": 3, "carbs": 41, "fat": 0}
+{"logged_at": "2026-11-08", "date": "2026-11-08", "profile": "samir", "meal": "Dinner", "name": "Olive oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2}
+{"type": "daily_total", "date": "2026-11-08", "profile": "samir", "calories": 1943, "protein": 121, "carbs": 132, "fat": 105}
