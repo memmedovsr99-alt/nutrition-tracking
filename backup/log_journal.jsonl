@@ -673,3 +673,4 @@
 {"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Lunch", "name": "Kimchi ramen with chicken (restaurant bowl est.)", "calories": 850, "protein": 40, "carbs": 100, "fat": 30}
 {"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Lunch", "name": "Spicy salmon roll x1 portion (6-8 pcs est.)", "calories": 380, "protein": 15, "carbs": 50, "fat": 13}
 {"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 1230, "protein": 55, "carbs": 150, "fat": 43}
+{"type": "weight", "date": "2026-11-09", "profile": "samir", "weight": 83.55}
