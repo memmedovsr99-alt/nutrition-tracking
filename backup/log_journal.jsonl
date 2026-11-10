@@ -683,3 +683,4 @@
 {"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 3001, "protein": 154, "carbs": 324, "fat": 116}
 {"type": "correction", "date": "2026-11-09", "profile": "samir", "item": "Kimchi ramen", "from": {"calories": 850, "protein": 40, "carbs": 100, "fat": 30}, "to": {"name": "Tataki kimchi ramen with chicken (~650 est.)", "calories": 650, "protein": 35, "carbs": 80, "fat": 20}, "reason": "Tataki Philly, casual bowl; Samir agreed 650"}
 {"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 2801, "protein": 149, "carbs": 304, "fat": 106}
+{"type": "checkin", "date": "2026-11-09", "profile": "samir", "steps": 13000}
