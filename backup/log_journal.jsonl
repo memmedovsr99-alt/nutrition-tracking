@@ -674,3 +674,8 @@
 {"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Lunch", "name": "Spicy salmon roll x1 portion (6-8 pcs est.)", "calories": 380, "protein": 15, "carbs": 50, "fat": 13}
 {"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 1230, "protein": 55, "carbs": 150, "fat": 43}
 {"type": "weight", "date": "2026-11-09", "profile": "samir", "weight": 83.55}
+{"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Dinner", "name": "Beef doner wrap (same est. as Oct 5)", "calories": 780, "protein": 44, "carbs": 52, "fat": 42}
+{"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Dinner", "name": "TJ ready chicken meal (label 450 / 33P)", "calories": 450, "protein": 33, "carbs": 40, "fat": 17}
+{"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Dinner", "name": "Pasta 200g cooked (@1.58/g)", "calories": 316, "protein": 11, "carbs": 63, "fat": 2}
+{"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Snacks", "name": "Chicken croissant sandwich (label 450)", "calories": 450, "protein": 22, "carbs": 38, "fat": 23}
+{"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 3226, "protein": 165, "carbs": 343, "fat": 127}
