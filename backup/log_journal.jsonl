@@ -679,3 +679,5 @@
 {"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Dinner", "name": "Pasta 200g cooked (@1.58/g)", "calories": 316, "protein": 11, "carbs": 63, "fat": 2}
 {"logged_at": "2026-11-09", "date": "2026-11-09", "profile": "samir", "meal": "Snacks", "name": "Chicken croissant sandwich (label 450)", "calories": 450, "protein": 22, "carbs": 38, "fat": 23}
 {"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 3226, "protein": 165, "carbs": 343, "fat": 127}
+{"type": "correction", "date": "2026-11-09", "profile": "samir", "item": "Chicken croissant sandwich", "from": {"calories": 450}, "to": {"name": "Chicken croissant sandwich, half (label 450 whole)", "calories": 225, "protein": 11, "carbs": 19, "fat": 12}, "reason": "ate half"}
+{"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 3001, "protein": 154, "carbs": 324, "fat": 116}
