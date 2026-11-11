@@ -688,3 +688,4 @@
 {"type": "daily_total", "date": "2026-11-09", "profile": "samir", "calories": 2901, "protein": 151, "carbs": 325, "fat": 107, "logged_at": "2026-11-09T22:42:14"}
 {"date": "2026-11-10", "profile": "samir", "meal": "Lunch", "name": "Spicy chicken ramen (noodles + chicken, broth left)", "calories": 650, "protein": 37, "carbs": 75, "fat": 21, "sort_order": 0, "logged_at": "2026-11-10T14:12:02"}
 {"type": "daily_total", "date": "2026-11-10", "profile": "samir", "calories": 650, "protein": 37, "carbs": 75, "fat": 21, "logged_at": "2026-11-10T14:12:02"}
+{"type": "weight", "date": "2026-11-11", "profile": "samir", "weight": 82.75, "logged_at": "2026-11-11T14:45:01"}
