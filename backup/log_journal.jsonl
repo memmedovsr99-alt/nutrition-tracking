@@ -698,3 +698,5 @@
 {"date": "2026-11-11", "profile": "samir", "meal": "Snack", "name": "Anchovies", "calories": 70, "protein": 8, "carbs": 0, "fat": 4, "sort_order": 6, "logged_at": "2026-11-11T18:46:23"}
 {"date": "2026-11-11", "profile": "samir", "meal": "Snack", "name": "Small stuff", "calories": 50, "protein": 1, "carbs": 7, "fat": 2, "sort_order": 7, "logged_at": "2026-11-11T18:46:23"}
 {"type": "daily_total", "date": "2026-11-11", "profile": "samir", "calories": 2286, "protein": 118, "carbs": 252, "fat": 87, "logged_at": "2026-11-11T18:46:23"}
+{"type": "correction", "date": "2026-11-11", "profile": "samir", "item": "rack of lamb", "from": {"calories": 600, "protein": 50, "carbs": 0, "fat": 44}, "to": {"name": "TJ seasoned rack of lamb (whole, ~360g edible, label 290/112g, minus rendered fat)", "calories": 830, "protein": 58, "carbs": 1, "fat": 64}, "logged_at": "2026-11-11T18:50:27"}
+{"type": "daily_total", "date": "2026-11-11", "profile": "samir", "calories": 2516, "protein": 126, "carbs": 253, "fat": 107, "logged_at": "2026-11-11T18:50:27"}
