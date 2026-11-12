@@ -706,3 +706,4 @@
 {"date": "2026-11-11", "profile": "samir", "meal": "Dinner", "name": "Canned tuna (1 can)", "calories": 110, "protein": 25, "carbs": 0, "fat": 1, "sort_order": 9, "logged_at": "2026-11-11T23:30:21"}
 {"date": "2026-11-11", "profile": "samir", "meal": "Dinner", "name": "Nonfat Greek yogurt ~2.5 tbsp (40g)", "calories": 24, "protein": 4, "carbs": 2, "fat": 0, "sort_order": 10, "logged_at": "2026-11-11T23:30:21"}
 {"type": "daily_total", "date": "2026-11-11", "profile": "samir", "calories": 2687, "protein": 146, "carbs": 312, "fat": 89, "logged_at": "2026-11-11T23:30:21"}
+{"type": "weight", "date": "2026-11-12", "profile": "samir", "weight": 83.0, "logged_at": "2026-11-12T10:48:04"}
