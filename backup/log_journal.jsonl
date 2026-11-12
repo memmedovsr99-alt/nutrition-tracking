@@ -702,3 +702,7 @@
 {"type": "daily_total", "date": "2026-11-11", "profile": "samir", "calories": 2516, "protein": 126, "carbs": 253, "fat": 107, "logged_at": "2026-11-11T18:50:27"}
 {"type": "correction", "date": "2026-11-11", "profile": "samir", "item": "rack of lamb", "from": {"calories": 830, "protein": 58, "carbs": 1, "fat": 64}, "to": {"name": "TJ seasoned rack of lamb 0.83lb (~245g edible, label 290/112g, minus rendered fat)", "calories": 575, "protein": 39, "carbs": 1, "fat": 43}, "logged_at": "2026-11-11T18:51:32"}
 {"type": "daily_total", "date": "2026-11-11", "profile": "samir", "calories": 2261, "protein": 107, "carbs": 253, "fat": 86, "logged_at": "2026-11-11T18:51:32"}
+{"date": "2026-11-11", "profile": "samir", "meal": "Dinner", "name": "Barilla pasta 185g cooked", "calories": 292, "protein": 10, "carbs": 57, "fat": 2, "sort_order": 8, "logged_at": "2026-11-11T23:30:21"}
+{"date": "2026-11-11", "profile": "samir", "meal": "Dinner", "name": "Canned tuna (1 can)", "calories": 110, "protein": 25, "carbs": 0, "fat": 1, "sort_order": 9, "logged_at": "2026-11-11T23:30:21"}
+{"date": "2026-11-11", "profile": "samir", "meal": "Dinner", "name": "Nonfat Greek yogurt ~2.5 tbsp (40g)", "calories": 24, "protein": 4, "carbs": 2, "fat": 0, "sort_order": 10, "logged_at": "2026-11-11T23:30:21"}
+{"type": "daily_total", "date": "2026-11-11", "profile": "samir", "calories": 2687, "protein": 146, "carbs": 312, "fat": 89, "logged_at": "2026-11-11T23:30:21"}
