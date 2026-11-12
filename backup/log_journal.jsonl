@@ -715,3 +715,5 @@
 {"date": "2026-11-12", "profile": "samir", "meal": "Dinner", "name": "Nonfat yogurt ~45g", "calories": 27, "protein": 5, "carbs": 2, "fat": 0, "sort_order": 4, "logged_at": "2026-11-12T16:44:53"}
 {"date": "2026-11-12", "profile": "samir", "meal": "Dinner", "name": "Bread", "calories": 280, "protein": 10, "carbs": 52, "fat": 3, "sort_order": 5, "logged_at": "2026-11-12T16:44:53"}
 {"type": "daily_total", "date": "2026-11-12", "profile": "samir", "calories": 1782, "protein": 175, "carbs": 83, "fat": 79, "logged_at": "2026-11-12T16:44:53"}
+{"type": "correction", "date": "2026-11-12", "profile": "samir", "item": "smoked trout", "from": {"calories": 230, "protein": 28, "carbs": 0, "fat": 13}, "to": {"name": "TJ smoked trout (1 can, label)", "calories": 140, "protein": 20, "carbs": 0, "fat": 7}, "logged_at": "2026-11-12T16:48:42"}
+{"type": "daily_total", "date": "2026-11-12", "profile": "samir", "calories": 1692, "protein": 167, "carbs": 83, "fat": 73, "logged_at": "2026-11-12T16:48:42"}
