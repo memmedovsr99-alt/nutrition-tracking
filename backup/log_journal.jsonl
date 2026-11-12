@@ -709,3 +709,9 @@
 {"type": "weight", "date": "2026-11-12", "profile": "samir", "weight": 83.0, "logged_at": "2026-11-12T10:48:04"}
 {"date": "2026-11-12", "profile": "samir", "meal": "Breakfast", "name": "Pret egg whites", "calories": 210, "protein": 28, "carbs": 6, "fat": 8, "sort_order": 0, "logged_at": "2026-11-12T10:49:16"}
 {"type": "daily_total", "date": "2026-11-12", "profile": "samir", "calories": 210, "protein": 28, "carbs": 6, "fat": 8, "logged_at": "2026-11-12T10:49:16"}
+{"date": "2026-11-12", "profile": "samir", "meal": "Snack", "name": "Small banana", "calories": 90, "protein": 1, "carbs": 23, "fat": 0, "sort_order": 1, "logged_at": "2026-11-12T16:44:53"}
+{"date": "2026-11-12", "profile": "samir", "meal": "Lunch", "name": "TJ smoked trout (1 can, ~110g)", "calories": 230, "protein": 28, "carbs": 0, "fat": 13, "sort_order": 2, "logged_at": "2026-11-12T16:44:53"}
+{"date": "2026-11-12", "profile": "samir", "meal": "Dinner", "name": "Beef stew meat 1.2lb raw (544g), boiled", "calories": 945, "protein": 103, "carbs": 0, "fat": 55, "sort_order": 3, "logged_at": "2026-11-12T16:44:53"}
+{"date": "2026-11-12", "profile": "samir", "meal": "Dinner", "name": "Nonfat yogurt ~45g", "calories": 27, "protein": 5, "carbs": 2, "fat": 0, "sort_order": 4, "logged_at": "2026-11-12T16:44:53"}
+{"date": "2026-11-12", "profile": "samir", "meal": "Dinner", "name": "Bread", "calories": 280, "protein": 10, "carbs": 52, "fat": 3, "sort_order": 5, "logged_at": "2026-11-12T16:44:53"}
+{"type": "daily_total", "date": "2026-11-12", "profile": "samir", "calories": 1782, "protein": 175, "carbs": 83, "fat": 79, "logged_at": "2026-11-12T16:44:53"}
