@@ -739,3 +739,5 @@
 {"date": "2026-11-13", "profile": "samir", "meal": "Breakfast", "name": "Eggs x2.5", "calories": 175, "protein": 15, "carbs": 1, "fat": 12, "sort_order": 1, "logged_at": "2026-11-13T13:30:41"}
 {"date": "2026-11-13", "profile": "samir", "meal": "Breakfast", "name": "Olive oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2, "sort_order": 2, "logged_at": "2026-11-13T13:30:41"}
 {"type": "daily_total", "date": "2026-11-13", "profile": "samir", "calories": 300, "protein": 22, "carbs": 1, "fat": 22, "logged_at": "2026-11-13T13:30:41"}
+{"date": "2026-11-13", "profile": "samir", "meal": "Snack", "name": "Medium mocha, whole milk, no whip", "calories": 330, "protein": 13, "carbs": 42, "fat": 13, "sort_order": 3, "logged_at": "2026-11-13T15:32:37"}
+{"type": "daily_total", "date": "2026-11-13", "profile": "samir", "calories": 630, "protein": 35, "carbs": 43, "fat": 35, "logged_at": "2026-11-13T15:32:37"}
