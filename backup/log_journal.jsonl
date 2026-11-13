@@ -728,3 +728,5 @@
 {"type": "daily_total", "date": "2026-11-12", "profile": "samir", "calories": 2891, "protein": 273, "carbs": 111, "fat": 107, "logged_at": "2026-11-12T22:43:47"}
 {"type": "correction", "date": "2026-11-12", "profile": "samir", "item": "rice", "from": {"calories": 144, "protein": 3, "carbs": 32, "fat": 0}, "to": {"name": "Jasmine rice 270g freshly cooked (wet, ~1.3/g)", "calories": 350, "protein": 7, "carbs": 77, "fat": 1}, "logged_at": "2026-11-12T22:49:45"}
 {"type": "daily_total", "date": "2026-11-12", "profile": "samir", "calories": 3097, "protein": 277, "carbs": 156, "fat": 108, "logged_at": "2026-11-12T22:49:45"}
+{"type": "correction", "date": "2026-11-12", "profile": "samir", "item": "rice", "from": {"calories": 350, "protein": 7, "carbs": 77, "fat": 1}, "to": {"name": "Jasmine rice 270g freshly cooked (wet)", "calories": 300, "protein": 6, "carbs": 66, "fat": 1}, "logged_at": "2026-11-12T22:50:40"}
+{"type": "daily_total", "date": "2026-11-12", "profile": "samir", "calories": 3047, "protein": 276, "carbs": 145, "fat": 108, "logged_at": "2026-11-12T22:50:40"}
