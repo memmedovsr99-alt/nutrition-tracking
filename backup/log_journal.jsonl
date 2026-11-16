@@ -741,3 +741,10 @@
 {"type": "daily_total", "date": "2026-11-13", "profile": "samir", "calories": 300, "protein": 22, "carbs": 1, "fat": 22, "logged_at": "2026-11-13T13:30:41"}
 {"date": "2026-11-13", "profile": "samir", "meal": "Snack", "name": "Medium mocha, whole milk, no whip", "calories": 330, "protein": 13, "carbs": 42, "fat": 13, "sort_order": 3, "logged_at": "2026-11-13T15:32:37"}
 {"type": "daily_total", "date": "2026-11-13", "profile": "samir", "calories": 630, "protein": 35, "carbs": 43, "fat": 35, "logged_at": "2026-11-13T15:32:37"}
+{"type": "weight", "date": "2026-11-15", "profile": "samir", "weight": 82.6, "logged_at": "2026-11-16T16:50:52"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Lunch", "name": "Dig bowl: white rice", "calories": 230, "protein": 4, "carbs": 48, "fat": 3, "sort_order": 0, "logged_at": "2026-11-16T16:50:52"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Lunch", "name": "Dig bowl: charred chicken (Dig PDF)", "calories": 270, "protein": 38, "carbs": 1, "fat": 12, "sort_order": 1, "logged_at": "2026-11-16T16:50:52"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Lunch", "name": "Dig side: chickpeas", "calories": 160, "protein": 5, "carbs": 17, "fat": 8, "sort_order": 2, "logged_at": "2026-11-16T16:50:52"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Lunch", "name": "Dig side: green veg", "calories": 100, "protein": 4, "carbs": 8, "fat": 6, "sort_order": 3, "logged_at": "2026-11-16T16:50:52"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Snack", "name": "Chocolate", "calories": 65, "protein": 1, "carbs": 7, "fat": 4, "sort_order": 4, "logged_at": "2026-11-16T16:50:52"}
+{"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 825, "protein": 52, "carbs": 81, "fat": 33, "logged_at": "2026-11-16T16:50:52"}
