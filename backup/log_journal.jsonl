@@ -755,3 +755,12 @@
 {"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 875, "protein": 59, "carbs": 64, "fat": 46, "logged_at": "2026-11-16T16:56:35"}
 {"type": "correction", "date": "2026-11-16", "profile": "samir", "item": "green side", "from": {"calories": 130, "protein": 4, "carbs": 12, "fat": 9}, "to": {"name": "Dig green side: Just a Really Good Salad (Dig PDF)", "calories": 25, "protein": 1, "carbs": 3, "fat": 1}, "logged_at": "2026-11-16T20:15:25"}
 {"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 770, "protein": 56, "carbs": 55, "fat": 38, "logged_at": "2026-11-16T20:15:25"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Beef short rib 300g raw", "calories": 750, "protein": 51, "carbs": 0, "fat": 59, "sort_order": 5, "logged_at": "2026-11-16T20:17:57"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Avocado oil spray", "calories": 20, "protein": 0, "carbs": 0, "fat": 2, "sort_order": 6, "logged_at": "2026-11-16T20:17:57"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Cucumbers x2", "calories": 90, "protein": 4, "carbs": 20, "fat": 0, "sort_order": 7, "logged_at": "2026-11-16T20:17:57"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Pickled mushrooms (tiny can)", "calories": 30, "protein": 2, "carbs": 4, "fat": 1, "sort_order": 8, "logged_at": "2026-11-16T20:17:57"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Small olives (a few)", "calories": 25, "protein": 0, "carbs": 1, "fat": 3, "sort_order": 9, "logged_at": "2026-11-16T20:17:57"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Olive oil, poured (~1 tbsp)", "calories": 120, "protein": 0, "carbs": 0, "fat": 14, "sort_order": 10, "logged_at": "2026-11-16T20:17:57"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Lemon + parsley", "calories": 8, "protein": 0, "carbs": 2, "fat": 0, "sort_order": 11, "logged_at": "2026-11-16T20:17:57"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Snack", "name": "Rice cakes", "calories": 120, "protein": 2, "carbs": 26, "fat": 1, "sort_order": 12, "logged_at": "2026-11-16T20:17:57"}
+{"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 1933, "protein": 115, "carbs": 108, "fat": 118, "logged_at": "2026-11-16T20:17:57"}
