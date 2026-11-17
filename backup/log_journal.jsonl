@@ -764,3 +764,5 @@
 {"date": "2026-11-16", "profile": "samir", "meal": "Dinner", "name": "Lemon + parsley", "calories": 8, "protein": 0, "carbs": 2, "fat": 0, "sort_order": 11, "logged_at": "2026-11-16T20:17:57"}
 {"date": "2026-11-16", "profile": "samir", "meal": "Snack", "name": "Rice cakes", "calories": 120, "protein": 2, "carbs": 26, "fat": 1, "sort_order": 12, "logged_at": "2026-11-16T20:17:57"}
 {"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 1933, "protein": 115, "carbs": 108, "fat": 118, "logged_at": "2026-11-16T20:17:57"}
+{"type": "correction", "date": "2026-11-16", "profile": "samir", "item": "short rib", "from": {"calories": 750, "protein": 51, "carbs": 0, "fat": 59}, "to": {"name": "Beef short rib 300g raw (leaner cut, ~2.0/g)", "calories": 600, "protein": 54, "carbs": 0, "fat": 43}, "logged_at": "2026-11-16T20:19:01"}
+{"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 1783, "protein": 118, "carbs": 108, "fat": 102, "logged_at": "2026-11-16T20:19:01"}
