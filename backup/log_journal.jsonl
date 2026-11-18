@@ -769,3 +769,5 @@
 {"date": "2026-11-16", "profile": "samir", "meal": "Snack", "name": "Almond milk 170ml", "calories": 43, "protein": 1, "carbs": 1, "fat": 3, "sort_order": 13, "logged_at": "2026-11-16T22:13:41"}
 {"date": "2026-11-16", "profile": "samir", "meal": "Snack", "name": "Whey protein (1 scoop)", "calories": 120, "protein": 24, "carbs": 3, "fat": 2, "sort_order": 14, "logged_at": "2026-11-16T22:13:41"}
 {"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 1946, "protein": 143, "carbs": 112, "fat": 107, "logged_at": "2026-11-16T22:13:41"}
+{"date": "2026-11-16", "profile": "samir", "meal": "Snack", "name": "Apple (medium)", "calories": 95, "protein": 0, "carbs": 25, "fat": 0, "sort_order": 15, "logged_at": "2026-11-17T21:51:46"}
+{"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 2041, "protein": 143, "carbs": 137, "fat": 107, "logged_at": "2026-11-17T21:51:46"}
