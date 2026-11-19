@@ -782,3 +782,5 @@
 {"type": "daily_total", "date": "2026-11-18", "profile": "samir", "calories": 3070, "protein": 198, "carbs": 252, "fat": 139, "logged_at": "2026-11-18T23:15:11"}
 {"type": "correction", "date": "2026-11-18", "profile": "samir", "item": "squash", "from": {"calories": 120, "protein": 2, "carbs": 26, "fat": 2}, "to": {"name": "Butternut squash half of large (~350g edible), oil spray, little honey", "calories": 200, "protein": 3, "carbs": 44, "fat": 2}, "logged_at": "2026-11-18T23:20:30"}
 {"type": "daily_total", "date": "2026-11-18", "profile": "samir", "calories": 3150, "protein": 199, "carbs": 270, "fat": 139, "logged_at": "2026-11-18T23:20:30"}
+{"date": "2026-11-19", "profile": "samir", "meal": "Lunch", "name": "Birria tacos x3 (with cheese, no consomm\u00e9)", "calories": 900, "protein": 54, "carbs": 60, "fat": 48, "sort_order": 0, "logged_at": "2026-11-19T15:36:50"}
+{"type": "daily_total", "date": "2026-11-19", "profile": "samir", "calories": 900, "protein": 54, "carbs": 60, "fat": 48, "logged_at": "2026-11-19T15:36:50"}
