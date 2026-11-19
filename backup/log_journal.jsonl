@@ -780,3 +780,5 @@
 {"date": "2026-11-18", "profile": "samir", "meal": "Snack", "name": "Rice cakes", "calories": 200, "protein": 4, "carbs": 43, "fat": 1, "sort_order": 6, "logged_at": "2026-11-18T23:15:11"}
 {"date": "2026-11-18", "profile": "samir", "meal": "Dinner", "name": "Butternut squash half (~175g edible), oil spray, little honey", "calories": 120, "protein": 2, "carbs": 26, "fat": 2, "sort_order": 7, "logged_at": "2026-11-18T23:15:11"}
 {"type": "daily_total", "date": "2026-11-18", "profile": "samir", "calories": 3070, "protein": 198, "carbs": 252, "fat": 139, "logged_at": "2026-11-18T23:15:11"}
+{"type": "correction", "date": "2026-11-18", "profile": "samir", "item": "squash", "from": {"calories": 120, "protein": 2, "carbs": 26, "fat": 2}, "to": {"name": "Butternut squash half of large (~350g edible), oil spray, little honey", "calories": 200, "protein": 3, "carbs": 44, "fat": 2}, "logged_at": "2026-11-18T23:20:30"}
+{"type": "daily_total", "date": "2026-11-18", "profile": "samir", "calories": 3150, "protein": 199, "carbs": 270, "fat": 139, "logged_at": "2026-11-18T23:20:30"}
