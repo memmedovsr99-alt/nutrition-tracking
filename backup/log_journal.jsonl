@@ -771,3 +771,12 @@
 {"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 1946, "protein": 143, "carbs": 112, "fat": 107, "logged_at": "2026-11-16T22:13:41"}
 {"date": "2026-11-16", "profile": "samir", "meal": "Snack", "name": "Apple (medium)", "calories": 95, "protein": 0, "carbs": 25, "fat": 0, "sort_order": 15, "logged_at": "2026-11-17T21:51:46"}
 {"type": "daily_total", "date": "2026-11-16", "profile": "samir", "calories": 2041, "protein": 143, "carbs": 137, "fat": 107, "logged_at": "2026-11-17T21:51:46"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Breakfast", "name": "Croissant", "calories": 280, "protein": 6, "carbs": 31, "fat": 15, "sort_order": 0, "logged_at": "2026-11-18T23:15:11"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Lunch", "name": "Honeygrow chicken tahini bowl, double chicken", "calories": 890, "protein": 65, "carbs": 80, "fat": 32, "sort_order": 1, "logged_at": "2026-11-18T23:15:11"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Dinner", "name": "Cheesecake Factory buffalo wings (1 appetizer)", "calories": 1120, "protein": 95, "carbs": 30, "fat": 69, "sort_order": 2, "logged_at": "2026-11-18T23:15:11"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Dinner", "name": "CF butter (small pack)", "calories": 100, "protein": 0, "carbs": 0, "fat": 11, "sort_order": 3, "logged_at": "2026-11-18T23:15:11"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Dinner", "name": "CF white + brown bread (1 piece each)", "calories": 220, "protein": 6, "carbs": 42, "fat": 2, "sort_order": 4, "logged_at": "2026-11-18T23:15:11"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Snack", "name": "TJ smoked trout (1 can, label)", "calories": 140, "protein": 20, "carbs": 0, "fat": 7, "sort_order": 5, "logged_at": "2026-11-18T23:15:11"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Snack", "name": "Rice cakes", "calories": 200, "protein": 4, "carbs": 43, "fat": 1, "sort_order": 6, "logged_at": "2026-11-18T23:15:11"}
+{"date": "2026-11-18", "profile": "samir", "meal": "Dinner", "name": "Butternut squash half (~175g edible), oil spray, little honey", "calories": 120, "protein": 2, "carbs": 26, "fat": 2, "sort_order": 7, "logged_at": "2026-11-18T23:15:11"}
+{"type": "daily_total", "date": "2026-11-18", "profile": "samir", "calories": 3070, "protein": 198, "carbs": 252, "fat": 139, "logged_at": "2026-11-18T23:15:11"}
