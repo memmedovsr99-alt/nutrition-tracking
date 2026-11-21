@@ -795,3 +795,5 @@
 {"type": "checkin", "date": "2026-11-20", "profile": "samir", "training": true, "training_type": "Football 90 min (Garmin 880 active kcal)", "logged_at": "2026-11-20T20:03:39"}
 {"date": "2026-11-20", "profile": "samir", "meal": "Breakfast", "name": "Medium banana", "calories": 105, "protein": 1, "carbs": 27, "fat": 0, "sort_order": 0, "logged_at": "2026-11-20T20:05:14"}
 {"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 1782, "protein": 150, "carbs": 90, "fat": 92, "logged_at": "2026-11-20T20:05:14"}
+{"type": "correction", "date": "2026-11-20", "profile": "samir", "item": "rice cake", "from": {"calories": 120, "protein": 2, "carbs": 26, "fat": 1}, "to": {"calories": 86, "protein": 2, "carbs": 18, "fat": 1}, "logged_at": "2026-11-20T20:19:53"}
+{"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 1748, "protein": 150, "carbs": 82, "fat": 92, "logged_at": "2026-11-20T20:19:53"}
