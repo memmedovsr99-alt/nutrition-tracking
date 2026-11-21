@@ -790,3 +790,6 @@
 {"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 45, "protein": 0, "carbs": 11, "fat": 0, "logged_at": "2026-11-20T20:00:28"}
 {"date": "2026-11-20", "profile": "samir", "meal": "Snack", "name": "Rice cakes", "calories": 120, "protein": 2, "carbs": 26, "fat": 1, "sort_order": 1, "logged_at": "2026-11-20T20:00:39"}
 {"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 165, "protein": 2, "carbs": 37, "fat": 1, "logged_at": "2026-11-20T20:00:39"}
+{"date": "2026-11-20", "profile": "samir", "meal": "Lunch", "name": "Homemade protein pizza (whole): 1lb 8% ground chicken crust, 2 eggs, 220g 4% cottage cheese, 74g TJ pizza cheese, ketchup, olives, 15 pepperoni, jalape\u00f1o/pepper", "calories": 1512, "protein": 147, "carbs": 26, "fat": 91, "sort_order": 2, "logged_at": "2026-11-20T20:03:39"}
+{"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 1677, "protein": 149, "carbs": 63, "fat": 92, "logged_at": "2026-11-20T20:03:39"}
+{"type": "checkin", "date": "2026-11-20", "profile": "samir", "training": true, "training_type": "Football 90 min (Garmin 880 active kcal)", "logged_at": "2026-11-20T20:03:39"}
