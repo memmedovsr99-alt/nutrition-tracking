@@ -788,3 +788,5 @@
 {"type": "daily_total", "date": "2026-11-19", "profile": "samir", "calories": 1620, "protein": 91, "carbs": 116, "fat": 87, "logged_at": "2026-11-19T17:27:55"}
 {"date": "2026-11-20", "profile": "samir", "meal": "Snack", "name": "Liquid I.V. (1 stick, regular)", "calories": 45, "protein": 0, "carbs": 11, "fat": 0, "sort_order": 0, "logged_at": "2026-11-20T20:00:28"}
 {"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 45, "protein": 0, "carbs": 11, "fat": 0, "logged_at": "2026-11-20T20:00:28"}
+{"date": "2026-11-20", "profile": "samir", "meal": "Snack", "name": "Rice cakes", "calories": 120, "protein": 2, "carbs": 26, "fat": 1, "sort_order": 1, "logged_at": "2026-11-20T20:00:39"}
+{"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 165, "protein": 2, "carbs": 37, "fat": 1, "logged_at": "2026-11-20T20:00:39"}
