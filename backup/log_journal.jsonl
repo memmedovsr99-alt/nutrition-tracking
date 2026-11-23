@@ -797,3 +797,4 @@
 {"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 1782, "protein": 150, "carbs": 90, "fat": 92, "logged_at": "2026-11-20T20:05:14"}
 {"type": "correction", "date": "2026-11-20", "profile": "samir", "item": "rice cake", "from": {"calories": 120, "protein": 2, "carbs": 26, "fat": 1}, "to": {"calories": 86, "protein": 2, "carbs": 18, "fat": 1}, "logged_at": "2026-11-20T20:19:53"}
 {"type": "daily_total", "date": "2026-11-20", "profile": "samir", "calories": 1748, "protein": 150, "carbs": 82, "fat": 92, "logged_at": "2026-11-20T20:19:53"}
+{"type": "finance_reconcile", "logged": "2026-11-23", "range": "2026-10-31..2026-11-23", "savings": 87822.67, "checking_incl_processing": 157.13, "bofaNow": 87979.80, "card_8337_owed_incl_pending": 643.09, "card_purchases": 2733.33, "card_payments": 2090.24, "note": "~130 txns from screenshots; buckets nyc1/dc/nyc2 added"}
