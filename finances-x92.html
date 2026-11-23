@@ -654,7 +654,7 @@ const DATA = {
     endDate:   "2027-05-15",     // horizon = end of academic year (approx graduation)
     // Money IN HAND today = bank + card + cash (all liquid accounts combined)
     startingBalance: 42980.77,   // 42,570.18 bank + 105.59 card + 305 cash (bank incl. +$395.18 reconciliation so computed BofA ties to actual statement as of 2026-08-22: savings $146,766.78 + checking $1,500 = $148,266.78; absorbs AZN/CNY rounding + minor deltas)
-    accounts: { bank: 42570.18, card: 105.59, cash: 1021, venmo: 0, rewards: 0, azn: 31.93 },   // 2026-11-02: friend repaid $60 into Venmo   // 2026-11-02: 172.35 AZN paid off an Azerbaijani credit card → 54.27 AZN left @ 1.70   // 2026-10-31: $302.62 cashback redeemed and $292 Venmo both moved into savings   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
+    accounts: { bank: 42570.18, card: 105.59, cash: 1021, venmo: 0, rewards: 0, azn: 31.93, stocks: 1005 },   // 2026-11-23: NVIDIA bought Nov 10 ($1,005 via Akif)   // 2026-11-02: friend repaid $60 into Venmo   // 2026-11-02: 172.35 AZN paid off an Azerbaijani credit card → 54.27 AZN left @ 1.70   // 2026-10-31: $302.62 cashback redeemed and $292 Venmo both moved into savings   // cash counted 2026-10-30: $1,021 (was $1,248 on 2026-09-21; the $227 difference is logged as cash spending below)
     // Scholarship context (tuition portion is NOT spendable — excluded from Balance Left)
     scholarshipTotal:   111008,
     scholarshipTuition: 63008,   // paid direct to Penn, not counted
@@ -668,6 +668,7 @@ const DATA = {
 
   // Money coming IN. received:false = committed but not in the bank yet (feeds "Coming In").
   income: [
+    { date:"2026-11-10", source:"NVIDIA shares (holding, cost basis)", amount:1005, emoji:"📈", received:true, account:"stocks", note:"Bought via Akif with the Nov 10 Zelle — an asset, not spending. Update accounts.stocks if you want market value." },
     { date:"2026-08-22", source:"McKinsey Scholarship (living)", amount:48000, emoji:"🎓", received:true, note:"$48k living portion of the $111,008 award — received into BofA (−$15 commission, logged as expense)" },
     { date:"2026-08-10", source:"Halluminate — receivable",       amount:4625,  emoji:"💻", received:true, note:"Owed to Samir — reduced by $3,000 on 2026-08-22; received 2026-08-22" },
     { date:"2026-09-08", source:"Babak — loan repayment", amount:100, emoji:"🤝", received:true, note:"REPAID — Zelle from Babak Aghazada into checking 6553 on 2026-09-08" },
@@ -689,9 +690,6 @@ const DATA = {
     { date:"2026-10-30", source:"Azerbaijani debit card balance", amount:133.31, emoji:"🇦🇿", received:true, account:"azn", note:"226.62 AZN @ 1.70 — includes Zarifa's repayment of the $150 transfer. Not part of BofA." },
     { date:"2026-08-26", source:"New building deposit — receivable", amount:500, emoji:"🏢", received:false, note:"$500 deposit paid for the new building — refundable, owed back on move-out" },
     { date:"2026-11-09", source:"Interest (savings)", amount:3.14, emoji:"🏦", received:true, note:"Savings 6731" },
-    { date:"2026-11-23", source:"Zelle — Yuancong Xie", amount:27.50, emoji:"🤝", received:true, note:"Checking 6553, processing — ❓ share of what? (Rosy's / Bathhouse?)" },
-    { date:"2026-11-23", source:"Zelle — Shahaf Shraga", amount:27.50, emoji:"🤝", received:true, note:"Checking 6553, processing — ❓ share of what?" },
-    { date:"2026-11-23", source:"Zelle — Shahaf Shraga", amount:14.50, emoji:"🤝", received:true, note:"Checking 6553, processing — ❓ share of what?" },
   ],
 
   // Money going OUT. paid:false = owed/upcoming (feeds "Owed"). bucket: null or a bucket id.
@@ -1163,20 +1161,20 @@ const DATA = {
     { date:"2026-11-12", category:"Dining", name:"Poke Burri", amount:15.93, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-11-12", category:"Food", name:"Joe's Cafe (Penn)", amount:2.7, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-11-12", category:"Phone", name:"Visible (PayPal)", amount:35, bucket:null, paid:true, note:"Checking 6553" },
-    { date:"2026-11-13", category:"Travel", name:"Wharton MLP Ventures", amount:4100, bucket:null, paid:true, daily:false, emoji:"🏔️", note:"Checking 6553 (funded by $4,100 from savings Nov 12) — ❓ which venture/trip? Earlier $700 MLP deposit was refunded" },
+    { date:"2026-11-13", category:"Travel", name:"Wharton MLP Ventures — Patagonia leadership venture", amount:4100, bucket:"patagonia", paid:true, daily:false, emoji:"🏔️", note:"Checking 6553 (funded by $4,100 from savings Nov 12). The long-standing dream — trip is in March 2027." },
     { date:"2026-11-16", category:"Subscriptions", name:"YouTube", amount:6.47, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-11-18", category:"Subscriptions", name:"Uber One", amount:9.99, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-11-18", category:"Subscriptions", name:"ChatGPT (OpenAI)", amount:21.6, bucket:null, paid:true, note:"Checking 6553" },
     { date:"2026-11-19", category:"Misc", name:"Zelle — Leovigildo Saavedra-Cazares", amount:21, bucket:null, paid:true, note:"Checking 6553 — ❓ what for?" },
     { date:"2026-11-20", category:"Fun", name:"G2A (PayPal)", amount:21.41, bucket:null, paid:true, note:"Checking 6553" },
-    { date:"2026-11-20", category:"Transport", name:"Amtrak (PayPal)", amount:17, bucket:"nyc2", paid:true, note:"Checking 6553" },
-    { date:"2026-11-23", category:"Misc", name:"PayPal purchase (pending ACH hold)", amount:24, bucket:null, paid:true, note:"Checking 6553 — processing 11/23 — ❓ what is it?" },
+    { date:"2026-11-20", category:"Transport", name:"Amtrak (PayPal)", amount:17, bucket:"nyc2", paid:true, note:"Checking 6553 — Thanksgiving trip ticket; some of these get cancelled → refund expected" },
+    { date:"2026-11-23", category:"Transport", name:"Amtrak (PayPal, pending hold)", amount:24, bucket:"nyc2", paid:true, note:"Checking 6553 — one of 3 train tickets bought; 2 cancelled → refunds expected (log when they land)" },
     { date:"2026-11-03", category:"Rent", name:"PMC Property — extra charge", amount:136.21, bucket:null, paid:true, daily:false, emoji:"🏠", note:"Savings 6731 — ❓ utilities/parking? (rent itself was $2,538.85 on Nov 6)" },
     { date:"2026-11-06", category:"Rent", name:"Rent — PMC Property (Nov)", amount:2538.85, bucket:null, paid:true, daily:false, emoji:"🏠", note:"Savings 6731" },
-    { date:"2026-11-10", category:"Travel", name:"Zelle — Akif Karimov", amount:1005, bucket:"vietnam", paid:true, daily:false, emoji:"🇻🇳", note:"Savings 6731 — ❓ assumed Vietnam (Akif handled the $1,000 hotel payment) — confirm" },
+    { date:"2026-11-10", category:"Investment", name:"NVIDIA shares (Zelle to Akif Karimov)", amount:1005, bucket:null, paid:true, daily:false, emoji:"📈", note:"Savings 6731 — not spending: bought NVIDIA stock via Akif. Held as the Stocks account (cost basis)." },
     { date:"2026-11-13", category:"Subscriptions", name:"Claude subscription", amount:21.6, bucket:null, paid:true, note:"Savings 6731" },
     { date:"2026-11-17", category:"Tuition", name:"Tuition — 4th installment", amount:7876, bucket:null, paid:true, inBalance:false, note:"4th of 8 to Penn ('UNIVERSITY OF PE' 2026-11-17) — drains tuition-in-bank" },
-    { date:"2026-11-20", category:"Misc", name:"Zelle — Oscar Villaran", amount:122, bucket:null, paid:true, note:"Savings 6731 — ❓ what for?" },
+    { date:"2026-11-20", category:"Fun", name:"Eagles game ticket (Zelle — Oscar Villaran)", amount:122, bucket:null, paid:true, emoji:"🏈", note:"Savings 6731 — went to the game together" },
     { date:"2026-11-09", category:"Debt", name:"BofA card payment", amount:120, bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337" },
     { date:"2026-11-09", category:"Debt", name:"BofA card payment", amount:107, bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337" },
     { date:"2026-11-09", category:"Debt", name:"BofA card payment", amount:260, bucket:null, paid:true, daily:false, emoji:"💳", note:"Savings 6731 → card #8337" },
@@ -1288,6 +1286,9 @@ const DATA = {
     { date:"2026-11-22", category:"Transport", name:"Amtrak (pending)", amount:17.0, bucket:"nyc2", paid:true, inBalance:false, note:"BofA card #8337" },
     { date:"2026-11-23", category:"Dining", name:"In Common NYC (pending)", amount:35.04, bucket:"nyc2", paid:true, inBalance:false, note:"BofA card #8337" },
     { date:"2026-11-23", category:"Food", name:"Cafe, Herald Sq (pending)", amount:4.63, bucket:"nyc2", paid:true, inBalance:false, note:"BofA card #8337" },
+    { date:"2026-11-21", category:"Dining", name:"Paid back by friend (Yuancong Xie)", amount:-27.50, bucket:null, paid:true, note:"Checking 6553 — friend repaid their share of something Samir paid (nets against spending)" },
+    { date:"2026-11-21", category:"Dining", name:"Paid back by friend (Shahaf Shraga)", amount:-27.50, bucket:null, paid:true, note:"Checking 6553 — friend repaid their share of something Samir paid (nets against spending)" },
+    { date:"2026-11-23", category:"Dining", name:"Paid back by friend (Shahaf Shraga)", amount:-14.50, bucket:null, paid:true, note:"Checking 6553 — friend repaid their share of something Samir paid (nets against spending)" },
     { date:"2026-11-23", category:"Debt", name:"BofA card #8337 — owed (incl. pending)", amount:643.09, bucket:null, paid:false, daily:false, emoji:"💳", note:"Card app 2026-11-23: posted $292.60 + pending = $643.09. Purchases Oct 31→Nov 23 = $2,733.33 = payments $2,090.24 + owed $643.09." },
   ],
 
@@ -1296,9 +1297,10 @@ const DATA = {
     { id:"china", name:"China Trip", emoji:"🇨🇳", color:"#f87171" },
     { id:"k2", name:"K2 Base Camp Trek", emoji:"🏔️", color:"#60a5fa", note:"Already-spent trip — tracked, not deducted from Balance Left" },
     { id:"vietnam", name:"Vietnam Trip", emoji:"🇻🇳", color:"#4dd4ac", note:"Replaces the cancelled Brazil trek — flights + hotels for Samir and Mina, both on Samir" },
-    { id:"nyc1", name:"NYC Weekend", emoji:"🗽", color:"#60a5fa", note:"Nov 1–2 2026" },
+    { id:"patagonia", name:"Patagonia Leadership Venture", emoji:"🏔️", color:"#22d3ee", note:"Wharton MLP Ventures · March 2027 · paid $4,100 Nov 13 2026" },
+    { id:"nyc1", name:"NYC Weekend", emoji:"🗽", color:"#60a5fa", note:"Oct 31 (afternoon train) – Nov 1 (late-night train back). Card charges post Nov 2–4." },
     { id:"dc", name:"Washington DC Weekend", emoji:"🏛️", color:"#f472b6", note:"Nov 15–16 2026 · Avis rental car from Philly" },
-    { id:"nyc2", name:"NYC Trip (Nov 23)", emoji:"🍂", color:"#a78bfa", note:"Started ~Nov 22–23 2026" },
+    { id:"nyc2", name:"Thanksgiving Break — NYC + Niagara Falls", emoji:"🦃", color:"#a78bfa", note:"Nov 23–29 2026. Train refunds expected (3 tickets bought, 2 cancelled; 1 of 2 return tickets to be cancelled)" },
     { id:"roadtrip", name:"New England Road Trip", emoji:"🍁", color:"#fb923c", note:"Oct 12–19 2026 · NY → Vermont (Burlington, Montpelier, Woodstock) → New Hampshire (North Conway) → Maine (Bar Harbor, Camden, Freeport, Wells)" },
   ]
 };
@@ -1312,7 +1314,7 @@ const CAT_EMOJI = { Rent:"🏠", Groceries:"🛒", Food:"🍽️", Dining:"🍽�
   Utilities:"💡", Fun:"🎉", Social:"🍻", Gym:"💪", Books:"📚", Fees:"🧾", "Club events":"🎟️", "Move-in":"📦", Misc:"•", Other:"•" };
 const PALETTE = ["#7c6fff","#4dd4ac","#f87171","#fbbf24","#60a5fa","#fb923c","#ff6b8a","#a78bfa","#34d399","#f472b6"];
 const ONEOFF_CATS = ["Club events","Rent","Insurance","Gear","Tuition","Move-in"];  // not part of the daily allowance — one-off / fixed
-const NON_SPEND_CATS = ["Debt","Tuition","Loan"];   // transfers/repayments — money moves but isn't consumption spending
+const NON_SPEND_CATS = ["Debt","Tuition","Loan","Investment"];   // transfers/repayments — money moves but isn't consumption spending
 
 /* ---------- helpers ---------- */
 function money(n, opts={}) {
@@ -1401,7 +1403,8 @@ function compute() {
   const venmo  = (m.accounts && +m.accounts.venmo) || 0;       // Venmo balance, not in BofA
   const rewards= (m.accounts && +m.accounts.rewards) || 0;     // unredeemed card cashback
   const azn    = (m.accounts && +m.accounts.azn) || 0;         // Azerbaijani debit card, USD equivalent
-  const bofaNow = totalWithTuition - cash - venmo - rewards - azn;                     // savings + checking only — should match BofA app
+  const stocks = (m.accounts && +m.accounts.stocks) || 0;      // brokerage holdings (NVIDIA), cost basis
+  const bofaNow = totalWithTuition - cash - venmo - rewards - azn - stocks;                     // savings + checking only — should match BofA app
 
   // Year self-budget: what Samir started the year with to spend on himself, vs actual spend so far.
   // "Spent on yourself" = every expense since journey start EXCEPT debt principal, tuition, and
@@ -1438,7 +1441,7 @@ function compute() {
   const daysLeftPeriod = Math.max(0, daysInPeriod - dayInPeriod);
 
   return { start, hasStart, totalIn, totalOut, recvIn, expIn, paidOut, owedOut, liquidNow, balance,
-           tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, venmo, rewards, azn, bofaNow,
+           tuition, tuitionPaid, tuitionInBank, totalWithTuition, cash, venmo, rewards, azn, stocks, bofaNow,
            yearBudget, selfSpent, yearLeft, yearDrawdown, yearOther, yearPct,
            allowAmt, allowSpent, allowLeft, periodStart, periodEnd, daysInPeriod, dayInPeriod, daysLeftPeriod,
            monthOut, monthIn, avgBurn, runway, projected, thisMonth, byMonthOut, plannedMonthly,
@@ -1632,6 +1635,7 @@ function renderBalance(c) {
     ["📲","Venmo", c.venmo, ""],
     ["🎁","Card cashback", c.rewards, ""],
     ["🇦🇿","AZ debit card", c.azn, ""],
+    ["📈","Stocks (NVIDIA)", c.stocks, ""],
     ["💰","Receivables", c.expIn, "green"],
     ["💳","Payables", c.owedOut, "red"],
     ["🎓","Tuition held", c.tuitionInBank, ""]
@@ -1675,6 +1679,7 @@ function renderBalance(c) {
     <div class="wf-row"><span>📲 Venmo</span><span class="green">+${money(c.venmo)}</span></div>
     <div class="wf-row"><span>🎁 Card cashback</span><span class="green">+${money(c.rewards)}</span></div>
     <div class="wf-row"><span>🇦🇿 AZ debit card</span><span class="green">+${money(c.azn)}</span></div>
+    <div class="wf-row"><span>📈 Stocks (NVIDIA)</span><span class="green">+${money(c.stocks)}</span></div>
     <div class="wf-row"><span>💰 Receivables (owed to you)</span><span class="green">+${money(c.expIn)}</span></div>
     <div class="wf-row"><span>💳 Payables (you owe)</span><span class="red">−${money(c.owedOut)}</span></div>
     <div class="wf-row total"><span>🎯 Truly yours to spend</span><span class="money-big">${money(c.balance)}</span></div>`;
