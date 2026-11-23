@@ -668,6 +668,7 @@ const DATA = {
 
   // Money coming IN. received:false = committed but not in the bank yet (feeds "Coming In").
   income: [
+    { date:"2026-11-23", source:"Friend — share of DC + Philly weekend", amount:212.99, emoji:"🤝", received:false, note:"Half of: Avis $131.85 + Sunoco $50.06 + Patagonia $157.99 + Angelo's $46.44 + DoorDash Sabrina's $39.63 = $425.97 / 2. Net of the $60 visa fees he paid for Samir → he pays $152.99." },
     { date:"2026-11-10", source:"NVIDIA shares (holding, cost basis)", amount:1005, emoji:"📈", received:true, account:"stocks", note:"Bought via Akif with the Nov 10 Zelle — an asset, not spending. Update accounts.stocks if you want market value." },
     { date:"2026-08-22", source:"McKinsey Scholarship (living)", amount:48000, emoji:"🎓", received:true, note:"$48k living portion of the $111,008 award — received into BofA (−$15 commission, logged as expense)" },
     { date:"2026-08-10", source:"Halluminate — receivable",       amount:4625,  emoji:"💻", received:true, note:"Owed to Samir — reduced by $3,000 on 2026-08-22; received 2026-08-22" },
@@ -1289,6 +1290,7 @@ const DATA = {
     { date:"2026-11-21", category:"Dining", name:"Paid back by friend (Yuancong Xie)", amount:-27.50, bucket:null, paid:true, note:"Checking 6553 — friend repaid their share of something Samir paid (nets against spending)" },
     { date:"2026-11-21", category:"Dining", name:"Paid back by friend (Shahaf Shraga)", amount:-27.50, bucket:null, paid:true, note:"Checking 6553 — friend repaid their share of something Samir paid (nets against spending)" },
     { date:"2026-11-23", category:"Dining", name:"Paid back by friend (Shahaf Shraga)", amount:-14.50, bucket:null, paid:true, note:"Checking 6553 — friend repaid their share of something Samir paid (nets against spending)" },
+    { date:"2026-11-23", category:"Fees", name:"Visa fees (paid by friend — owed to him)", amount:60, bucket:null, paid:false, daily:false, emoji:"🛂", note:"Friend paid Samir's visa fees; netted against his DC/Philly weekend share (receivable $212.99 − $60 = $152.99)" },
     { date:"2026-11-23", category:"Debt", name:"BofA card #8337 — owed (incl. pending)", amount:643.09, bucket:null, paid:false, daily:false, emoji:"💳", note:"Card app 2026-11-23: posted $292.60 + pending = $643.09. Purchases Oct 31→Nov 23 = $2,733.33 = payments $2,090.24 + owed $643.09." },
   ],
 
